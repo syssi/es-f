@@ -1,4 +1,4 @@
-.htaccess
+/.htaccess
 prepend.php
 append.php
 DEVELOP
