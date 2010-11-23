@@ -1,0 +1,9 @@
+<configuration>
+
+  <definition name="Module.Logfiles.LogFile">
+    <![CDATA[
+      Log files to display [readonly]
+    ]]>
+  </definition>
+
+</configuration>

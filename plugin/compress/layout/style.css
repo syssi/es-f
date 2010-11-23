@@ -1,0 +1,11 @@
+/*
+ *
+ */
+@charset "utf-8";
+
+div.compress {
+	clear: both;
+	margin: 5px;
+	font-size: 0.8em;
+	text-align: center;
+}

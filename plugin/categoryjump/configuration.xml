@@ -1,0 +1,15 @@
+<configuration>
+
+  <definition name="Plugin.CategoryJump.Count" type="int">
+    <![CDATA[
+      Show from number of categories and above
+    ]]>
+  </definition>
+
+  <definition name="Plugin.CategoryJump.DropDown" type="bool">
+    <![CDATA[
+      Show a drop down as selector, requires JavaScript (default: text links)
+    ]]>
+  </definition>
+
+</configuration>

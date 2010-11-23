@@ -1,0 +1,17 @@
+<configuration>
+
+  <definition name="Plugin.NextAuction.Style" type="int">
+    <![CDATA[
+      Display mode
+    ]]>
+    <option value="0">Display as anchor line above auction table</option>
+    <option value="1">Display via frontends message feature</option>
+  </definition>
+
+  <definition name="Plugin.NextAuction.Count" type="int">
+    <![CDATA[
+      Show from number of auctions and above [(0 or 1 means always)]
+    ]]>
+  </definition>
+
+</configuration>

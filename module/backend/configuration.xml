@@ -1,0 +1,10 @@
+<configuration>
+
+  <definition name="Module.Backend.Admins">
+    <![CDATA[
+      Which accounts can edit the system configuration
+      [<br>Account names separated by a <strong><tt>|</tt></strong> (pipe)]
+    ]]>
+  </definition>
+
+</configuration>

@@ -1,0 +1,10 @@
+<configuration>
+
+  <definition name="Plugin.BidderInfo.URL">
+    <![CDATA[
+      Uri of eBays feedback page, e.g. your prefered country site
+      [<br>Use placeholder <b><tt>$BIDDER</tt></b> for bidder name]
+    ]]>
+  </definition>
+
+</configuration>

@@ -1,0 +1,9 @@
+<configuration>
+
+  <definition name="Module.Help.DisableHelp">
+    <![CDATA[
+      Disable help for these modules [<br>comma separated list]
+    ]]>
+  </definition>
+
+</configuration>

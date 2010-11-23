@@ -1,0 +1,7 @@
+This plugin performes the automatic refresh of auction status
+totally in background.
+
+If last auction info is older then a defined allowed age, the auctions are
+refreshed automatic.
+
+Requires cli version of php!

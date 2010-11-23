@@ -1,0 +1,38 @@
+<configuration>
+
+  <section name="Plugin">
+
+    <section name="CategoryJump">
+
+      <!--
+        Plugin layout
+      -->
+      <config name="Layout">default</config>
+
+      <!--
+        Show from no. of categories and above, 0 or 1 means always ;-)
+      -->
+      <config name="Count" type="int">3</config>
+
+      <!--
+        Show Text drop down (TRUE, suggests enabled JavaScript!) or just links (FALSE)
+      -->
+      <config name="DropDown" type="bool">FALSE</config>
+
+      <!-- *******************************************************************
+      **  Don't change from here
+      ******************************************************************** -->
+
+      <config name="Name">Show links on top of auction table to jump to category anchors</config>
+
+      <config name="Category">Interface</config>
+
+      <config name="Author">Knut Kohl</config>
+      <config name="Email">knutkohl@users.sourceforge.net</config>
+
+      <config name="Version">0.2.0</config>
+    </section>
+
+  </section>
+
+</configuration>

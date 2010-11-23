@@ -1,0 +1,29 @@
+<configuration>
+
+  <section name="Plugin">
+
+    <section name="Categories">
+
+      <!--
+        Predefine your prefered categories here (comma separated list)
+        e.g. CD,book,car parts,...
+      -->
+      <config name="Categories"></config>
+
+      <!-- *******************************************************************
+      **  Don't change from here
+      ******************************************************************** -->
+
+      <config name="Name">Predefine your prefered categories for all category selects</config>
+
+      <config name="Category">Auction</config>
+
+      <config name="Author">Knut Kohl</config>
+      <config name="Email">knutkohl@users.sourceforge.net</config>
+
+      <config name="Version">0.1.0</config>
+    </section>
+
+  </section>
+
+</configuration>

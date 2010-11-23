@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<exec>
+
+  <section name="EsniperVersion">
+
+    <!--
+      %1$s = esniper binary
+    -->
+    <cmd name="Version">
+    <![CDATA[
+      %1$s -v 2>&1 | grep version
+    ]]>
+    </cmd>
+
+  </section>
+
+</exec>

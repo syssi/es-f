@@ -1,0 +1,4 @@
+@charset "utf-8";
+#body{background:white;}
+#header,#footer,.noprint{display:none;}
+img{border:0;}

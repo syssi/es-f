@@ -1,0 +1,37 @@
+/*
+ *
+ */
+@charset "utf-8";
+
+#container {
+  min-height: 0 !important;
+}
+
+div#header {
+  height: 1.7em;
+  padding: 1px 5px;
+  margin-bottom: 5px;
+  font-weight: bold;
+  text-align: center;
+}
+
+form {
+	display: inline;
+}
+
+.b {
+  font-weight: bold;
+}
+
+table#snipe td {
+	padding: 5px;
+	vertical-align: middle;
+}
+
+table#snipe td.nowrap {
+	white-space: nowrap;
+}
+
+table#snipe td.spacer {
+	padding-top: 20px;
+}

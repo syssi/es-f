@@ -1,0 +1,66 @@
+Each part of the system is implemented as a "module".
+
+Each module can run without the others and implements a full logic.
+
+For each module you have 5 possible program steps:
+
+- config.php
+--------------
+Module specific configuration, all module configs are included
+
+Typically enable the module here and provide the module configuration options
+here.
+
+- common.php
+--------------
+common.php will be loaded, if the module is enabled and no login required or
+a valid user is logged in.
+
+Typically you add your menu item here to the application.
+
+If the module requires a other module, check here if it is installed/enabled.
+
+- plugin.php
+--------------
+plugin.php will be loaded, if the module is enabled and no login required or
+a valid user is logged in.
+
+Here you can register functions for several plugin terms.
+
+- functions.php
+-----------------
+Only the file for the selected module is included.
+
+Define the functions for the module here.
+
+- prepare.php
+---------------
+Only the file for the selected module is included.
+
+Check here for valid user if required, if not, redirect to login!
+
+Process here data changes, which will selected later by the process step.
+
+If neccessary, your can redirect to an other module and/or action here.
+(esf_Forward(...), esf_Redirect(...))
+
+In case of module redirection, the "new" functions.php/prepare.php
+will be processed. 
+
+- process.php
+---------------
+Typically collect the data and prepare output.
+
+If you need processing at specific steps, you can put your code into functions
+<module>_header, <module>_content, <module>_footer
+
+(For an example take a look at auction/process.php
+The main processing is made in auction_content to work on the actual auction
+data gattered via refresh plugin at "OutputContent".)
+
+
+ Translations
+==============
+Translations are located in language directory.
+The system and the modules can easy translated into your prefered language.
+Take a look at en.php as example for file layout.

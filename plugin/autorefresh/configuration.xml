@@ -1,0 +1,9 @@
+<configuration>
+
+  <definition name="Plugin.AutoRefresh.Interval" type="int">
+    <![CDATA[
+      Meta-Refresh interval [min]
+    ]]>
+  </definition>
+
+</configuration>

@@ -1,0 +1,46 @@
+<h1>Auctions</h1>
+<p>To benefit from the use of <span class="tt">|es|f|</span> you should be familiar with the esniper terms "Auction" and "Bidding Group" and have used esniper successfully at least once from the console.</p>
+<p><span class="tt">|es|f|</span> is only a frontend that remotely controls and manages esniper!</p>
+<h2>Operation</h2>
+<p><span class="tt">|es|f|</span> auctions are organized in three levels (one more than esniper itself).</p>
+<p>For the following example, we have three auctions: a Graphics Card "ABC", a Graphics Card "CDE", and a CD "SomeSampler"</p>
+<h3>1. Category (Only in es-f)</h3>
+<p>The use of the Category level is optional. It is is a simple method of classifying related auctions into groups, eg "Computer", "Music" etc.</p>
+<p>However, auctions are sorted for display by category. If the category level is not used, the auctions will be listed by date in a confused sort!</p>
+<p>To assign a category, mark the checkbox on the left of the auction description. Then select &quot;Move to category&quot; in the drop down menu called &quot;-Action-&quot; at the bottom of the page.</p>
+<p>(So we assign the two graphics cards the category "Hardware" and the CD the category "Music".)</p>
+<p class="code">Hardware<br />
+&nbsp;&nbsp;Graphics Card ABC<br />
+&nbsp;&nbsp;Graphics Card CDE<br />
+Music<br />
+&nbsp;&nbsp;CD "SomeSampler"</p>
+<h3>2. Bidding Group (Multiple Auctions) (es-f and esniper)</h3>
+<p>Bidding groups are exactly the same as in esniper. Several similar auctions can be bid on as a group until the "requested" number of items have been won, or the amount available is exhausted.</p>
+<p>The bid specified for the group applies for all auctions in the group that do not have individual bids set (E.g. An individual bid could be in a currency other than the default currency).</p>
+<p>The auctions are now listed within the category by groups.</p>
+<p>(So we assign the two graphics cards to the group "Graphics").</p>
+<p class="code">&nbsp;&nbsp;Graphics Card ABC&nbsp;&nbsp;\<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&gt;&nbsp; Graphics<br />
+&nbsp;&nbsp;Graphics Card CDE&nbsp;&nbsp;/</p>
+<h3>3. Auction (es-f and esniper)</h3>
+<p>Each individual auction is the lowest level.</p>
+<p>For simplicity, each auction is also a bidding group.</p>
+<p>The auctions will be displayed in the group after the end date unless deleted.</p>
+<p>In this example the CD is such a group with only one auction.<br />
+<br />
+In the end, we have the following structure:</p>
+<p class="code">Hardware<br />
+&nbsp;&nbsp;Graphics Card ABC&nbsp;&nbsp;\<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&gt;&nbsp; Graphics<br />
+&nbsp;&nbsp;Graphics Card CDE&nbsp;&nbsp;/<br />
+Music<br />
+&nbsp;&nbsp;CD "SomeSampler"</p>
+<p>The green start button <img width="20" height="20" align="middle" title="Start" alt="Green Start Button" src="layout/default/images/start.gif" /> indicates that this bidding group is ready to start. At this point, NO esniper process is running for this bid. It can be started if a group bid has been set.</p>
+<p>Clicking the button will start esniper for this group which can also be seen in the "Processes" page and in the "Logs" page if all goes well.<br />
+<br />
+If esniper detects an error it is recorded in the corresponding group log.<br />
+<br />
+When <span class="tt">|es|f|</span> successfully starts esniper, the red stop button <img width="20" height="20" align="middle" title="Stop" alt="Red Stop Button" src="layout/default/images/stop.gif" /> indicates that a process is underway and the Stop button can be clicked if it is necessary to stop it.</p>
+
+<p>Thanks for translation to -Vince-</p>
+ 	  	 

@@ -1,0 +1,12 @@
+/*
+ *
+ */
+@charset "utf-8";
+
+a.similaritems {
+  margin-left: 0.7em;
+}
+
+a.similaritems img {
+  vertical-align: middle;
+}

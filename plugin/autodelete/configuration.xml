@@ -1,0 +1,9 @@
+<configuration>
+
+  <definition name="Plugin.AutoDelete.Days" type="int">
+    <![CDATA[
+      Delete ended auctions after [day(s)]
+    ]]>
+  </definition>
+
+</configuration>

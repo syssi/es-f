@@ -1,0 +1,15 @@
+<configuration>
+
+  <definition name="Module.ExchangeRates.URL">
+    <![CDATA[
+      URL to get exchangerates in XML [readonly]
+    ]]>
+  </definition>
+
+  <definition name="Module.ExchangeRates.CacheLifespan" type="int">
+    <![CDATA[
+      How long are the read data are valid [day(s)]
+    ]]>
+  </definition>
+
+</configuration>

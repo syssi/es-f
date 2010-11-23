@@ -1,0 +1,9 @@
+<configuration>
+
+  <definition name="Module.News.URLs">
+    <![CDATA[
+      Defined News-Feeds [readonly]
+    ]]>
+  </definition>
+
+</configuration>

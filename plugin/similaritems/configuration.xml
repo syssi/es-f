@@ -1,0 +1,10 @@
+<configuration>
+
+  <definition name="Plugin.SimilarItems.URL">
+    <![CDATA[
+      Ebay search page
+      [Use placeholder <b><tt>$HOMEPAGE</tt></b> for prefered ebay homepage]
+    ]]>
+  </definition>
+
+</configuration>

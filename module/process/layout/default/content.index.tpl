@@ -1,0 +1,31 @@
+<!--
+/**
+ *
+ */
+-->
+
+<table width="100%" style="width:100%">
+
+<!-- BEGIN PROCESSES -->
+
+<tr class="{cycle:"class","tr1","tr2"}">
+
+  <td style="padding:5px">
+    {form:}
+    {fh:"module","process"}
+    {fh:"action","kill"}
+    {fh:"pid",PID}
+    <input type="image" src="layout/default/images/stop.gif" alt="[KILL]"
+           title="kill group {GROUP}" onmouseover="Tip('kill group {GROUP}');">
+    </form>
+  </td>
+
+  <td style="width:99%">
+    <tt>&nbsp; {PROCESS}</tt>
+  </td>
+
+</tr>
+
+<!-- END PROCESSES -->
+
+</table>

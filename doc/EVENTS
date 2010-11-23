@@ -1,0 +1,55 @@
+ Concept of Events
+===================
+
+The application can extended using hookups on extension points, so called
+plugins.
+
+Extension points are used to:
+- inform about an executed process step (e.g. PluginsLoaded) or an arrived
+process progress (e.g. Start)
+- process actions on data and return the results (e.g. plugin "compress"
+compresses the html code before output)
+
+There are 3 steps defining/using this extension points:
+
+Setp 1: Defining Events
+-------------------------------------------------------------------------------
+
+Event::Define( $Event[, $Mode] );
+
+There are 2 modes for events:
+EVENT_MULTI (default): many actions can performed at this step
+EVENT_SINGLE: only one action can be registered for this event
+point. (e.g. LoadAuctions should only return one set of auctions :-)
+
+The events for core functionality are defined in
+/plugin/plugins.php
+
+But e.g. modules can define their own events.
+
+Setp 2: Registering plugins (here functions) for events
+-------------------------------------------------------------------------------
+
+Event::Register( $Event, $FunctionToProcess[, $Position] );
+
+By default the function are called in the order they are registered.
+
+But you can define, on which position the function is called, if there are
+more than one function for an event is defined.
+
+Step 3: Processing registered plugins for an event
+-------------------------------------------------------------------------------
+
+There are three modes calling plugin functions:
+
+- Event::Process ( $Event, &$Parameters );
+
+Manipulating the given parameters
+
+- Event::ProcessReturn ( $Event[, $Parameters] );
+
+Don't manipulate the given parameters, return a result
+
+- Eent::ProcessInform ( $Event[, $Parameters] );
+
+Inform about a state or step, not parameters required but allowed

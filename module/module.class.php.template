@@ -1,0 +1,33 @@
+<?php
+/**
+ *
+ */
+ 
+/**
+ *
+ */
+class esf_Module_??? extends esf_Module {
+
+  /**
+   * Class constructor
+   */
+  public function __construct() {
+    parent::__construct();
+    // special...
+  }
+
+  /**
+   *
+   */
+  public function Prepare() {
+
+  }
+
+  /**
+   *
+   */
+  public function Process() {
+
+  }
+
+}

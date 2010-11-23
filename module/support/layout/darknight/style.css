@@ -1,0 +1,18 @@
+/*
+ *
+ */
+@charset "utf-8";
+
+body#support .tabberlive .tabbertab {
+  background-color: black;
+}
+
+body#support .tabberlive .tabbertab .tabberlive .tabbertab {
+  background-color: #101010;
+}
+
+#phpinfo .h {color: #FFFFFF}
+#phpinfo .e {background-color: rgb(128,128,128); color: #FFFFFF}
+#phpinfo .v {background-color: rgb(66,66,66); color: #FFFFFF}
+#phpinfo .vr {color: #FFFFFF}
+#phpinfo hr {color: #FFFFFF}

@@ -1,0 +1,42 @@
+<configuration>
+
+  <section name="Plugin">
+
+    <section name="SellerInfo">
+
+      <!--
+        Read info on each refresh
+      -->
+      <config name="ReadMultiple" type="bool">TRUE</config>
+
+      <!--
+        Page to parse, use $SELLER as placeholder for sellers name
+      -->
+      <config name="Homepage">http://myworld.ebay.com/$SELLER</config>
+
+      <!--
+        Reg. expression to find
+      -->
+      <config name="DataRegex">
+        <![CDATA[
+        ~<h1>eBay My World:\s*.*?([<\s(].*?)</h1>~i
+        ]]>
+      </config>
+
+      <!-- *******************************************************************
+      **  Don't change from here
+      ******************************************************************** -->
+
+      <config name="Name">Read additional seller info from eBay</config>
+
+      <config name="Category">Auction</config>
+
+      <config name="Author">Knut Kohl</config>
+      <config name="Email">knutkohl@users.sourceforge.net</config>
+
+      <config name="Version">0.2.0</config>
+    </section>
+
+  </section>
+
+</configuration>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<exec>
+
+  <section name="Support">
+
+    <!--
+      get path and version of PHP cli
+    -->
+    <cmd name="WhichPHP">
+    <![CDATA[
+      which php && php -v
+    ]]>
+    </cmd>
+
+    <!--
+      ;-)
+    -->
+    <cmd name="WhoAmI">
+    <![CDATA[
+      whoami
+    ]]>
+    </cmd>
+
+    <!--
+      %1$s = directory name
+    -->
+    <cmd name="ls">
+    <![CDATA[
+      ls -al "%1$s"
+    ]]>
+    </cmd>
+
+  </section>
+
+</exec>

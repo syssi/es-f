@@ -1,0 +1,32 @@
+/*
+ *
+ */
+@charset "utf-8";
+
+/* for IE surrounding div */
+div#content {
+	text-align: center;
+}
+
+div#content div {
+	margin: 0 auto;
+}
+
+div#register {
+	width: 50em;
+}
+
+div#register form {
+	display: inline;
+}
+
+div#register table td {
+	text-align: left;
+	vertical-align: top;
+	padding: 5px;
+}
+
+div#admin {
+	text-align: left;
+	width: 33em;
+}

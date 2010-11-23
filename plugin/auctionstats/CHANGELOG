@@ -1,0 +1,13 @@
+Version 0.2.1
+----------------
+BUGFIXES:
+- Change to Event "OutputStart" to reflect changes on auctions (grouping etc.)
+
+Version 0.2.0
+----------------
+CHANGES:
+- Change to Event "PageStart" and use template hook up variable HEADER_RIGHT
+
+Version 0.1.0
+----------------
+- Initial release

@@ -1,0 +1,4 @@
+ Version 0.2.0
+===============
+[BUGFIX]
+- fixed detection of configurable extensions

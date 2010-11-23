@@ -1,0 +1,9 @@
+<configuration>
+
+  <definition name="Module.Login.Cookie" type="int">
+    <![CDATA[
+      "Remember" cookie life span [day(s), to disable set to 0]
+    ]]>
+  </definition>
+
+</configuration>

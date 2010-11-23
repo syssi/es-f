@@ -1,0 +1,63 @@
+/*
+ *
+ */
+@charset "utf-8";
+
+a.save {
+  background: url(../../../layout/default/images/save.gif) no-repeat left center;
+  padding-left: 22px;
+}
+
+.tabberlive .inner .tabbertab {
+  height: 400px;
+  overflow: auto;
+}
+
+.tabber #nojslinks {
+  list-style: none;
+  border-top: dashed gray 1px;
+  padding: 5px;
+}
+
+.tabberlive #nojslinks {
+  display: none;
+}
+
+.tabberlive #software {
+  height: 400px;
+  overflow: auto;
+}
+
+/* add this styles to downloaded page */
+/* download >> */
+table.support th {
+	text-align: left;
+}
+
+table.support td {
+	vertical-align: top;
+}
+
+h3.support {
+	border: dashed gray 1px;
+	background-color: #EEEEEE;
+	padding: 3px 5px;
+}
+
+h3.support a {
+  color: black;
+}
+
+pre {
+	margin: 0;
+}
+
+#phpinfo .center th { text-align: center !important; }
+#phpinfo th, #phpinfo td { border: 1px solid #000000; vertical-align: baseline;}
+#phpinfo .p {text-align: left;}
+#phpinfo .e {background-color: #ccccff; font-weight: bold; color: #000000;}
+#phpinfo .h {background-color: #9999cc; font-weight: bold; color: #000000;}
+#phpinfo .v {background-color: #cccccc; color: #000000;}
+#phpinfo .vr {background-color: #cccccc; text-align: right; color: #000000;}
+#phpinfo hr {background-color: #cccccc; border: 0px; height: 1px; color: #000000;}
+/* << download */

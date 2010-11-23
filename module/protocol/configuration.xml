@@ -1,0 +1,21 @@
+<configuration>
+
+  <definition name="Module.Protocol.EmptyLogs" type="bool">
+    <![CDATA[
+      Also show empty logs
+    ]]>
+  </definition>
+
+  <definition name="Module.Protocol.ReverseLog" type="bool">
+    <![CDATA[
+      Reverse protocols at output like rcat, show last entries on top
+    ]]>
+  </definition>
+
+  <definition name="Module.Protocol.AutoRefresh" type="int">
+    <![CDATA[
+      Auto refresh protocol in "show" mode [s (0 to disable)]
+    ]]>
+  </definition>
+
+</configuration>

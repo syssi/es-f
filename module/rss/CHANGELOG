@@ -1,0 +1,21 @@
+Version 0.2.2
+-------------
+BUGFIX:
+- Corrected parameter syntax on info page
+
+Version 0.2.1
+-------------
+BUGFIX:
+- added missed "DisplayAuction" extension point call
+CHANGE:
+- translation implemented, no more hardcoded english in template
+NEW:
+- special feeds for DBox ticker (also require other charset)
+
+Version 0.2.0
+-------------
+BUGFIX:
+- works now with short_open_tag = On
+NEW:
+- added image to default feed layout
+- added "category" to news item category

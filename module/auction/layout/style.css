@@ -1,0 +1,103 @@
+/*
+ *
+ */
+@charset "utf-8";
+
+div#content {
+  margin: 20px auto;
+}
+
+table#auctions td {
+  border-top: dashed gray 1px;
+}
+
+table#auctions td.group1 {
+  border-left: dashed gray 1px;
+  text-align: right;
+  white-space: nowrap;
+}
+
+table#auctions td.group2 {
+  text-align: center;
+  white-space: nowrap;
+}
+
+table#auctions td td {
+  border: 0;
+}
+
+table#auctions tr.edit {
+	background-color: #FFFFCC;
+}
+
+table#auctionedit td {
+	padding: 0 0.2em 0 0;
+	margin: 0;
+}
+
+div.comment {
+	font-style: italic;
+	font-weight: bold;
+}
+
+.c {
+	text-align: center;
+}
+
+.b {
+	font-weight: bold;
+}
+
+.nowrap {
+	white-space: nowrap;
+}
+
+div.editform {
+	text-align: left;
+	padding: 5px 0;
+}
+
+table.popup td {
+	padding: 0.5em;
+	vertical-align: middle;
+}
+
+div.multijsitem {
+  float: left;
+  height: 3em;
+  margin-right: 0.5em;
+}
+
+select#multiaction option {
+  padding: 1px 0 1px 22px;
+}
+
+#upgradeauctions {
+  height: 42px;
+  padding: 5px;
+}
+
+#upgradeauctions .inner {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  background: url(../../../../layout/default/images/money.gif);
+}
+
+.running {
+  color: green;
+}
+
+.ended {
+  color: red;
+}
+
+.confirm {
+  color: red;
+  margin: 0 5px;
+}
+
+img.grouptotal {
+  margin-right: 10px;
+}

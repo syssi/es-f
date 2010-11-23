@@ -1,0 +1,13 @@
+
+Matrix for resulting module layout
+
++----------------+---------------+-------------------------+
+| global layout  | module layout | resulting module layout |
++----------------+---------------+-------------------------+
+| default        | default       | default                 |
+| default        | <some other>  | <some other>            |
+| <some special> | default       | <some special>          |
+| <some special> | <some other>  | <some other>            |
++----------------+---------------+-------------------------+
+
+Global layout is set by global configuration or user configuration.

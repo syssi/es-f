@@ -1,0 +1,7 @@
+This plugin rewrites urls from
+    index.php?module=<module>&params...
+    index.php?module=<module>&action=<action>&params...
+to
+    index.php?go<hashed params>
+
+Please logout BEFORE you enable this plugin!

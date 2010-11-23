@@ -1,0 +1,11 @@
+<configuration>
+
+  <definition name="Plugin.SellerItems.OtherItems">
+    <![CDATA[
+      Sellers "More items" page, e.g. your prefered country site to make the link to this.<br>
+      [Use placeholders: <b><tt>$HOMEPAGE</tt></b> for prefered ebay homepage,
+       <b><tt>$SELLER</tt></b> for seller name]
+    ]]>
+  </definition>
+
+</configuration>

@@ -1,0 +1,13 @@
+<configuration>
+
+  <definition name="Module.RSS.Feed" type="int">
+    <![CDATA[
+      Default feed layout
+    ]]>
+    <option value="default">Default</option>
+    <option value="short">Shorter default</option>
+    <option value="dboxticker">For DBoxes</option>
+    <option value="dboxticker_short">For DBoxes, shorter</option>
+  </definition>
+
+</configuration>

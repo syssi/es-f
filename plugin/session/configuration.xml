@@ -1,0 +1,15 @@
+<configuration>
+
+  <definition name="Plugin.Session.MaxLifeTime" type="int">
+    <![CDATA[
+      Maximal life time of session data [s]
+    ]]>
+  </definition>
+
+  <definition name="Plugin.Session.Encrypt" type="bool">
+    <![CDATA[
+      Encrypt session data on file system
+    ]]>
+  </definition>
+
+</configuration>

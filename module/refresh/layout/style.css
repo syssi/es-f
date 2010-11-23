@@ -1,0 +1,16 @@
+/*
+ *
+ */
+@charset "utf-8";
+
+#autorefresh {
+  height: 42px;
+  padding: 5px;
+}
+
+#autorefresh .inner {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+}

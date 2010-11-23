@@ -1,0 +1,25 @@
+Harden your installation
+##########################
+
+There is one security risk based on the fact, that it is required to store
+the ebay password(s) during making a bid in plain text in file system.
+
+This esniper configuration file will removed automaticly abt. 15 sec after
+esniper start.
+
+
+Secure access
+###############
+
+To generally secure your installation, you can install on a host only
+accessible by https.
+
+
+Restrict access
+#################
+
+Restrict general access to valid users with .htaccess / .htpasswd
+You can use for this the provided access.php which uses a modified
+phpAccess.php with user->esfadmin, password->adminpassword
+
+Change access.php to your needs.

@@ -1,0 +1,2 @@
+This is a "display only" module, so no module.class.php file is required,
+only plugin.class.php for the menu entry.

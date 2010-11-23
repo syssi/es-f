@@ -1,0 +1,9 @@
+<configuration>
+
+  <definition name="Module.GoogleGadgets.Gadgets">
+    <![CDATA[
+      Google gadgets [readonly]
+    ]]>
+  </definition>
+
+</configuration>

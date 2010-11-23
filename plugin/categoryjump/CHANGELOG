@@ -1,0 +1,8 @@
+Version 0.2.0
+-------------
+NEW:
+- Added configurable threshold for # of categories from which the link is shown
+
+Version 0.1.0
+-------------
+- Initial release

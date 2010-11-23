@@ -1,0 +1,44 @@
+<p>Um <span class="tt">|es|f|</span> optimal nutzen zu k&ouml;nnen, sollten die esniper-Begriffe &quot;Auktion&quot; und &quot;Bietgruppe&quot; gel&auml;ufig und manuell bereits erfogreich per Konsole verwendet worden sein.</p>
+<p><span class="tt">|es|f|</span> ist <em>nur </em>ein Frontend, welches esniper fernsteuert und dessen Protokolle verwaltet!</p>
+<h2>Funktionsweise&nbsp;</h2>
+<p><span class="tt">|es|f|</span> organisiert die Auktionen in 3 Ebenen (1 mehr als esniper selbst).</p>
+<p>(Zur Erl&auml;uterung gehen wir von 3 Auktionen aus: Grafikkarte ABC, Grafikkarte CDE, CD &quot;SomeSampler&quot;)</p>
+<h3>1. Kategorie (nur es-f)</h3>
+<p>Die Kategorie ist eine einfache Klassifizierung zur Unterscheidung von Auktions-Gruppen, also z.B. &quot;Computer&quot;, &quot;Musik&quot; etc.</p>
+<p>Die Verwendung dieses Levels ist optional, allerdings werden sonst <strong>alle</strong> Auktionen nach Enddatum (durcheinander) sortiert gelistet!</p>
+<p>Die Auktionen werden also zuerst nach Kategorien sortiert.</p>
+<p>Die Zuweisung geschieht entweder &uuml;ber markieren via Checkbox und im Dropdown am Seitenende <span class="tt">Nach Kategorie verschieben</span> oder im Layout &quot;js&quot; per Ziehen des Auktions-Draggers auf das Kategorie-Target.</p>
+<p>(So ordnen wir z.B. die beiden Grafikkarten der Kategorie &quot;Hardware&quot; und die CD der &quot;Musik&quot; zu.)</p>
+<p class="code">Hardware<br />
+&nbsp;&nbsp;Grafikkarte ABC<br />
+&nbsp;&nbsp;Grafikkarte CDE<br />
+Musik<br />
+&nbsp;&nbsp;CD &quot;SomeSampler&quot;</p>
+<h3>2. Biet-Gruppe (es-f und esniper)</h3>
+<p>Die Bietgruppe ist exakt die gleiche Funktionalit&auml;t wie in esniper, d.h. mehrere &auml;hnliche Auktionen werden zusammen beboten bis die &quot;angeforderte&quot; Menge erreicht ist.</p>
+<p>Der Preis der Gruppe gilt f&uuml;r alle Auktionen der Gruppe, die keinen eigenen Preis zugewiesen bekommen haben (z.B. bei anderen W&auml;hrungen als der Standard-W&auml;hrung notwendig).</p>
+<p>Die Auktionen werden nun (innerhalb der Kategorie) nach Gruppen sortiert.</p>
+<p>Die Zuweisung geschieht entweder &uuml;ber markieren via Checkbox und im Dropdown am Seitenende <span class="tt">Nach Gruppe verschieben</span> oder im Layout &quot;dragdrop&quot; per Ziehen des Auktions-Draggers auf das Gruppen-Target.</p>
+<p>(Also ordnen wir z.B. die beiden Grafikkarten der Gruppe &quot;GraKa&quot; zu.)</p>
+<p class="code">&nbsp;&nbsp;Grafikkarte ABC&nbsp; \<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&gt;&nbsp; GraKa<br />
+&nbsp;&nbsp;Grafikkarte CDE&nbsp;&nbsp;/</p>
+<h3>3. Auktion (es-f und esniper)</h3>
+<p>Die einzelne Auktion ist die unterste Ebene.</p>
+<p>Zur Vereinfachung bildet jede Auktion erst mal ihre eigene Biet-Gruppe.</p>
+<p>Die Auktionen werden zuletzt (ggf. innerhalb der Gruppe) nach Enddatum sortiert.</p>
+<p>(Die CD bildet solch eine Gruppe mit nur einer Auktion.)<br />
+<br />
+Am Ende ergibt sich folgende Struktur:</p>
+<p class="code">Hardware<br />
+&nbsp;&nbsp;Grafikkarte ABC&nbsp; \<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&gt;&nbsp; GraKa<br />
+&nbsp;&nbsp;Grafikkarte CDE&nbsp;&nbsp;/<br />
+Musik<br />
+&nbsp;&nbsp;CD &quot;SomeSampler&quot;</p>
+<p>Der <img width="20" height="20" align="middle" src="layout/default/images/start.gif" alt="Start (gr&uuml;n)" title="Start" /> Button bedeutet, dass f&uuml;r diese Bietgruppe KEIN esniper-Prozess l&auml;uft und gestartet werden kann, sofern ein Gruppengebot festgelegt wurde.</p>
+<p>Durch Klick auf den Button wird esniper f&uuml;r diese Gruppe gestartet, was in &quot;Prozesse&quot; und in &quot;Protokolle&quot; zu sehen ist, wenn alles gut geht.<br />
+<br />
+Wenn esniper einen Fehler feststellt, ist der im entsprechenden Gruppen-Protokoll zu finden.<br />
+<br />
+Wenn esniper erfolgreich gestartet werden konnte, wechelt der Button zu <img width="20" height="20" align="middle" src="layout/default/images/stop.gif" alt="Stop (rot)" title="Stop" /> um anzuzeigen, dass ein Prozess l&auml;uft und um den Prozess ggf. wieder stoppen zu k&ouml;nnen.</p>

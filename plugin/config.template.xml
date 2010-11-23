@@ -1,0 +1,31 @@
+<configuration>
+
+  <section name="Plugin">
+
+    <section name="name...">
+
+      <!--
+        Plugin specific configuration...
+        optional
+      -->
+
+      <!-- Variable description, possible values etc., type 'str' is default -->
+      <config name="variable..." type="str|int|bool|array">value...</config>
+
+      <!-- *******************************************************************
+      **  Don't change from here
+      ******************************************************************** -->
+
+      <config name="Name">...</config>
+
+      <config name="Category">Core|Auction|Interface|Tools|URLRewrite</config>
+
+      <config name="Author">...</config>
+      <config name="Email">...</config>
+
+      <config name="Version">0.1.0</config>
+    </section>
+
+  </section>
+
+</configuration>

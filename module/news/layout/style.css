@@ -1,0 +1,23 @@
+/*
+ *
+ */
+@charset "utf-8";
+
+/* JS disabled */
+.tabber {
+  padding: 5px;
+}
+
+.tabber .tabbertab {
+  border-bottom: solid black 1px;
+}
+
+/* JS enabled */
+.tabberlive .tabbertab {
+  height: 400px;
+  overflow: auto;
+}
+
+#twitter_update_list {
+  margin-left: 15px;
+}

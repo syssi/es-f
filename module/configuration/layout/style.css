@@ -1,0 +1,51 @@
+/*
+ *
+ */
+@charset "utf-8";
+
+table#list,
+table#edit {
+	width: 100%;
+}
+
+table#list td,
+table#edit td {
+	padding: 5px;
+}
+
+table#edit td {
+	vertical-align: top;
+}
+
+table#edit td.header {
+	font-weight: bold;
+}
+
+table#edit td.desc {
+}
+
+table#edit td.input {
+	width: 50%;
+}
+
+td.colon {
+	width: 1%;
+	padding: 5px 0;
+}
+
+input.configinput {
+	padding: 2px;
+	font-family: monospace;
+	font-size: 110%;
+}
+
+p.buttons {
+}
+
+.configbutton {
+	margin-right: 10px;
+}
+
+.configbutton.disabled {
+	cursor: default;
+}

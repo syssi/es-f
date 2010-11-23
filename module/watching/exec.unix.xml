@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<exec>
+
+  <section name="Watching">
+
+    <!--
+      Get watched items from ebay
+
+      %1$s = esniper binary
+      %2$s = User working directory
+    -->
+    <cmd name="WatchedItems">
+    <![CDATA[
+      %1$s -m -c "%2$s/.es-f"
+    ]]>
+    </cmd>
+
+  </section>
+
+</exec>

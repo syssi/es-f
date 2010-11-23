@@ -1,0 +1,128 @@
+@charset "utf-8";
+/*
+ * Copyright (c) 2006-2008 Knut Kohl <knutkohl@users.sourceforge.net>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * GPL: http://www.gnu.org/licenses/gpl.txt
+ *
+ */
+
+html,
+body {
+	height: 100%;
+}
+
+#nonfooter {
+	position: relative;
+	min-height: 90%;
+}
+
+* html #nonfooter {
+	height: 90%;
+}
+
+/*
+#nonfooter {
+	position: relative;
+	min-height: 100%;
+}
+
+* html #nonfooter {
+	height: 100%;
+}
+
+#footer {
+	clear: both;
+	position: relative;
+	margin-top: -40px;
+	height: 40px;
+}
+*/
+
+div.msg {
+	padding: 5px;
+}
+
+/*
+ * permission check
+ */
+
+table#perm {
+	width: 100%;
+}
+
+table#perm th {
+	text-align: left;
+}
+
+table.msg th {
+	text-align: left;
+}
+
+table.msg td {
+	padding: 0 20px 0 0;
+	vertical-align:top
+}
+
+table.msg th.w50,
+table.msg td.w50 {
+	width: 50%;
+}
+
+table.msg th.w33,
+table.msg td.w33 {
+	width: 33%;
+}
+
+/* config / user form */
+p.cfg,
+div.cfg {
+	clear: both;
+	padding: 5px;
+}
+
+div.cfg label.td {
+	float: left;
+	width: 15em;
+	padding: 4px 0 0 0;
+}
+
+div.cfg div.input {
+	margin-left: 16em;
+	padding: 2px 5px 2px 0;
+}
+
+input {
+	display: inline;
+}
+
+input.input,
+select.input {
+	border: solid gray 1px;
+	padding: 2px;
+	font-family: monospace;
+}
+
+/* save */
+tt.name,
+span.ok,
+span.error {
+	font-weight: bold;
+}
+
+span.ok {
+	color: green;
+}
+
+span.error {
+	color: red;
+}

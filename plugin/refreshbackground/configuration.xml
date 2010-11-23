@@ -1,0 +1,22 @@
+<configuration>
+
+  <definition name="Plugin.RefreshBackground.MaxAge" type="int">
+    <![CDATA[
+      Maximal age of auction status [min]
+    ]]>
+  </definition>
+
+  <definition name="Plugin.RefreshBackground.LogFile">
+    <![CDATA[
+      Log file (for debugging purposes)
+      [<em>Only the file name, resides <strong>always</strong> in user dir!</em>]
+    ]]>
+  </definition>
+
+  <definition name="Plugin.RefreshBackground.LogFileSize" type="int">
+    <![CDATA[
+      Empty log file if size greater than [KiB <small>(1 KiB == 1024 Bytes)</small>]
+    ]]>
+  </definition>
+
+</configuration>

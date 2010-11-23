@@ -1,0 +1,15 @@
+<configuration>
+
+  <definition name="Module.Refresh.MaxAge" type="int">
+    <![CDATA[
+      Maximal age of auction status [min (0 to disable)]
+    ]]>
+  </definition>
+
+  <definition name="Module.Refresh.FullRefresh" type="bool">
+    <![CDATA[
+      Full refresh of auctions (mostly during debugging)
+    ]]>
+  </definition>
+
+</configuration>

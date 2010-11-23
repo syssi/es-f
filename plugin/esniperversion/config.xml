@@ -1,0 +1,23 @@
+<configuration>
+
+  <section name="Plugin">
+
+    <section name="esniperVersion">
+
+      <!-- *******************************************************************
+      **  Don't change from here
+      ******************************************************************** -->
+
+      <config name="Name">esniper version check onca a day or once a session</config>
+
+      <config name="Category">Core</config>
+
+      <config name="Author">Knut Kohl</config>
+      <config name="Email">knutkohl@users.sourceforge.net</config>
+
+      <config name="Version">0.1.0</config>
+    </section>
+
+  </section>
+
+</configuration>

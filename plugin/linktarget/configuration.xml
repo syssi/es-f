@@ -1,0 +1,9 @@
+<configuration>
+
+  <definition name="Plugin.LinkTarget.RegExp">
+    <![CDATA[
+      Regular expression to identify the links
+    ]]>
+  </definition>
+
+</configuration>

@@ -1,0 +1,30 @@
+<configuration>
+
+  <definition name="Plugin.SellerInfo.ReadMultiple" type="bool">
+    <![CDATA[
+      Read seller info once or on each auction refresh
+    ]]>
+    <option value="0">each refresh</option>
+    <option value="1">once</option>
+  </definition>
+
+  <definition name="Plugin.SellerInfo.Homepage">
+    <![CDATA[
+      Sellers homepage in eBays MyWorld, e.g. your prefered country site<br>
+      [Use placeholder <b><tt>$SELLER</tt></b> for sellers name]
+    ]]>
+  </definition>
+
+  <definition name="Plugin.SellerInfo.DataRegex">
+    <![CDATA[
+      Regular expression for data to extract for seller, reference 1 will be used!
+    ]]>
+  </definition>
+
+  <definition type="header">
+    <![CDATA[
+      Don't forget to refresh your auctions to reflect changes!
+    ]]>
+  </definition>
+
+</configuration>

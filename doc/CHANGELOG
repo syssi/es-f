@@ -1,0 +1,397 @@
+VERSION: 2.3.0
+--------------------
+Feature release
+
+VERSION: 2.2.3
+--------------------
+Bugfix release
+
+BUGFIXES:
+- #3028677: Error retrieving Auction Or No parser found
+CHANGED:
+- Some translations fixed, thanks to -Vince-
+- Optimized page load by moving JavaScript loading to the end of HTML code
+
+VERSION: 2.2.2
+--------------------
+Bugfix release
+
+BUGFIXES:
+- [templates] Fixed missing extension "count" to filter "count"
+- #3008486: Seller name parsed wrongly
+- #3008430: Can't read auctions
+- #2995867: Can't find item id in submited url ( 2 )
+- #2995797: Can't find item id in submited url
+- #2995429: Register module not working
+- #2994058: es-f 2.2.1 can't save any auctions
+NEW:
+- [module] "Savings" lists your savings rel. and abs. between end price and your bid
+- [plugin] "Debug" add system menu links to enable/disable debug or trace runs
+
+VERSION: 2.2.1
+--------------------
+Bugfix for web servers other than Apache, PHP extension check during setup
+
+BUGFIXES:
+- #2982061: Function getallheaders() only exists on Apache web server
+- #2982061: Not (more?) defined constant E_NONE
+- #2983745: Missing install.class.php for some extensions
+NEW:
+- [setup] check for required PHP extensions
+
+VERSION: 2.2.0
+--------------------
+Quaterly and bugfix release
+
+NEW:
+- [core] Caching of all analysed XML files for better performance
+- [module/auction] improved handling for debugging of parser errors
+CHANGES:
+- [core] show messages immediately when they occurs, not on next page
+- [addon/mail] changed to PHPMailer lite, some more configuration options
+- [yuelo] upgraded to bug fixed V. 3.1.0
+BUGFIXES:
+- [image.php] fixed not always working "304 Not Modified" header
+- [button.php] fixed not always working "304 Not Modified" header
+- [module/configuration] detection of configurable extensions fixed
+
+VERSION: 2.1.0
+--------------------
+BUGFIXES:
+- [core] works now with PHP 5.3
+- [module/auction] deletion of auction comments was not possible
+- [core] some more intuitive icons
+
+VERSION: 2.1.0rc1
+--------------------
+BUGFIXES:
+- [module/analyse] fixed calculation of winning chances
+- [module/configuration] minor fix for determination of configurable modules
+- [module/support] missing menu entry
+- [module/register] sended emails to wrong adress
+- [plugin/paypal] find now paypal auctions correctly
+REMOVE
+- [plugin/banktransfer] not more useful anymore
+
+VERSION: 2.1.0alpha
+--------------------
+NEW:
+- [core] Major changes in file structure to have less files and move to much OOP
+- [core] New extension type "Addon", mostly for cron jobs at the moment
+- [core] moved config. to xml for more read speed and clearer definition
+- [addon/mail] Notify users by email on log files changes using cron
+BUGFIXES:
+- [core] Fixed some things on the way to OOP
+- [module/auction] Check on refresh BuyItNow state, if a bid is placed, BuyItNow is not more possible
+CHANGES:
+- [module/auction] In german are a difference between "BuyItNow" and "Now & New"
+- [plugin/refreshbackground] Made cron script to an addon
+REMOVE
+- [module/auction] Remove show of always scrambled high bidder names from ebay
+- [module/watching] Works no more with esiper, ToDo: Handle by es-f
+TODO
+- [core] Handle watched items by es-f
+
+VERSION: 2.0.0rc2
+--------------------
+BUGFIXES:
+- [core] Fixed warning of allow_call_time_pass_reference
+- [module/auction] Identification of actual highest bid (after "bid now") and auction won fixed
+CHANGES:
+- [core] ebay parser definition files corrected
+- [module/register] Included in standard package
+- [module/register] Ver. 0.2.0 of module register is required since 2.0.0rc1
+
+VERSION: 2.0.0rc1
+--------------------
+BUGFIXES:
+- [1994292] Error on ebay names containing $
+CHANGES:
+- [core] Some steps to OOP
+NEW:
+- [core] New layout "darknight", perfect for Firefox theme "NASA Night Launch" <http://addons.mozilla.org/firefox/addon/4908>
+- [module/auction] added set multi auction bid
+- [module] "News" read project news
+- [module] "Exchange rates" from ECB
+
+VERSION: 1.1.1
+--------------------
+BUGFIXES:
+- [1994292] Error on ebay names containing $
+
+VERSION: 1.1.0
+--------------------
+BUGFIXES:
+- [1972633] Error on auctions without shipping
+CHANGES:
+- [core] Minor layout changes
+NEW:
+- [plugins] Plugin "AuctionStats" simply display count of auctions/groups
+- [plugins] Plugin "AutoDelete" removes ended auction after some days (default:8)
+
+VERSION: 1.0.0
+--------------------
+BUGFIXES:
+- [core] Fixed missed time zone definition for CEST
+- [core/layout] font-family of select and input fixed
+- [module/rss] Work now with PHPs short_open_tag = On
+- [core] Fixed session problem sometimes occured in IE 6
+- [core] Fixed wrong auction price parsing on some distributions
+- [core] fixed problems with �` in auction title
+CHANGES:
+- [module/auction] Show group quantity only if more than 1
+- [languages] Added short week day to long date format
+NEW:
+- [module/auction] Added pseudo category row for auctions without category for consistent handling
+- [module/auction] Added configurable countdown
+
+VERSION: 1.0.0rc1
+--------------------
+BUGFIXES:
+- [module/snipe] Missing JS function, defined in module auction
+- [module/configuration] Wrong handling of variable values containing ' or "
+- [kkSmartTemplate] Parameter handling in PHP 5.*
+- [module/auction] Wrong handling of group names containing spaces
+NEW:
+- [module/auction] Show total costs (actual bid + shipping)
+- [module/auction] You can define per group, that the group bid is the "total price" you will pay (incl. shipping). This will calculate individual auction bids (group bid minus shipping costs). (If an auction bid is set, group bid is ignored.)
+- [plugin/linktarget] Set the target _blank for some external links
+- [module/refresh] Parameter to force full refresh of auctions, not only main data
+- [module/auction] Background image on group column for running esnipers
+
+VERSION: 0.9.0rc2
+--------------------
+CHANGES:
+- [plugin/refreshbackground] Not required to run the crontab command as web server user
+BUGFIXES:
+- [core] Wrong HTML base definition if running in a linked directory
+- [layout] Fixed some things in auction layout drag'n'drop
+- [module/auction] Find now also the "Stock Photo" of an auction
+- [module/auction] Refresh on soon ending auctions refreshes only this auction, not all
+- [module/snipe] Wrong bookmarklet definition
+- [module/configuration] Write to wrong directory
+
+VERSION: 0.9.0rc1
+--------------------
+CHANGES:
+- [plugin/sellerinfo] Extends seller name with data from eBays MyWorld
+- [module/configuration] If module backend is enabled, configuration is callable from there
+NEW:
+- [core/config] Configure your prefered ebay site (ebay.com/ebay.de or what else) via setup
+- [module/login] Auto login from defined IP(s), read also module/login/HowToAutomaticLogin.txt
+- [plugin/bidderinfo] Extends bidder name to a link to the bidders feedbacks page
+- [module/auction] Delete auction via AJAX API
+- [layout] Breadcrumb menu
+BUGFIXES:
+- [module/auction] fixed (centered) layout for IE
+- [module/analyse] No diagram was shown, if all auctions in group have the same count of bids
+- [module/logout] Does not always work correct
+- [core] Defined sudo user was ignored
+- [core] esniper config file .esniper was not always found correct
+- [core] Fixed routines for finding esniper processes, there where problems on some NSLU2 systems
+- [kkSmartTemplate] Sometimes the include functionality not found templates with relative file names
+
+VERSION: 0.8.2
+--------------------
+BUGFIXES:
+- [core] Call of an undefined function
+
+VERSION: 0.8.1
+--------------------
+BUGFIXES:
+- [core] Possible formating problem when defined locale not installed
+
+VERSION: 0.8.0
+--------------------
+CHANGES:
+- [core] improve performance by code review
+- [core/security] remove the general necessity of <USERDIR>/.esniper, so that ebay password is only for the moment of bid start required on disk
+- [module/auction] put auction field "banktransfer" and "paypal" into a plugin, also as an example how to extend auctions with extra fields
+- [core/security] removed the host binded password
+- [plugin/refreshbackground] simplified refresh via cron job using refresh.php directly
+NEW:
+- [core/auctions] parse country specific ebay page for shipping costs, ebay.de as default, change this in config/ebayparser.php as needed
+- [module/auction] Start/stop auctions via ajax call
+- [plugin/paypal] put auction field "paypal" into a plugin, as an example how to extend auctions with extra fields
+- [core/documentation] started inline documentation for phpDoc, not yet finished
+BUGFIXES:
+- [plugin/refreshbackground] fixed effect, that refreshed "deleted" auctions
+- [module/auction] fixed javascript error in IE on adding auctions
+
+VERSION: 0.7.2
+--------------------
+BUGFIXES:
+- [module/refresh] manual refresh not work if autorefresh time is "0"
+
+VERSION: 0.7.1
+--------------------
+BUGFIXES:
+- [setup] fixed display for IE7
+- [1817954] UTF-8 support and layout
+
+VERSION: 0.7.0
+--------------------
+BUGFIXES:
+- [1814646] setup ignores absolute directory inputs
+- [core] stopped working on system without mysql installed, orphan mysql function removed
+
+VERSION: 0.7.0rc2
+--------------------
+CHANGES:
+- [plugin/session] disabled by default
+BUGFIXES:
+- [module/auction] auction upgrade doesn't work
+- [module/auction] layout variables
+
+VERSION: 0.7.0rc1
+--------------------
+CHANGES:
+- [module/auction] rotate existing image to correct wrong uploaded auction images on ebay via "edit auction"
+- [module/auction] text countdown for each auction end
+- [plugin/debug] enhanced debugging informations
+- [core/auctions] don't use esniper any more to get auction informations, parse ebay html byself using reg. expressions defined in config/ebay.parser.php
+- [core/security] for security reasons use from now on only crypted passwords
+- [core/files] removed button cache
+- [plugin/refreshbackground] speed up using background shell call
+- [core/session] protection against session hijacking improved, using now user agent and remote IP
+- [core/templates] template engine is now an enhanced smartTemplate
+- [core/layout] update wz_tooltip to version 4.12
+- [module/auction] update wz_dragdrop to version 4.89
+- [module/bookmark] changed to a plugin, watches out for the spechial url parameter "snipe=..."
+NEW:
+- [installation] full browser based installation which checks also for required PHP settings
+- [module/configuration] change frontend configuration via browser (module/plugin config.php must be writable by apache user)
+- [plugin/bookmark] changed from module, watches out for the spechial url parameter "snipe=..."
+- [core/security] separated frontend password from ebay password
+- [core/security] for security reasons, works from this release only with encrypted, host specific ebay passwords, handled via setup and module backend
+- [module/logfiles] show user log files, e.g. from plugin refreshbackground
+- [module/auction] find out, if seller accepts paypal (configurable)
+- [module/auction] find out, if seller accepts Ueberweisung+ (interesting for germany only, configurable)
+- [module/googlegadgets] some useful gadgets like some searches, a calendar and a currency converter
+- [module/login+logout] use cookie to stay logged in for one day
+- [module/analyse] analyse auctions per graphic, regarding # of bids, price and end time to find "cheap" auction ending times
+BUGFIXES:
+- [core/session] work now with cookies disabled
+- [plugin/refreshbackground] provide full path to esniper to cron script in crontab
+- [plugin/compress] handle texts with linebreaks but without white-spaces before or after that linebreak correct
+- [plugin/compress] handle inline scripts correct
+- [core/templates] fixed finding the fallback layout templates
+
+VERSION: 0.6.0
+--------------------
+CHANGES:
+- nothing
+NEW:
+- nothing
+BUGFIXES:
+- nothing
+
+VERSION: 0.6.0rc1
+--------------------
+CHANGES:
+- [core] harmonise module & plugin storage (own directory under module/ or plugin/)
+- [core] harmonise module & plugin configuration (config.php)
+- [core] harmonize usage of layout in plugins like in modules
+- [core/template] reenginered for better performance
+NEW:
+- [module/auction] layout "js", is a fork of the dragdrop layout and uses more javascript e.g. for inline editing
+- [core/template] added loop function to template engine
+- [module] "configuration" you can modify the configuaration of modules and plugins if they support it by providing a file "configuration.php"
+- [plugin/refreshbackground] shell script for usage via cron
+BUGFIXES:
+- [module/auction] assigning multiple auctions to a group don't stops running single auctions
+- [module/auction] in case of renaming a running group, old esniper process wasn't stopped
+- [module/auction] upgrade auctions overwrites manual assigned auction images
+
+VERSION: 0.5.0
+--------------------
+BUGFIXES:
+- [1718573] test for required "allow_url_fopen" in PHP configuration to setup routine
+
+VERSION: 0.5.0rc1
+--------------------
+CHANGES:
+- [core] file location logic to better separate program code from layout files
+- [core/config.php] $esniper to $esniper['cfg']
+NEW:
+- [module] "support" for easier bug reports
+- [core] enabled javascript is recommended
+BUGFIXES:
+- [core] work with esniper version 2.16.1
+- [module/auction] several errors in auction handling
+- [plugin/refreshbackground] doesn't work properly
+
+VERSION: 0.4.1rc2
+--------------------
+CHANGES:
+- [core] redesign of i18n functionality for easier translation
+NEW:
+- [core] add sub menu line
+BUGFIXES:
+- [module/auction] time out error in auction layout dragdrop (with wz_dragdrop)
+- [module/auction] error in assingment of group bids from add row or from watched auctions
+- [core] warnings in result of system calls
+
+VERSION: 0.4.1rc1
+--------------------
+CHANGES:
+- [core] adjust handling of system calls
+NEW:
+- [module/auction] layout "dragdrop" (supports drag & drop assignment of auctions to categories / groups)
+BUGFIXES:
+- [core] error with hanging frontend
+- [core] removed several notices
+
+VERSION: 0.4.0rc1
+--------------------
+CHANGES:
+- [core] code simplification and redesign for better performance and maintenance
+- [core] using setModuleVar(...) and setPluginVar(...)
+- [module/auction] get shipping costs from ebay or via watched items
+- [module/auction] get seller from ebay or via watched items
+- [module/auction] store comment per auction
+- [module/auction] apply actions on multiple auctions
+- [module/auction] organize your auction using categories
+- [core] changed form text buttons to image buttons in default layout
+NEW:
+- [module/auction] bidding of auction group with own/different price per auction
+BUGFIXES:
+- [core] works with https
+
+VERSION: 0.3.0
+--------------------
+CHANGES:
+- [core] module configuration vars from $cfg[<module>][...] to $Modules[<module>][...]
+NEW:
+- [core] introduced $Modules[<module>]['Enabled'] for common module handling in modules config.php
+BUGFIXES:
+- [core] errors with PHP 4.*
+
+VERSION: 0.2.0
+--------------------
+CHANGES:
+- [core] switched default language from german to english for better community translations
+BUGFIXES:
+- [1627661] Orphan Processes
+- [core] wrong config.dist.php
+
+VERSION: 0.1.2
+--------------------
+CHANGES:
+- [core] splitted translations (modules, plugins)
+BUGFIXES:
+- [core] some uncleanlinesses
+- [core] errors with PHP 4.*
+- [core] wrong config.dist.php
+
+VERSION: 0.1.1
+--------------------
+NEW:
+- [module] "processes"
+- [module] "watching"
+- [module] "help"
+
+VERSION: 0.1.0
+--------------------
+NEW:
+- [core] initial release

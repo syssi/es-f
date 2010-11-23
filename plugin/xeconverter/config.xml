@@ -1,0 +1,28 @@
+<configuration>
+
+  <section name="Plugin">
+
+    <section name="XEConverter">
+
+      <!-- *******************************************************************
+      **  Don't change from here
+      ******************************************************************** -->
+
+      <config name="Name">
+        <![CDATA[
+        Add an application system menu entry to convert currencies via
+        <a class="extern" href="http://www.xe.com">XE.com</a>
+        ]]>
+      </config>
+
+      <config name="Category">Tools</config>
+
+      <config name="Author">Knut Kohl</config>
+      <config name="Email">knutkohl@users.sourceforge.net</config>
+
+      <config name="Version">0.1.0</config>
+    </section>
+
+  </section>
+
+</configuration>

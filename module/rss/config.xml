@@ -1,0 +1,34 @@
+
+<!-- Module configuration -->
+
+<configuration>
+
+  <section name="Module">
+
+    <section name="RSS">
+
+      <!--
+        Feed
+      -->
+      <config name="Feed">default</config>
+
+      <!-- *******************************************************************
+      **  Don't change from here
+      ******************************************************************** -->
+
+      <config name="Category">Other</config>
+
+      <config name="Actions">index</config>
+
+      <config name="Name">News feed of your auctions</config>
+
+      <config name="Author">Knut Kohl</config>
+      <config name="Email">knutkohl@users.sourceforge.net</config>
+
+      <config name="Version">0.3.0</config>
+
+    </section>
+
+  </section>
+
+</configuration>

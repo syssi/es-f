@@ -1,0 +1,9 @@
+<configuration>
+
+  <definition name="Module.Watching.Ended" type="bool">
+    <![CDATA[
+      List also still ended auctions
+    ]]>
+  </definition>
+
+</configuration>

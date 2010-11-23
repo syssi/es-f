@@ -1,0 +1,194 @@
+@charset "utf-8";
+/**
+ * layout/darknight/style.css
+ */
+
+body {
+  background: url(images/pattern.png);
+}
+
+body,
+select,
+input {
+  background-color: black;
+  color: white;
+}
+
+p.code {
+  background-color: #080808;
+}
+
+/*
+ * ****************************************************************************
+ * links in general
+ */
+
+a {
+  color: #99CCFF;
+}
+
+a.extern {
+  background: url(images/extern.gif) left top no-repeat;
+}
+
+/*
+ * links in general
+ * ****************************************************************************
+ */
+
+/*
+ * ****************************************************************************
+ * alternate table rows
+ */
+
+th {
+  background: url(images/th.png) top;
+  background-color: #363636;
+}
+
+.tr1 {
+  background-color: #191919;
+}
+
+.tr2 {
+  background-color: #222222;
+}
+
+.tr3 {
+  background-color: #2B2B2B;
+}
+
+tr.selected {
+  background-color: #402000;
+}
+
+/*
+ * alternate table rows
+ * ****************************************************************************
+ */
+
+/*
+ * ****************************************************************************
+ * menus
+ */
+
+#menu {
+  background: url(images/menuback.png) bottom;
+  background-color: #444;
+}
+
+a.textmenu,
+a.imagemenu,
+a.fullmenu {
+  color: white;
+}
+
+a.textmenu {
+  background: url(images/marker.gif) no-repeat left top;
+  padding-left: 0.7em;
+  height: 20px;
+}
+
+/*
+ * menus
+ * ****************************************************************************
+ */
+
+/*
+ * ****************************************************************************
+ * messages
+ */
+
+div.messages {
+  padding: 3px 0 !important;
+  font-weight: bold;
+}
+
+div.msginner {
+  padding: 0.4em;
+  border: dashed white 1px;
+}
+
+.msgsuccess {
+  color: lightgreen;
+}
+
+.msgerror {
+  color: #F08080;
+}
+
+.msginfo,
+.msgcode {
+  color: lightgray;
+}
+
+/*
+ * messages
+ * ****************************************************************************
+ */
+
+/*
+ * ****************************************************************************
+ * forms
+ */
+
+select,
+input.input,
+.button,
+.buttonsmall {
+  border: solid #444444 1px;
+}
+
+select,
+input.input,
+textarea.input {
+  background-color: #101010 !important;
+  color: white;
+  border-right: solid white 1px;
+  border-bottom: solid white 1px;
+}
+
+.button {
+  border-left: solid white 1px;
+  border-top: solid white 1px;
+}
+
+/*
+ * forms
+ * ****************************************************************************
+ */
+
+/*
+ * ****************************************************************************
+ * popup window
+ */
+
+div.popupwindow {
+  background-color: black;
+  border-color: #E0E0E0;
+}
+
+div.popupwindow .title {
+  height: 22px;
+  background: url(images/popupheader.png) bottom repeat-x;
+  background-color: #505050;
+  border-bottom-color: #D0D0D0;
+}
+
+div.popupwindow .title .text {
+  color: white;
+}
+
+div.popupwindow .content {
+  background-color: black;
+}
+
+/*
+ * popup window
+ * ****************************************************************************
+ */
+
+/* debug-class */
+._d {
+  border: dotted red 1px;
+}

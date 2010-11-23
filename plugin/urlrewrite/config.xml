@@ -1,0 +1,38 @@
+<!--
+******************************************************************************
+
+Requires mod_rewrite enabled on server!
+
+This plugin rewrites urls from
+    index.php?module=<module>&params...
+    index.php?module=<module>&action=<action>&params...
+to
+    <module>.html?params...
+    <module>-<action>.html?params...
+
+******************************************************************************
+-->
+
+<configuration>
+
+  <section name="Plugin">
+
+    <section name="UrlRewrite">
+
+      <!-- *******************************************************************
+      **  Don't change from here
+      ******************************************************************** -->
+
+      <config name="Name">Make user friendly urls</config>
+
+      <config name="Category">URLRewrite</config>
+
+      <config name="Author">Knut Kohl</config>
+      <config name="Email">knutkohl@users.sourceforge.net</config>
+
+      <config name="Version">0.1.0</config>
+    </section>
+
+  </section>
+
+</configuration>

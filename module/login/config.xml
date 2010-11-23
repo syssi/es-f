@@ -1,0 +1,77 @@
+
+<!-- Module configuration -->
+
+<configuration>
+
+  <section name="Module">
+
+    <section name="Login">
+
+      <!--
+        Time settings (24h format)
+        Morning  : 0am ... [Morning]
+        Day      : [Morning] ... [Day]
+        Afternoon: [Day] ... [Afternoon]
+        Evening  : [Afternoon] ... 12pm
+      -->
+      <config name="Morning" type="int">9</config>
+      <config name="Day" type="int">12</config>
+      <config name="Afternoon" type="int">17</config>
+
+      <!--
+        Module specific layout
+      -->
+      <config name="Layout">default</config>
+
+      <!--
+        "Remember" cookie life span in days
+        To disable, set to 0
+      -->
+      <config name="Cookie" type="int">1</config>
+
+      <config name="AutoLogin" type="array">
+        <!--
+          Define here login sets, e.g. for intranet use,
+          from which IP which user should logged in automatic
+
+          IP can be full qualified like "192.168.1.1" OR a range like "192.168.1.*"
+        -->
+
+        <!--
+        <config type="array">
+          <config name="IP"></config>
+          <config name="User"></config>
+          <config name="Password"></config>
+        </config>
+        -->
+
+        <!-- More than one combination is possible. -->
+
+        <!--
+        <config type="array">
+          <config name="IP"></config>
+          <config name="User"></config>
+          <config name="Password"></config>
+        </config>
+        -->
+
+      </config>
+
+      <!-- *******************************************************************
+      **  Don't change from here
+      ******************************************************************** -->
+
+      <config name="Actions">index</config>
+
+      <config name="Name">Login</config>
+
+      <config name="Author">Knut Kohl</config>
+      <config name="Email">knutkohl@users.sourceforge.net</config>
+
+      <config name="Version">0.4.0</config>
+
+    </section>
+
+  </section>
+
+</configuration>

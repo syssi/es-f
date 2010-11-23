@@ -1,0 +1,11 @@
+<configuration>
+
+  <definition name="Plugin.LayoutSwitch.Mode" type="int">
+    <![CDATA[
+      Style
+    ]]>
+    <option value="r">Radio buttons</option>
+    <option value="d">DropDown</option>
+  </definition>
+
+</configuration>

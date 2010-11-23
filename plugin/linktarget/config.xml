@@ -1,0 +1,28 @@
+<configuration>
+
+  <section name="Plugin">
+
+    <section name="LinkTarget">
+
+      <!--
+        Reg. expression to identify the links
+      -->
+      <config name="RegExp">class=['"](ebay|extern|sourceforge|powered)['"]</config>
+
+      <!-- *******************************************************************
+      **  Don't change from here
+      ******************************************************************** -->
+
+      <config name="Name">Set target="_blank" for some external links.</config>
+
+      <config name="Category">Interface</config>
+
+      <config name="Author">Knut Kohl</config>
+      <config name="Email">knutkohl@users.sourceforge.net</config>
+
+      <config name="Version">0.2.0</config>
+    </section>
+
+  </section>
+
+</configuration>

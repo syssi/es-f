@@ -1,0 +1,10 @@
+For upgrading |es|f| please mind the UPGRADE instructions!
+
+For a clean installation just:
+- Extract the files in a directory on your web server and make this directory
+  writeable for the web server running user.
+- Run the installer script. It extracts all files and make some 1st settings.
+
+Start the frontend and it will guide you to through the setup.
+
+Clear your browser cache is also a good idea!

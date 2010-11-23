@@ -1,0 +1,18 @@
+<configuration>
+
+  <definition name="Module.Configuration.Admins">
+    <![CDATA[
+      Which accounts can edit the configuration of extensions
+      [<br>Account names separated by a <strong><tt>|</tt></strong> (pipe)]
+    ]]>
+  </definition>
+
+  <definition name="Module.Configuration.Options" type="int">
+    <![CDATA[
+      Type of multiple select options
+    ]]>
+    <option value="0">Radio buttons</option>
+    <option value="1">Select options</option>
+  </definition>
+
+</configuration>

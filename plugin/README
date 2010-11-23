@@ -1,0 +1,76 @@
+ plugin cookbook
+=================
+
+Plugins are called
+- at specific program flow points (PageStart,OutputStart,...)
+- or to perform special data handling (UrlRewrite,OutputFilter,...)
+
+The data storage is realised via plugin calls.
+(for an example take a look at the "filebase" plugin)
+
+The following data manipulation plugin hooks are implemented:
+
+- LoadAuctions
+----------------
+provide here as $auctions all auctions data
+Parameter: &$auctions
+
+- SaveAuction
+---------------
+save the auction data
+Parameter: &$auction
+
+- DeleteAuction
+-----------------
+delete here the auction data
+Parameter: $item
+
+- LoadGroups
+--------------
+provide here as $groups all groups data
+Parameter: &$groups
+
+- SaveGroups
+--------------
+save the groups data
+Parameter: &$groups
+
+
+- AuctionReaded
+-----------------
+processed after auction info for an auction is read from ebay
+Parameter: &$auction
+
+- AuctionLoaded
+------------------
+processed after an auction is loaded from file system
+Parameter: &$auction
+
+
+The follwing plugin hookup points are implemented:
+
+- OutputHeader
+- OutputContent
+- OutputFooter
+-----------------
+processed just before the named template is parsed
+Parameter: &$tpldata: variables for the template
+
+- OutputFilterHeader
+- OutputFilterContent
+- OutputFilterFooter
+-----------------------
+processed after named html generation, just before output to the browser
+Parameter: &$output : generated page html
+
+- PageEnded
+-------------
+processed after all html code is output to browser
+
+- UrlRewrite
+--------------
+processed for each generation of an url used by the program
+Here you can define your own user friendly url rewriting.
+Parameter: array( $return, $module, $action, $params, $anchor)
+$params is array of param=>value
+change $return as result

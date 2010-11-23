@@ -1,0 +1,18 @@
+ Reporting bugs
+================
+
+If you find a bug, please report it via bug tracker on sourceforge.net
+
+http://sourceforge.net/tracker/?func=add&group_id=185222&atid=912405
+
+Please execute before in your browser the Support-Module.
+
+Copy the output into a text file and attach it to the bug report.
+
+If you submit a bug, please don't forget to provide informations about your environment, at least:
+
+- distribution
+- web server and version
+- PHP version(s), (mod_php and php cli)
+- esniper version
+- |es|f| version

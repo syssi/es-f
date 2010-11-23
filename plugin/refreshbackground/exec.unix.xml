@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<exec>
+
+  <section name="RefreshBackground">
+
+    <cmd name="Which_PHP">
+    <![CDATA[
+      which php
+    ]]>
+    </cmd>
+
+    <!--
+      %1$s = PHP binary
+      %2$s = Path to refresh.php
+      %3$s = Temp. dir.
+      %4$s = User name
+    -->
+    <cmd name="Refresh">
+    <![CDATA[
+      %1$s -f %2$s/refresh.php -- -tmp %3$s -force %4$s &
+    ]]>
+    </cmd>
+
+  </section>
+
+</exec>

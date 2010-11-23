@@ -1,0 +1,28 @@
+<configuration>
+
+  <section name="Plugin">
+
+    <section name="AutoDelete">
+
+      <!--
+        Delete ended auctions after at least ? days
+      -->
+      <config name="Days" type="int">8</config>
+
+      <!-- *******************************************************************
+      **  Don't change from here
+      ******************************************************************** -->
+
+      <config name="Name">Automatic delete ended auctions</config>
+
+      <config name="Category">Auction</config>
+
+      <config name="Author">Knut Kohl</config>
+      <config name="Email">knutkohl@users.sourceforge.net</config>
+
+      <config name="Version">0.2.0</config>
+    </section>
+
+  </section>
+
+</configuration>

@@ -1,0 +1,9 @@
+Version 0.3.0
+
+NEW:
+- reintroduced after fix of esniper
+
+Version 0.2.0
+
+NEW:
+- Show some more infos in case of failure of "esniper -m"

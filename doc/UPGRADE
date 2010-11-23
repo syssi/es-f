@@ -1,0 +1,24 @@
+Due to major changes in file system, a new installation is required
+on upgrade from a version below 2.1.0!
+
+In the case of a new installation please follow these steps:
+- Rename your existing |es|f| installation directory.
+- Recreate an empty |es|f| directory and make it writeable for the 
+  web server user.
+- Extract |es|f| into this directory.
+- Start the frontend and it will guide you to through the reconfiguration.
+
+To upgrade from a former version 2.1.0 and later of |es|f| please:
+
+LOGOUT!
+
+- Check the CHANGELOG for last changes
+
+- Extract the new files into your |es|f| directory,
+  your configuration will not overwritten.
+
+OR better to handle file "movements" etc.
+
+- Install into new directory.
+- Run the frontend, if re-configuration is required,
+  you will be forwared to this.

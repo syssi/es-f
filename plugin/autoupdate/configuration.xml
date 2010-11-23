@@ -1,0 +1,9 @@
+<configuration>
+
+  <definition name="Plugin.AutoUpdate.Server">
+    <![CDATA[
+      Server to query for updates
+    ]]>
+  </definition>
+
+</configuration>

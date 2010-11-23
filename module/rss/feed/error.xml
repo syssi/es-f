@@ -1,0 +1,24 @@
+{CORE.XMLHEADER}
+<rss version="2.0">
+  <channel>
+    <title>{TITLE} auction feed</title>
+    <link>{BASEHTML}</link>
+    <lastBuildDate>{dateformat:LASTBUILD,"r"}</lastBuildDate>
+    <language>en-us</language>
+    <item>
+      <title>
+        <![CDATA[
+          Unknown user or wrong parameter format.
+        ]]>
+      </title>
+      <pubDate>{dateformat:LASTBUILD,"r"}</pubDate>
+      <link>{BASEHTML}</link>
+      <guid>{BASEHTML}</guid>
+      <description>
+        <![CDATA[
+          Please consult module instructions.
+        ]]>
+      </description>
+    </item>
+  </channel>
+</rss>

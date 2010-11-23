@@ -1,0 +1,44 @@
+
+<!-- Module configuration -->
+
+<configuration>
+
+  <section name="Module">
+
+    <section name="Snipe">
+
+      <!--
+        Module specific layout
+      -->
+      <config name="Layout">default</config>
+
+      <!--
+        Disable help for modules (comma separated list)
+      -->
+      <config name="DisableHelp">index,logout</config>
+
+      <!-- *******************************************************************
+      **  Don't change from here
+      ******************************************************************** -->
+
+      <!--
+        Handle login inside!
+      -->
+      <config name="LoginRequired" type="bool">FALSE</config>
+
+      <config name="Actions">index|save</config>
+
+      <config name="Name">Snipe auctions from ebay sites</config>
+
+      <config name="Category">System</config>
+
+      <config name="Author">Knut Kohl</config>
+      <config name="Email">knutkohl@users.sourceforge.net</config>
+
+      <config name="Version">0.3.0</config>
+
+    </section>
+
+  </section>
+
+</configuration>

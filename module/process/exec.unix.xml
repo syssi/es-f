@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<exec>
+
+  <section name="Process">
+
+    <!--
+      Get running esniper processes
+      ps have to list ALL processes to find that started from es-f (ps ax / ps -ef)
+
+      %1$s = user name
+    -->
+    <cmd name="Running">
+    <![CDATA[
+      ps ax | grep -e "[ /]esniper" | grep %1$s
+    ]]>
+    </cmd>
+
+    <!--
+      %1$s = process id
+    -->
+    <cmd name="Kill">
+    <![CDATA[
+      kill %1$s
+    ]]>
+    </cmd>
+
+  </section>
+
+</exec>

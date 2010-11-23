@@ -1,0 +1,19 @@
+To refresh your auction in background via cron job, add the following line
+to your crontab (crontab -e):
+
+0 7-21/2 * * * sudo -u <user> /path/to/es-f/addon/refresh/cron.sh [IGNORE_USER1 [IGNORE_USER2 ...]]
+
+e.g. to refresh each 2 hours each day from 7 am to 9 pm
+
+Please test this from a shell before.
+Sometimes the script fails, if the used user can't find the php cli binary
+because it is not in its path.
+
+Only in this case please define the path to the php cli binary in line 4:
+
+phpcli=/path/to/php
+
+Use for the sudo the user, under which your web server is running!
+this is important for the writing of files, which must owned by this user!
+
+Define users as parameters, which should NOT refreshed automatic!

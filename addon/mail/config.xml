@@ -1,0 +1,22 @@
+<!-- *************************************************************************
+
+     ATTENTION       Don't change this file until advised!      ATTENTION
+
+************************************************************************** -->
+
+<configuaration>
+
+  <!--
+    Detect esniper ended
+  -->
+  <config name="EsniperEnded" type="array">
+
+    <config>ERROR</config>
+    <config>Bid price less than minimum bid price</config>
+    <config>You have been outbid</config>
+    <config>unknown outcome, assume that you have won</config>
+    <config>won \d+ item(s)</config>
+
+  </config>
+
+</configuaration>

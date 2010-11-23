@@ -1,0 +1,21 @@
+To keep informed by email, if any ensiper process is doing something cron job,
+add the following line to your crontab (crontab -e):
+
+0/5 * * * * /path/to/es-f/addon/mail/cron.sh [IGNORE_USER1 [IGNORE_USER2 ...]]
+
+e.g. to check each 5 minutes
+
+Please test this from a shell before.
+
+Use the Parameter -debug to show the possible mail content.
+
+Sometimes the script fails, if the used user can't find the php cli binary
+because it is not in its path.
+
+Only in this case please define in cron.sh the path to the php cli binary in line 4:
+
+phpcli=/path/to/php
+
+Define users as parameters, which should refreshed automatic!
+
+Configure mail.ini as you like.

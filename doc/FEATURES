@@ -1,0 +1,72 @@
+Installation:
+- browser based installation / reconfiguration
+- backend module for installtion / activation of modules and plugins
+
+Security:
+- user regime, multiple user can use same installation independent from others, with autonomous frontend and esniper configuration (using optional config.php in USERDIR)
+- using crypted passwords in configration
+
+Auctions:
+- organizes auctions in categories and groups
+- (depr.) auction layout "dragdrop" supports drag & drop assignment of auctions to categories and groups
+- on add auction, copy item image from ebay to local
+- input of image url, if not found automatic
+- read shipping costs from ebay / input of missing shipping costs
+- read seller from ebay or via watched items
+- comment for each auction
+- add multiple auctions, define group settings and start snipe in one step
+- bid for an single auction or bid for a group of auctions,
+- direct bid for auction (esniper -s now ...)
+- bidding of auction group with different price per auction, in case of ambiguous seller reputation or auction currency
+- display watched auctions from ebay
+- add auctions from watched auctions to es-f
+- automatic / manual refresh of auction status, also in background via cron job
+- auctions are extendable with extra fields via plugins (see plugin "auction_banktransfer" for example)
+
+Groups:
+- comment for each group
+- bid for auction group with quantity > 1
+- define the group bid as "total price" (incl. shipping)
+
+esniper:
+- supports most features of esniper
+- show esniper protocols, also reversed (reduces scrolling to take a look of last esniper activity/messages)
+- list running esniper processes
+- possibility of kill esniper processes manually (e.g. orphan processes as a result of a system inconsistency) 
+
+Modules:
+- module based, each module covers a specific business function
+- modules can be enabled/disabled, except some, e.g. "auction"
+- auto-link module into menu
+- 3 types of menu styles: text, image only, image & text
+
+Plugins:
+- extendable via plugins
+- plugins can be enabled/disabled
+
+Other:
+- help screen with explaination of top features
+- add an auction direct from an ebay page via bookmarklet (mod_rewrite and javascript required)
+
+Languages:
+- frontend in english and german
+- embed new translation easily, fallback to english for not translated phrases
+
+Themes:
+- themable via templates and/or style sheets
+- fallback to default templates/style, if required template/style not found
+- module specific layout definition
+- different styles for media screen and print possible and used by layout "default"
+
+Debugging:
+- in debug modus a lot of application steps are analysed (activate in plugin/debug.php)
+- offline modus for development installation without internet connection, all system commands, that requires internet access, are just simulated. (with limited esniper functionality)
+
+Browser combatibility:
+- fully functional with disabled image display in browser
+- fully functional with disabled javascript in browser
+
+No support yet for:
+- access to esniper debug log, if activated
+
+(c) 2006-2010 Knut Kohl <knutkohl@users.sourceforge.net>

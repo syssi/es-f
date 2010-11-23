@@ -1,0 +1,32 @@
+<h2>Login</h2>
+<p>Let's imagine the constellation, that you like to access <tt>|es|f|</tt> from:</p>
+<ol>
+    <li>any computer, <strong>with</strong> the installed authentication of <tt>|es|f|</tt></li>
+    <li>a specific computer <strong>without</strong> the question for user and password (automatic login)</li>
+    <li>any computer, <strong>with</strong> your own authentication method (e.g. Apaches mod_auth)</li>
+</ol>
+<h3>1. Default authentication</h3>
+<p>Nothing to do, this is the default method.</p>
+<h3>2. Automatic login</h3>
+<p>Define a set of ip, user and password combinations, which should loged in automatic into <tt>|es|f|</tt><br />
+<br />
+Add the following code (with your data)</p>
+<pre class="code">setModuleVar( 'Login', 'AutoLogin', array(<br />&nbsp; array( 'IP'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =&gt; '...',<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'USER'&nbsp;&nbsp;&nbsp;&nbsp; =&gt; '...',<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'PASSWORD' =&gt; '...' ),<br />);</pre>
+<p>to <tt>extra/common.php</tt></p>
+<ul>
+    <li><strong><tt>IP</tt></strong> can here be
+    <ul>
+        <li>a full qualified address like <tt>'192.168.1.1'</tt></li>
+        <li>a range like <tt>'192.168.1.*'</tt></li>
+    </ul>
+    </li>
+    <li><strong><tt>USER</tt></strong> is your eBay/<tt>|es|f|</tt> account name</li>
+    <li><strong><tt>PASSWORD</tt></strong> is your <tt>|es|f|</tt> password, <u>not</u> your eBay password!</li>
+</ul>
+<p>Please keep in mind, <strong>not</strong> to overlap ip addresses/ranges, the algorithm gets the first user, thats ip mask matches ;-)&nbsp;</p>
+<h3>3. Other authentication method</h3>
+<p>This is a combination of the &quot;Automatic login&quot; with your own method.</p>
+<ul>
+    <li>Ensure, the the access to your <tt>|es|f|</tt> installation is possible <strong>only</strong> with your used authentication method, e.g. Apaches mod_auth.</li>
+    <li>Login your account automatic from <strong>any</strong> ip address using method with the definition of <tt>'IP' = '*.*.*.*'</tt></li>
+</ul>

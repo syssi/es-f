@@ -1,0 +1,21 @@
+<configuration>
+
+  <definition type="header">
+    <![CDATA[
+      <span style="color:red">For development only!</span>
+    ]]>
+  </definition>
+
+  <definition name="Plugin.Compress.RemoveComments" type="bool">
+    <![CDATA[
+      Remove all HTML style comments
+    ]]>
+  </definition>
+
+  <definition name="Plugin.Compress.ShowRate" type="bool">
+    <![CDATA[
+      Show compression rate
+    ]]>
+  </definition>
+
+</configuration>

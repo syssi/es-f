@@ -1,0 +1,38 @@
+<configuration>
+
+  <section name="Plugin">
+
+    <section name="Paypal">
+
+      <config name="Regex" type="array">
+
+        <config type="array">
+          <config name="expression">
+            <![CDATA[
+            ~pics\.ebaystatic\..*?/logoPayPal_51x14\.gif~i
+            ]]>
+          </config>
+          <!-- optional, default: 0
+          <config name="position" type="int">0</config>
+          -->
+        </config>
+
+      </config>
+
+      <!-- *******************************************************************
+      **  Don't change from here
+      ******************************************************************** -->
+
+      <config name="Name">Check, if seller accepts paypal payments</config>
+
+      <config name="Category">Auction</config>
+
+      <config name="Author">Knut Kohl</config>
+      <config name="Email">knutkohl@users.sourceforge.net</config>
+
+      <config name="Version">0.1.0</config>
+    </section>
+
+  </section>
+
+</configuration>

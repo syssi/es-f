@@ -1,0 +1,494 @@
+@charset "utf-8";
+/**
+ * layout/style.css
+ */
+
+/*
+@import "reset.css";
+@import "css.2.1.css";
+*/
+
+/*
+html {
+	min-height: 100%;
+	margin-bottom: 1px;
+}
+*/
+
+body {
+  margin: 0;
+}
+
+body,
+select,
+input {
+  font-family: "Trebuchet MS", Verdana, Helvetica, Arial, sans-serif;
+  font-size: 100%;
+}
+
+/*
+#container {
+  min-height: 400px;
+  height: auto !important;
+  height: 400px;
+}
+*/
+
+table,
+th,
+td {
+/* # ------------------------------------------- #
+   #  Include "table" for dynamic size changes!  #
+   # ------------------------------------------- # */
+  font-size: inherit !important;
+}
+
+pre,
+tt,
+p.code,
+.monospace {
+  font-family: "Lucida Console", Monaco, Courier, "Courier New", monospace;
+}
+
+p.code {
+  border: dashed #808080 1px;
+  padding: 5px;
+}
+
+img {
+  vertical-align: middle;
+}
+
+a img {
+  border: 0;
+}
+
+img.help {
+}
+
+a.language {
+  margin-left: 5px;
+}
+
+div.helpcontent {
+  display: none;
+}
+
+p.li,
+div.li {
+  background: url(images/li.gif) left top no-repeat;
+  padding-left: 17px;
+}
+
+a.powered {
+  margin: 0 5px;
+}
+
+a.powered img {
+  width: 80px;
+  height: 15px;
+}
+
+hr {
+  height: 0;
+  border: 0;
+  border-top: dotted gray 1px;
+}
+
+label {
+  cursor: pointer;
+}
+
+#nojs {
+  font-size: 80%;
+  padding: 2px;
+  text-align: center;
+  border-bottom: solid gray 1px;
+  color: black;
+  background-color: #FFDDDD;
+}
+
+#nojs tt {
+  color: red;
+}
+
+#nojs a {
+  color: maroon;
+}
+
+#header {
+}
+
+#efa_allLinks {
+  padding: 0 2px;
+}
+
+#efa_allLinks a {
+  padding: 2px;
+}
+
+#header {
+  padding: 5px;
+}
+
+#header_title {
+/*
+  height: 6em;
+  background: url(images/ebay-back.gif);
+*/
+}
+
+#header_left,
+#header_right {
+  font-size: 85%;
+  padding: 5px;
+}
+
+#content,
+#content_after {
+  margin: 0 0.4em;
+}
+
+#footer {
+  text-align: center;
+  font-size: 0.9em;
+  font-family: monospace;
+  clear: both;
+}
+
+td.action {
+  text-align: center;
+}
+
+#debugstack_title {
+  background-color: #909090;
+  color: black;
+  border: solid #606060 2px;
+}
+
+.l {
+  text-align: left;
+}
+
+.c {
+  text-align: center;
+}
+
+.c table {
+  margin: 0 auto;
+}
+
+.r {
+  text-align: right;
+}
+
+.b {
+  font-weight: bold;
+}
+
+.i,
+.em {
+  font-style: italic;
+}
+
+.alert {
+  /* relative from /html !! */
+  background: url(images/alert.png) no-repeat;
+  padding-left: 22px;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.clear {
+  clear: both;
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+/*
+ * ****************************************************************************
+ * tables in general
+ */
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  voice-family: "\"}\"";
+  voice-family: inherit;
+  border-collapse: separate;
+}
+
+table.w100 {
+  width: 100%;
+}
+
+th,
+td {
+  border-style: hidden;
+}
+
+th {
+  padding: 0.25em;
+  white-space: nowrap;
+}
+
+td {
+  padding: 0.2em 0.4em;
+}
+
+td.t {
+  vertical-align: top;
+}
+
+/*
+ * tables in general
+ * ****************************************************************************
+ */
+
+/*
+ * ****************************************************************************
+ * links in general
+ */
+
+a {
+  white-space: nowrap;
+}
+
+a:link,
+a:visited {
+  text-decoration: none;
+}
+
+a.extern {
+  background: url(images/extern.gif) left top no-repeat;
+  padding-left: 12px;
+}
+
+a.ebay {
+  background: url(images/externEbay.gif) left top no-repeat;
+  padding-left: 20px;
+}
+
+a.sourceforge {
+  background: url(images/externSF.gif) left top no-repeat;
+  padding-left: 20px;
+}
+
+a.php {
+  background: url(images/externPHP.gif) left center no-repeat;
+  padding-left: 28px;
+}
+
+/*
+ * links in general
+ * ****************************************************************************
+ */
+
+/*
+ * ****************************************************************************
+ * menus
+ */
+
+#menu {
+  text-align: left;
+  clear: both;
+  padding: 5px;
+}
+
+#menu_main a,
+#menu_module a {
+  margin-right: 1em
+}
+
+#menu_system a {
+  margin-left: 1em
+}
+
+a.textmenu,
+a.imagemenu,
+a.fullmenu {
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/*
+ * menus
+ * ****************************************************************************
+ */
+
+/*
+ * ****************************************************************************
+ * messages
+ */
+
+div.messages {
+  clear: both;
+  padding: 0.4em;
+}
+
+.msgsuccess {
+}
+
+.msgerror {
+}
+
+.msginfo,
+.msgcode {
+}
+
+/*
+ * messages
+ * ****************************************************************************
+ */
+
+/*
+ * ****************************************************************************
+ * forms
+ */
+
+form {
+  display: inline;
+}
+
+input.input,
+textarea.input {
+  padding: 0.2em;
+}
+
+select {
+  padding: 0.1em 0.1em 0.1em 0.2em;
+}
+
+select.small {
+  padding: 0;
+}
+
+input.input.num {
+  width: 6em;
+  text-align: right;
+}
+
+.button {
+  border-top: 1px solid #363636;
+  background: #7d7d7d;
+  color: white;
+  font-size: 1.2em;
+  padding: 5.5px 11px;
+}
+
+/*  http://css-tricks.com/examples/ButtonMaker/  */
+html>body .button { /* <> IE */
+  background: -webkit-gradient(linear, left top, left bottom, from(#363636), to(#7d7d7d));
+  background: -moz-linear-gradient(top, #363636, #7d7d7d);
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  -webkit-box-shadow: rgba(0,0,0,1) 0 1px 0;
+  -moz-box-shadow: rgba(0,0,0,1) 0 1px 0;
+  box-shadow: rgba(0,0,0,1) 0 1px 0;
+  text-shadow: rgba(0,0,0,.4) 0 1px 0;
+}
+
+html>body .button:hover {
+  border-top-color: #7d7c7d;
+  border-left-color: #7d7c7d;
+  background: #7d7c7d;
+  color: #ffffff;
+}
+
+html>body .button:active {
+  border-top-color: #636363;
+  border-left-color: #636363;
+  background: #636363;
+}
+
+.button {
+  padding: 0.1em 1em;
+  margin: 0;
+}
+
+.buttonsmall {
+  padding: 0;
+}
+
+/*
+ * forms
+ * ****************************************************************************
+ */
+
+/*
+ * ****************************************************************************
+ * form.ebaysearch.tpl
+ */
+
+#ebaysearch td,
+#ebaysearch img {
+  vertical-align: middle;
+}
+
+#ebaysearch td {
+  padding-left: 0.4em;
+}
+
+/*
+ * form.ebaysearch.tpl
+ * ****************************************************************************
+ */
+
+/*
+ * ****************************************************************************
+ * popup window
+ */
+
+div.popupwindow {
+  text-align: left;
+  background-color: white;
+  border-style: solid;
+  border-width: 1px;
+}
+
+div.popupwindow .title {
+  height: 22px;
+  background: url(images/popupheader.png) bottom repeat-x;
+  border-style: solid;
+  border-width: 1px;
+}
+
+div.popupwindow .title .text {
+  float: left;
+  font-weight: bold;
+  font-family: Verdana, Arial, Helvetica, Sans-Serif;
+  padding: 4px 5px;
+}
+
+div.popupwindow .title .close {
+  float: right;
+  padding: 1px;
+  cursor: pointer;
+}
+
+div.popupwindow .content {
+  clear: both;
+}
+
+/*
+ * popup window
+ * ****************************************************************************
+ */
+
+.error_handler {
+  font-size: 90%;
+}
+
+/* debugging */
+._d {
+  border: dotted red 1px;
+}

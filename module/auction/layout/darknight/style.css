@@ -1,0 +1,66 @@
+@charset "utf-8";
+/*
+ * CHANGELOG
+ * Fixed: #upgradeauctions was missing
+ */
+
+table#auctions tr.category {
+  border-top: dashed white 1px;
+  /* like .tr3 */
+  background: url(../../../../layout/darknight/images/th.png) top;
+  background-color: #303030;
+}
+
+table#auctions tr.th,
+table#auctions tr.th2 {
+  border-top: dashed white 1px;
+}
+
+table#auctions tr.th1 {
+	border-bottom: dashed white 1px;
+}
+
+/* highest bidder on not ended auction */
+table#auctions tr.highest {
+	background-color: #001A00;
+}
+
+/* auction won */
+table#auctions tr.won {
+	background-color: #003300;
+}
+
+/* auction is still higher as auction / group bid */
+table#auctions tr.outbid {
+	background-color: #1A0000;
+}
+
+/* auction lost */
+table#auctions tr.lost {
+	background-color: #330000;
+}
+
+table#auctions td.group_active {
+  background: url(images/greenback.gif);
+}
+
+div.comment {
+  color: yellow;
+}
+
+#upgradeauctions .inner {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  background: none;
+  background-color: black;
+}
+
+.running {
+  color: lightgreen;
+}
+
+.ended {
+  color: DarkOrange;
+}

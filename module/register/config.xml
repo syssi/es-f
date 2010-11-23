@@ -1,0 +1,41 @@
+
+<!-- Module configuration -->
+
+<configuration>
+
+  <section name="Module">
+
+    <section name="Register">
+
+      <!--
+        Module specific layout
+      -->
+      <config name="Layout">default</config>
+
+      <!--
+        If an email adress is defined, an email is send on every registration request.
+      -->
+      <config name="SendEmail"></config>
+
+      <!-- *******************************************************************
+      **  Don't change from here
+      ******************************************************************** -->
+
+      <config name="Mobile" type="bool">FALSE</config>
+
+      <config name="Actions">index|admin</config>
+
+      <config name="Name">User self registration, must be aproved by admin</config>
+
+      <config name="Category">Other</config>
+
+      <config name="Author">Knut Kohl</config>
+      <config name="Email">knutkohl@users.sourceforge.net</config>
+
+      <config name="Version">0.3.0</config>
+
+    </section>
+
+  </section>
+
+</configuration>

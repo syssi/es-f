@@ -1,0 +1,33 @@
+<configuration>
+
+  <section name="Plugin">
+
+    <section name="Session">
+
+      <!--
+        Max life time of session
+      -->
+      <config name="MaxLifeTime" type="int">1440</config>
+
+      <!--
+        Encrypt session data on file system, TRUE by default
+      -->
+      <config name="Encrypt" type="bool">TRUE</config>
+
+      <!-- *******************************************************************
+      **  Don't change from here
+      ******************************************************************** -->
+
+      <config name="Name">Own session handling</config>
+
+      <config name="Category">Core</config>
+
+      <config name="Author">Knut Kohl</config>
+      <config name="Email">knutkohl@users.sourceforge.net</config>
+
+      <config name="Version">0.1.0</config>
+    </section>
+
+  </section>
+
+</configuration>

@@ -1,0 +1,48 @@
+<configuration>
+
+  <section name="Module">
+
+    <section name="Analyse">
+
+      <!--
+        Module specific layout
+      -->
+      <config name="Layout">default</config>
+
+      <!--
+        Sort groups in listing by name
+      -->
+      <config name="SortByName" type="bool">TRUE</config>
+
+      <!--
+        Diagram dimensions, multiple view
+      -->
+      <config name="WidthMulti" type="int">450</config>
+      <config name="HeightMulti" type="int">150</config>
+
+      <!--
+        Diagram dimensions, single view
+      -->
+      <config name="Width" type="int">900</config>
+      <config name="Height" type="int">300</config>
+
+      <!-- *******************************************************************
+      **  Don't change from here
+      ******************************************************************** -->
+
+      <config name="LoginRequired" type="bool">TRUE</config>
+      <config name="Mobile" type="bool">FALSE</config>
+
+      <config name="Actions">index|show|showmulti</config>
+
+      <config name="Name">Analyse auctions regarding # of bids, end price and end time</config>
+
+      <config name="Author">Knut Kohl</config>
+      <config name="Email">knutkohl@users.sourceforge.net</config>
+
+      <config name="Version">0.1.0</config>
+    </section>
+
+  </section>
+
+</configuration>

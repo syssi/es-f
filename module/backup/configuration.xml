@@ -1,0 +1,16 @@
+<configuration>
+
+  <definition name="Module.Backup.Images" type="bool">
+    <![CDATA[
+      Backup also auction images
+    ]]>
+  </definition>
+
+  <definition name="Module.Backup.AuctionsPerPage" type="int">
+    <![CDATA[
+      Show auctions per page [&nbsp; (set to a real big value (e.g. 1000)
+      to show all auction at once ;-)]
+    ]]>
+  </definition>
+
+</configuration>

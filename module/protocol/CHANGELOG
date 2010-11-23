@@ -1,0 +1,9 @@
+Version 0.4.0
+-------------
+NEW:
+- Move to module object
+
+Version 0.3.0
+-------------
+NEW:
+- Show BidNow logs for each auction of group

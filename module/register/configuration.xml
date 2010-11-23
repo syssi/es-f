@@ -1,0 +1,9 @@
+<configuration>
+
+  <definition name="Module.Register.SendEmail">
+    <![CDATA[
+      If an email adress is defined, an email is send on every registration request
+    ]]>
+  </definition>
+
+</configuration>

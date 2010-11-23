@@ -1,0 +1,28 @@
+/**
+ * layout/mobile/style.css
+ */
+@charset "utf-8";
+
+td {
+  padding: 5px;
+}
+
+a {
+  white-space: normal;
+}
+
+a:link,
+a:visited,
+a:active,
+a:hover {
+  text-decoration: underline;
+}
+
+div#menu_module a {
+  margin: 0 0 0 1em;
+}
+
+input {
+  padding: 0 !important;
+}
+

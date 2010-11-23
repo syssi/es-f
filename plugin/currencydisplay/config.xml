@@ -1,0 +1,30 @@
+<configuration>
+
+  <section name="Plugin">
+
+    <section name="CurrencyDisplay">
+
+      <!--
+        Replace eBay currency for display
+        Provide a comma/pipe separated list: Ebay1=Yours1|Ebay2=Yours2
+        e.g. US $=USD|C $=CAN $|£=GBP
+      -->
+      <config name="Mapping"></config>
+
+      <!-- *******************************************************************
+      **  Don't change from here
+      ******************************************************************** -->
+
+      <config name="Name">Display your currency strings instead of eBay currency</config>
+
+      <config name="Category">Auction</config>
+
+      <config name="Author">Knut Kohl</config>
+      <config name="Email">knutkohl@users.sourceforge.net</config>
+
+      <config name="Version">0.1.0</config>
+    </section>
+
+  </section>
+
+</configuration>

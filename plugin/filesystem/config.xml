@@ -1,0 +1,23 @@
+<configuration>
+
+  <section name="Plugin">
+
+    <section name="FileSystem">
+
+      <!-- *******************************************************************
+      **  Don't change from here
+      ******************************************************************** -->
+
+      <config name="Name">Store auction data into file system</config>
+
+      <config name="Category">Core</config>
+
+      <config name="Author">Knut Kohl</config>
+      <config name="Email">knutkohl@users.sourceforge.net</config>
+
+      <config name="Version">0.2.0</config>
+    </section>
+
+  </section>
+
+</configuration>

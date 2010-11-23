@@ -1,0 +1,33 @@
+<configuration>
+
+  <section name="Plugin">
+
+    <section name="AutoUpdate">
+
+      <!--
+        Server to query for updates
+      -->
+      <config name="Server">http://update.es-f.com/</config>
+
+      <!--
+        URL with update informations
+      -->
+      <config name="URL">es-f.upd</config>
+
+      <!-- *******************************************************************
+      **  Don't change from here
+      ******************************************************************** -->
+
+      <config name="Name">Perform version check of |es|f| and can update files from remote storage</config>
+
+      <config name="Category">Core</config>
+
+      <config name="Author">Knut Kohl</config>
+      <config name="Email">knutkohl@users.sourceforge.net</config>
+
+      <config name="Version">0.1.0</config>
+    </section>
+
+  </section>
+
+</configuration>

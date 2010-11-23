@@ -1,0 +1,55 @@
+
+<!-- Module configuration -->
+
+<configuration>
+
+  <section name="Module">
+
+    <section name="News">
+
+      <!--
+        Module specific layout
+      -->
+      <config name="Layout">default</config>
+
+      <!--
+        News urls
+      -->
+      <config name="URLs" type="array">
+
+        <config type="array">
+          <config name="Name">|es|f|-Homepage</config>
+          <config name="URL">http://es-f.com/news-feed.59.html</config>
+          <config name="Count" type="int">10</config>
+        </config>
+
+        <config type="array">
+          <config name="Name">Sourceforge</config>
+          <config name="URL">http://sourceforge.net/export/rss2_projsummary.php?group_id=185222</config>
+          <config name="Count" type="int">4</config>
+        </config>
+
+      </config>
+
+      <!-- *******************************************************************
+      **  Don't change from here
+      ******************************************************************** -->
+
+      <config name="Mobile" type="bool">FALSE</config>
+
+      <config name="Actions">index</config>
+
+      <config name="Name">Show project news</config>
+
+      <config name="Category">Other</config>
+
+      <config name="Author">Knut Kohl</config>
+      <config name="Email">knutkohl@users.sourceforge.net</config>
+
+      <config name="Version">0.2.0</config>
+
+    </section>
+
+  </section>
+
+</configuration>

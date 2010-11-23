@@ -1,0 +1,41 @@
+<!-- Module configuration -->
+
+<configuration>
+
+  <section name="Module">
+
+    <section name="LogFiles">
+
+      <!--
+        Module specific layout
+      -->
+      <config name="Layout">default</config>
+
+      <!--
+        Log files to display (array of file names)
+      -->
+      <config name="LogFile" type="array">
+        <config>error.log</config>
+      </config>
+
+      <!-- *******************************************************************
+      **  Don't change from here
+      ******************************************************************** -->
+
+      <config name="LoginRequired" type="bool">TRUE</config>
+      <config name="Mobile" type="bool">FALSE</config>
+
+      <config name="Actions">index|show|delete|get</config>
+
+      <config name="Name">Show some system log files</config>
+
+      <config name="Author">Knut Kohl</config>
+      <config name="Email">knutkohl@users.sourceforge.net</config>
+
+      <config name="Version">0.2.0</config>
+
+    </section>
+
+  </section>
+
+</configuration>

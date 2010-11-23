@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<exec>
+
+  <section name="Core">
+
+    <!--
+      Change to user working dir. and start esniper
+
+      %1$s = User working directory
+      %2$s = esniper binary
+      %3$s = esniper auction file
+      %4$s = Log file
+    -->
+    <cmd name="START_AUCTION">
+    <![CDATA[
+      %2$s -c "%1$s/.es-f" "%1$s/%3$s" & >>"%4$s" 2>&1
+    ]]>
+    </cmd>
+
+    <!--
+      Bid now for an auction
+
+      %1$s = esniper binary
+      %2$s = User working directory
+      %3$s = Auction
+      %4$s = Bid amount
+      %5$s = Log file
+    -->
+    <cmd name="BID_NOW">
+    <![CDATA[
+      %1$s -c %2$s/.es-f -s now %3$s %4$s >>"%5$s" 2>&1
+    ]]>
+    </cmd>
+
+    <!--
+      Kill a process, specified by a pid
+
+      %1$d = kill binary
+      %2$d = process id
+    -->
+    <cmd name="KILL">
+    <![CDATA[
+      kill %1$d
+    ]]>
+    </cmd>
+
+    <!--
+      Find esniper process for a group (user specific)
+
+      %1$s = grep binary
+      %2$s = <group>.<user>
+    -->
+    <cmd name="AUCTION_PID">
+    <![CDATA[
+      ps ax | grep -e "[ /]esniper" | grep "%1$s"
+    ]]>
+    </cmd>
+
+    <!--
+      Find all esniper processes for an user
+      
+      %1$s = grep binary
+      %2$s = <user>
+    -->
+    <cmd name="AUCTION_PIDS">
+    <![CDATA[
+      ps ax | grep -e "[ /]esniper" | grep -e "\.%1$s"
+    ]]>
+    </cmd>
+
+    <!--
+      Sleep for an amount of seconds and remove then esniper config. file
+
+      %1$d = sleep in sec.
+      %2$s = User working directory
+    -->
+    <cmd name="SLEEP_RM">
+    <![CDATA[
+      sleep %d && rm -f "%s/.es-f" & >/dev/null
+    ]]>
+    </cmd>
+
+  </section>
+
+</exec>

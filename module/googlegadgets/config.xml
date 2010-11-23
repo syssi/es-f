@@ -1,0 +1,60 @@
+
+<!-- Module configuration -->
+
+<configuration>
+
+  <section name="Module">
+
+    <section name="GoogleGadgets">
+
+      <!--
+        Module specific layout
+      -->
+      <config name="Layout">default</config>
+
+      <!--
+        Gadgets
+      -->
+      <config name="Gadgets" type="array">
+        <config>
+          <!-- Product search -->
+          <![CDATA[
+          <script src="http://gmodules.com/ig/ifr?url=http://google.sotio.de/produkt.xml&amp;up_ebay=1&amp;up_ebayexpr=1&amp;up_billiger=1&amp;up_guenstiger=1&amp;up_geizkragen=1&amp;synd=open&amp;w=320&amp;h=125&amp;title=Produktsuche&amp;border=%23ffffff&amp;output=js"></script>
+          ]]>
+        </config>
+        <config>
+        <!-- Search on eBay.com -->
+          <![CDATA[
+          <script src="http://gmodules.com/ig/ifr?url=http://www.netremote.com/rss/ebay.xml&amp;synd=open&amp;w=320&amp;h=55&amp;title=Search+Ebay.com&amp;border=%23ffffff&amp;output=js"></script>
+          ]]>
+        </config>
+        <config>
+        <!-- Search on Amazon.de -->
+          <![CDATA[
+          <script src="http://gmodules.com/ig/ifr?url=http://www.roman.reisenberger.info/shop/amazon-gadget.xml&amp;synd=open&amp;w=320&amp;h=70&amp;title=Amazon-Artikelsuche&amp;border=%23ffffff&amp;output=js"></script>
+          ]]>
+        </config>
+      </config>
+
+      <!-- *******************************************************************
+      **  Don't change from here
+      ******************************************************************** -->
+
+      <config name="Mobile" type="bool">FALSE</config>
+
+      <config name="Actions">index</config>
+
+      <config name="Category">Other</config>
+
+      <config name="Name">Some useful gadgets</config>
+
+      <config name="Author">Knut Kohl</config>
+      <config name="Email">knutkohl@users.sourceforge.net</config>
+
+      <config name="Version">0.2.0</config>
+
+    </section>
+
+  </section>
+
+</configuration>

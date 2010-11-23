@@ -1,0 +1,9 @@
+Version 0.2.1
+-------------
+BUGFIX:
+- check for log file size also on cron refresh
+
+Version 0.2.0
+-------------
+NEW:
+- refresh via cron job

@@ -1,0 +1,12 @@
+/*
+ *
+ */
+@charset "utf-8";
+
+span.acceptpaypal {
+  margin-left: 0.7em;
+}
+
+span.acceptpaypal img {
+  vertical-align: middle;
+}

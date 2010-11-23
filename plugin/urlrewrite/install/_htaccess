@@ -1,0 +1,24 @@
+# START URLRewrite
+# ---------------------------
+<IfModule mod_rewrite.c>
+  # activate module
+  RewriteEngine On
+
+  # only, if requested file not exists
+  RewriteCond   %{SCRIPT_FILENAME}        !-f
+  RewriteCond   %{SCRIPT_FILENAME}        !-d
+
+  # <module>-<action>.html?...
+  RewriteRule   ^([^-]+)-([^-]+).html?$   index.php?module=$1&action=$2      [L,QSA]
+
+  # only, if requested file not exists
+  RewriteCond   %{SCRIPT_FILENAME}        !-f
+  RewriteCond   %{SCRIPT_FILENAME}        !-d
+
+  # <module>.html?...
+  RewriteRule   ^([^-]+).html?$           index.php?module=$1&action=index   [L,QSA]
+
+</IfModule>
+# ---------------------------
+# END URLRewrite
+

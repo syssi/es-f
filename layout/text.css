@@ -1,0 +1,41 @@
+@charset "utf-8";
+/*
+ * Copyright (c) 2006-2008 Knut Kohl <knutkohl@users.sourceforge.net>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * GPL: http://www.gnu.org/licenses/gpl.txt
+ *
+ */
+
+.tt,
+.configvar {
+	font-family: courier new,courier,monospace;
+}
+
+.tt {
+	font-size: 1.2em;
+}
+
+.configvar {
+	clear: left;
+	float: left;
+	color: maroon;
+	font-weight: bold;
+	width: 100px;
+}
+
+.code {
+	font-family: courier new,courier,monospace;
+	padding: 5px;
+	border: dotted #CCCCCC 1px;
+	background-color: #EEEEEE;
+}

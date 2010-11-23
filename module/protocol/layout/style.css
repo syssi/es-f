@@ -1,0 +1,49 @@
+/*
+ *
+ */
+@charset "utf-8";
+
+.tabber h2.grouptitle {
+  border: dashed #CCC 1px;
+  padding: 5px;
+}
+
+.tabberlive h2.grouptitle {
+  border: 0;
+  padding: 0;
+}
+
+.tabberlive .hideInTabber {
+  display: none;
+}
+
+pre.log {
+  clear: both;
+  padding: 5px;
+  border: dotted #AAA 1px;
+  height: 250px;
+  overflow: auto;
+}
+
+ul.tabbernav {
+  font-size: 1em;
+}
+
+.tabber {
+  padding: 0 5px;
+}
+
+.tabber .tabber {
+  padding: 0;
+}
+
+.tabberlive .tabbertab .tabbertab {
+  height: 300px;
+}
+
+.tabber .actions,
+.tabberlive .actions {
+  float: right;
+  padding: 5px;
+  background-color: #DDD;
+}

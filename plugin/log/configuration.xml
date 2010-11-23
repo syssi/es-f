@@ -1,0 +1,15 @@
+<configuration>
+
+  <definition name="Plugin.Log.File">
+    <![CDATA[
+      Log file name, absolute or relative from installation directory
+    ]]>
+  </definition>
+
+  <definition name="Plugin.Log.TimeStamp">
+    <![CDATA[
+      Time stamp (PHP date() format)
+    ]]>
+  </definition>
+
+</configuration>

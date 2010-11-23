@@ -1,0 +1,22 @@
+|es|f| is a web based frontend for esniper (http://esniper.sourceforge.net/), the lightweight console application for sniping eBay auctions.
+
+|es|f| is written in PHP + Javascript and use files for data storage, no database needed.
+The application is build and extendable using modules and plugins.
+
+For this release a fresh installation is required due to major file structure changes!
+
+Please mind the UPGRADE instructions!
+
+Download: https://sourceforge.net/projects/es-f/files/
+
+Please take a look at the actual release notes and the changes.
+
+For more information visit the homepage: http://es-f.com/
+
+Follow the |es|f| project on Twitter: http://twitter.com/es_f
+
+The most important changes in this release are:
+
+VERSION: 2.3.0
+--------------------
+Feature release

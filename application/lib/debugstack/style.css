@@ -1,0 +1,101 @@
+#debugstack {
+  font-family: "Trebuchet MS", Helvetica, Arial, sans-serif;
+}
+
+#debugstack table {
+  width: 100%;
+  border-collapse: separate;
+  border: 1px solid white;
+  font-size: small;
+}
+
+#debugstack table tr {
+  color: black;
+}
+
+#debugstack table tr.info {
+  color: green;
+}
+
+#debugstack table tr.trace {
+  color: #CC00FF;
+}
+
+#debugstack table tr.sql {
+  color: #CF6B00;
+}
+
+#debugstack table tr.warning {
+  color: blue;
+}
+
+#debugstack table tr.error {
+  color: red;
+}
+
+#debugstack table tr.handler {
+  color: red;
+}
+
+#debugstack table tr.timer {
+  color: #884400;
+}
+
+#debugstack table tr.odd {
+  background-color: rgb(224,224,224);
+}
+
+#debugstack table tr.even {
+  background-color: rgb(192,192,192);
+}
+
+#debugstack table tr.handler td.msg {
+  font-weight: bold;
+}
+
+#debugstack table tr.debug td.msg,
+#debugstack table tr.trace td.msg,
+#debugstack table tr.version td.msg {
+  font-family: monospace;
+  font-size: 110%;
+  white-space: pre;
+}
+
+#debugstack table th {
+  padding: 3px 5px;
+  text-align: left;
+  background: #909090;
+  border: 1px solid white;
+}
+
+#debugstack table th.time,
+#debugstack table th.type {
+  width: 1%;
+}
+
+#debugstack table td {
+  padding: 2px 5px;
+  border: 1px solid white;
+  vertical-align: top;
+}
+
+#debugstack table td.time {
+  font-family: monospace;
+  font-size: 110%;
+  text-align: right;
+}
+
+#debugstack table pre {
+  margin: 0;
+}
+
+#debugstack table td.indent1  { padding-left:  10px }
+#debugstack table td.indent2  { padding-left:  20px }
+#debugstack table td.indent3  { padding-left:  30px }
+#debugstack table td.indent4  { padding-left:  40px }
+#debugstack table td.indent5  { padding-left:  50px }
+#debugstack table td.indent6  { padding-left:  60px }
+#debugstack table td.indent7  { padding-left:  70px }
+#debugstack table td.indent8  { padding-left:  80px }
+#debugstack table td.indent9  { padding-left:  90px }
+#debugstack table td.indent10 { padding-left: 100px }

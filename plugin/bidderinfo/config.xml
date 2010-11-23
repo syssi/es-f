@@ -1,0 +1,32 @@
+<configuration>
+
+  <section name="Plugin">
+
+    <section name="BidderInfo">
+
+      <!--
+        URL to find the bidder info page
+      -->
+      <config name="URL">
+        <![CDATA[
+        http://feedback.ebay.com/ws/eBayISAPI.dll?ViewFeedback2&userid=$BIDDER
+        ]]>
+      </config>
+
+      <!-- *******************************************************************
+      **  Don't change from here
+      ******************************************************************** -->
+
+      <config name="Name">Extends bidder name to a link to the bidders feedbacks page.</config>
+
+      <config name="Category">Auction</config>
+
+      <config name="Author">Knut Kohl</config>
+      <config name="Email">knutkohl@users.sourceforge.net</config>
+
+      <config name="Version">0.2.0</config>
+    </section>
+
+  </section>
+
+</configuration>

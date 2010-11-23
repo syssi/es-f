@@ -1,0 +1,10 @@
+<configuration>
+
+  <definition name="Plugin.CurrencyDisplay.Mapping">
+    <![CDATA[
+      A list of "eBay&nbsp;currency=display" value pairs.
+      [<br>e.g. <tt>US $=USD|C $=CAN $|£=GBP</tt> (pipe separated pairs)]
+    ]]>
+  </definition>
+
+</configuration>

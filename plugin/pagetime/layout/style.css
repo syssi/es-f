@@ -1,0 +1,11 @@
+/*
+ *
+ */
+@charset "utf-8";
+
+div.pagetime {
+	clear: both;
+	margin: 5px;
+	font-size: 80%;
+	text-align: center;
+}

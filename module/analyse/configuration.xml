@@ -1,0 +1,45 @@
+<configuration>
+
+  <definition name="Module.Analyse.SortByName" type="bool">
+    <![CDATA[
+      Sort groups in listing by name
+    ]]>
+  </definition>
+
+  <definition name="header1" type="header">
+    <![CDATA[
+      Diagram dimensions, multiple view
+    ]]>
+  </definition>
+
+  <definition name="Module.Analyse.WidthMulti" type="int">
+    <![CDATA[
+      Width [px]
+    ]]>
+  </definition>
+
+  <definition name="Module.Analyse.HeightMulti" type="int">
+    <![CDATA[
+      Height [px]
+    ]]>
+  </definition>
+
+  <definition name="header2" type="header">
+    <![CDATA[
+      Diagram dimensions, single view
+    ]]>
+  </definition>
+
+  <definition name="Module.Analyse.Width" type="int">
+    <![CDATA[
+      Width [px]
+    ]]>
+  </definition>
+
+  <definition name="Module.Analyse.Height" type="int">
+    <![CDATA[
+      Height [px]
+    ]]>
+  </definition>
+
+</configuration>

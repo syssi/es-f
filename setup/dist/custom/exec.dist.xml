@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+Use this file to tune the system commands for your your system.
+
+1. Find the section and the command to redefine
+   (from the exec.unix.xml files located in the module/plugin directories)
+   (Core commands are defined in application/exec.unix.xml)
+
+2. Define your version of command
+
+3. RENAME the file to exec.xml to activate your settings
+
+-->
+<exec>
+
+  <!-- Section name comes here -->
+  <section name="">
+
+    <!-- The command comes into CDATA -->
+    <cmd name="">
+    <![CDATA[
+
+    ]]>
+    </cmd>
+
+  </section>
+
+</exec>

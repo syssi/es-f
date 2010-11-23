@@ -1,0 +1,18 @@
+/*
+ *
+ */
+@charset "utf-8";
+
+table#savings {
+  width: 90%;
+  margin: 1em auto;
+}
+
+table#savings th,
+table#savings td {
+  padding: 0.5em;
+}
+
+table#savings td.num {
+  width: 7em;
+}

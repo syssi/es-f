@@ -1,0 +1,51 @@
+<configuration>
+
+  <section name="Plugin">
+
+    <section name="SimilarItems">
+
+      <!--
+        Which characters are interpreted as valid characters in auction title
+      -->
+      <config name="WordRegex">
+        <![CDATA[
+        \wäÄöÖüÜß
+        ]]>
+      </config>
+
+      <!--
+        Min. word length in auction title to be relevant as search term
+      -->
+      <config name="MinWordLength" type="int">3</config>
+
+      <!--
+        URL to find sellers other items, use
+        - $HOMEPAGE for your prefered ebay homepage
+        - $QUERY    for the search term
+        http://shop.$HOMEPAGE/i.html?_nkw=$QUERY
+      -->
+      <config name="URL">
+        <![CDATA[
+        http://search.$HOMEPAGE/$QUERY
+        ]]>
+      </config>
+
+      <!-- *******************************************************************
+      **  Don't change from here
+      ******************************************************************** -->
+
+      <config name="Mobile" type="bool">FALSE</config>
+
+      <config name="Name">Add a link "Find similar items" to aution title</config>
+
+      <config name="Category">Auction</config>
+
+      <config name="Author">Knut Kohl</config>
+      <config name="Email">knutkohl@users.sourceforge.net</config>
+
+      <config name="Version">0.1.0</config>
+    </section>
+
+  </section>
+
+</configuration>

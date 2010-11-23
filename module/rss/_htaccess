@@ -1,0 +1,11 @@
+
+# START module rss
+# ---------------------------
+<IfModule mod_rewrite.c>
+  # activate module
+  RewriteEngine On
+  # rss.xml?...
+  RewriteRule   ^rss.xml$   index.php?module=rss   [L,QSA]
+</IfModule>
+# ---------------------------
+# END module rss

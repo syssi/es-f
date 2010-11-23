@@ -1,0 +1,23 @@
+<configuration>
+
+  <section name="Plugin">
+
+    <section name="UrlRewriteHash">
+
+      <!-- *******************************************************************
+      **  Don't change from here
+      ******************************************************************** -->
+
+      <config name="Name">Rewrite urls</config>
+
+      <config name="Category">URLRewrite</config>
+
+      <config name="Author">Knut Kohl</config>
+      <config name="Email">knutkohl@users.sourceforge.net</config>
+
+      <config name="Version">0.1.0</config>
+    </section>
+
+  </section>
+
+</configuration>

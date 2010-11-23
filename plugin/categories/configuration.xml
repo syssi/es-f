@@ -1,0 +1,9 @@
+<configuration>
+
+  <definition name="Plugin.Categories.Categories">
+    <![CDATA[
+      Define your prefered categories [<br>(comma separated list)]
+    ]]>
+  </definition>
+
+</configuration>

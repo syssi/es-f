@@ -1,0 +1,149 @@
+<!--
+  To insert spaces into the "To" string, please mask them as "__"!
+  e.g.  <config name="To">__$1__</config>  means " $1 "
+-->
+
+<configuration>
+
+  <section name="Plugin">
+
+    <section name="ClearTitle">
+
+      <!--
+        Delete ended auctions after at least ? days
+      -->
+      <config name="Pattern" type="array">
+
+        <config type="array">
+          <config name="From">
+            <![CDATA[
+            ~([&+-])~
+            ]]>
+          </config>
+          <config name="To">__$1__</config>
+        </config>
+
+        <!-- put space before opening bracket -->
+        <config type="array">
+          <config name="From">
+            <![CDATA[
+            ~([([])\s*~
+            ]]>
+          </config>
+          <config name="To">__$1</config>
+        </config>
+
+        <!-- put space after closing bracket -->
+        <config type="array">
+          <config name="From">
+            <![CDATA[
+            ~\s*([)\]])~
+            ]]>
+          </config>
+          <config name="To">$1__</config>
+        </config>
+
+        <!-- put add space after % -->
+        <config type="array">
+          <config name="From">
+            <![CDATA[
+            ~([%])~
+            ]]>
+          </config>
+          <config name="To">$1__</config>
+        </config>
+
+        <!-- format punctuation marks -->
+        <config type="array">
+          <config name="From">
+            <![CDATA[
+            ~\s*([.,?!])~
+            ]]>
+          </config>
+          <config name="To">$1__</config>
+        </config>
+
+        <!-- format most currencies -->
+        <config type="array">
+          <config name="From">
+            <![CDATA[
+            ~([^\d])\s*([.,])\s*([^\d])~
+            ]]>
+          </config>
+          <config name="To">$1$2__$3</config>
+        </config>
+
+        <!-- compress numerics -->
+        <config type="array">
+          <config name="From">
+            <![CDATA[
+            ~(\d)\s*([.,])\s*(\d)~
+            ]]>
+          </config>
+          <config name="To">$1$2$3</config>
+        </config>
+
+        <!-- strip spaces around slashes
+        <config type="array">
+          <config name="From">
+            <![CDATA[
+            ~\s*([\\/])\s*~
+            ]]>
+          </config>
+          <config name="To">$1</config>
+        </config>
+        -->
+ 
+        <!-- compress _ and spaces to one space -->
+        <config type="array">
+          <config name="From">
+            <![CDATA[
+            ~([_\s])\1+~
+            ]]>
+          </config>
+          <config name="To">__</config>
+        </config>
+
+        <!-- compress multiple non-word chars -->
+        <config type="array">
+          <config name="From">
+            <![CDATA[
+            ~(\W+)\s*\1+~
+            ]]>
+          </config>
+          <config name="To">$1</config>
+        </config>
+
+        <!-- correct corrupted html entities -->
+        <config type="array">
+          <config name="From">
+            <![CDATA[
+            ~&\s+(\w+);~
+            ]]>
+          </config>
+          <config name="To">
+            <![CDATA[
+            &$1;
+            ]]>
+          </config>
+        </config>
+
+      </config>
+
+      <!-- *******************************************************************
+      **  Don't change from here
+      ******************************************************************** -->
+
+      <config name="Name">Clear auction title and make more readable</config>
+
+      <config name="Category">Interface</config>
+
+      <config name="Author">Knut Kohl</config>
+      <config name="Email">knutkohl@users.sourceforge.net</config>
+
+      <config name="Version">0.1.0</config>
+    </section>
+
+  </section>
+
+</configuration>

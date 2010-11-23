@@ -1,0 +1,33 @@
+<configuration>
+
+  <section name="Plugin">
+
+    <section name="Log">
+
+      <!--
+        Log file name, absolute or relative
+      -->
+      <config name="File">es-f.log</config>
+
+      <!--
+        Time stamp format
+      -->
+      <config name="TimeStamp">Y-m-d H:i:s</config>
+
+      <!-- *******************************************************************
+      **  Don't change from here
+      ******************************************************************** -->
+
+      <config name="Name">Logger to file</config>
+
+      <config name="Category">Core</config>
+
+      <config name="Author">Knut Kohl</config>
+      <config name="Email">knutkohl@users.sourceforge.net</config>
+
+      <config name="Version">0.1.0</config>
+    </section>
+
+  </section>
+
+</configuration>
