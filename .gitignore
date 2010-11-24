@@ -19,3 +19,5 @@ jsDebugger
 *.org.php
 .save*
 *de.php
+custom
+*.dev.php
