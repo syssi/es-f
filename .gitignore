@@ -15,4 +15,7 @@ plugin/validate
 plugin/xml
 application/classes/timezones.txt
 js/prototype/1.7RC2
+jsDebugger
 *.org.php
+.save*
+*de.php
