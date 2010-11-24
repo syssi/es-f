@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  Don't "htmlspecialchar" your translation, please use <![CDATA[text...]]>
+
+  Nouns
+  tuid="name"   - default, noun is not required or >1
+  tuid="name-0" - for quantity 0, e.g. "%1$d files deleted"
+  tuid="name-1" - for quantity 1, e.g. "%1$d file deleted"
+
+  If your language have very special cases, just declare
+  tuid="name-10"  or what ever :-)
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<tmx version="1.4">
+  <header
+   creationtool="manual"
+   creationtoolversion="1"
+   datatype="PlainText"
+   segtype="sentence"
+   adminlang="EN"
+   srclang="EN"
+   o-tmf="ABC"
+   changeid="Knut Kohl / knutkohl@users.sourceforge.net"
+   changedate="20101121T135941Z"
+   o-encoding="UTF-8"
+  >
+    <prop type="x-Namespace">Snipe</prop>
+  </header>
+  <body>
+    <tu tuid="AddAuction">
+      <tuv xml:lang="EN">
+        <seg>Add auction</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Comment">
+      <tuv xml:lang="EN">
+        <seg>Comment</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Group">
+      <tuv xml:lang="EN">
+        <seg>Group</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Shipping">
+      <tuv xml:lang="EN">
+        <seg>Shipping (e.g. if only mentioned in description)</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="GroupCount">
+      <tuv xml:lang="EN">
+        <seg>Quantity</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="GroupBid">
+      <tuv xml:lang="EN">
+        <seg>Bid for group</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Category">
+      <tuv xml:lang="EN">
+        <seg>Category</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Or">
+      <tuv xml:lang="EN">
+        <seg>or</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="AuctionBid">
+      <tuv xml:lang="EN">
+        <seg>Auction bid</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="DifferentFromGroup">
+      <tuv xml:lang="EN">
+        <seg>different from group bid</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="BidNow">
+      <tuv xml:lang="EN">
+        <seg>Bid now</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="UseToBreakBuyNow">
+      <tuv xml:lang="EN">
+        <seg>use this e.g. to break buy-it-now price</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Start">
+      <tuv xml:lang="EN">
+        <seg>Start</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Save">
+      <tuv xml:lang="EN">
+        <seg>Save</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Cancel">
+      <tuv xml:lang="EN">
+        <seg>Cancel</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Close">
+      <tuv xml:lang="EN">
+        <seg>Close</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="PleaseWait">
+      <prop type="x-Format">html</prop>
+      <tuv xml:lang="EN">
+        <seg><![CDATA[Auction will be added now.<br><br>Just a moment please...]]></seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Login">
+      <tuv xml:lang="EN">
+        <seg>Please login to add an auction.</seg>
+      </tuv>
+    </tu>
+
+  </body>
+</tmx>

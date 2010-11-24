@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  Don't "htmlspecialchar" your translation, please use <![CDATA[text...]]>
+
+  Nouns
+  tuid="name"   - default, noun is not required or >1
+  tuid="name-0" - for quantity 0, e.g. "%1$d files deleted"
+  tuid="name-1" - for quantity 1, e.g. "%1$d file deleted"
+
+  If your language have very special cases, just declare
+  tuid="name-10"  or what ever :-)
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<tmx version="1.4">
+  <header
+   creationtool="manual"
+   creationtoolversion="1"
+   datatype="PlainText"
+   segtype="sentence"
+   adminlang="EN"
+   srclang="EN"
+   o-tmf="ABC"
+   changeid="Knut Kohl / knutkohl@users.sourceforge.net"
+   changedate="20101121T135942Z"
+   o-encoding="UTF-8"
+  >
+    <prop type="x-Namespace">Refresh</prop>
+  </header>
+  <body>
+    <tu tuid="Menu">
+      <tuv xml:lang="DE">
+        <seg>Aktualisieren</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Menuhint">
+      <tuv xml:lang="DE">
+        <seg>Liest die aktuellen Auktionsdaten von ebay</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Message">
+      <tuv xml:lang="DE">
+        <seg>Aktualisiere Auktionen</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Done">
+      <note>%$1s - ...</note>
+      <tuv xml:lang="DE">
+        <seg>Auktionen wurden aktualisiert (%d aktualisiert, %d ignoriert)</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="AuctionsRefreshed">
+      <tuv xml:lang="DE">
+        <seg>Auktionen wurden aktualisiert.</seg>
+      </tuv>
+    </tu>
+
+  </body>
+</tmx>

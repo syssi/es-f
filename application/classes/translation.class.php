@@ -19,41 +19,76 @@ abstract class Translation {
   /**
    * Define translations
    *
+   * @param string $file TMX file to load
+   * @param array $language Language to use from TMX file
+   */
+  public static function LoadTMXFile( $file, $language, Cache $cache ) {
+    try {
+      /* ///
+      $id = str_replace($_SERVER['DOCUMENT_ROOT'].'/', '', $file);
+      $cached = TRUE;
+      DebugStack::StartTimer($id, $id, 'parse TMX file');
+      /// */
+      while ($cache->save($file, $tmxdata, File::MTime($file))) {
+        /* ///
+        DebugStack::Info('Parse: '.$file);
+        $cached = FALSE;
+        /// */
+        $tmx = new TMX($file, $language);
+        $header = $tmx->getHeader();
+        if (!isset($header['x-namespace']))
+          throw new Exception('Missing prop: x-Namespace in header of '.$file);
+        $tmxdata = array($header['x-namespace'], $tmx->getData());
+        unset($tmx);
+      }
+      /* ///
+      if ($cached) DebugStack::Info('Cached: '.$file);
+      DebugStack::StopTimer($id);
+      /// */
+      foreach ($tmxdata[1] as $key => $data) {
+        if (isset($data['']) AND $str = $data['']) {
+          if (isset($data['x-format']))
+            $str = self::applyFormat($str, $data['x-format']);
+          self::set($tmxdata[0], $key, $str);
+        }
+      }
+    } catch (Exception $e) {
+      die($e->getMessage());
+    }
+  }
+
+  /**
+   * Define translations
+   *
    * @param string $Namespace
    * @param array $translations Translations
    */
   public static function Define( $Namespace, $translations ) {
     #if (DEVELOP) self::WriteXML($Namespace, $translations, 1);
-
-    $Namespace = strtoupper($Namespace);
-
-/*
-    $hash = md5(serialize($transaltions));
-    $cache = Cache::getInstance();
     /// DebugStack::StartTimer(__METHOD__, __METHOD__, __METHOD__);
-    if ($data = $cache->get($Namespace) AND $data[0] == $hash) {
-      self::$Translation[$Namespace] = $data[1];
-      /// DebugStack::Info('Transaltions for "'.$Namespace.'" cached.');
-    } else {
-*/
-
-      foreach ($translations as $key=>$str) {
-        if (is_array($str)) {
-          // singular & plural
-          foreach ($str as $id=>$s) $str[$id] = self::analyseFilter($s);
-        } else {
-          // single string
-          $str = self::analyseFilter($str);
+    foreach ($translations as $key=>$str) {
+      if (is_array($str)) {
+        // singular & plural
+        foreach ($str as $id=>$s) {
+          $format = self::getFormat($s);
+          $str[$id] = self::applyFormat($s, $format);
         }
-        self::$Translation[$Namespace][strtoupper($key)] = $str;
+      } else {
+        // single string
+        $format = self::getFormat($str);
+        $str = self::applyFormat($str, $format);
       }
-
-/*
-      $cache->set($Namespace, array($hash, self::$Translation[$Namespace]));
-      /// DebugStack::Info('Transaltions for "'.$Namespace.'" saved.');
+      self::set($Namespace, $key, $str);
     }
     /// DebugStack::StopTimer(__METHOD__);
-*/
+  }
+
+  /**
+   * @param string $Namespace
+   * @param array $translation Translation
+   */
+  public static function set( $Namespace, $key, $translation ) {
+    self::$Translation[strtoupper($Namespace)][strtoupper($key)] = $translation;
   }
 
   /**
@@ -158,43 +193,58 @@ abstract class Translation {
   /**
    *
    */
-  protected static function analyseFilter( $str ) {
+  protected static function getFormat( &$str ) {
     // test for eventual filter functions
-    if (strpos($str, ':') === FALSE) return $str;
+    if (strpos($str, ':') === FALSE) return;
 
     // at least one collon...
-    list($func, $str) = explode(':', $str, 2);
+    list($fmt, $new) = explode(':', $str, 2);
+    
+    if (in_array($fmt, array('html', 'nl2br', 'p', 'file'))) {
+      // valid format
+      $str = $new;
+      return $fmt;
+    }
+  }
 
-    // we possibly found a function
+  /**
+   *
+   */
+  protected static function applyFormat( $str, $format ) {
+
+    if ($format == '' OR $format == 'plain') return $str;
+
     $isHTML = FALSE;
 
-    if ($func == 'html') {
-      // text contains html tags
-      $isHTML = TRUE;
-    } elseif ($func == 'nl2br') {
-      $str = nl2br($str);
-      // un-HTML
-      $str = str_replace(self::$Masks[0], self::$Masks[1], $str);
-    } elseif ($func == 'p') {
-      $str = str_replace("\n\n",'</p><p>',$str);
-      $str = '<p>'.nl2br($str).'</p>';
-      // un-HTML
-      $str = str_replace(self::$Masks[0], self::$Masks[1], $str);
-    } elseif ($func == 'file') {
-      // include text file
-      $str = file_exists($str)
-           ? file_get_contents($str)
-           : Messages::toStr('ERROR: Missing translation file ['.$str.']', Messages::ERROR);
-      // file is by default interpreted as HTML!
-      $isHTML = TRUE;
-    } elseif (isset($func)) {
-      // assume, we got an collon inside text
-      return $func.':'.$str;
-    }
+    switch ($format) {
+      case 'html':
+        // text contains html tags
+        $isHTML = TRUE;
+        break;
+      case 'nl2br':
+        $str = nl2br($str);
+        // un-HTML
+        $str = str_replace(self::$Masks[0], self::$Masks[1], $str);
+        break;
+      case 'p':
+        $str = str_replace("\n\n",'</p><p>',$str);
+        $str = '<p>'.nl2br($str).'</p>';
+        // un-HTML
+        $str = str_replace(self::$Masks[0], self::$Masks[1], $str);
+        break;
+      case 'file':
+        // include text file
+        $str = file_exists($str)
+             ? file_get_contents($str)
+             : Messages::toStr('ERROR: Missing translation file ['.$str.']', Messages::ERROR);
+        // file is by default interpreted as HTML!
+        $isHTML = TRUE;
+        break;
+    } // switch
 
     if (!$isHTML) {
       $str = htmlspecialchars($str, ENT_COMPAT, 'UTF-8');
-      $str = str_replace('"','&quot;',$str);
+      $str = str_replace('"', '&quot;', $str);
     }
 
     // re-HTML
@@ -250,7 +300,7 @@ abstract class Translation {
 
     $file = str_replace('.dev.php', '', $dbg[0]['file']);
     $l = substr($file, -6, -4);
-    $xmlfile = dirname($file) . DIRECTORY_SEPARATOR . $Namespace . '.' . $l . '.xml';
+    $xmlfile = dirname($file) . DIRECTORY_SEPARATOR . $Namespace . '.' . $l . '.tmx';
 
 #    _dbg($file);
 #    _dbg($xmlfile);
@@ -264,22 +314,33 @@ abstract class Translation {
     $ns = str_replace('help', 'Help', $ns);
 
     $data = self::nl('<?xml version="1.0" encoding="UTF-8" ?'.'>')
-          . self::nl('<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -')
-          . self::nl('  Don\'t "htmlspecialchar" your translation,')
-          . self::nl('  just use <![CDATA[<text>]]> and NOT &lt;text&gt;')
+          . self::nl('<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -')
+          . self::nl('  Don\'t "htmlspecialchar" your translation, please use <![CDATA[text...]]>')
           . self::nl()
-          . self::nl('  Nouns ')
-          . self::nl('  <text> default, noun is not required or >1')
-          . self::nl('  <text count="0"> for quantity 0, e.g. "%1$d files deleted"')
-          . self::nl('  <text count="1"> for quantity 1, e.g. "%1$d file deleted"')
-          . self::nl('  For quantities >1, <text> will be used.')
-          . self::nl('  If your language have other special cases, just declare')
-          . self::nl('  <text count="10"> or what ever :-)')
-          . self::nl('- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->')
-          . self::nl('<translation>')
-          . self::nl('  <namespace>'.$ns.'</namespace>', 2)
-          . self::nl('  <language>'.$l.'</language>')
-          . self::nl('  <author><![CDATA[Knut Kohl <knutkohl@users.sourceforge.net]]></author>');
+          . self::nl('  Nouns')
+          . self::nl('  tuid="name"   - default, noun is not required or >1')
+          . self::nl('  tuid="name-0" - for quantity 0, e.g. "%1$d files deleted"')
+          . self::nl('  tuid="name-1" - for quantity 1, e.g. "%1$d file deleted"')
+          . self::nl()
+          . self::nl('  If your language have very special cases, just declare')
+          . self::nl('  tuid="name-10"  or what ever :-)')
+          . self::nl(' - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->')
+          . self::nl('<tmx version="1.4">')
+          . self::nl('  <header')
+          . self::nl('   creationtool="manual"')
+          . self::nl('   creationtoolversion="1"')
+          . self::nl('   datatype="PlainText"')
+          . self::nl('   segtype="sentence"')
+          . self::nl('   adminlang="EN"')
+          . self::nl('   srclang="EN"')
+          . self::nl('   o-tmf="ABC"')
+          . self::nl('   changeid="Knut Kohl / knutkohl@users.sourceforge.net"')
+          . self::nl('   changedate="'.date('Ymd\THis\Z').'"')
+          . self::nl('   o-encoding="UTF-8"')
+          . self::nl('  >')
+          . self::nl('    <prop type="x-Namespace">'.$ns.'</prop>')
+          . self::nl('  </header>')
+          . self::nl('  <body>');
 
     foreach ($translations as $key=>$str) {
       if (is_array($str)) {
@@ -292,39 +353,36 @@ abstract class Translation {
         $t['p'] = '';
       }
 
-      $data .= self::nl('  <string>');
-      $data .= self::nl('    <id>'.$key.'</id>');
-
-      if ($t['s'][0]) $data .= self::nl('    <type>'.$t['s'][0].'</type>');
-
-      if (strstr($t['s'][1],'%') OR isset($t['p'][1]) AND strstr($t['p'][1],'%'))
-        $data .= self::nl('    <description>%$1s - ...</description>');
-
-      $s = ($t['s'] && $t['p']) ? ' count="1"' : '' ;
-
-      $data .= '    <text'.$s.'>';
-      // make CDATA if string contains at least one of: < > & " '
-      $data .= preg_match('~[<>&"\']~', $t['s'][1])
-             ? '<![CDATA[' . $t['s'][1] . ']]>'
-             : $t['s'][1];
-      $data .= self::nl('</text>');
-
       if ($t['p']) {
-        $data .= '    <text>';
-        // make CDATA if string contains at least one of: < > & " '
-        $data .= preg_match('~[<>]~', $t['p'][1])
-               ? '<![CDATA[' . $t['p'][1] . ']]>'
-               : $t['p'][1];
-        $data .= self::nl('</text>');
+        $data .= self::tu($key,      $l, $t['s'][0], $t['p'][1]);
+        $data .= self::tu($key.'-1', $l, $t['s'][0], $t['s'][1], 2);
+      } else {
+        $data .= self::tu($key,      $l, $t['s'][0], $t['s'][1], 2);
       }
-
-      $data .= self::nl('  </string>', 2);
     }
 
-    $data .= self::nl('</translation>');
+    $data .= self::nl('  </body>');
+    $data .= self::nl('</tmx>');
 
     file_put_contents($xmlfile, $data);
     #unlink($file);
+  }
+
+  /**
+   *
+   */
+  private static function tu( $key, $lang, $type, $txt, $nl=1 ) {
+    if (preg_match('~[<>&"\']~', $txt)) $txt = '<![CDATA['.$txt.']]>';
+    $s  = self::nl('    <tu tuid="'.$key.'">');
+
+    if ($type) $s .= self::nl('      <prop type="x-Format">'.$type.'</prop>');
+    if (strstr($txt, '%')) $s .= self::nl('      <note>%$1s - ...</note>');
+
+    return $s
+         . self::nl('      <tuv xml:lang="'.strtoupper($lang).'">')
+         . self::nl('        <seg>'.$txt.'</seg>')
+         . self::nl('      </tuv>')
+         . self::nl('    </tu>', $nl);
   }
 
   /**
@@ -334,5 +392,6 @@ abstract class Translation {
     for ($i=0; $i<$count; $i++) $text .= "\n";
     return $text;
   }
+  /* */
 
 }

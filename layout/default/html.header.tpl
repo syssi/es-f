@@ -52,7 +52,7 @@
       <div style="float:right;margin-left:2em">
         <!-- BEGIN LANGUAGE -->
         <a class="language" href="{URL}" onmouseover="Tip('{DESC}')"><img
-           src="application/language/images/{NAME}.png" alt="[{NAME}]"></a>
+           src="application/language/{NAME}.png" alt="[{NAME}]"></a>
         <!-- END LANGUAGE -->
       </div>
 

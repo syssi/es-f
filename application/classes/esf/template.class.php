@@ -102,12 +102,11 @@ class esf_Template {
     Yuelo::set('ThousandsSeparator', Registry::get('Format.ThousandsSeparator'));
     Yuelo::set('DecimalPlaces',      Registry::get('Format.DecimalPlaces'));
 
-    Yuelo::set('_SaveConstantsAndVariables',
-               DEVELOP AND (Yuelo::get('Verbose') & Yuelo::VERBOSE_READABLE));
+    Yuelo::set('_SaveConstantsAndVariables', Registry::get('Template._SaveConstantsAndVariables', FALSE));
 
     // register own extensions
     if (Yuelo::get('Autoload')) {
-      // preload user custom extensions
+      // preload user custom extensions, can't be found by Yuelo
       require_once APPDIR.DIRECTORY_SEPARATOR.'yuelo'.DIRECTORY_SEPARATOR.'button.php';
       require_once APPDIR.DIRECTORY_SEPARATOR.'yuelo'.DIRECTORY_SEPARATOR.'help.php';
       require_once APPDIR.DIRECTORY_SEPARATOR.'yuelo'.DIRECTORY_SEPARATOR.'translate.php';

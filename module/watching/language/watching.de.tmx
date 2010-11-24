@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  Don't "htmlspecialchar" your translation, please use <![CDATA[text...]]>
+
+  Nouns
+  tuid="name"   - default, noun is not required or >1
+  tuid="name-0" - for quantity 0, e.g. "%1$d files deleted"
+  tuid="name-1" - for quantity 1, e.g. "%1$d file deleted"
+
+  If your language have very special cases, just declare
+  tuid="name-10"  or what ever :-)
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<tmx version="1.4">
+  <header
+   creationtool="manual"
+   creationtoolversion="1"
+   datatype="PlainText"
+   segtype="sentence"
+   adminlang="EN"
+   srclang="EN"
+   o-tmf="ABC"
+   changeid="Knut Kohl / knutkohl@users.sourceforge.net"
+   changedate="20101121T135942Z"
+   o-encoding="UTF-8"
+  >
+    <prop type="x-Namespace">Watching</prop>
+  </header>
+  <body>
+    <tu tuid="TITLE">
+      <tuv xml:lang="DE">
+        <seg>Beobachtete Artikel</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="MENU">
+      <tuv xml:lang="DE">
+        <seg>Beobachtete Artikel</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="MENUHINT">
+      <tuv xml:lang="DE">
+        <seg>Deine beobachteten Artikel bei ebay</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="AUCTION">
+      <tuv xml:lang="DE">
+        <seg>Auktion</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="REMAINING_TIME">
+      <tuv xml:lang="DE">
+        <seg>Restzeit</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="PRICE">
+      <tuv xml:lang="DE">
+        <seg>Preis</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="SHIPPING">
+      <tuv xml:lang="DE">
+        <seg>Versand</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="SELLER">
+      <tuv xml:lang="DE">
+        <seg>Verkäufer</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="NO_OF_BIDS">
+      <tuv xml:lang="DE">
+        <seg>Gebote</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="GROUP">
+      <tuv xml:lang="DE">
+        <seg>Gruppe</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="OR">
+      <tuv xml:lang="DE">
+        <seg>oder</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="INCL_CATEGORY">
+      <tuv xml:lang="DE">
+        <seg>incl. Kategorie</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="CATEGORY">
+      <tuv xml:lang="DE">
+        <seg>Kategorie</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="PIECE">
+      <tuv xml:lang="DE">
+        <seg>St.</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="BUY_IT_NOW">
+      <tuv xml:lang="DE">
+        <seg>vermutlich ein [Sofortkauf]-Artikel</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="TOGGLE">
+      <tuv xml:lang="DE">
+        <seg>Markierung umschalten</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="ADD_MARKED">
+      <tuv xml:lang="DE">
+        <seg>Markierte Auktionen übernehmen nach</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="QUANTITY_BID">
+      <tuv xml:lang="DE">
+        <seg><![CDATA[Menge & Gebot]]></seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="SAVE">
+      <tuv xml:lang="DE">
+        <seg>Sichern</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="START">
+      <tuv xml:lang="DE">
+        <seg>Starten</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="SHOW_NO_ENDED">
+      <prop type="x-Format">html</prop>
+      <tuv xml:lang="DE">
+        <seg><![CDATA[Bereits beendete Auktionen werden <b>nicht</b> angezeigt!]]></seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="NO_AUCTIONS">
+      <tuv xml:lang="DE">
+        <seg>Keine beobachteten Auktionen gefunden!</seg>
+      </tuv>
+    </tu>
+
+  </body>
+</tmx>

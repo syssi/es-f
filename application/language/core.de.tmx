@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  Don't "htmlspecialchar" your translation, please use <![CDATA[text...]]>
+
+  Nouns
+  tuid="name"   - default, noun is not required or >1
+  tuid="name-0" - for quantity 0, e.g. "%1$d files deleted"
+  tuid="name-1" - for quantity 1, e.g. "%1$d file deleted"
+
+  If your language have very special cases, just declare
+  tuid="name-10"  or what ever :-)
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<tmx version="1.4">
+  <header
+   creationtool="manual"
+   creationtoolversion="1"
+   datatype="PlainText"
+   segtype="sentence"
+   adminlang="EN"
+   srclang="EN"
+   o-tmf="ABC"
+   changeid="Knut Kohl / knutkohl@users.sourceforge.net"
+   changedate="20101121T135941Z"
+   o-encoding="UTF-8"
+  >
+    <prop type="x-Namespace">Core</prop>
+  </header>
+  <body>
+    <tu tuid="Welcome">
+      <tuv xml:lang="DE">
+        <seg>Willkommen</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Login">
+      <tuv xml:lang="DE">
+        <seg>Login</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="LastUpdate">
+      <tuv xml:lang="DE">
+        <seg>Letzte Auktions-Aktualisierung</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Error">
+      <tuv xml:lang="DE">
+        <seg>Fehler</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="EsniperEncounteredBug">
+      <note>%$1s - ...</note>
+      <tuv xml:lang="DE">
+        <seg>ACHTUNG: esniper hat einen Fehler-Report erstellt. Sieh bitte in [%s] nach oder benutze das Module Logfiles!</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="AuctionSaved">
+      <note>%$1s - ...</note>
+      <tuv xml:lang="DE">
+        <seg>Auktion [%1$s] gespeichert.</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="GroupSaved">
+      <tuv xml:lang="DE">
+        <seg>Biet-Gruppe gespeichert.</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="ModuleNotFound">
+      <note>%$1s - ...</note>
+      <tuv xml:lang="DE">
+        <seg>Modul [%1$s] ist nicht vorhanden oder nicht aktiviert!</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="InvalidItem">
+      <note>%$1s - ...</note>
+      <tuv xml:lang="DE">
+        <seg>Ungültige Auktionsnummer (%1$s) oder [Sofortkauf]-Artikel!</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="DeleteInvalid">
+      <tuv xml:lang="DE">
+        <seg>Ungültige Auktion löschen</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="NoItem">
+      <tuv xml:lang="DE">
+        <seg>Keine Auktionsnummer angegeben!</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="ToMuchProcesses">
+      <note>%$1s - ...</note>
+      <tuv xml:lang="DE">
+        <seg>Es gibt mehr als 1 laufenden esniper Prozess für Gruppe [%1$s]!</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Version">
+      <tuv xml:lang="DE">
+        <seg>Version</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Layout">
+      <tuv xml:lang="DE">
+        <seg>Layout</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="SelectNone">
+      <tuv xml:lang="DE">
+        <seg>- keine -</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="SelectFromGroup">
+      <tuv xml:lang="DE">
+        <seg>- von Gruppe -</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="EFAbigger">
+      <tuv xml:lang="DE">
+        <seg>Increase font size</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="EFAreset">
+      <tuv xml:lang="DE">
+        <seg>Reset font size</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="EFAsmaller">
+      <tuv xml:lang="DE">
+        <seg>Decrease font size</seg>
+      </tuv>
+    </tu>
+
+  </body>
+</tmx>

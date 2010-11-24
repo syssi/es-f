@@ -1,4 +1,4 @@
-<!-- /*
+<!-- /**
 
 @version 0.2.0
 @author  Knut Kohl <KnutKohl@users.sourceforge.net>

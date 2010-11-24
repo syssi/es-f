@@ -31,7 +31,7 @@
  * @copyright  2007-2010 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
  * @version    1.2.0
- * @version    $Id$:
+ * @version    : 'v2.3.1-5-g726118d'$
  */
 
 /**

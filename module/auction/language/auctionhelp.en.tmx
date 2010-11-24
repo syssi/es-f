@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  Don't "htmlspecialchar" your translation, please use <![CDATA[text...]]>
+
+  Nouns
+  tuid="name"   - default, noun is not required or >1
+  tuid="name-0" - for quantity 0, e.g. "%1$d files deleted"
+  tuid="name-1" - for quantity 1, e.g. "%1$d file deleted"
+
+  If your language have very special cases, just declare
+  tuid="name-10"  or what ever :-)
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<tmx version="1.4">
+  <header
+   creationtool="manual"
+   creationtoolversion="1"
+   datatype="PlainText"
+   segtype="sentence"
+   adminlang="EN"
+   srclang="EN"
+   o-tmf="ABC"
+   changeid="Knut Kohl / knutkohl@users.sourceforge.net"
+   changedate="20101121T135941Z"
+   o-encoding="UTF-8"
+  >
+    <prop type="x-Namespace">AuctionHelp</prop>
+  </header>
+  <body>
+    <tu tuid="Category">
+      <tuv xml:lang="EN">
+        <seg><![CDATA[A category groups several auction with similar characteristics, e.g. "Books", "CDs" or "Car parts"]]></seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Group">
+      <tuv xml:lang="EN">
+        <seg>A groups pool auctions of the same product. e.g. a special CD. You can now bid for a group of auctions until a bid was successful.</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="AddMultipleAuctions">
+      <prop type="x-Format">html</prop>
+      <tuv xml:lang="EN">
+        <seg><![CDATA[Add multiple auctions at once|
+<div class="li">Provide a list of auction ids, separated by a &quot;none numeric&quot; separator, like space or comma.</div>
+<div class="li">Select a existing category / group from the dropdowns or define a new one.</div>
+<div class="li">Define quantity and bid amount and save / start the auctions.</div>]]></seg>
+      </tuv>
+    </tu>
+
+  </body>
+</tmx>

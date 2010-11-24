@@ -74,7 +74,6 @@ if (count(esf_User::getAll()) == 0) {
   Header('Location: setup/index.php?msg='
         .urlencode('At least one user account have to be defined!'));
 }
-unset($oCache);
 
 esf_Extensions::Init();
 
@@ -210,12 +209,18 @@ $sLanguage = Session::get('language');
 
 if (Registry::get('EnglishAsDefault') AND $sLanguage != 'en') {
   // load as default english texts and config
-  Core::IncludeSpecial(NULL, array(APPDIR.'/language/en', APPDIR.'/language/config/en'));
+  foreach (glob(APPDIR.'/language/*en.tmx') as $file)
+    Translation::LoadTMXFile($file, 'en', $oCache);
+  // Settings
+  Loader::Load(APPDIR.'/language/en.php');
 }
 
 // include translation
-if (file_exists(APPDIR.'/language/'.$sLanguage.'.php')) {
-  Core::IncludeSpecial(NULL, array(APPDIR.'/language/'.$sLanguage, APPDIR.'/language/config/'.$sLanguage));
+if (file_exists(APPDIR.'/language/core.'.$sLanguage.'.tmx')) {
+  foreach (glob(APPDIR.'/language/*'.$sLanguage.'.tmx') as $file)
+    Translation::LoadTMXFile($file, $sLanguage, $oCache);
+  // Settings
+  Loader::Load(APPDIR.'/language/'.$sLanguage.'.php');
 } else {
   Messages::addError(sprintf('Unknown language [%s]! Fallback to english!', $sLanguage));
   Session::set('language', 'en');
@@ -255,15 +260,29 @@ if (!ModuleEnabled($sModule)) {
 
 /// DebugStack::StartTimer('MoreLangLoad', 'Load plugin / module languages');
 
-if (Registry::get('EnglishAsDefault')) {
-  // include as default all english texts
-  Core::IncludeSpecial(esf_Extensions::$Types, 'language/en');
-}
+$sLanguage = Session::get('language');
 
-// include all translations
-if (!Registry::get('EnglishAsDefault') OR Session::get('Language') != 'en') {
-  // include only for enabled modules and plugins
-  Core::IncludeSpecial(esf_Extensions::$Types, 'language/'.Session::get('language'));
+foreach (esf_Extensions::$Types as $Scope) {
+  foreach (esf_Extensions::getExtensions($Scope) as $Extension) {
+    if (esf_Extensions::checkState($Scope, $Extension, esf_Extensions::BIT_ENABLED) AND
+        ($Scope != esf_Extensions::MODULE OR
+         !Registry::get('Module.'.$Extension.'.LoginRequired') OR
+         esf_User::isValid())) {
+      $path = sprintf(BASEDIR.'%1$s%2$s%1$s%3$s%1$s', DIRECTORY_SEPARATOR, $Scope, $Extension);
+      if (Registry::get('EnglishAsDefault') AND $sLanguage != 'en') {
+        // include as default all english texts
+        foreach (glob($path.'language/*en.tmx') as $file) {
+          Translation::LoadTMXFile($file, 'en', $oCache);
+        }
+      }
+      if (!Registry::get('EnglishAsDefault') OR $sLanguage != 'en') {
+        // include only for enabled modules and plugins
+        foreach (glob($path.'language/*'.$sLanguage.'.tmx') as $file) {
+          Translation::LoadTMXFile($file, $sLanguage, $oCache);
+        }
+      }
+    }
+  }
 }
 
 /// DebugStack::StopTimer('MoreLangLoad');

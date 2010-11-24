@@ -8,7 +8,6 @@ local
 mass-replace.sh
 reset-develop.sh
 addon/es
-addon/mail/mail.xml
 application/yuelo/help.inline.php
 plugin/detectmobile
 plugin/validate

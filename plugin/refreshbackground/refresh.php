@@ -18,6 +18,12 @@ require_once BASEDIR.'/application/define.php';
 
 require_once APPDIR.'/lib/debugstack/debugstack.class.php';
 require_once APPDIR.'/classes/loader.class.php';
+
+if (!Loader::Register()) {
+  // Emulate autoloading for PHP < 5.1.2
+  function __autoload( $class ) { Loader::__autoload($class); }
+}
+
 Loader::$AutoLoadPath[] = APPDIR.'/classes';
 
 ErrorHandler::register('echo');

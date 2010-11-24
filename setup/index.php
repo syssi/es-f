@@ -1,33 +1,17 @@
 <?php
 /**
  * @package es-f
- * @subpackage Setup
- * @desc |es|f| Setup
  */
 
-// -----------------------------------------------------------------------------
-# step definitions
-// -----------------------------------------------------------------------------
-$steps = array(
-// step               Sub-Title           [, next step, next step on error]
-  'intro'   => array('Welcome'                                              ),
-  'cfg'     => array('Configuration'                                        ),
-  'cfgchk'  => array(NULL,                   'test',    'cfg'               ),
-  'test'    => array('Permissions / Tests'                                  ),
-  'user'    => array('Users'                                                ),
-  'userchk' => array(NULL,                   'save',    'user'              ),
-  'save'    => array('Finished'                                             ),
-);
-// -----------------------------------------------------------------------------
-
-#ini_set('display_startup_errors', 1);
-#ini_set('display_errors', 1);
-#error_reporting(-1);
+ini_set('display_startup_errors', 0);
+ini_set('display_errors', 0);
 error_reporting(0);
 
-session_start();
+if (file_exists('../prepend.php')) require '../prepend.php';
 
 define('_ESF_OK', TRUE);
+
+session_start();
 
 define('BASEDIR', dirname(dirname(__FILE__)));
 
@@ -49,20 +33,34 @@ require_once APPDIR.'/init.php';
 require_once APPDIR.'/functions.php';
 require_once 'functions.php';
 
+// Emulate register_globals off
+unregister_GLOBALS();
+
 $AUTOLOAD_PATH[] = APPDIR.'/lib';
 
 Cache::Init('Mock');
+TplData::$NameSpaceSeparator = '.';
 
-// Emulate register_globals off
-unregister_GLOBALS();
+// -----------------------------------------------------------------------------
+// step definitions
+// -----------------------------------------------------------------------------
+$steps = array(
+// step               Sub-Title           [, next step, next step on error]
+  'intro'   => array('Welcome'                                              ),
+  'cfg'     => array('Configuration'                                        ),
+  'cfgchk'  => array(NULL,                   'test',    'cfg'               ),
+  'test'    => array('Permissions / Tests'                                  ),
+  'user'    => array('Users'                                                ),
+  'userchk' => array(NULL,                   'save',    'user'              ),
+  'save'    => array('Finished'                                             ),
+);
+// -----------------------------------------------------------------------------
 
 $step = (isset($_REQUEST['step']) AND isset($_SESSION['CHECKED']))
       ? $_REQUEST['step'] : 'intro';
 $step = isset($steps[$step]) ? $step : 'intro';
 $stepdata = $steps[$step];
 $Error = FALSE;
-
-TplData::$NameSpaceSeparator = '.';
 
 /**
  * pre process
@@ -212,7 +210,7 @@ if (version_compare(PHP_VERSION, PHP_VERSION_REQUIRED, '<')) $step = 'version';
 
 Registry::set('TempDir', FALSE);
 
-require_once dirname(__FILE__).'/../application/lib/yuelo/yuelo.require.php';
+require_once APPDIR.'/lib/yuelo/yuelo.require.php';
 
 $Template = esf_Template::getInstance();
 
@@ -223,6 +221,7 @@ Yuelo_Cache::Active(FALSE);
 $RootDir = dirname(__FILE__).'/layout';
 
 TplData::set('CONTENT', $Template->Render('step.'.$step, TRUE, $RootDir));
+
 /**
  * post process
  */

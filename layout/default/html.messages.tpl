@@ -12,6 +12,7 @@
          onclick="$('msginner').remove()" onmouseover="Tip('Hide messages')">
     <script type="text/javascript">
       // <![CDATA[
+      if (!'{CONST.DEVELOP}')
       addLoadEvent(function(){
         $('msginnerx').show();
         setTimeout('Effect.BlindUp(\'messages\')', 5000);

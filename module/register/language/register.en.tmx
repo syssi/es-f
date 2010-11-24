@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  Don't "htmlspecialchar" your translation, please use <![CDATA[text...]]>
+
+  Nouns
+  tuid="name"   - default, noun is not required or >1
+  tuid="name-0" - for quantity 0, e.g. "%1$d files deleted"
+  tuid="name-1" - for quantity 1, e.g. "%1$d file deleted"
+
+  If your language have very special cases, just declare
+  tuid="name-10"  or what ever :-)
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<tmx version="1.4">
+  <header
+   creationtool="manual"
+   creationtoolversion="1"
+   datatype="PlainText"
+   segtype="sentence"
+   adminlang="EN"
+   srclang="EN"
+   o-tmf="ABC"
+   changeid="Knut Kohl / knutkohl@users.sourceforge.net"
+   changedate="20101121T135941Z"
+   o-encoding="UTF-8"
+  >
+    <prop type="x-Namespace">Register</prop>
+  </header>
+  <body>
+    <tu tuid="Title">
+      <tuv xml:lang="EN">
+        <seg>Register</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="ApplyForAccount">
+      <tuv xml:lang="EN">
+        <seg>No Account yet?</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Apply">
+      <tuv xml:lang="EN">
+        <seg>Apply now!</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="AccountPasswords">
+      <tuv xml:lang="EN">
+        <seg>Define here your eBay account and your eBay and |es|f| passwords.</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Account">
+      <tuv xml:lang="EN">
+        <seg>Your eBay account</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="AccountComment">
+      <tuv xml:lang="EN">
+        <seg>This will be also your |es|f| account.</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="EbayPassword">
+      <tuv xml:lang="EN">
+        <seg>Your eBay password (twice)</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="EbayPasswordComment">
+      <tuv xml:lang="EN">
+        <seg>This password will be stored always encrypted and is only decryptable to plain text with your |es|f| password.</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="EsfPassword">
+      <tuv xml:lang="EN">
+        <seg>Define your |es|f| password (twice)</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="EsfPasswordComment">
+      <tuv xml:lang="EN">
+        <seg>With this password and your eBay user you can login into |es|f|</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="MsgForAdmin">
+      <tuv xml:lang="EN">
+        <seg>An optional message for the admin about your registration request</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Register">
+      <tuv xml:lang="EN">
+        <seg>Register</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="ThankYouForRegister">
+      <tuv xml:lang="EN">
+        <seg>Thank you for your registration.</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="FieldMissing">
+      <tuv xml:lang="EN">
+        <seg>Please fill out all fields!</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="PasswordsNotEqual">
+      <tuv xml:lang="EN">
+        <seg>Your passwords for eBay or |es|f| are not the same!</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="RegistrationsPending">
+      <note>%$1s - ...</note>
+      <tuv xml:lang="EN">
+        <seg>There are %1$d pending registrations!</seg>
+      </tuv>
+    </tu>
+    <tu tuid="RegistrationsPending-1">
+      <tuv xml:lang="EN">
+        <seg>There is one pending registration!</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="RegistrationsEdit">
+      <tuv xml:lang="EN">
+        <seg>Edit them here.</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="PendingRegistrations">
+      <tuv xml:lang="EN">
+        <seg>Pending registrations</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="RejectAccount">
+      <tuv xml:lang="EN">
+        <seg>reject</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="AcceptAccount">
+      <tuv xml:lang="EN">
+        <seg>accept</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="IgnoreAccount">
+      <tuv xml:lang="EN">
+        <seg>ignore yet</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="AcceptedUser">
+      <note>%$1s - ...</note>
+      <tuv xml:lang="EN">
+        <seg>Saved accepted user [%1$s]</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="RejectedUser">
+      <note>%$1s - ...</note>
+      <tuv xml:lang="EN">
+        <seg>Removed registration request of user [%1$s].</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Process">
+      <tuv xml:lang="EN">
+        <seg>Process requests</seg>
+      </tuv>
+    </tu>
+
+  </body>
+</tmx>

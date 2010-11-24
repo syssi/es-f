@@ -1,72 +1,38 @@
 <?php
 /**
- * Core english translation
+ * Core english configuration
  *
  * @package    es-f
  * @subpackage Languages
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2007-2009 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @since      File available since Release 0.0.1
+ * @since      File available since Release 2.0.1
  */
 
 defined('_ESF_OK') || die('No direct call allowed.');
 
-// ---------------------------------------------------------------------------
-Translation::Define('Core', array(
-// ---------------------------------------------------------------------------
+/**
+ * remainng auction time                   0        1        >1
+ */
+Registry::set('Format.Remain.day',  array('',      '%dd. ', '%dd. '));
+Registry::set('Format.Remain.hour', array('%02d:', '%02d:', '%02d:'));
+Registry::set('Format.Remain.min',  array('%02d:', '%02d:', '%02d:'));
+Registry::set('Format.Remain.sec',  array('%02d',  '%02d',  '%02d' ));
 
-'Welcome'                   => 'Welcome',
-'Login'                     => 'Login',
-'LastUpdate'                => 'Last auction update',
+# -----------------------------------------------------------------------------
+# date/time format for date()
+Registry::set('Format.Date',     'Y-m-d');
+Registry::set('Format.Time',     'H:i:s');
+Registry::set('Format.DateTime', 'Y-m-d H:i:s');
+#Registry::set('Format.DateTime', 'D, Y-m-d H:i:s');
 
-'Error'                     => 'Error',
+# date/time format for strftime()
+Registry::set('Format.DateS',     '%Y-%m-%d');
+Registry::set('Format.TimeS',     '%H:%M:%S');
+Registry::set('Format.DateTimeS', '%Y-%m-%d %H:%M:%S');
+#Registry::set('Format.DateTimeS', '%a, %Y-%m-%d %H:%M:%S');
 
-// Messages
-'EsniperEncounteredBug'     => 'ATTENTION: esniper encountered a bug. '
-                             . 'Please take a look into [%s] or use Module Logfiles!',
-
-// %1$s - Auction name
-'AuctionSaved'              => 'Auction [%1$s] saved.',
-'GroupSaved'                => 'Group saved.',
-'ModuleNotFound'            => 'Module [%1$s] not found or not activated!',
-'InvalidItem'               => 'Invalid item number (%1$s) or [Buy-It-Now] article!',
-'DeleteInvalid'             => 'Delete invalid item',
-
-'NoItem'                    => 'Got no item number!',
-'ToMuchProcesses'           => 'There are more than 1 running esniper for group [%1$s]!',
-
-'Version'                   => 'Version',
-'Layout'                    => 'Layout',
-
-// Selects
-'SelectNone'                => '-- none --',
-'SelectFromGroup'           => '- from group -',
-
-// efa
-'EFAbigger'                 => 'Increase font size',
-'EFAreset'                  => 'Reset font size',
-'EFAsmaller'                => 'Decrease font size',
-
-// ---------------------------------------------------------------------------
-));
-
-// ---------------------------------------------------------------------------
-Translation::Define('EBAY', array(
-// ---------------------------------------------------------------------------
-
-// ebaysearchform
-'Homepage'                  => 'eBay Homepage',
-'Find'                      => 'Find',
-
-// ---------------------------------------------------------------------------
-));
-
-// ---------------------------------------------------------------------------
-Translation::Define('CoreHelp', array(
-// ---------------------------------------------------------------------------
-
-'RefreshEnding'             => 'Refresh the page automatic, if an auction is ending soon.',
-
-// ---------------------------------------------------------------------------
-));
+Registry::set('Format.DecimalChar',        '.');
+Registry::set('Format.ThousandsSeparator', ',');
+Registry::set('Format.DecimalPlaces',      2);

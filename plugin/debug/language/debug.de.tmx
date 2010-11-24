@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  Don't "htmlspecialchar" your translation, please use <![CDATA[text...]]>
+
+  Nouns
+  tuid="name"   - default, noun is not required or >1
+  tuid="name-0" - for quantity 0, e.g. "%1$d files deleted"
+  tuid="name-1" - for quantity 1, e.g. "%1$d file deleted"
+
+  If your language have very special cases, just declare
+  tuid="name-10"  or what ever :-)
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<tmx version="1.4">
+  <header
+   creationtool="manual"
+   creationtoolversion="1"
+   datatype="PlainText"
+   segtype="sentence"
+   adminlang="EN"
+   srclang="EN"
+   o-tmf="ABC"
+   changeid="Knut Kohl / knutkohl@users.sourceforge.net"
+   changedate="20101121T135942Z"
+   o-encoding="UTF-8"
+  >
+    <prop type="x-Namespace">Debug</prop>
+  </header>
+  <body>
+    <tu tuid="MenuDebug_0">
+      <tuv xml:lang="DE">
+        <seg>Debug</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="MenuDebugHint_0">
+      <tuv xml:lang="DE">
+        <seg>Starte den Debugger</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="MenuDebug_1">
+      <tuv xml:lang="DE">
+        <seg>Debug</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="MenuDebugHint_1">
+      <tuv xml:lang="DE">
+        <seg>Stoppe den Debugger</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="MenuTrace">
+      <tuv xml:lang="DE">
+        <seg>Trace</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="MenuTraceHint">
+      <tuv xml:lang="DE">
+        <seg>Starte den Debug-Trace</seg>
+      </tuv>
+    </tu>
+
+  </body>
+</tmx>

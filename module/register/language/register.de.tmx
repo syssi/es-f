@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  Don't "htmlspecialchar" your translation, please use <![CDATA[text...]]>
+
+  Nouns
+  tuid="name"   - default, noun is not required or >1
+  tuid="name-0" - for quantity 0, e.g. "%1$d files deleted"
+  tuid="name-1" - for quantity 1, e.g. "%1$d file deleted"
+
+  If your language have very special cases, just declare
+  tuid="name-10"  or what ever :-)
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<tmx version="1.4">
+  <header
+   creationtool="manual"
+   creationtoolversion="1"
+   datatype="PlainText"
+   segtype="sentence"
+   adminlang="EN"
+   srclang="EN"
+   o-tmf="ABC"
+   changeid="Knut Kohl / knutkohl@users.sourceforge.net"
+   changedate="20101121T135942Z"
+   o-encoding="UTF-8"
+  >
+    <prop type="x-Namespace">Register</prop>
+  </header>
+  <body>
+    <tu tuid="Title">
+      <tuv xml:lang="DE">
+        <seg>Registrierung</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="ApplyForAccount">
+      <tuv xml:lang="DE">
+        <seg>Noch kein Account?</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Apply">
+      <tuv xml:lang="DE">
+        <seg>Jetzt beantragen!</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="AccountPasswords">
+      <prop type="x-Format">html</prop>
+      <tuv xml:lang="DE">
+        <seg><![CDATA[Definiere hier Deinen eBay Mitgliedsnamen und Deine eBay und <tt>|es|f|</tt> Passwörter.]]></seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Account">
+      <tuv xml:lang="DE">
+        <seg>Dein eBay Mitgliedsname</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="AccountComment">
+      <prop type="x-Format">html</prop>
+      <tuv xml:lang="DE">
+        <seg><![CDATA[Dies ist ebenfalls Dein <tt>|es|f|</tt> Account.]]></seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="EbayPassword">
+      <tuv xml:lang="DE">
+        <seg>Dein eBay Passwort (2 mal)</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="EbayPasswordComment">
+      <prop type="x-Format">html</prop>
+      <tuv xml:lang="DE">
+        <seg><![CDATA[Dieses Passwort wird immer verschlüsselt gespeichert und ist nur mit Deinem <tt>|es|f|</tt> Passwort wieder entschlüsselbar.]]></seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="EsfPassword">
+      <prop type="x-Format">html</prop>
+      <tuv xml:lang="DE">
+        <seg><![CDATA[Wähle Dein <tt>|es|f|</tt> Passwort (2 mal)]]></seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="EsfPasswordComment">
+      <prop type="x-Format">html</prop>
+      <tuv xml:lang="DE">
+        <seg><![CDATA[Mit diesem Passwort loggst Du Dich bei <tt>|es|f|</tt> ein.]]></seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="MsgForAdmin">
+      <tuv xml:lang="DE">
+        <seg>Eine optionale Nachricht an den Administrator bzgl. Deines Registrierungsantrages</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Register">
+      <tuv xml:lang="DE">
+        <seg>Registrierung</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="ThankYouForRegister">
+      <tuv xml:lang="DE">
+        <seg>Vielen Dank für Deine Registrierung.</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="FieldMissing">
+      <tuv xml:lang="DE">
+        <seg>Bitte alle Felder ausfüllen!</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="PasswordsNotEqual">
+      <prop type="x-Format">html</prop>
+      <tuv xml:lang="DE">
+        <seg><![CDATA[Deine Passwörter für eBay oder <tt>|es|f|</tt> sind nicht identisch!]]></seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="RegistrationsPending">
+      <note>%$1s - ...</note>
+      <tuv xml:lang="DE">
+        <seg>Es gibt %1$d Registrierungswünsche!</seg>
+      </tuv>
+    </tu>
+    <tu tuid="RegistrationsPending-1">
+      <tuv xml:lang="DE">
+        <seg>Es gibt einen Registrierungswusch!</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="RegistrationsEdit">
+      <tuv xml:lang="DE">
+        <seg>Hier bearbeiten.</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="PendingRegistrations">
+      <tuv xml:lang="DE">
+        <seg>Registrierungswünsche</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="RejectAccount">
+      <tuv xml:lang="DE">
+        <seg>ablehnen</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="AcceptAccount">
+      <tuv xml:lang="DE">
+        <seg>akzeptieren</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="IgnoreAccount">
+      <tuv xml:lang="DE">
+        <seg>zurückstellen</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="AcceptedUser">
+      <note>%$1s - ...</note>
+      <tuv xml:lang="DE">
+        <seg>Akzeptierter Benutzer [%1$s] wurde gesichert.</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="RejectedUser">
+      <note>%$1s - ...</note>
+      <tuv xml:lang="DE">
+        <seg>Registrierungswunsch des Benutzers [%1$s] wurde abgelehnt.</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Process">
+      <tuv xml:lang="DE">
+        <seg>Registrierungswünsche bearbeiten</seg>
+      </tuv>
+    </tu>
+
+  </body>
+</tmx>

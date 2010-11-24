@@ -42,7 +42,7 @@ class Yuelo_Extension_FormInput extends Yuelo_Extension {
       $name = 'name="'.$name.'"';
       // only one input with the same id on one page
       $id_ = strtolower($id);
-      if (!isset(self::$Ids[$id_])) {
+      if (!isset(self::$Ids[$id_]))
         self::$Ids[$id_] = TRUE;
         $name = 'id="'.$id.'" ' . $name;
       }

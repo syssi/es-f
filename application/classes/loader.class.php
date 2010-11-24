@@ -83,6 +83,7 @@ abstract class Loader {
    */
   public static function __autoload( $class ) {
     $cpath = str_replace('_', DIRECTORY_SEPARATOR, $class);
+
     foreach (array(strtolower($cpath), $cpath) as $path) {
       foreach (self::$AutoLoadPath as $dir) {
         foreach (array('%s.class.php', '%s.if.php', '%s.php') as $file) {
@@ -149,10 +150,3 @@ abstract class Loader {
  * Loader exception class
  */
 class LoaderException extends Exception {}
-
-/**
- * Emulate autoloading for PHP < 5.1.2
- */
-function __autoload( $class ) {
-  Loader::Autoload($class);
-}

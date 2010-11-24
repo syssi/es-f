@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  Don't "htmlspecialchar" your translation, please use <![CDATA[text...]]>
+
+  Nouns
+  tuid="name"   - default, noun is not required or >1
+  tuid="name-0" - for quantity 0, e.g. "%1$d files deleted"
+  tuid="name-1" - for quantity 1, e.g. "%1$d file deleted"
+
+  If your language have very special cases, just declare
+  tuid="name-10"  or what ever :-)
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<tmx version="1.4">
+  <header
+   creationtool="manual"
+   creationtoolversion="1"
+   datatype="PlainText"
+   segtype="sentence"
+   adminlang="EN"
+   srclang="EN"
+   o-tmf="ABC"
+   changeid="Knut Kohl / knutkohl@users.sourceforge.net"
+   changedate="20101121T135942Z"
+   o-encoding="UTF-8"
+  >
+    <prop type="x-Namespace">LoginHelp</prop>
+  </header>
+  <body>
+    <tu tuid="Cookie">
+      <prop type="x-Format">html</prop>
+      <tuv xml:lang="DE">
+        <seg><![CDATA[<div class="li">Beim Einloggen können Sie festlegen, dass Ihre
+Einlog-Informationen einen Tag lang auf dem Computer gespeichert
+bleiben sollen.</div>
+<div class="li">Ihr Passwort bleibt so lange gespeichert, bis Sie sich ausloggen.
+Dies ist selbst dann der Fall, wenn Sie die Internetverbindung trennen,
+den Browser schließen oder den Computer ausschalten.</div>]]></seg>
+      </tuv>
+    </tu>
+
+  </body>
+</tmx>

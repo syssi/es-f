@@ -1,8 +1,7 @@
 <?php
 /**
  * @package es-f
- * @subpackage Core
- * @desc Common used defines
+ * @version $Id$
  */
 
 defined('_ESF_OK') || die('No direct call allowed.');
@@ -61,7 +60,7 @@ define('ESF_LONG_TITLE', ESF_TITLE . ' ' . ESF_SLOGAN);
  * @uses ESF_VERSION
  * @uses ESF_RELEASE
  */
-define('ESF_FULL_VERSION', 'Version ' . ESF_VERSION.' / ' . ESF_RELEASE);
+define('ESF_VERSION', '2.3.2');
 
 /**
  * Full title
