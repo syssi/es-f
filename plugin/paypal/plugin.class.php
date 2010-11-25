@@ -27,11 +27,12 @@ class esf_Plugin_Paypal extends esf_Plugin {
     parent::__construct();
     $this->ExtraKey = md5(__CLASS__);
     // transform config. data into parser data
+    $regex = array();
     foreach ($this->Regex as $id => $expr) {
-      unset($this->Regex[$id]);
-      $this->Regex[$expr['expression']] =
+      $regex[$expr['expression']] =
         isset($expr['position']) ? $expr['position'] : 0;
     }
+    $this->Regex = $regex;
   }
 
   /**

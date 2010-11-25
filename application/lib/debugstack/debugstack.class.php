@@ -205,7 +205,7 @@ class DebugStack {
       $msg .= ' ';
 
       if (isset($trace['object']))
-        $msg .= sprintf('%s[%s]%s%s', $trace['object'], $trace['class'], $trace['type'], $trace['function']);
+        $msg .= sprintf('%s[%s]%s%s', get_class($trace['object']), $trace['class'], $trace['type'], $trace['function']);
       elseif (isset($trace['class']))
         $msg .= sprintf('%s%s%s', $trace['class'], $trace['type'], $trace['function']);
       elseif (isset($trace['function']))
