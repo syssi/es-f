@@ -296,7 +296,7 @@ class esf_Module_Auction extends esf_Module {
       // redirect in case of inline editing
       $this->Request('ajax') && $this->redirect('auction') || $this->forward();
 
-    } elseif ($auction = esf_Auctions::get($this->Item, TRUE)) {
+    } elseif ($auction = esf_Auctions::get($this->Item)) {
 
       TplData::set('SubTitle2', Translation::get('Auction.DeleteAuction'));
       TplData::set($this->getAuctionTplData($auction));

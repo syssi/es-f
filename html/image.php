@@ -189,7 +189,7 @@ $ImgType = $ImgTypes[$ImageData[2]];
 
 // idea from http://php.net/manual/function.constant.php
 // UCN by Andre, 27-Apr-2003 10:10
-if (!(ImageTypes() & @constant('IMG_'.$ImgType)))
+if (!(ImageTypes() & constant('IMG_'.$ImgType)))
   _die('Das '.$ImgType.'-Format'."\n".'wird nicht unterstützt!');
 
 if (isset($cfg['m'])) {

@@ -609,25 +609,27 @@ if (!function_exists('image_type_to_Extension')) {
  *
  * @ignore 
  */
-function image_type_to_Extension ( $imagetype ) {
+function image_type_to_Extension ( $imagetype, $include_dot=TRUE ) {
   switch ($imagetype) {
-    case IMAGETYPE_GIF     : return 'gif';
-    case IMAGETYPE_JPEG    : return 'jpg';
-    case IMAGETYPE_PNG     : return 'png';
-    case IMAGETYPE_SWF     : return 'swf';
-    case IMAGETYPE_PSD     : return 'psd';
-    case IMAGETYPE_BMP     : return 'bmp';
-    case IMAGETYPE_TIFF_II : return 'tiff';
-    case IMAGETYPE_TIFF_MM : return 'tiff';
-    case IMAGETYPE_JPC     : return 'jpc';
-    case IMAGETYPE_JP2     : return 'jp2';
-    case IMAGETYPE_JPX     : return 'jpf';
-    case IMAGETYPE_JB2     : return 'jb2';
-    case IMAGETYPE_SWC     : return 'swc';
-    case IMAGETYPE_IFF     : return 'aiff';
-    case IMAGETYPE_WBMP    : return 'wbmp';
-    case IMAGETYPE_XBM     : return 'xbm';
+    case IMAGETYPE_GIF     : $ext = 'gif';
+    case IMAGETYPE_JPEG    : $ext = 'jpg';
+    case IMAGETYPE_PNG     : $ext = 'png';
+    case IMAGETYPE_SWF     : $ext = 'swf';
+    case IMAGETYPE_PSD     : $ext = 'psd';
+    case IMAGETYPE_BMP     : $ext = 'bmp';
+    case IMAGETYPE_TIFF_II : $ext = 'tiff';
+    case IMAGETYPE_TIFF_MM : $ext = 'tiff';
+    case IMAGETYPE_JPC     : $ext = 'jpc';
+    case IMAGETYPE_JP2     : $ext = 'jp2';
+    case IMAGETYPE_JPX     : $ext = 'jpf';
+    case IMAGETYPE_JB2     : $ext = 'jb2';
+    case IMAGETYPE_SWC     : $ext = 'swc';
+    case IMAGETYPE_IFF     : $ext = 'aiff';
+    case IMAGETYPE_WBMP    : $ext = 'wbmp';
+    case IMAGETYPE_XBM     : $ext = 'xbm';
     default                : return FALSE;
   }
+  if ($include_dot) $ext = '.'.$ext;
+  return $ext;
 }
 }
