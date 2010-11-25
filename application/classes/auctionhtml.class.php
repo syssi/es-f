@@ -62,7 +62,7 @@ abstract class AuctionHTML {
         $html = "<!-- $url -->\n" . $html;
         // save content to file for later debugging
         $file_ts = str_replace('.html', '-'.date('Ymd-His').'.html', $file);
-        Exec::getInstance()->Copy($file, $file_ts);
+        Exec::getInstance()->Copy($file, $file_ts, $dummy);
       }
     }
     return $html;

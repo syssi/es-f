@@ -85,7 +85,7 @@ abstract class esf_Auctions {
    */
   public static function get( $item, $KeysUpperCase=FALSE ) {
     $item = self::_item($item);
-    if ($item) {
+    if ($item AND isset(self::$Auctions[$item])) {
       $auction = self::$Auctions[$item];
       if ($KeysUpperCase) $auction = array_change_key_case($auction, CASE_UPPER);
       return $auction;
@@ -327,6 +327,9 @@ abstract class esf_Auctions {
     if ($url) {
       // find image type
       if ($info = @getimagesize($url) AND $ext = image_type_to_Extension($info[2])) {
+        // >> Debug
+        DebugStack::Debug($info);
+        // << Debug
         ob_start();
         readfile($url);
         $img = ob_get_clean();
@@ -339,13 +342,13 @@ abstract class esf_Auctions {
     if (!$url) {
       // transparent 1 pixel gif
       $img = base64_decode('R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAQAICTAEAOw');
-      $ext = 'gif';
+      $ext = '.gif';
     }
 
     // remove old thumbs
     $file = sprintf('"%s/%s.img."*', esf_User::UserDir(), $item);
     if (Exec::getInstance()->Remove($file, $res)) Messages::addError($res);
-    $ext = 'img.'.$ext;
+    $ext = 'img'.$ext;
 
     // save image
     $file = sprintf('%s/%s.%s', esf_User::UserDir(), $item, $ext);

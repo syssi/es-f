@@ -72,7 +72,7 @@ abstract class HTMLpage {
   /**
    *
    */
-  private function init() {
+  private static function init() {
     if (self::$curl) return;
 
     self::$curl = new cURL;
