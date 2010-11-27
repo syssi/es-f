@@ -2,7 +2,11 @@
 /**
  * Script to check aution log files via cron job
  *
- * @package Addon-Mail
+ * @package    Addon-Mail
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2007-2010 Knut Kohl
+ * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
+ * @version    $Id$
  */
 
 Header('Content-type: text/plain');
