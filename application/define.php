@@ -60,7 +60,7 @@ define('ESF_LONG_TITLE', ESF_TITLE . ' ' . ESF_SLOGAN);
  * @uses ESF_VERSION
  * @uses ESF_RELEASE
  */
-define('ESF_VERSION', '2.3.2');
+define('ESF_FULL_VERSION', 'Version ' . ESF_VERSION.' / ' . ESF_RELEASE);
 
 /**
  * Full title
