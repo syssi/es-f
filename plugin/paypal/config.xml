@@ -9,7 +9,7 @@
         <config type="array">
           <config name="expression">
             <![CDATA[
-            ~pics\.ebaystatic\..*?/logoPayPal_51x14\.gif~i
+            ~pics/logos/logoPayPal_51x14\.gif~i
             ]]>
           </config>
           <!-- optional, default: 0

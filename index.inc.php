@@ -89,7 +89,7 @@ Loader::Load(APPDIR.'/ebay.php');
 // include additional configuration, mostly for development
 Core::ReadConfigs('local');
 
-ErrorHandler::register(Registry::get('ErrorHandler', 'default'));
+#ErrorHandler::register(Registry::get('ErrorHandler', 'default'));
 // >> Debug
 DebugStack::Register();
 // << Debug
