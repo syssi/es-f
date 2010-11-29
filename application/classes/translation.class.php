@@ -64,7 +64,7 @@ abstract class Translation {
    * @param array $translations Translations
    */
   public static function Define( $Namespace, $translations ) {
-    #if (DEVELOP) self::WriteXML($Namespace, $translations, 1);
+    if (DEVELOP) self::writeTMX($Namespace, $translations, 1);
     /// DebugStack::StartTimer(__METHOD__, __METHOD__, __METHOD__);
     foreach ($translations as $key=>$str) {
       if (is_array($str)) {
@@ -293,7 +293,7 @@ abstract class Translation {
   /**
    *
    */
-  private static function writeXML( $Namespace, $translations, $force=FALSE ) {
+  private static function writeTMX( $Namespace, $translations, $force=FALSE ) {
     $dbg = debug_backtrace();
     while (!strstr($dbg[0]['file'], 'language')) array_shift($dbg);
     $Namespace = strtolower($Namespace);
@@ -327,7 +327,7 @@ abstract class Translation {
           . self::nl(' - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->')
           . self::nl('<tmx version="1.4">')
           . self::nl('  <header')
-          . self::nl('   creationtool="manual"')
+          . self::nl('   creationtool="es-f"')
           . self::nl('   creationtoolversion="1"')
           . self::nl('   datatype="PlainText"')
           . self::nl('   segtype="sentence"')

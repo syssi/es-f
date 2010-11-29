@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  Don't "htmlspecialchar" your translation, please use <![CDATA[text...]]>
+
+  Nouns
+  tuid="name"   - default, noun is not required or >1
+  tuid="name-0" - for quantity 0, e.g. "%1$d files deleted"
+  tuid="name-1" - for quantity 1, e.g. "%1$d file deleted"
+
+  If your language have very special cases, just declare
+  tuid="name-10"  or what ever :-)
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<tmx version="1.4">
+  <header
+   creationtool="es-f"
+   creationtoolversion="1"
+   datatype="PlainText"
+   segtype="sentence"
+   adminlang="EN"
+   srclang="EN"
+   o-tmf="ABC"
+   changeid="Knut Kohl / knutkohl@users.sourceforge.net"
+   changedate="20101129T213215Z"
+   o-encoding="UTF-8"
+  >
+    <prop type="x-Namespace">Plugincategoriesconfiguration</prop>
+  </header>
+  <body>
+    <tu tuid="Name">
+      <tuv xml:lang="DE">
+        <seg>Kategorien</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Description">
+      <tuv xml:lang="DE">
+        <seg>Definiere Deine bevorzugten Kategorien für schnelle Auswahl in DropDowns.</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="DescriptionLong">
+      <tuv xml:lang="DE">
+        <seg></seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Categories">
+      <tuv xml:lang="DE">
+        <seg><![CDATA[Deine bevorzugten Kategorien [<br>(Komma getrennte Liste)]]]></seg>
+      </tuv>
+    </tu>
+
+  </body>
+</tmx>

@@ -12,7 +12,7 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 <tmx version="1.4">
   <header
-   creationtool="manual"
+   creationtool="es-f"
    creationtoolversion="1"
    datatype="PlainText"
    segtype="sentence"
@@ -20,7 +20,7 @@
    srclang="EN"
    o-tmf="ABC"
    changeid="Knut Kohl / knutkohl@users.sourceforge.net"
-   changedate="20101121T135942Z"
+   changedate="20101129T213215Z"
    o-encoding="UTF-8"
   >
     <prop type="x-Namespace">Paypal</prop>
