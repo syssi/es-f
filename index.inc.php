@@ -462,8 +462,8 @@ TplData::set('NoJS', Registry::get('NoJS'));
 TplData::set('Layout', Registry::get('LAYOUT'));
 
 if (_DEBUG) {
-  TplData::add('HtmlHeader.CSS', LIBDIR.'/debugstack/style.css');
-  TplData::add('HtmlHeader.JS',  LIBDIR.'/debugstack/script.js');
+  TplData::add('HtmlHeader.CSS', '/application/lib/debugstack/style.css');
+  TplData::add('HtmlHeader.JS',  '/application/lib/debugstack/script.js');
 }
 
 $bc = Translation::getNVL($sModule.'.TitleIndex', TplData::get('Title'));

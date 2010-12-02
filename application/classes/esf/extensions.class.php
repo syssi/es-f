@@ -85,7 +85,7 @@ class esf_Extensions {
     if (!$scope) {
 
       // first run, read state.xml
-      $xml = new XML_Array_Configuration(Cache::getInstance());
+      $xml = new XML_Array_Configuration(Registry::get('Cache'));
       self::$States = $xml->ParseXMLFile(BASEDIR.'/local/config/state.xml');
       if (!self::$States) die($xml->Error);
 
