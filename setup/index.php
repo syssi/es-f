@@ -17,7 +17,7 @@ define('BASEDIR', dirname(dirname(__FILE__)));
 
 require_once '../application/define.php';
 
-require_once APPDIR.'/lib/debugstack/debugstack.class.php';
+require_once LIBDIR.'/debugstack/debugstack.class.php';
 require_once APPDIR.'/classes/loader.class.php';
 
 if (!Loader::Register()) {
@@ -210,7 +210,7 @@ if (version_compare(PHP_VERSION, PHP_VERSION_REQUIRED, '<')) $step = 'version';
 
 Registry::set('TempDir', FALSE);
 
-require_once APPDIR.'/lib/yuelo/yuelo.require.php';
+require_once LIBDIR.'/yuelo/yuelo.require.php';
 
 $Template = esf_Template::getInstance();
 

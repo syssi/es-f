@@ -48,9 +48,12 @@ if ($_TRACE) {
 unset($sDebugFile);
 // << Debug
 
-/// DebugStack::Info('Used cache: '.Registry::get('CacheClass', 'FileCombined'));
-$aCacheOptions = array('CacheDir'=>TEMPDIR, 'Token'=>'es-f');
-$oCache = Cache::Init(Registry::get('CacheClass', 'FileCombined'), $aCacheOptions);
+/// DebugStack::Info('Used cache: '.Registry::get('CacheClass', 'File'));
+require_once LIBDIR.'/cache/cache.class.php';
+$aCacheOptions = array('cachedir'=>TEMPDIR, 'token'=>'es-f');
+##$aCacheOptions['packer'] = new Cache_Packer_GZ;
+$oCache = Cache::factory(Registry::get('CacheClass', 'File'), $aCacheOptions);
+Registry::set('Cache', $oCache);
 unset($aCacheOptions);
 
 if (Registry::get('ClearCache')) $oCache->clear();
@@ -459,8 +462,8 @@ TplData::set('NoJS', Registry::get('NoJS'));
 TplData::set('Layout', Registry::get('LAYOUT'));
 
 if (_DEBUG) {
-  TplData::add('HtmlHeader.CSS', 'application/lib/debugstack/style.css');
-  TplData::add('HtmlHeader.JS', 'application/lib/debugstack/script.js');
+  TplData::add('HtmlHeader.CSS', LIBDIR.'/debugstack/style.css');
+  TplData::add('HtmlHeader.JS',  LIBDIR.'/debugstack/script.js');
 }
 
 $bc = Translation::getNVL($sModule.'.TitleIndex', TplData::get('Title'));

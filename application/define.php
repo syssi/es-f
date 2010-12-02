@@ -117,6 +117,7 @@ define('BASEDIR', !empty($_SERVER['DOCUMENT_ROOT'])
                 : realpath(dirname(__FILE__).'/..') );
 
 define('APPDIR',   BASEDIR.'/application');
+define('LIBDIR',   APPDIR.'/lib');
 define('LOCALDIR', BASEDIR.'/local');
 define('TEMPDIR',  realpath(dirname(__FILE__).'/..').'/local/tmp');
 

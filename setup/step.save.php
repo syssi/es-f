@@ -94,7 +94,7 @@ $config = str_replace('{CONFIG}',
                     implode("\n",$config),
                     file_get_contents('dist/config/config.xml'));
 
-$file = BASEDIR.'/local/config/config.xml';
+$file = LOCALDIR.'/config/config.xml';
 $msg = 'Write configuration <tt class="name">local/config/config.xml</tt> ... '
      . fmtResult(File::write($file, $config));
 
@@ -146,7 +146,7 @@ if (!file_exists($file)) {
 // --------------------------------------------------------------------------
 
 if ($_SESSION['INSTALL'] AND $files = glob('install/*.zip')) {
-  require_once BASEDIR.'/application/lib/dZip/dUnzip2.inc.php';
+  require_once LIBDIR.'/dZip/dUnzip2.inc.php';
   foreach ($files as $file) {
     $msg = 'Extract extra files from <tt class="name">'.basename($file).'</tt> ... ';
     $zip = new dUnzip2($file);

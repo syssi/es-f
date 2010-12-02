@@ -79,8 +79,7 @@ class esf_Template {
    */
   private function __construct() {
     // prepare Yuelo
-    require_once APPDIR . DIRECTORY_SEPARATOR . 'lib' . DIRECTORY_SEPARATOR
-               . 'yuelo' . DIRECTORY_SEPARATOR . 'yuelo.require.php';
+    require_once LIBDIR.'/yuelo/yuelo.require.php';
 
     Yuelo_Cache::CacheDir(TEMPDIR, FALSE);
     // only static will be cached, therefore can be longer

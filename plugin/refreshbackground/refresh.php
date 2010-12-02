@@ -15,8 +15,7 @@ define( '_ESF_OK', TRUE );
 define('BASEDIR', dirname(dirname(dirname(__FILE__))));
 
 require_once BASEDIR.'/application/define.php';
-
-require_once APPDIR.'/lib/debugstack/debugstack.class.php';
+require_once LIBDIR.'/debugstack/debugstack.class.php';
 require_once APPDIR.'/classes/loader.class.php';
 
 if (!Loader::Register()) {
