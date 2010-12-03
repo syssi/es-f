@@ -108,7 +108,9 @@ class Cache_File extends Cache_FileBase {
    * @return void
    */
   public function __destruct() {
-    if ($this->modified) $this->WriteFile($this->FileName(), $this->data);
+    // Save only if data was modified
+    if ($this->modified)
+      $this->WriteFile($this->FileName(), $this->data);
   } // function __destruct()
 
   // -------------------------------------------------------------------------
@@ -123,10 +125,10 @@ class Cache_File extends Cache_FileBase {
    */
   protected function __construct( $settings=array() ) {
     parent::__construct($settings);
-
     // Load cached data
     $this->data = $this->ReadFile($this->FileName());
     if (!is_array($this->data)) $this->data = array();
+    // Data not yet modified
     $this->modified = FALSE;
   } // function __construct()
 
@@ -141,6 +143,7 @@ class Cache_File extends Cache_FileBase {
   private $data;
 
   /**
+   * Save whole cache file only if at least one id was changed/deleted
    *
    * @var bool
    */

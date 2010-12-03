@@ -1,4 +1,7 @@
 <?php
+
+require_once dirname(__FILE__).'/../packeri.if.php';
+
 /**
  *
  */
@@ -9,7 +12,7 @@ class Cache_Packer_GZ implements Cache_PackerI {
    */
   public function __construct( $level=5 ) {
     $this->active = extension_loaded('zlib');
-    $this->level = in_array($level, range(0,9)) ? $level : 5;
+    $this->level = in_array($level, range(1,9)) ? $level : 5;
   }
 
   /**
@@ -19,9 +22,7 @@ class Cache_Packer_GZ implements Cache_PackerI {
    * @return string
    */
   public function pack( &$data ) {
-    $data = serialize($data);
-#    if ($this->active) $data = gzdeflate($data, $this->level);
-    $data = base64_encode($data);
+    if ($this->active) $data = base64_encode(gzcompress(serialize($data), $this->level));
   }
 
   /**
@@ -31,9 +32,7 @@ class Cache_Packer_GZ implements Cache_PackerI {
    * @return mixed
    */
   public function unpack( &$data ) {
-    $data = base64_decode($data);
-#    if ($this->active) $data = gzinflate($data, $this->level);
-    $data = unserialize($data);
+    if ($this->active) $data = unserialize(gzuncompress(base64_decode($data)));
   }
 
   // -------------------------------------------------------------------------

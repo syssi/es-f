@@ -50,13 +50,14 @@ unset($sDebugFile);
 
 /// DebugStack::Info('Used cache: '.Registry::get('CacheClass', 'File'));
 require_once LIBDIR.'/cache/cache.class.php';
+require_once LIBDIR.'/cache/cache/packer/gz.class.php';
 $aCacheOptions = array('cachedir'=>TEMPDIR, 'token'=>'es-f');
-##$aCacheOptions['packer'] = new Cache_Packer_GZ;
+$aCacheOptions['packer'] = new Cache_Packer_GZ;
 $oCache = Cache::factory(Registry::get('CacheClass', 'File'), $aCacheOptions);
 Registry::set('Cache', $oCache);
 unset($aCacheOptions);
 
-if (Registry::get('ClearCache')) $oCache->clear();
+if (Registry::get('ClearCache')) $oCache->flush();
 
 $oXML = new XML_Array_Configuration($oCache);
 $aConfiguration = $oXML->ParseXMLFile(LOCALDIR.'/config/config.xml');
@@ -253,7 +254,7 @@ if ($locale = Session::get('locale')) {
 
 // Init template engine
 $oTemplate = esf_Template::getInstance();
-if (Registry::get('ClearCache')) $oTemplate->Template->ClearCache();
+if (Registry::get('Template.ClearCache')) $oTemplate->Template->ClearCache();
 
 // check if requested module is enabled
 if (!ModuleEnabled($sModule)) {
