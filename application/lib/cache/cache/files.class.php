@@ -31,13 +31,16 @@ class Cache_Files extends Cache_FileBase {
    *
    * @param string $id
    * @param mixed $data
-   * @param int $expire Timestamp for expiration, if set to 0, expire never
+   * @param $ttl int Time to live or timestamp
+   *                 0  - expire never
+   *                 >0 - Time to live
+   *                 <0 - Timestamp of expiration
    * @return mixed
    */
-  public function set( $id, $data, $expire=0 ) {
+  public function set( $id, $data, $ttl=0 ) {
     // optimized for probability Set -> Delete -> Clear
     if ($data !== NULL) {
-      return $this->WriteFile($this->FileName($id), array($expire, $data));
+      return $this->WriteFile($this->FileName($id), array($ttl, $data));
     } elseif ($id !== NULL) { // AND $data === NULL
       return $this->delete($id);
     } else { // $id === NULL AND $data === NULL
@@ -48,15 +51,31 @@ class Cache_Files extends Cache_FileBase {
   /**
    * Function get...
    *
-   * @param string $id
+   * @param $id string
+   * @param $expire int Time to live or timestamp
+   *                    0  - expire never
+   *                    >0 - Time to live
+   *                    <0 - Timestamp of expiration
    * @return mixed
    */
-  public function get( $id ) {
-    if (!$data = $this->ReadFile($this->FileName($id))) return;
-
-    if ($data[$id][0] === 0 OR // expire never
-        $data[$id][0] >= $this->ts) return $data[$id][1];
-
+  public function get( $id, $expire=0 ) {
+    // File exists?
+    $file = $this->FileName($id);
+    if (!$cached = $this->ReadFile($file)) return;
+    // split into ttl and data
+    list($ttl, $data) = $cached;
+    $ts = filemtime($file);
+    if (isset($expire)) {
+      // expiration timestamp set
+      if ($expire === 0 OR
+          $expire > 0 AND $this->ts+$expire >= $ts+$ttl OR
+          $expire < 0 AND $ts >= -$expire) return $data;
+    } else {
+      // expiration timestamp NOT set
+      if ($ttl === 0 OR
+          $ttl > 0 AND $ts+$ttl >= $this->ts OR
+          $ttl < 0 AND -$ttl >= $this->ts) return $data;
+    }
     // else drop data for this key
     $this->delete($id);
   } // function get()

@@ -17,6 +17,11 @@ abstract class Cache {
    */
   const MARKER = 'CACHE // ';
 
+  /**
+   * Take first ID_LENGTH characters from generated MD5 hash
+   */
+  const ID_LENGTH = 7;
+
   // -------------------------------------------------------------------------
   // ABSTRACT
   // -------------------------------------------------------------------------
@@ -38,13 +43,13 @@ abstract class Cache {
    * Function get...
    *
    * @param $id string
-   * @param $ttl int Time to live or timestamp
-   *                 0  - expire never
-   *                 >0 - Time to live
-   *                 <0 - Timestamp of expiration
+   * @param $expire int Time to live or timestamp
+   *                    0  - expire never
+   *                    >0 - Time to live
+   *                    <0 - Timestamp of expiration
    * @return mixed
    */
-  abstract public function get( $id, $ttl=0 );
+  abstract public function get( $id, $expire=0 );
 
   /**
    * Function delete...
@@ -243,7 +248,7 @@ abstract class Cache {
    * @return string
    */
   protected function id( $id ) {
-    return md5($this->token.strtolower($id));
+    return substr(md5($this->token.strtolower($id)), 0, self::ID_LENGTH);
   } // function id()
 
   /**
