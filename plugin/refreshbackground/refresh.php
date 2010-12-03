@@ -6,7 +6,7 @@
  */
 
 error_reporting(0);
-error_reporting(E_ALL);
+error_reporting(-1);
 
 Header('Content-type: text/plain');
 
@@ -32,10 +32,13 @@ require_once APPDIR.'/functions.php';
 
 session_start();
 
-Cache::Init('Mock');
+require_once LIBDIR.'/cache/cache.class.php';
+$oCache = Cache::Factory('Mock');
+Registry::set('Cache', $oCache);
+
 HTMLPage::$Debug = FALSE;
 
-$xml = new XML_Array_Configuration(Cache::getInstance());
+$xml = new XML_Array_Configuration($oCache);
 $cfg = $xml->ParseXMLFile(BASEDIR.'/local/config/config.xml');
 if (!$cfg) die($xml->Error);
 

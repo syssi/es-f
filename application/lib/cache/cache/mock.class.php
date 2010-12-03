@@ -14,41 +14,34 @@ class Cache_Mock extends Cache {
   /**
    * Function set...
    *
-   * @param string $key
+   * @param string $id
    * @param mixed $data
+   * @param int $expire Timestamp for expiration, if set to 0, expire never
    * @return void
    */
-  public function set( $key, $data ) {}
+  public function set( $id, $data, $expire=0 ) {}
 
   /**
    * Function get...
    *
-   * @param string $key
-   * @param int $timestamp
+   * @param string $id
    * @return mixed
    */
-  public function get( $key, $timestamp=0 ) {}
+  public function get( $id ) {}
 
   /**
-   * Function remove...
+   * Function delete...
    *
-   * @param string $key
+   * @param string $id
    * @return void
    */
-  public function remove( $key ) {}
+  public function delete( $id ) {}
 
   /**
-   * Function clear...
-   *
-   * @return void
-   */
-  public function clear() {}
-
-  /**
-   * Class desctructor
+   * Function flush...
    *
    * @return void
    */
-  public function __destruct() {}
+  public function flush() {}
 
 }

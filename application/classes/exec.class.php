@@ -120,16 +120,18 @@ abstract class Exec {
 
   /**
    *
+   * @param $cmds Commands
+   * @param $NS string
    */
-  public final function setCommands( $cmds, $namespace='Core' ) {
+  public final function setCommands( $cmds, $NS='Core' ) {
     if (empty($cmds)) return;
 
-    $namespace = strtoupper($namespace);
+    $NS = strtoupper($NS);
     $cmds = array_change_key_case($cmds, CASE_UPPER);
 
-    $this->Commands[$namespace] = !isset($this->Commands[$namespace])
-                                ? $cmds
-                                : array_merge($this->Commands[$namespace], $cmds);
+    $this->Commands[$NS] = !isset($this->Commands[$NS])
+                         ? $cmds
+                         : array_merge($this->Commands[$NS], $cmds);
   }
 
   /**
@@ -155,7 +157,7 @@ abstract class Exec {
    */
   public final function setCommandsFromXMLFile( $file, $required=TRUE ) {
     $file = str_replace('/', DIRECTORY_SEPARATOR, $file);
-    $xml = new XML_Array_Exec(Cache::getInstance());
+    $xml = new XML_Array_Exec(Registry::get('Cache'));
     $xml->Key2Lower = FALSE;
     if ($data = $xml->ParseXMLFile($file)) {
       foreach ($data as $namespace => $cmd) {

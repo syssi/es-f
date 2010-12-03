@@ -330,6 +330,15 @@ class Yuelo_Template {
     }
   }
 
+  /**
+   * Remove compiled PHP files
+   *
+   * @return void
+   */
+  public function ClearCache() {
+    foreach (glob(Yuelo::get('CompileDir').'/*.php') as $file) unlink($file);
+  }
+
   //--------------------------------------------------------------------------
   // PRIVATE
   //--------------------------------------------------------------------------

@@ -343,7 +343,7 @@ abstract class Core {
     if (in_array($scope, esf_Extensions::$Types))
       $scope .= DIRECTORY_SEPARATOR.'*';
 
-    $xml = new XML_Array_Configuration(Cache::getInstance());
+    $xml = new XML_Array_Configuration(Registry::get('Cache'));
 
     $files = glob(BASEDIR.DIRECTORY_SEPARATOR.$scope.DIRECTORY_SEPARATOR.'config.xml');
     foreach ($files as $file) {
