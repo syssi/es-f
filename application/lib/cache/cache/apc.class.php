@@ -28,15 +28,16 @@ class Cache_APC extends Cache {
    *
    * @param string $id
    * @param mixed $data
-   * @param int $expire Timestamp for expiration, if set to 0, expire never
+   * @param $ttl int Time to live or timestamp
+   *                 0  - expire never
+   *                 >0 - Time to live
+   *                 <0 - Timestamp of expiration
    * @return bool
    */
-  public function set( $id, $data, $expire=0 ) {
+  public function set( $id, $data, $ttl=0 ) {
     // optimized for probability Set -> Delete -> Clear
     if ($data !== NULL) {
-      // calculate time to live
-      if ($expire) $expire -= $this->ts;
-      return apc_store($this->id($id), $this->serialize($data), $expire);
+      return apc_store($this->id($id), $this->serialize(array($this->ts, $ttl, $data)));
     } elseif ($id !== NULL) { // AND $data === NULL
       return $this->delete($id);
     } else { // $id === NULL AND $data === NULL
@@ -48,10 +49,30 @@ class Cache_APC extends Cache {
    * Function get...
    *
    * @param string $id
+   * @param $expire int Time to live or timestamp
+   *                    0  - expire never
+   *                    >0 - Time to live
+   *                    <0 - Timestamp of expiration
    * @return mixed
    */
-  public function get( $id ) {
-    return $this->unserialize(apc_fetch($this->id($id)));
+  public function get( $id, $expire=0 ) {
+    if (!$cached = $this->unserialize(apc_fetch($this->id($id)))) return;
+    // split into store time, ttl, data
+    list($ts, $ttl, $data) = $cached;
+    // Data valid?
+    if (isset($expire)) {
+      // expiration timestamp set
+      if ($expire === 0 OR
+          $expire > 0 AND $this->ts+$expire >= $ts+$ttl OR
+          $expire < 0 AND $ts >= -$expire) return $data;
+    } else {
+      // expiration timestamp NOT set
+      if ($ttl === 0 OR
+          $ttl > 0 AND $ts+$ttl >= $this->ts OR
+          $ttl < 0 AND -$ttl >= $this->ts) return $data;
+    }
+    // else drop data for this key
+    $this->delete($id);
   }
 
   /**
