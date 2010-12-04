@@ -36,9 +36,8 @@ require_once 'functions.php';
 // Emulate register_globals off
 unregister_GLOBALS();
 
-$AUTOLOAD_PATH[] = APPDIR.'/lib';
-
-Cache::Init('Mock');
+Loader::Load(APPDIR.'/lib/cache/cache.class.php');
+$oCache = Cache::factory('Mock');
 TplData::$NameSpaceSeparator = '.';
 
 // -----------------------------------------------------------------------------

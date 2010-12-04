@@ -84,6 +84,9 @@ Registry::set('bin_sh',   'sh');
 Registry::set('bin_grep', 'grep');
 Registry::set('bin_kill', 'kill');
 
+// Version 8:
+Registry::set('CacheClass', 'File');
+
 /**
  * esniper configuration
  */

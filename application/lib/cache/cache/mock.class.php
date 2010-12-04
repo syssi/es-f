@@ -16,18 +16,25 @@ class Cache_Mock extends Cache {
    *
    * @param string $id
    * @param mixed $data
-   * @param int $expire Timestamp for expiration, if set to 0, expire never
+   * @param $ttl int Time to live or timestamp
+   *                 0  - expire never
+   *                 >0 - Time to live
+   *                 <0 - Timestamp of expiration
    * @return void
    */
-  public function set( $id, $data, $expire=0 ) {}
+  public function set( $id, $data, $ttl=0 ) {}
 
   /**
    * Function get...
    *
    * @param string $id
+   * @param $expire int Time to live or timestamp
+   *                    0  - expire never
+   *                    >0 - Time to live
+   *                    <0 - Timestamp of expiration
    * @return mixed
    */
-  public function get( $id ) {}
+  public function get( $id, $expire=0 ) {}
 
   /**
    * Function delete...

@@ -49,22 +49,14 @@ unset($sDebugFile);
 // << Debug
 
 // Prepare caching
+/// DebugStack::Info('Used cache: '.Registry::get('CacheClass'));
 Loader::Load(LIBDIR.'/cache/cache.class.php');
-
-/// DebugStack::StartTimer('Cache', 'Find usable cache');
-// Get 1st avail. cache if no defined
-$sCache = Registry::get('CacheClass', Cache::test());
-#$sCache = 'File';
-/// DebugStack::Info('Used cache: '.$sCache);
-/// DebugStack::StopTimer('Cache');
-
 Loader::Load(LIBDIR.'/cache/cache/packer/gz.class.php');
 $aCacheOptions = array('cachedir'=>TEMPDIR, 'token'=>'es-f');
 $aCacheOptions['packer'] = new Cache_Packer_GZ;
-
-$oCache = Cache::factory($sCache, $aCacheOptions);
+$oCache = Cache::factory(Registry::get('CacheClass'), $aCacheOptions);
 if (Registry::get('ClearCache')) $oCache->flush();
-unset($sCache, $aCacheOptions);
+unset($aCacheOptions);
 
 // store for later use
 Registry::set('Cache', $oCache);
@@ -86,12 +78,12 @@ Registry::set($aConfiguration);
 unset($oXML, $aConfiguration, $aUser, $key, $value);
 
 if (Registry::get('CfgVersion') < ESF_CONFIG_VERSION) {
-  $oCache->clear();
+  $oCache->flush();
   Header('Location: setup/index.php?msg='
         .urlencode('Need reconfiguration because of configuration changes!'));
 }
 if (count(esf_User::getAll()) == 0) {
-  $oCache->clear();
+  $oCache->flush();
   Header('Location: setup/index.php?msg='
         .urlencode('At least one user account have to be defined!'));
 }

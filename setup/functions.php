@@ -26,7 +26,7 @@ defined('_ESF_OK') || die('No direct call allowed.');
  */
 function LoadConfig() {
 
-  $xml = new XML_Array_Configuration(Cache::getInstance());
+  $xml = new XML_Array_Configuration($GLOBALS['oCache']);
 
   if ($cfg = $xml->ParseXMLFile(BASEDIR.'/local/config/config.xml')) {
     foreach ($cfg['users'] as $user) $users[$user['name']] = $user['auth'];

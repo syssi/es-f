@@ -82,7 +82,7 @@ abstract class Loader {
    * @return void
    */
   public static function __autoload( $class ) {
-    $cpath = str_replace('_', DIRECTORY_SEPARATOR, $class);
+    $cpath = str_replace('_', DIRECTORY_SEPARATOR, strtolower($class));
 
     foreach (array(strtolower($cpath), $cpath) as $path) {
       foreach (self::$AutoLoadPath as $dir) {
@@ -90,9 +90,7 @@ abstract class Loader {
           $file = sprintf($dir.DIRECTORY_SEPARATOR.$file, $path);
           // Don't throw an exception!
           if (self::Load($file, TRUE, FALSE)) {
-            // >> Debug
-            DebugStack::Debug($class.' ('.$file.')');
-            // << Debug
+            /// DebugStack::Debug($class.' ('.$file.')');
             return;
           }
         }

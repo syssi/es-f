@@ -89,8 +89,10 @@ define('ESF_FULL_TITLE', ESF_LONG_TITLE . ', ' . ESF_FULL_VERSION);
  * - force extensions check
  * Version 7:
  * - search more binaries
+ * Version 8:
+ * - Auto probe caches
  */
-define('ESF_CONFIG_VERSION', 6);
+define('ESF_CONFIG_VERSION', 8);
 
 /**
  * Required PHP version
