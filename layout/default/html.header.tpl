@@ -30,8 +30,7 @@
 
   <div id="header_title" style="text-align:center">
     <div id="esf_title" style="float:left;text-align:left;margin-bottom:5px">
-      <tt style="font-size:150%;font-weight:bold">{CONST.ESF.TITLE}</tt><br>
-      <tt>{CONST.ESF.SLOGAN}</tt><br>
+      <tt>{CONST.ESF.LONG_TITLE}</tt><br>
       <small><em>{CONST.ESF.FULL_VERSION}</em></small>
 
       <!-- IF CONST.DEVELOP -->
@@ -60,10 +59,9 @@
         <script type="text/javascript" src="js/fontsize.js"></script>
       </div>
 
-      <div class="clear" style="clear:both;text-align:right;">
-        &nbsp;
+      <div class="clear" style="clear:both;text-align:right;font-size:smaller">
         <!-- IF CONST.DEVELOP -->
-        <small>{server:"REMOTE_ADDR"}<br>{server:"REMOTE_HOST"}</small>
+        {server:"REMOTE_HOST"} ({server:"REMOTE_ADDR"})
         <!-- ENDIF -->
       </div>
 
