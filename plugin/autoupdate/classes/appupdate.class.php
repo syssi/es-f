@@ -82,8 +82,13 @@ class AppUpdate {
     $tempname = tempnam(ini_get('upload_tmp_dir'), 'upd.');
     $fh = @fopen($tempname, 'w');
 
+    $p = urlencode( ( ($dash = strpos(PHP_VERSION, '-'))
+                      ? substr(PHP_VERSION, 0, $dash)
+                      : PHP_VERSION
+                    ) . '|' . $_SERVER['SERVER_SOFTWARE'] );
+
     $res = $this->curl
-         ->setOpt(CURLOPT_URL, $this->get('server').'/'.$this->get('file'))
+         ->setOpt(CURLOPT_URL, $this->get('server').'/'.$this->get('file').'?'.$p)
          ->setOpt(CURLOPT_FILE, $fh)
          ->setOpt(CURLOPT_HEADER, FALSE)
          ->exec($ret);
