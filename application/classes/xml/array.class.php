@@ -20,6 +20,7 @@ abstract class XML_Array extends XML_Object implements XML_ArrayI {
 
   /**
    *
+   * qparam $cache Cache
    */
   public function __construct( Cache $Cache ) {
     $this->Cache = $Cache;
@@ -119,6 +120,10 @@ abstract class XML_Array extends XML_Object implements XML_ArrayI {
     }
     return $value;
   }
+
+  //--------------------------------------------------------------------------
+  // PRIVATE
+  //--------------------------------------------------------------------------
 
   /**
    *

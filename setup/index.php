@@ -29,8 +29,10 @@ if (!Loader::Register()) {
 
 Loader::$AutoLoadPath[] = APPDIR.'/classes';
 
-require_once APPDIR.'/init.php';
-require_once APPDIR.'/functions.php';
+// include functions
+Loader::Load(APPDIR.'/functions.php');
+// Configurations
+Loader::Load(APPDIR.'/init.php');
 require_once 'functions.php';
 
 // Emulate register_globals off
@@ -38,6 +40,7 @@ unregister_GLOBALS();
 
 Loader::Load(APPDIR.'/lib/cache/cache.class.php');
 $oCache = Cache::factory('Mock');
+
 TplData::$NameSpaceSeparator = '.';
 
 // -----------------------------------------------------------------------------

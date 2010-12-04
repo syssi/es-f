@@ -7,19 +7,16 @@
  * @version    $Id$
  */
 
+// include functions
+Loader::Load(APPDIR.'/functions.php');
 // Configurations
 Loader::Load(APPDIR.'/init.php');
 Loader::Load(LOCALDIR.'/custom/init.php', TRUE, FALSE);
 
 HTMLPage::$Debug = (DEVELOP OR Registry::get('cURL.Verbose'));
 
-// include functions
-Loader::Load(APPDIR.'/functions.php');
-
 // Emulate register_globals off
 unregister_GLOBALS();
-
-checkDir(TEMPDIR);
 
 // >> Debug
 $sDebugFile = np('%s/%s.debug', TEMPDIR, APPID);
@@ -86,14 +83,17 @@ $oCache = Cache::factory(Registry::get('CacheClass'), $aCacheOptions);
 if (Registry::get('ClearCache')) $oCache->flush();
 unset($aCacheOptions);
 
-// store for later use
-Registry::set('Cache', $oCache);
-
+esf_Extensions::$Cache = $oCache;
 esf_Extensions::Init();
+
+Exec::InitInstance(ESF_OS, $oCache);
+
+checkDir(TEMPDIR);
 
 Loader::Load(APPDIR.'/ebay.php');
 
 // include additional configuration, mostly for development
+Core::$Cache = $oCache;
 Core::ReadConfigs('local');
 
 #ErrorHandler::register(Registry::get('ErrorHandler', 'default'));

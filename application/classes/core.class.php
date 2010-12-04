@@ -17,6 +17,11 @@ abstract class Core {
   // -------------------------------------------------------------------------
 
   /**
+   *
+   */
+  public static $Cache;
+
+  /**
    * Build an url.
    *
    * Use urlrewrite plugin if defined.
@@ -343,7 +348,8 @@ abstract class Core {
     if (in_array($scope, esf_Extensions::$Types))
       $scope .= DIRECTORY_SEPARATOR.'*';
 
-    $xml = new XML_Array_Configuration(Registry::get('Cache'));
+    if (!isset(self::$Cache)) self::$Cache = Cache::factory('Mock');
+    $xml = new XML_Array_Configuration(self::$Cache);
 
     $files = glob(BASEDIR.DIRECTORY_SEPARATOR.$scope.DIRECTORY_SEPARATOR.'config.xml');
     foreach ($files as $file) {

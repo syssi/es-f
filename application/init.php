@@ -113,11 +113,6 @@ Registry::set('SessionName', 'ESFSESSID');
 #Session::$NVL = '';
 
 /**
- * init exec class for defined OS
- */
-Exec::InitInstance(ESF_OS);
-
-/**
  * Somme common URLs
  */
 Registry::set('URL.CreateBugTrackerItem', 'http://sourceforge.net/tracker/?func=add&group_id=185222&atid=912405');

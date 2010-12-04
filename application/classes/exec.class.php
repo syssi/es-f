@@ -92,8 +92,9 @@ abstract class Exec {
    *
    * @throws Exec_Exception If intialized before
    * @param string $class Name of requested class
+   * @param $cache Cache
    */
-  public static final function InitInstance( $class ) {
+  public static final function InitInstance( $class, Cache $cache ) {
     if (self::$Instance != NULL)
       throw new Exec_Exception('Exec has been instantiated before!');
 
@@ -101,7 +102,7 @@ abstract class Exec {
     if (file_exists($file)) {
       require_once $file;
       $class = 'Exec_'.$class;
-      self::$Instance = new $class;
+      self::$Instance = new $class($cache);
       return self::$Instance;
     }
     throw new Exec_Exception('Exec: Missing file: '.$file);
@@ -157,7 +158,7 @@ abstract class Exec {
    */
   public final function setCommandsFromXMLFile( $file, $required=TRUE ) {
     $file = str_replace('/', DIRECTORY_SEPARATOR, $file);
-    $xml = new XML_Array_Exec(Registry::get('Cache'));
+    $xml = new XML_Array_Exec($this->Cache);
     $xml->Key2Lower = FALSE;
     if ($data = $xml->ParseXMLFile($file)) {
       foreach ($data as $namespace => $cmd) {
@@ -196,7 +197,14 @@ abstract class Exec {
   /**
    *
    */
-  protected final function __construct() {}
+  protected $Cache;
+
+  /**
+   *
+   */
+  protected final function __construct( Cache $cache ) {
+    $this->Cache = $cache;
+  }
 
   /**
    *
