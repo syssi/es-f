@@ -49,19 +49,9 @@ unset($sDebugFile);
 // << Debug
 
 // Prepare caching
-/// DebugStack::Info('Used cache: '.Registry::get('CacheClass'));
 Loader::Load(LIBDIR.'/cache/cache.class.php');
-Loader::Load(LIBDIR.'/cache/cache/packer/gz.class.php');
-$aCacheOptions = array('cachedir'=>TEMPDIR, 'token'=>'es-f');
-$aCacheOptions['packer'] = new Cache_Packer_GZ;
-$oCache = Cache::factory(Registry::get('CacheClass'), $aCacheOptions);
-if (Registry::get('ClearCache')) $oCache->flush();
-unset($aCacheOptions);
 
-// store for later use
-Registry::set('Cache', $oCache);
-
-$oXML = new XML_Array_Configuration($oCache);
+$oXML = new XML_Array_Configuration(Cache::factory('Mock'));
 $aConfiguration = $oXML->ParseXMLFile(LOCALDIR.'/config/config.xml');
 if (!$aConfiguration) die($oXML->Error);
 
@@ -87,6 +77,17 @@ if (count(esf_User::getAll()) == 0) {
   Header('Location: setup/index.php?msg='
         .urlencode('At least one user account have to be defined!'));
 }
+
+/// DebugStack::Info('Used cache: '.Registry::get('CacheClass'));
+Loader::Load(LIBDIR.'/cache/cache/packer/gz.class.php');
+$aCacheOptions = array('cachedir'=>TEMPDIR, 'token'=>'es-f');
+$aCacheOptions['packer'] = new Cache_Packer_GZ;
+$oCache = Cache::factory(Registry::get('CacheClass'), $aCacheOptions);
+if (Registry::get('ClearCache')) $oCache->flush();
+unset($aCacheOptions);
+
+// store for later use
+Registry::set('Cache', $oCache);
 
 esf_Extensions::Init();
 
