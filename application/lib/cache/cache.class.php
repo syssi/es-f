@@ -71,21 +71,69 @@ abstract class Cache {
   // -------------------------------------------------------------------------
 
   /**
+   * Cache availability, rewrite if required
+   */
+  public static function available() {
+    return TRUE;
+  }
+
+  /**
    * Function factory...
    *
-   * @public
+   * @param $caches array Caches to test for availability
+   *                      If empty, the follwing caches are tested (in this order):
+   *                      - APC
+   *                      - EAccelerator
+   *                      - MemCache
+   *                      - File (always available and prefered obverse Files)
+   *                      - Files (always available)
+   *                      - Session (always available)
+   *                      - Mock (always available)
+   * @return string|array If $all is FALSE, the first possible cache from
+   *                      $caches is returned, if $all is TRUE, an array of
+   *                      all available caches will be returned
+   */
+  public static final function test( $caches=array(), $all=FALSE ) {
+    if (empty($caches)) {
+      $caches = array('APC', 'EAccelerator', 'MemCache');
+      $testall = TRUE;
+    } else {
+      if (!is_array($caches)) $caches = array($caches);
+      $testall = FALSE;
+    }
+    $available = array();
+    foreach ($caches as $cache) {
+      self::load($cache);
+      switch (strtolower($cache)) {
+        case 'apc':
+          if (Cache_APC::available()) $available[] = $cache;
+          break;
+        case 'eaccelerator':
+          if (Cache_EAccelerator::available()) $available[] = $cache;
+          break;
+        case 'memcache':
+          if (Cache_MemCache::available()) $available[] = $cache;
+          break;
+      } // switch
+    }
+    if ($testall) {
+      $available[] = 'File';
+      $available[] = 'Files';
+      $available[] = 'Session';
+      $available[] = 'Mock';
+    }
+    return $all ? $available : (isset($available[0]) ? $available[0] : FALSE);
+  }
+
+  /**
+   * Function factory...
+   *
    * @param array $settings
    * @return void
    */
-  public static function factory( $class, $settings=array() ) {
-    $file = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR
-          . str_replace('_', DIRECTORY_SEPARATOR, strtolower($class)) . '.class.php';
-    $class = 'Cache_'.ucwords(strtolower($class));
-
-    if (!file_exists($file))
-      throw new Cache_Exception(__CLASS__.': Missing file ['.$file.'] for class '.$class, 1);
-
-    require_once $file;
+  public static final function factory( $class, $settings=array() ) {
+    self::load($class);
+    $class = 'Cache_'.$class;
     return new $class($settings);
   }
 
@@ -101,7 +149,6 @@ abstract class Cache {
    * echo $data;
    * </code>
    *
-   * @public
    * @param $id string
    * @param &$data mixed
    * @param $ttl int Time to live, if set to 0, expire never
@@ -303,6 +350,23 @@ abstract class Cache {
    * @var array
    */
   private $stack;
+
+  /**
+   * Function factory...
+   *
+   * @param array $settings
+   * @return void
+   */
+  private static final function load( $class ) {
+    $file = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR
+          . strtolower($class) . '.class.php';
+    $class = 'Cache_'.ucwords(strtolower($class));
+
+    if (!file_exists($file))
+      throw new Cache_Exception(__CLASS__.': Missing file ['.$file.'] for class '.$class, 1);
+
+    require_once $file;
+  }
 
   /**
    * Increments / decrements value of the item by value.

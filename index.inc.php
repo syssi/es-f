@@ -37,8 +37,8 @@ define('_DEBUG', file_exists($sDebugFile));
 
 $_TRACE = _DEBUG ? file_get_contents($sDebugFile) : FALSE;
 
-#DebugStack::$TimeUnit = DebugStack::MICROSECONDS;
 DebugStack::Active(_DEBUG);
+#DebugStack::$TimeUnit = DebugStack::MICROSECONDS;
 
 if ($_TRACE) {
   Messages::addSuccess('Debug trace is active: '.$_TRACE, TRUE);
@@ -48,16 +48,26 @@ if ($_TRACE) {
 unset($sDebugFile);
 // << Debug
 
-/// DebugStack::Info('Used cache: '.Registry::get('CacheClass', 'File'));
-require_once LIBDIR.'/cache/cache.class.php';
-require_once LIBDIR.'/cache/cache/packer/gz.class.php';
+// Prepare caching
+Loader::Load(LIBDIR.'/cache/cache.class.php');
+
+/// DebugStack::StartTimer('Cache', 'Find usable cache');
+// Get 1st avail. cache if no defined
+$sCache = Registry::get('CacheClass', Cache::test());
+#$sCache = 'File';
+/// DebugStack::Info('Used cache: '.$sCache);
+/// DebugStack::StopTimer('Cache');
+
+Loader::Load(LIBDIR.'/cache/cache/packer/gz.class.php');
 $aCacheOptions = array('cachedir'=>TEMPDIR, 'token'=>'es-f');
 $aCacheOptions['packer'] = new Cache_Packer_GZ;
-$oCache = Cache::factory(Registry::get('CacheClass', 'File'), $aCacheOptions);
-Registry::set('Cache', $oCache);
-unset($aCacheOptions);
 
+$oCache = Cache::factory($sCache, $aCacheOptions);
 if (Registry::get('ClearCache')) $oCache->flush();
+unset($sCache, $aCacheOptions);
+
+// store for later use
+Registry::set('Cache', $oCache);
 
 $oXML = new XML_Array_Configuration($oCache);
 $aConfiguration = $oXML->ParseXMLFile(LOCALDIR.'/config/config.xml');

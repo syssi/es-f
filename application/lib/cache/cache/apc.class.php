@@ -18,9 +18,16 @@ class Cache_APC extends Cache {
    *
    */
   public function __construct( $settings=array() ) {
-    if (!extension_loaded('apc'))
+    if (!self::available())
       throw new Cache_Exception(__CLASS__.': Extension APC not loaded.', 9);
     parent::__construct($settings);
+  }
+
+  /**
+   *
+   */
+  public static function available() {
+    return extension_loaded('apc');
   }
 
   /**

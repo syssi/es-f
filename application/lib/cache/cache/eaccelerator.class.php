@@ -18,10 +18,17 @@ class Cache_EAccelerator extends Cache {
    *
    */
   public function __construct( $settings=array() ) {
-    if (!extension_loaded('eaccelerator') OR !function_exists('eaccelerator_put'))
+    if (!self::available())
       throw new Cache_Exception(__CLASS__.': Extension EAccelerator not loaded.', 9);
     parent::__construct($settings);
     eaccelerator_caching(TRUE);
+  }
+
+  /**
+   *
+   */
+  public static function available() {
+    return (extension_loaded('eaccelerator') AND function_exists('eaccelerator_put'));
   }
 
   /**
@@ -29,18 +36,20 @@ class Cache_EAccelerator extends Cache {
    *
    * @param string $id
    * @param mixed $data
-   * @param int $expire Timestamp for expiration, if set to 0, expire never
+   * @param $ttl int Time to live or timestamp
+   *                 0  - expire never
+   *                 >0 - Time to live
+   *                 <0 - Timestamp of expiration
    * @return void
    */
-  public function set( $id, $data, $expire=0 ) {
+  public function set( $id, $data, $ttl=0 ) {
     // optimized for probability Set -> Delete -> Clear
     if ($data !== NULL) {
       $this->delete($id);
       $id = $this->id($id);
       // calculate time to live
-      if ($expire) $expire -= $this->ts;
       return (eaccelerator_lock($id) AND
-              eaccelerator_put($id, $this->serialize($data), $expire) AND
+              eaccelerator_put($id, $this->serialize(array($this->ts, $ttl, $data))) AND
               eaccelerator_unlock($id));
     } elseif ($id !== NULL) { // AND $data === NULL
       return $this->delete($id);
@@ -53,13 +62,35 @@ class Cache_EAccelerator extends Cache {
    * Function get...
    *
    * @param string $id
+   * @param $expire int Time to live or timestamp
+   *                    0  - expire never
+   *                    >0 - Time to live
+   *                    <0 - Timestamp of expiration
    * @return mixed
    */
-  public function get( $id ) {
+  public function get( $id, $expire=0 ) {
     $id = $this->id($id);
-    if (eaccelerator_lock($id) AND
-        $data = eaccelerator_get($id) AND
-        eaccelerator_unlock($id)) return $this->unserialize($data);
+    if (!eaccelerator_lock($id) OR
+        !$cached = eaccelerator_get($id) OR
+        !eaccelerator_unlock($id) OR
+        !$cached = $this->unserialize($cached)) return;
+
+    // split into store time, ttl, data
+    list($ts, $ttl, $data) = $cached;
+    // Data valid?
+    if (isset($expire)) {
+      // expiration timestamp set
+      if ($expire === 0 OR
+          $expire > 0 AND $this->ts+$expire >= $ts+$ttl OR
+          $expire < 0 AND $ts >= -$expire) return $data;
+    } else {
+      // expiration timestamp NOT set
+      if ($ttl === 0 OR
+          $ttl > 0 AND $ts+$ttl >= $this->ts OR
+          $ttl < 0 AND -$ttl >= $this->ts) return $data;
+    }
+    // else drop data for this key
+    $this->delete($id);
   }
 
   /**
