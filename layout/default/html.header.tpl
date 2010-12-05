@@ -31,17 +31,15 @@
   <div id="header_title" style="text-align:center">
     <div id="esf_title" style="float:left;text-align:left;margin-bottom:5px">
       <tt>{CONST.ESF.LONG_TITLE}</tt><br>
-      <small><em>{CONST.ESF.FULL_VERSION}</em></small>
-
+      <small>{CONST.ESF.FULL_VERSION}</small>
       <!-- IF CONST.DEVELOP -->
-      <br>
-      <small><em>
-      <script type="text/javascript">
-        // <![CDATA[
-        document.write("(Server time difference: " + ServerTimeOffset.toFixed(1) + "s)");
-        // ]]>
-      </script>
-      </em></small>
+      <p style="font-size:smaller;font-style:italic">
+        <script type="text/javascript">
+          // <![CDATA[
+          document.write("(Server time difference: " + ServerTimeOffset.toFixed(1) + "s)");
+          // ]]>
+        </script>
+      </p>
       <!-- ENDIF -->
 
     </div>

@@ -577,9 +577,7 @@ echo $html;
 /// DebugStack::StopTimer('HTMLHead');
 /// DebugStack::StartTimer('HTMLStart');
 
-if (!Registry::get('esf.contentonly')) {
-  TplData::set('esf_Messages', implode((array)Messages::get()));
-}
+TplData::set('esf_Messages', implode((array)Messages::get()));
 
 $html = $oTemplate->Render('html.start', TRUE, $RootDir);
 Event::Process('OutputFilterHtmlStart', $html);

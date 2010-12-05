@@ -84,6 +84,7 @@ abstract class Cache {
    *                      If empty, the follwing caches are tested (in this order):
    *                      - APC
    *                      - EAccelerator
+   *                      - XCache
    *                      - MemCache
    *                      - File (always available and prefered obverse Files)
    *                      - Files (always available)
@@ -95,7 +96,7 @@ abstract class Cache {
    */
   public static final function test( $caches=array(), $all=FALSE ) {
     if (empty($caches)) {
-      $caches = array('APC', 'EAccelerator', 'MemCache');
+      $caches = array('APC', 'EAccelerator', 'XCache', 'MemCache');
       $testall = TRUE;
     } else {
       if (!is_array($caches)) $caches = array($caches);

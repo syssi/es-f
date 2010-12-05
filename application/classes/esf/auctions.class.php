@@ -621,8 +621,9 @@ abstract class esf_Auctions {
 
       $pid = self::PID($group);
       if ($rc) {
-        $talk && Messages::addError(Exec::$LastCmd);
+        $talk && Messages::addError(Exec::getInstance()->LastCmd);
         $talk && Messages::addError($res);
+        $talk && Messages::addError('Take also a look into the esniper log!');
       } elseif (!$pid) {
         $talk && Messages::addError(Translation::get('Auction.GroupNotStarted', $groupname, md5($groupname)), TRUE);
       } else {
