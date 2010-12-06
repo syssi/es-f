@@ -56,6 +56,17 @@
 {cycle:"CLASS"}
 
 <div class="cfg {cycle:"CLASS","tr1","tr2"}">
+  <label class="td" for="CACHECLASS">Cache class :</label>
+  <div class="input">
+    <select id="CACHECLASS" class="input" name="data[cfg][cacheclass]">
+      {options:CACHECLASS,cfg.cacheclass}
+    </select>
+    <br />
+    At the moment only APC is extensive tested besides native file storage.
+  </div>
+</div>
+
+<div class="cfg {cycle:"CLASS","tr1","tr2"}">
   <label class="td" for="SUDO">SUDO user :</label>
   <div class="input">
     {ft:"data[cfg][sudo]",cfg.sudo,"input","id=\"SUDO\""}

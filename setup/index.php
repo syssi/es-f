@@ -95,6 +95,8 @@ switch ($step) {
 
     foreach ($cfg as $key => $val) TplData::set('cfg.'.$key, $val);
 
+    TplData::set('CACHECLASS', Cache::test(array('File', 'APC'), TRUE));
+
     $parsers = array();
     foreach (glob(APPDIR.'/classes/ebayparser/*.class.php') as $file)
       $parsers[] = basename($file, '.class.php');

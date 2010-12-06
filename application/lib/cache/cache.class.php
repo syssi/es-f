@@ -112,8 +112,17 @@ abstract class Cache {
         case 'eaccelerator':
           if (Cache_EAccelerator::available()) $available[] = $cache;
           break;
+        case 'xcache':
+          if (Cache_XCache::available()) $available[] = $cache;
+          break;
         case 'memcache':
           if (Cache_MemCache::available()) $available[] = $cache;
+          break;
+        case 'file':
+        case 'files':
+        case 'session':
+        case 'mock':
+          $available[] = $cache;
           break;
       } // switch
     }

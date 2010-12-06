@@ -71,13 +71,6 @@ $config[] = '  <!-- Core application settings -->';
 foreach ($cfg['cfg'] as $var => $val)
   $config[] = sprintf('  <config name="%s">%s</config>', $var, $val);
 
-/*
-// Probe Caches
-Loader::Load(LIBDIR.'/cache/cache.class.php');
-$config[] = sprintf('  <config name="cacheclass">%s</config>',
-                    Cache::test(array('APC', 'EAccelerator', 'File')));
-*/
-
 $config[] = '';
 $config[] = '  <section name="users">';
 foreach ($users as $user => $pass) {
