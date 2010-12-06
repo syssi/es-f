@@ -33,13 +33,14 @@
       <tt>{CONST.ESF.LONG_TITLE}</tt><br>
       <small>{CONST.ESF.FULL_VERSION}</small>
       <!-- IF CONST.DEVELOP -->
-      <p style="font-size:smaller;font-style:italic">
+      <br>
+      <span style="font-size:smaller;font-style:italic">
         <script type="text/javascript">
           // <![CDATA[
-          document.write("(Server time difference: " + ServerTimeOffset.toFixed(1) + "s)");
+          document.write("Server time difference: " + ServerTimeOffset.toFixed(1) + "s");
           // ]]>
         </script>
-      </p>
+      </span>
       <!-- ENDIF -->
 
     </div>
@@ -57,18 +58,21 @@
         <script type="text/javascript" src="js/fontsize.js"></script>
       </div>
 
-      <div class="clear" style="clear:both;text-align:right;font-size:smaller">
-        <!-- IF CONST.DEVELOP -->
-        {server:"REMOTE_HOST"} ({server:"REMOTE_ADDR"})
+      <div class="clear">
+        [[Core.Welcome]],
+        <!-- IF USER -->
+          <strong>{USER}</strong>
+        <!-- ELSE -->
+          <a href="?module=login">[[Core.Login]]</a>
         <!-- ENDIF -->
       </div>
 
-      [[Core.Welcome]],
-      <!-- IF USER -->
-        <strong>{USER}</strong>
-      <!-- ELSE -->
-        <a href="?module=login">[[Core.Login]]</a>
+      <!-- IF CONST.DEVELOP -->
+      <span style="font-size:smaller;font-style:italic">
+      {server:"REMOTE_HOST"} ({server:"REMOTE_ADDR"})
+      </span>
       <!-- ENDIF -->
+
     </div>
 
     <div style="width:35em;margin:0 auto">
