@@ -577,6 +577,7 @@ echo $html;
 /// DebugStack::StopTimer('HTMLHead');
 /// DebugStack::StartTimer('HTMLStart');
 
+TplData::set('esf_MessagesErrors', Messages::count(Messages::ERROR));
 TplData::set('esf_Messages', implode((array)Messages::get()));
 
 $html = $oTemplate->Render('html.start', TRUE, $RootDir);

@@ -24,7 +24,7 @@ abstract class Messages {
   /**
    * Variable name to store messages into session
    *
-   * @access public
+   * @var string
    */
   public static $SessionVar = '__MESSAGES__';
 
@@ -34,14 +34,13 @@ abstract class Messages {
    * string param 1: message type: info|error|success
    * string param 2: message text
    *
-   * @access public
+   * @var string
    */
   public static $OutHTML = '<div class="msg%1$s">%2$s</div>';
 
   /**
    * Format message string
    *
-   * @access public
    * @param mixed $msg Message(s)
    * @param string $type Message type
    * @param boolean $formated Message is still HTML formated
@@ -49,10 +48,9 @@ abstract class Messages {
    */
   public static function toStr( $msg, $type=MSG_INFO, $formated=FALSE ) {
     if (is_array($msg)) {
-      if (!$formated)
-        $msg = array_map_recursive('htmlspecialchars', $msg);
+      if (!$formated) $msg = array_map_recursive('htmlspecialchars', $msg);
     } else {
-      @list($func, $msg) = explode(':',$msg,2);
+      list($func, $msg) = @explode(':', $msg, 2);
       if (!$msg) {
         $msg = $func;
       } elseif ($func == 'html') {
@@ -72,7 +70,6 @@ abstract class Messages {
   /**
    * Store info message into buffer
    *
-   * @access public
    * @param mixed $msg Message(s)
    * @param boolean $formated Message is still HTML formated
    */
@@ -86,7 +83,6 @@ abstract class Messages {
   /**
    * Store success message into buffer
    *
-   * @access public
    * @param mixed $msg Message(s)
    * @param boolean $formated Message is still HTML formated
    */
@@ -100,7 +96,6 @@ abstract class Messages {
   /**
    * Store error message into buffer
    *
-   * @access public
    * @param mixed $msg Message(s)
    * @param boolean $formated Message is still HTML formated
    */
@@ -116,7 +111,6 @@ abstract class Messages {
   /**
    * Store code message into buffer
    *
-   * @access public
    * @param mixed $msg Message(s)
    * @param boolean $formated Message is still HTML formated
    */
@@ -130,32 +124,47 @@ abstract class Messages {
   /**
    * Generic function to store message into buffer
    *
-   * @access public
    * @param mixed $msg Message(s)
    * @param string $type Message type
    * @param boolean $formated Message is still HTML formated
    */
   public static function add( $msg, $type, $formated ) {
-    Session::addP(self::$SessionVar, self::toStr($msg, $type, $formated));
+    Session::addP(self::$SessionVar, array($msg, $type, $formated));
   }
 
   /**
    * Get messages from buffer an clear buffer if requested
    *
-   * @access public
    * @param boolean $clear Clear buffer
    * @return array
    */
   public static function get( $clear=TRUE ) {
-    $msgs = Session::getP(self::$SessionVar);
+    $msgs = array();
+    foreach ((array) Session::getP(self::$SessionVar) as $msg)
+      $msgs[] = self::toStr($msg[0], $msg[1], $msg[2]);
     if ($clear) self::clear();
     return $msgs;
   }
 
   /**
-   * Clear message buffer
+   * Get messages from buffer an clear buffer if requested
    *
-   * @access public
+   * @param boolean $clear Clear buffer
+   * @return array
+   */
+  public static function count( $type=NULL ) {
+    $msgs = (array) Session::getP(self::$SessionVar);
+    if (!isset($type)) {
+      $cnt = count($msgs);
+    } else {
+      $cnt = 0;
+      foreach ($msgs as $msg) if ($msg[1] == $type) $cnt++;
+    }
+    return $cnt;
+  }
+
+  /**
+   * Clear message buffer
    */
   public static function clear() {
     Session::setP(self::$SessionVar);
