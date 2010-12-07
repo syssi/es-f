@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  Don't "htmlspecialchar" your translation, please use <![CDATA[text...]]>
+
+  Nouns
+  tuid="name"   - default, noun is not required or >1
+  tuid="name-0" - for quantity 0, e.g. "%1$d files deleted"
+  tuid="name-1" - for quantity 1, e.g. "%1$d file deleted"
+
+  If your language have very special cases, just declare
+  tuid="name-10"  or what ever :-)
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<tmx version="1.4">
+  <header
+   creationtool="es-f"
+   creationtoolversion="1"
+   datatype="PlainText"
+   segtype="sentence"
+   adminlang="EN"
+   srclang="EN"
+   o-tmf="ABC"
+   changeid="Knut Kohl / knutkohl@users.sourceforge.net"
+   changedate="20101129T213215Z"
+   o-encoding="UTF-8"
+  >
+    <prop type="x-Namespace">Protocol</prop>
+  </header>
+  <body>
+    <tu tuid="Menu">
+      <tuv xml:lang="DE">
+        <seg>Protokolle</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Menuhint">
+      <tuv xml:lang="DE">
+        <seg>esniper Protokolle</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Title">
+      <tuv xml:lang="DE">
+        <seg>Protokolle</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Group">
+      <tuv xml:lang="DE">
+        <seg>Gruppe</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Groups">
+      <tuv xml:lang="DE">
+        <seg>Gruppen</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Auctions">
+      <tuv xml:lang="DE">
+        <seg>Auktionen</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Protocol">
+      <tuv xml:lang="DE">
+        <seg>Protokoll</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="ProtocolBidnow">
+      <tuv xml:lang="DE">
+        <seg>Jetzt bieten - Protokoll</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Protocols">
+      <tuv xml:lang="DE">
+        <seg>Protokolle</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Auctionfile">
+      <tuv xml:lang="DE">
+        <seg>Auktions-Datei</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Reversed">
+      <tuv xml:lang="DE">
+        <seg>in umgekehrter Reihenfolge, letze Meldungen oben</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Actions">
+      <tuv xml:lang="DE">
+        <seg>Aktionen</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Show">
+      <tuv xml:lang="DE">
+        <seg>Protokoll anzeigen</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Delete">
+      <tuv xml:lang="DE">
+        <seg>Protokoll löschen</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Up">
+      <tuv xml:lang="DE">
+        <seg>nach oben</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Close">
+      <tuv xml:lang="DE">
+        <seg>schließen</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="NoGroup">
+      <tuv xml:lang="DE">
+        <seg>Keine Biet-Gruppe übergeben.</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="NoLog">
+      <tuv xml:lang="DE">
+        <seg>Keine Log-Datei gefunden.</seg>
+      </tuv>
+    </tu>
+
+  </body>
+</tmx>

@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  Don't "htmlspecialchar" your translation, please use <![CDATA[text...]]>
+
+  Nouns
+  tuid="name"   - default, noun is not required or >1
+  tuid="name-0" - for quantity 0, e.g. "%1$d files deleted"
+  tuid="name-1" - for quantity 1, e.g. "%1$d file deleted"
+
+  If your language have very special cases, just declare
+  tuid="name-10"  or what ever :-)
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<tmx version="1.4">
+  <header
+   creationtool="es-f"
+   creationtoolversion="1"
+   datatype="PlainText"
+   segtype="sentence"
+   adminlang="EN"
+   srclang="EN"
+   o-tmf="ABC"
+   changeid="Knut Kohl / knutkohl@users.sourceforge.net"
+   changedate="20101129T213215Z"
+   o-encoding="UTF-8"
+  >
+    <prop type="x-Namespace">Backup</prop>
+  </header>
+  <body>
+    <tu tuid="Menu">
+      <tuv xml:lang="DE">
+        <seg>Backups</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Menuhint">
+      <tuv xml:lang="DE">
+        <seg>Auktions-Backups</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Menuauction">
+      <tuv xml:lang="DE">
+        <seg>Auktionen</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Menuauctionhint">
+      <tuv xml:lang="DE">
+        <seg>Liste der Auktionen</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Title">
+      <tuv xml:lang="DE">
+        <seg>Backups</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="TitleShow">
+      <tuv xml:lang="DE">
+        <seg>Anzeigen</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="AuctionsCount">
+      <note>%$1s - ...</note>
+      <tuv xml:lang="DE">
+        <seg>Anzahl Auktionen: %1$d</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Auction">
+      <tuv xml:lang="DE">
+        <seg>Auktion</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Category">
+      <tuv xml:lang="DE">
+        <seg>Kategorie</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Group">
+      <tuv xml:lang="DE">
+        <seg>Gruppe</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Toggle">
+      <tuv xml:lang="DE">
+        <seg>Markierung umschalten</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Details">
+      <tuv xml:lang="DE">
+        <seg>Details</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="MarkedAuctions">
+      <tuv xml:lang="DE">
+        <seg>markierte Auktionen</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Actions">
+      <tuv xml:lang="DE">
+        <seg>--- bitte auswählen ---</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Delete">
+      <tuv xml:lang="DE">
+        <seg>Löschen</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Restore">
+      <tuv xml:lang="DE">
+        <seg>Wiederherstellen</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Send">
+      <tuv xml:lang="DE">
+        <seg>Ausführen</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Attention">
+      <tuv xml:lang="DE">
+        <seg>ACHTUNG</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="DeleteAll">
+      <tuv xml:lang="DE">
+        <seg>Alle Auktionen löschen</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="DeleteAllTip">
+      <tuv xml:lang="DE">
+        <seg>Vorsicht: Es werden ALLE Auktionen gelöscht, AUCH die gesperrten!</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Lock">
+      <tuv xml:lang="DE">
+        <seg>Sperren</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Locked">
+      <tuv xml:lang="DE">
+        <seg>Auktion wurde gegen Löschen gesperrt.</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Unlock">
+      <tuv xml:lang="DE">
+        <seg>Entsperren</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Unlocked">
+      <tuv xml:lang="DE">
+        <seg>Auktion wurde entsperrt.</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="AuctionMissing">
+      <tuv xml:lang="DE">
+        <seg>Auktion nicht gefunden</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Deleted">
+      <note>%$1s - ...</note>
+      <tuv xml:lang="DE">
+        <seg>%1$d Auktionen wurden gelöscht.</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Restored">
+      <tuv xml:lang="DE">
+        <seg>Auktionen wurden wiederhergestellt.</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="AllDeleted">
+      <tuv xml:lang="DE">
+        <seg>Alle Auktionen wurden gelöscht.</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Back">
+      <tuv xml:lang="DE">
+        <seg>zurück</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="PaginationHint">
+      <tuv xml:lang="DE">
+        <seg>Gehe zu Seite {PAGE}</seg>
+      </tuv>
+    </tu>
+
+  </body>
+</tmx>

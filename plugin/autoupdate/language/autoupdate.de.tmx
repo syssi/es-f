@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  Don't "htmlspecialchar" your translation, please use <![CDATA[text...]]>
+
+  Nouns
+  tuid="name"   - default, noun is not required or >1
+  tuid="name-0" - for quantity 0, e.g. "%1$d files deleted"
+  tuid="name-1" - for quantity 1, e.g. "%1$d file deleted"
+
+  If your language have very special cases, just declare
+  tuid="name-10"  or what ever :-)
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<tmx version="1.4">
+  <header
+   creationtool="es-f"
+   creationtoolversion="1"
+   datatype="PlainText"
+   segtype="sentence"
+   adminlang="EN"
+   srclang="EN"
+   o-tmf="ABC"
+   changeid="Knut Kohl / knutkohl@users.sourceforge.net"
+   changedate="20101129T213215Z"
+   o-encoding="UTF-8"
+  >
+    <prop type="x-Namespace">Autoupdate</prop>
+  </header>
+  <body>
+    <tu tuid="LatestAppRelease">
+      <prop type="x-Format">html</prop>
+      <note>%$1s - ...</note>
+      <tuv xml:lang="DE">
+        <seg><![CDATA[Die neueste <tt>|es|f|</tt> Version ist &nbsp; <tt>%1$s</tt><br>%2$s<br>Du kannst <a href="%3$s">upgraden</a>!]]></seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="FilesUpdatable">
+      <note>%$1s - ...</note>
+      <tuv xml:lang="DE">
+        <seg>Es sind %1$d Datei(en) aktualisierbar!</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="FileNotWritable">
+      <tuv xml:lang="DE">
+        <seg>Datei ist nicht beschreibbar, erforderlich für automatischen Update!</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="UpdateNow">
+      <tuv xml:lang="DE">
+        <seg>Jetzt aktualisieren</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="UpdateFiles">
+      <tuv xml:lang="DE">
+        <seg>Aktualisiere Dateien:</seg>
+      </tuv>
+    </tu>
+
+  </body>
+</tmx>

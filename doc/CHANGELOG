@@ -1,3 +1,21 @@
+VERSION: 2.4.0
+--------------------
+Feature release
+
+NEW install is recommended due to multiple file system changes.
+
+FIXED:
+- Autoloading of classes
+CHANGED:
+- Introduction of TMX based translations incl. caching
+NEW:
+- Compatible with 5.3.3
+- New caches for configuration settings and translations, e.g. APC
+
+VERSION: 2.3.1
+--------------------
+Bugfix release
+
 VERSION: 2.3.0
 --------------------
 Feature release

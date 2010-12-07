@@ -34,7 +34,7 @@
  * @author Andy Prevost
  * @author Marcus Bointon
  * @copyright 2004 - 2009 Andy Prevost
- * @version $Id: class.phpmailer-lite.php 447 2009-09-12 13:21:38Z codeworxtech $
+ * @version : 'v2.3.1-5-g726118d'$
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
  */
 

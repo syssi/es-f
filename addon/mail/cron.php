@@ -2,7 +2,11 @@
 /**
  * Script to check aution log files via cron job
  *
- * @package Addon-Mail
+ * @package    Addon-Mail
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2007-2010 Knut Kohl
+ * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
+ * @version    $Id$
  */
 
 Header('Content-type: text/plain');
@@ -17,9 +21,14 @@ define('LINE', str_repeat('-', 78) . "\n");
 define('BASEDIR', dirname(dirname(dirname(__FILE__))));
 
 require_once BASEDIR.'/application/define.php';
-
-require_once APPDIR.'/lib/debugstack/debugstack.class.php';
+require_once LIBDIR.'/debugstack/debugstack.class.php';
 require_once APPDIR.'/classes/loader.class.php';
+
+if (!Loader::Register()) {
+  // Emulate autoloading for PHP < 5.1.2
+  function __autoload( $class ) { Loader::__autoload($class); }
+}
+
 Loader::$AutoLoadPath[] = APPDIR.'/classes';
 
 ErrorHandler::register('echo');

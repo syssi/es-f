@@ -3,17 +3,12 @@ prepend.php
 append.php
 DEVELOP
 es-f.log
-ignore
 local
-mass-replace.sh
-reset-develop.sh
 addon/es
-addon/mail/mail.xml
 application/yuelo/help.inline.php
 plugin/detectmobile
 plugin/validate
 plugin/xml
-application/classes/timezones.txt
 js/prototype/1.7RC2
 jsDebugger
 *.org.php
@@ -21,3 +16,4 @@ jsDebugger
 *de.php
 custom
 *.dev.php
+*~

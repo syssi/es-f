@@ -158,7 +158,7 @@ abstract class esf_Install {
       $file = $wd.'/'.$file;
       $msg = Translation::get('Backend.ExtractArchive', $file).' ... ';
       if (file_exists($file)) {
-        require_once APPDIR.'/lib/dZip/dUnzip2.inc.php';
+        require_once LIBDIR.'/dZip/dUnzip2.inc.php';
         $zip = new dUnzip2($file);
         $zip->unzipAll($path, '', TRUE, 0755);
         $zip->close();

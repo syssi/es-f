@@ -20,6 +20,7 @@ abstract class XML_Array extends XML_Object implements XML_ArrayI {
 
   /**
    *
+   * qparam $cache Cache
    */
   public function __construct( Cache $Cache ) {
     $this->Cache = $Cache;
@@ -50,7 +51,7 @@ abstract class XML_Array extends XML_Object implements XML_ArrayI {
     $cached = TRUE;
     DebugStack::StartTimer($id, $id, 'parse XML file');
     /// */
-    while ($this->Cache->save($XMLURI, $array, File::MTime($XMLURI))) {
+    while ($this->Cache->save($XMLURI, $array, -File::MTime($XMLURI))) {
       /* ///
       DebugStack::Info('Parse: '.$XMLURI);
       $cached = FALSE;
@@ -119,6 +120,10 @@ abstract class XML_Array extends XML_Object implements XML_ArrayI {
     }
     return $value;
   }
+
+  //--------------------------------------------------------------------------
+  // PRIVATE
+  //--------------------------------------------------------------------------
 
   /**
    *

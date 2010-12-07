@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  Don't "htmlspecialchar" your translation, please use <![CDATA[text...]]>
+
+  Nouns
+  tuid="name"   - default, noun is not required or >1
+  tuid="name-0" - for quantity 0, e.g. "%1$d files deleted"
+  tuid="name-1" - for quantity 1, e.g. "%1$d file deleted"
+
+  If your language have very special cases, just declare
+  tuid="name-10"  or what ever :-)
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<tmx version="1.4">
+  <header
+   creationtool="es-f"
+   creationtoolversion="1"
+   datatype="PlainText"
+   segtype="sentence"
+   adminlang="EN"
+   srclang="EN"
+   o-tmf="ABC"
+   changeid="Knut Kohl / knutkohl@users.sourceforge.net"
+   changedate="20101129T213215Z"
+   o-encoding="UTF-8"
+  >
+    <prop type="x-Namespace">Configuration</prop>
+  </header>
+  <body>
+    <tu tuid="Title">
+      <tuv xml:lang="EN">
+        <seg>Configuration</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="TitleEdit">
+      <tuv xml:lang="EN">
+        <seg>Edit</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Menu">
+      <tuv xml:lang="EN">
+        <seg>Configuration</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="ModuleMenu">
+      <tuv xml:lang="EN">
+        <seg>Configure</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Menuhint">
+      <tuv xml:lang="EN">
+        <seg>Edit configuration of modules and plugins</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="ModuleMenuhint">
+      <tuv xml:lang="EN">
+        <seg>Edit configuration of the module</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Modules">
+      <tuv xml:lang="EN">
+        <seg>Modules</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Plugins">
+      <tuv xml:lang="EN">
+        <seg>Plugins</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="NotWritable">
+      <note>%$1s - ...</note>
+      <tuv xml:lang="EN">
+        <seg>Configuration [%1$s] is not writable!</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="True">
+      <tuv xml:lang="EN">
+        <seg>Yes</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="False">
+      <tuv xml:lang="EN">
+        <seg>No</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Edit">
+      <tuv xml:lang="EN">
+        <seg>Edit</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Save">
+      <tuv xml:lang="EN">
+        <seg>Save</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Reset">
+      <tuv xml:lang="EN">
+        <seg>Reset to default</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Cancel">
+      <tuv xml:lang="EN">
+        <seg>Cancel</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Saved">
+      <tuv xml:lang="EN">
+        <seg>Configuration saved.</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Reseted">
+      <tuv xml:lang="EN">
+        <seg>Configuration reseted to default.</seg>
+      </tuv>
+    </tu>
+
+  </body>
+</tmx>

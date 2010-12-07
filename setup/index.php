@@ -1,12 +1,50 @@
 <?php
 /**
  * @package es-f
- * @subpackage Setup
- * @desc |es|f| Setup
  */
 
+ini_set('display_startup_errors', 0);
+ini_set('display_errors', 0);
+error_reporting(0);
+
+if (file_exists('../prepend.php')) require '../prepend.php';
+
+define('_ESF_OK', TRUE);
+
+session_start();
+
+define('BASEDIR', dirname(dirname(__FILE__)));
+
+require_once '../application/define.php';
+
+require_once LIBDIR.'/debugstack/debugstack.class.php';
+require_once APPDIR.'/classes/loader.class.php';
+
+if (!Loader::Register()) {
+  /**
+   * Emulate autoloading for PHP < 5.1.2
+   */
+  function __autoload( $class ) { Loader::__autoload($class); }
+}
+
+Loader::$AutoLoadPath[] = APPDIR.'/classes';
+
+// include functions
+Loader::Load(APPDIR.'/functions.php');
+// Configurations
+Loader::Load(APPDIR.'/init.php');
+require_once 'functions.php';
+
+// Emulate register_globals off
+unregister_GLOBALS();
+
+Loader::Load(APPDIR.'/lib/cache/cache.class.php');
+$oCache = Cache::factory('Mock');
+
+TplData::$NameSpaceSeparator = '.';
+
 // -----------------------------------------------------------------------------
-# step definitions
+// step definitions
 // -----------------------------------------------------------------------------
 $steps = array(
 // step               Sub-Title           [, next step, next step on error]
@@ -20,49 +58,11 @@ $steps = array(
 );
 // -----------------------------------------------------------------------------
 
-#ini_set('display_startup_errors', 1);
-#ini_set('display_errors', 1);
-#error_reporting(-1);
-error_reporting(0);
-
-session_start();
-
-define('_ESF_OK', TRUE);
-
-define('BASEDIR', dirname(dirname(__FILE__)));
-
-require_once '../application/define.php';
-
-require_once APPDIR.'/lib/debugstack/debugstack.class.php';
-require_once APPDIR.'/classes/loader.class.php';
-
-if (!Loader::Register()) {
-  /**
-   * Emulate autoloading for PHP < 5.1.2
-   */
-  function __autoload( $class ) { Loader::__autoload($class); }
-}
-
-Loader::$AutoLoadPath[] = APPDIR.'/classes';
-
-require_once APPDIR.'/init.php';
-require_once APPDIR.'/functions.php';
-require_once 'functions.php';
-
-$AUTOLOAD_PATH[] = APPDIR.'/lib';
-
-Cache::Init('Mock');
-
-// Emulate register_globals off
-unregister_GLOBALS();
-
 $step = (isset($_REQUEST['step']) AND isset($_SESSION['CHECKED']))
       ? $_REQUEST['step'] : 'intro';
 $step = isset($steps[$step]) ? $step : 'intro';
 $stepdata = $steps[$step];
 $Error = FALSE;
-
-TplData::$NameSpaceSeparator = '.';
 
 /**
  * pre process
@@ -94,6 +94,8 @@ switch ($step) {
     $cfg = empty($cfg) ? Registry::getAll() : array_merge(Registry::getAll(), $cfg);
 
     foreach ($cfg as $key => $val) TplData::set('cfg.'.$key, $val);
+
+    TplData::set('CACHECLASS', Cache::test(array('File', 'APC'), TRUE));
 
     $parsers = array();
     foreach (glob(APPDIR.'/classes/ebayparser/*.class.php') as $file)
@@ -212,7 +214,7 @@ if (version_compare(PHP_VERSION, PHP_VERSION_REQUIRED, '<')) $step = 'version';
 
 Registry::set('TempDir', FALSE);
 
-require_once dirname(__FILE__).'/../application/lib/yuelo/yuelo.require.php';
+require_once LIBDIR.'/yuelo/yuelo.require.php';
 
 $Template = esf_Template::getInstance();
 
@@ -223,6 +225,7 @@ Yuelo_Cache::Active(FALSE);
 $RootDir = dirname(__FILE__).'/layout';
 
 TplData::set('CONTENT', $Template->Render('step.'.$step, TRUE, $RootDir));
+
 /**
  * post process
  */

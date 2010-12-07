@@ -59,7 +59,7 @@ function getLayouts() {
   $layouts = array();
   foreach (glob(BASEDIR.'/layout/*', GLOB_ONLYDIR) as $layout) {
     $layout = preg_replace('~.*/(.+)~', '$1', realpath($layout));
-    if ($layout != 'images') $layouts[] = $layout;
+    if ($layout != 'images' AND $layout != 'custom') $layouts[] = $layout;
   }
   return $layouts;
 }
@@ -95,9 +95,8 @@ function getNewRequest( $request, $param ) {
  * @param string $Layout Layout to check against
  */
 function FindActualLayout( $Layout ) {
-  if (Registry::get('Layout') != 'default' AND $Layout == 'default') {
+  if (Registry::get('Layout') != 'default' AND $Layout == 'default')
     $Layout = Registry::get('Layout');
-  }
   return $Layout;
 }
 
@@ -127,8 +126,14 @@ function StylesAndScripts( $dir, $layouts ) {
       // common for all layouts
       $file = $dir.'/layout/'.$f;
       if (file_exists(np($file))) $htmlhead[] = sprintf($fmthead[$id], $file);
+      // custom common for all layouts
+      $file = $dir.'/layout/custom/'.$f;
+      if (file_exists(np($file))) $htmlhead[] = sprintf($fmthead[$id], $file);
       // for specific layout ...
       $file = $dir.'/layout/'.$layout.'/'.$f;
+      if (file_exists(np($file))) $htmlhead[] = sprintf($fmthead[$id], $file);
+      // custom for specific layout ...
+      $file = $dir.'/layout/'.$layout.'/custom/'.$f;
       if (file_exists(np($file))) $htmlhead[] = sprintf($fmthead[$id], $file);
     }
   }

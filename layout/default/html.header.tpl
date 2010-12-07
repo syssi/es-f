@@ -30,19 +30,17 @@
 
   <div id="header_title" style="text-align:center">
     <div id="esf_title" style="float:left;text-align:left;margin-bottom:5px">
-      <tt style="font-size:150%;font-weight:bold">{CONST.ESF.TITLE}</tt><br>
-      <tt>{CONST.ESF.SLOGAN}</tt><br>
-      <small><em>{CONST.ESF.FULL_VERSION}</em></small>
-
+      <tt>{CONST.ESF.LONG_TITLE}</tt><br>
+      <small>{CONST.ESF.FULL_VERSION}</small>
       <!-- IF CONST.DEVELOP -->
       <br>
-      <small><em>
-      <script type="text/javascript">
-        // <![CDATA[
-        document.write("(Server time difference: " + ServerTimeOffset.toFixed(1) + "s)");
-        // ]]>
-      </script>
-      </em></small>
+      <span style="font-size:smaller;font-style:italic">
+        <script type="text/javascript">
+          // <![CDATA[
+          document.write("Server time difference: " + ServerTimeOffset.toFixed(1) + "s");
+          // ]]>
+        </script>
+      </span>
       <!-- ENDIF -->
 
     </div>
@@ -52,7 +50,7 @@
       <div style="float:right;margin-left:2em">
         <!-- BEGIN LANGUAGE -->
         <a class="language" href="{URL}" onmouseover="Tip('{DESC}')"><img
-           src="application/language/images/{NAME}.png" alt="[{NAME}]"></a>
+           src="application/language/{NAME}.png" alt="[{NAME}]"></a>
         <!-- END LANGUAGE -->
       </div>
 
@@ -60,19 +58,21 @@
         <script type="text/javascript" src="js/fontsize.js"></script>
       </div>
 
-      <div class="clear" style="clear:both;text-align:right;">
-        &nbsp;
-        <!-- IF CONST.DEVELOP -->
-        <small>{server:"REMOTE_ADDR"}<br>{server:"REMOTE_HOST"}</small>
+      <div class="clear">
+        [[Core.Welcome]],
+        <!-- IF USER -->
+          <strong>{USER}</strong>
+        <!-- ELSE -->
+          <a href="?module=login">[[Core.Login]]</a>
         <!-- ENDIF -->
       </div>
 
-      [[Core.Welcome]],
-      <!-- IF USER -->
-        <strong>{USER}</strong>
-      <!-- ELSE -->
-        <a href="?module=login">[[Core.Login]]</a>
+      <!-- IF CONST.DEVELOP -->
+      <span style="font-size:smaller;font-style:italic">
+      {server:"REMOTE_HOST"} ({server:"REMOTE_ADDR"})
+      </span>
       <!-- ENDIF -->
+
     </div>
 
     <div style="width:35em;margin:0 auto">

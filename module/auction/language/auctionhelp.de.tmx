@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  Don't "htmlspecialchar" your translation, please use <![CDATA[text...]]>
+
+  Nouns
+  tuid="name"   - default, noun is not required or >1
+  tuid="name-0" - for quantity 0, e.g. "%1$d files deleted"
+  tuid="name-1" - for quantity 1, e.g. "%1$d file deleted"
+
+  If your language have very special cases, just declare
+  tuid="name-10"  or what ever :-)
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<tmx version="1.4">
+  <header
+   creationtool="es-f"
+   creationtoolversion="1"
+   datatype="PlainText"
+   segtype="sentence"
+   adminlang="EN"
+   srclang="EN"
+   o-tmf="ABC"
+   changeid="Knut Kohl / knutkohl@users.sourceforge.net"
+   changedate="20101129T213215Z"
+   o-encoding="UTF-8"
+  >
+    <prop type="x-Namespace">AuctionHelp</prop>
+  </header>
+  <body>
+    <tu tuid="Category">
+      <prop type="x-Format">html</prop>
+      <tuv xml:lang="DE">
+        <seg><![CDATA[Kategorie|
+<p>Die Kategorie (nur in <tt>|es|f|</tt>) ist eine einfache Klassifizierung zur Unterscheidung von Auktions-Gruppen, also z.B. "Computer", "Musik" etc.</p>
+<p>Die Verwendung dieses Levels ist optional, allerdings werden sonst alle Auktionen nach Enddatum (durcheinander) sortiert gelistet!</p>
+<p>Die Auktionen werden also zuerst nach Kategorien sortiert.</p>]]></seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Group">
+      <prop type="x-Format">html</prop>
+      <tuv xml:lang="DE">
+        <seg><![CDATA[Gruppe|
+<p>Die Bietgruppe (<tt>|es|f|</tt> und esniper) ist exakt die gleiche Funktionalität wie in esniper, d.h. mehrere ähnliche Auktionen werden zusammen beboten bis die "angeforderte" Menge erreicht ist.</p>
+<p>Der Preis der Gruppe gilt für alle Auktionen der Gruppe, die keinen eigenen Preis zugewiesen bekommen haben (z.B. bei anderen Währungen als der Standard-Währung notwendig).</p>
+<p>Die Auktionen werden nun (innerhalb der Kategorie) nach Gruppen sortiert.</p>]]></seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="AddMultipleAuctions">
+      <prop type="x-Format">html</prop>
+      <tuv xml:lang="DE">
+        <seg><![CDATA[Mehrere Auktion auf einmal hinzufügen|
+<div class="li">Gibt die Auktionsnummern getrennt durch eine &quot;Nicht-Ziffer&quot; wie z.B. Leerzeichen oder Komma ein.</div>
+<div class="li">Wähle ggf. eine vorhandene Kategorie / Gruppe aus den Auswahllisten oder gibt eine Neue ein.</div>
+<div class="li">Lege Menge und Gebot fest und sichere / starte die Auktionen.</div>]]></seg>
+      </tuv>
+    </tu>
+
+  </body>
+</tmx>

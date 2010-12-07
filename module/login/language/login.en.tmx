@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  Don't "htmlspecialchar" your translation, please use <![CDATA[text...]]>
+
+  Nouns
+  tuid="name"   - default, noun is not required or >1
+  tuid="name-0" - for quantity 0, e.g. "%1$d files deleted"
+  tuid="name-1" - for quantity 1, e.g. "%1$d file deleted"
+
+  If your language have very special cases, just declare
+  tuid="name-10"  or what ever :-)
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<tmx version="1.4">
+  <header
+   creationtool="es-f"
+   creationtoolversion="1"
+   datatype="PlainText"
+   segtype="sentence"
+   adminlang="EN"
+   srclang="EN"
+   o-tmf="ABC"
+   changeid="Knut Kohl / knutkohl@users.sourceforge.net"
+   changedate="20101129T213215Z"
+   o-encoding="UTF-8"
+  >
+    <prop type="x-Namespace">Login</prop>
+  </header>
+  <body>
+    <tu tuid="Menu">
+      <tuv xml:lang="EN">
+        <seg>Login</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="MenuHint">
+      <prop type="x-Format">html</prop>
+      <tuv xml:lang="EN">
+        <seg><![CDATA[Login into <tt>|es|f|</tt> with account name and password]]></seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Title">
+      <tuv xml:lang="EN">
+        <seg>Login</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Login">
+      <tuv xml:lang="EN">
+        <seg>Login</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Account">
+      <tuv xml:lang="EN">
+        <seg>Account</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Select">
+      <tuv xml:lang="EN">
+        <seg>Select</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Password">
+      <prop type="x-Format">html</prop>
+      <tuv xml:lang="EN">
+        <seg><![CDATA[<tt>|es|f|</tt> passwort]]></seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="YourAccountAndPassword">
+      <prop type="x-Format">html</prop>
+      <tuv xml:lang="EN">
+        <seg><![CDATA[Your eBay account and <tt>|es|f|</tt> password]]></seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Cookie">
+      <tuv xml:lang="EN">
+        <seg>Keep me signed in for today.</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="CookieHint">
+      <tuv xml:lang="EN">
+        <seg><![CDATA[Don't check this if you're at a public or shared computer.]]></seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="GoodMorning">
+      <tuv xml:lang="EN">
+        <seg>Good morning</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="GoodDay">
+      <tuv xml:lang="EN">
+        <seg>Good day</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="GoodAfternoon">
+      <tuv xml:lang="EN">
+        <seg>Good afternoon</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="GoodEvening">
+      <tuv xml:lang="EN">
+        <seg>Good evening</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Failed">
+      <tuv xml:lang="EN">
+        <seg>Unknown user or password!</seg>
+      </tuv>
+    </tu>
+
+  </body>
+</tmx>

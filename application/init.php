@@ -84,6 +84,9 @@ Registry::set('bin_sh',   'sh');
 Registry::set('bin_grep', 'grep');
 Registry::set('bin_kill', 'kill');
 
+// Version 8:
+Registry::set('CacheClass', 'File');
+
 /**
  * esniper configuration
  */
@@ -108,11 +111,6 @@ Registry::set('esf.contentonly', FALSE);
 // use own session name
 Registry::set('SessionName', 'ESFSESSID');
 #Session::$NVL = '';
-
-/**
- * init exec class for defined OS
- */
-Exec::InitInstance(ESF_OS);
 
 /**
  * Somme common URLs

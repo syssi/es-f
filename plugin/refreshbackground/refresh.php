@@ -6,7 +6,7 @@
  */
 
 error_reporting(0);
-error_reporting(E_ALL);
+error_reporting(-1);
 
 Header('Content-type: text/plain');
 
@@ -15,9 +15,14 @@ define( '_ESF_OK', TRUE );
 define('BASEDIR', dirname(dirname(dirname(__FILE__))));
 
 require_once BASEDIR.'/application/define.php';
-
-require_once APPDIR.'/lib/debugstack/debugstack.class.php';
+require_once LIBDIR.'/debugstack/debugstack.class.php';
 require_once APPDIR.'/classes/loader.class.php';
+
+if (!Loader::Register()) {
+  // Emulate autoloading for PHP < 5.1.2
+  function __autoload( $class ) { Loader::__autoload($class); }
+}
+
 Loader::$AutoLoadPath[] = APPDIR.'/classes';
 
 ErrorHandler::register('echo');
@@ -27,10 +32,13 @@ require_once APPDIR.'/functions.php';
 
 session_start();
 
-Cache::Init('Mock');
+require_once LIBDIR.'/cache/cache.class.php';
+$oCache = Cache::Factory('Mock');
+Registry::set('Cache', $oCache);
+
 HTMLPage::$Debug = FALSE;
 
-$xml = new XML_Array_Configuration(Cache::getInstance());
+$xml = new XML_Array_Configuration($oCache);
 $cfg = $xml->ParseXMLFile(BASEDIR.'/local/config/config.xml');
 if (!$cfg) die($xml->Error);
 

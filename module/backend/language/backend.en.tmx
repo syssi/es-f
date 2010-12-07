@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  Don't "htmlspecialchar" your translation, please use <![CDATA[text...]]>
+
+  Nouns
+  tuid="name"   - default, noun is not required or >1
+  tuid="name-0" - for quantity 0, e.g. "%1$d files deleted"
+  tuid="name-1" - for quantity 1, e.g. "%1$d file deleted"
+
+  If your language have very special cases, just declare
+  tuid="name-10"  or what ever :-)
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<tmx version="1.4">
+  <header
+   creationtool="es-f"
+   creationtoolversion="1"
+   datatype="PlainText"
+   segtype="sentence"
+   adminlang="EN"
+   srclang="EN"
+   o-tmf="ABC"
+   changeid="Knut Kohl / knutkohl@users.sourceforge.net"
+   changedate="20101129T213215Z"
+   o-encoding="UTF-8"
+  >
+    <prop type="x-Namespace">Backend</prop>
+  </header>
+  <body>
+    <tu tuid="Menu">
+      <tuv xml:lang="EN">
+        <seg>Backend</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Menuhint">
+      <tuv xml:lang="EN">
+        <seg>Edit modules and plugins</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Title">
+      <tuv xml:lang="EN">
+        <seg>Backend</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="TitleIndex">
+      <tuv xml:lang="EN">
+        <seg>Backend</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Category">
+      <tuv xml:lang="EN">
+        <seg>Category</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Modules">
+      <tuv xml:lang="EN">
+        <seg>Modules</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Plugins">
+      <tuv xml:lang="EN">
+        <seg>Plugins</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Extension">
+      <tuv xml:lang="EN">
+        <seg>Extension</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Version">
+      <tuv xml:lang="EN">
+        <seg>Version</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Description">
+      <tuv xml:lang="EN">
+        <seg>Description</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Actions">
+      <tuv xml:lang="EN">
+        <seg>Actions</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="State">
+      <tuv xml:lang="EN">
+        <seg>State</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Enable">
+      <tuv xml:lang="EN">
+        <seg>activate</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Enabled">
+      <tuv xml:lang="EN">
+        <seg>activ</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Disable">
+      <tuv xml:lang="EN">
+        <seg>deactivate</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Disabled">
+      <tuv xml:lang="EN">
+        <seg>inactiv</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Install">
+      <tuv xml:lang="EN">
+        <seg>install</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Deinstall">
+      <tuv xml:lang="EN">
+        <seg>deinstall</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Reinstall">
+      <tuv xml:lang="EN">
+        <seg>reinstall</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Installed">
+      <tuv xml:lang="EN">
+        <seg>installed</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="NotInstalled">
+      <tuv xml:lang="EN">
+        <seg>not installed</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="CoreInfo">
+      <tuv xml:lang="EN">
+        <seg><![CDATA[Core function, can't deactivated/deinstalled]]></seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="EditConfiguration">
+      <tuv xml:lang="EN">
+        <seg>Edit configuration</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="CantChangeProtected">
+      <prop type="x-Format">html</prop>
+      <note>%$1s - ...</note>
+      <tuv xml:lang="EN">
+        <seg><![CDATA[Nice try <tt>;-)</tt>, but %s "%s" is protected, you can't change state from here!]]></seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="InstallSuccessed">
+      <tuv xml:lang="EN">
+        <seg>Installation successful.</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="InstallFailed">
+      <tuv xml:lang="EN">
+        <seg>Installation failed.</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="DeinstallSuccessed">
+      <tuv xml:lang="EN">
+        <seg>Deinstallation successful.</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="DeinstallFailed">
+      <tuv xml:lang="EN">
+        <seg>Deinstallation failed.</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="EnableSuccessed">
+      <tuv xml:lang="EN">
+        <seg>Activation successful.</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="EnableFailed">
+      <tuv xml:lang="EN">
+        <seg>Activation failed.</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="DisableSuccessed">
+      <tuv xml:lang="EN">
+        <seg>Deactivation successful.</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="DisableFailed">
+      <tuv xml:lang="EN">
+        <seg>Deactivation failed.</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="LookForInfo">
+      <prop type="x-Format">html</prop>
+      <note>%$1s - ...</note>
+      <tuv xml:lang="EN">
+        <seg><![CDATA[Please take a look at the <a href="%s">information page</a>
+to find out, if there are additional requirements!]]></seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="CreateDirectory">
+      <note>%$1s - ...</note>
+      <tuv xml:lang="EN">
+        <seg>Create directory [%s]</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="CantMakeDirectory">
+      <note>%$1s - ...</note>
+      <tuv xml:lang="EN">
+        <seg><![CDATA[Can't create directory [%s].]]></seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="MakeDirectoryWritable">
+      <note>%$1s - ...</note>
+      <tuv xml:lang="EN">
+        <seg>Make directory [%s] writable!</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="CreateFile">
+      <note>%$1s - ...</note>
+      <tuv xml:lang="EN">
+        <seg>Create file [%s]</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="CantMakeFile">
+      <note>%$1s - ...</note>
+      <tuv xml:lang="EN">
+        <seg><![CDATA[Can't create file [%s].]]></seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="ExtractArchive">
+      <note>%$1s - ...</note>
+      <tuv xml:lang="EN">
+        <seg>Extract archive [%s]</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="MissingFile">
+      <note>%$1s - ...</note>
+      <tuv xml:lang="EN">
+        <seg>Missing file [%s]!</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="RemoveDirectory">
+      <note>%$1s - ...</note>
+      <tuv xml:lang="EN">
+        <seg>Remove directory [%s]</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="RemoveFile">
+      <note>%$1s - ...</note>
+      <tuv xml:lang="EN">
+        <seg>Remove file [%s]</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Done">
+      <tuv xml:lang="EN">
+        <seg>Done</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Failed">
+      <tuv xml:lang="EN">
+        <seg>Failed</seg>
+      </tuv>
+    </tu>
+
+  </body>
+</tmx>

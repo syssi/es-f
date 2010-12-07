@@ -16,7 +16,6 @@ if (function_exists('spl_autoload_register')) {
    */
   function __autoload_yuelo( $class ) {
     $path = YUELO_BASE . str_replace('_', DIRECTORY_SEPARATOR, strtolower($class));
-
     foreach (array('.class.php', '.if.php') as $file) {
       $file = $path . $file;
       if (file_exists($file)) {
@@ -30,7 +29,7 @@ if (function_exists('spl_autoload_register')) {
    * Register autoload function
    */
   spl_autoload_register('__autoload_yuelo');
-  
+
   Yuelo::set('AutoLoad', TRUE);
 
 } else {

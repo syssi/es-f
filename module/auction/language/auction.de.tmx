@@ -1,0 +1,826 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  Don't "htmlspecialchar" your translation, please use <![CDATA[text...]]>
+
+  Nouns
+  tuid="name"   - default, noun is not required or >1
+  tuid="name-0" - for quantity 0, e.g. "%1$d files deleted"
+  tuid="name-1" - for quantity 1, e.g. "%1$d file deleted"
+
+  If your language have very special cases, just declare
+  tuid="name-10"  or what ever :-)
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<tmx version="1.4">
+  <header
+   creationtool="es-f"
+   creationtoolversion="1"
+   datatype="PlainText"
+   segtype="sentence"
+   adminlang="EN"
+   srclang="EN"
+   o-tmf="ABC"
+   changeid="Knut Kohl / knutkohl@users.sourceforge.net"
+   changedate="20101129T213215Z"
+   o-encoding="UTF-8"
+  >
+    <prop type="x-Namespace">Auction</prop>
+  </header>
+  <body>
+    <tu tuid="Title">
+      <tuv xml:lang="DE">
+        <seg>Auktionen</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="TitleIndex">
+      <tuv xml:lang="DE">
+        <seg>Auktionen</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="TitleEditAuction">
+      <tuv xml:lang="DE">
+        <seg>Auktion bearbeiten</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="TitleEditGroup">
+      <tuv xml:lang="DE">
+        <seg>Biet-Gruppe bearbeiten</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="TitleDelete">
+      <tuv xml:lang="DE">
+        <seg>Auktion löschen</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Menu">
+      <tuv xml:lang="DE">
+        <seg>Auktionen</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="MenuHint">
+      <tuv xml:lang="DE">
+        <seg>Liste der Auktionen</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="MenuDeleteEnded">
+      <tuv xml:lang="DE">
+        <seg>Bereinigen</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="MenuHintDeleteEnded">
+      <tuv xml:lang="DE">
+        <seg>Alle beendeten Auktionen löschen</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Image">
+      <tuv xml:lang="DE">
+        <seg>Bild</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Auction">
+      <tuv xml:lang="DE">
+        <seg>Auktion</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Auctions">
+      <tuv xml:lang="DE">
+        <seg>Auktionen</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="EndTime">
+      <tuv xml:lang="DE">
+        <seg>endet</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Ended">
+      <tuv xml:lang="DE">
+        <seg>Beendet</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Endless">
+      <tuv xml:lang="DE">
+        <seg>Ohne Endedatum</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="RemainingTime">
+      <tuv xml:lang="DE">
+        <seg>Restzeit</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="NoOfBids">
+      <tuv xml:lang="DE">
+        <seg>Gebote</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="NoBids">
+      <tuv xml:lang="DE">
+        <seg>--</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="CurrentPrice">
+      <tuv xml:lang="DE">
+        <seg>aktueller Preis</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="HighBidder">
+      <tuv xml:lang="DE">
+        <seg>Höchstbieter</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Currency">
+      <tuv xml:lang="DE">
+        <seg>Währung</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Shipping">
+      <tuv xml:lang="DE">
+        <seg>Versand</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="ShippingFree">
+      <tuv xml:lang="DE">
+        <seg>Frei Haus</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Seller">
+      <tuv xml:lang="DE">
+        <seg>Verkäufer</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="GetFromEbay">
+      <tuv xml:lang="DE">
+        <seg>von eBay lesen</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Quantity">
+      <tuv xml:lang="DE">
+        <seg>Menge</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Bid">
+      <tuv xml:lang="DE">
+        <seg>Gebot</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="MyBid">
+      <tuv xml:lang="DE">
+        <seg>Mein Gebot</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="URL">
+      <tuv xml:lang="DE">
+        <seg>URL</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="ImageRotate">
+      <tuv xml:lang="DE">
+        <seg>Bild drehen</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="ImageRotateNo">
+      <tuv xml:lang="DE">
+        <seg>nein</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="ImageRotateLeft">
+      <tuv xml:lang="DE">
+        <seg>nach links</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="ImageRotateRight">
+      <tuv xml:lang="DE">
+        <seg>nach rechts</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="AddAuctions">
+      <tuv xml:lang="DE">
+        <seg>Auktionen hinzufügen</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Price">
+      <tuv xml:lang="DE">
+        <seg>Preis</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Comment">
+      <tuv xml:lang="DE">
+        <seg>Kommentar</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Piece">
+      <tuv xml:lang="DE">
+        <seg>St.</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Available">
+      <tuv xml:lang="DE">
+        <seg>verfügbar</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Category">
+      <tuv xml:lang="DE">
+        <seg>Kategorie</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Categories">
+      <tuv xml:lang="DE">
+        <seg>Kategorien</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="NoCategory">
+      <tuv xml:lang="DE">
+        <seg>ohne Kategorie</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="AuctionBid">
+      <tuv xml:lang="DE">
+        <seg>Auktions-
+Gebot</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="GroupBid">
+      <tuv xml:lang="DE">
+        <seg>Gruppen-Gebot</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="GroupSingle">
+      <tuv xml:lang="DE">
+        <seg>Grundpreis</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="GroupTotal">
+      <tuv xml:lang="DE">
+        <seg>Gesamtpreis (incl. Versand)</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Group">
+      <tuv xml:lang="DE">
+        <seg>Gruppe</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Groups">
+      <tuv xml:lang="DE">
+        <seg>Gruppen</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="InclCategory">
+      <tuv xml:lang="DE">
+        <seg>incl. Kategorie</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="ShouldReadAutomatic">
+      <tuv xml:lang="DE">
+        <seg>Diese Daten sollten bereits automatisch ermittelt worden sein</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="ImageUrl">
+      <tuv xml:lang="DE">
+        <seg>Bild-URL</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="YourAuctionSettings">
+      <tuv xml:lang="DE">
+        <seg>Deine Auktions-Einstellungen</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="DifferentFromGroup">
+      <tuv xml:lang="DE">
+        <seg>abweichend vom Gruppengebot</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="BidNow">
+      <tuv xml:lang="DE">
+        <seg>Platziere Gebot jetzt</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="UseToBreakBuyNow">
+      <tuv xml:lang="DE">
+        <seg>benutze dies z.B. um einen Sofort-Kauf zu verhindern</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Actions">
+      <tuv xml:lang="DE">
+        <seg>Aktionen</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="EditAuction">
+      <tuv xml:lang="DE">
+        <seg>Auktion ändern</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="EditGroup">
+      <tuv xml:lang="DE">
+        <seg>Gruppe ändern</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="ConfirmDelete">
+      <tuv xml:lang="DE">
+        <seg>Löschen bestätigen</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="PleaseConfirmDelete">
+      <tuv xml:lang="DE">
+        <seg>Bitte Löschung bestätigen!</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="DeleteAuction">
+      <tuv xml:lang="DE">
+        <seg>Auktion löschen</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="DeleteAuctionsOfGroup">
+      <note>%$1s - ...</note>
+      <tuv xml:lang="DE">
+        <seg>Alle Auktionen der Gruppe [%s] werden gelöscht.</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="CleanupAuctions">
+      <tuv xml:lang="DE">
+        <seg>Beendete Auktionen löschen</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="DeleteGroup">
+      <tuv xml:lang="DE">
+        <seg>Alle Auktionen der Gruppe löschen</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="CategoryIgnoredOnGroup">
+      <tuv xml:lang="DE">
+        <seg>Wenn eine vorhandene Gruppe ausgewählt wird, wird die Kategorie aus dieser Gruppe übernommen!</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="ShowAuctionsOfCategory">
+      <note>%$1s - ...</note>
+      <tuv xml:lang="DE">
+        <seg><![CDATA[Zeige/verberge alle Auktionen der Kategorie "%s"]]></seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="ShowMultiAddRow">
+      <tuv xml:lang="DE">
+        <seg>Zeige Zeile zum Hinzufügen von Auktionen</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="ConfirmDeleteAuction">
+      <prop type="x-Format">html</prop>
+      <note>%$1s - ...</note>
+      <tuv xml:lang="DE">
+        <seg><![CDATA[Möchten Sie die Auktion<br><br><strong>%2$s</strong><br><br>wirklich löschen?]]></seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="ConfirmCleanupAuctions">
+      <tuv xml:lang="DE">
+        <seg>Möchten Sie wirklich alle beendeten Auktionen löschen?</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Yes">
+      <tuv xml:lang="DE">
+        <seg>Ja</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="No">
+      <tuv xml:lang="DE">
+        <seg>Nein</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Rename">
+      <tuv xml:lang="DE">
+        <seg>Umbenennen</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Start">
+      <tuv xml:lang="DE">
+        <seg>Gruppe starten</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Stop">
+      <tuv xml:lang="DE">
+        <seg>Gruppe anhalten</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Startstop">
+      <tuv xml:lang="DE">
+        <seg>Gruppe starten/anhalten</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Save">
+      <tuv xml:lang="DE">
+        <seg>Sichern</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="NoBidDefinedYet">
+      <tuv xml:lang="DE">
+        <seg>Noch kein Gebot angegeben!</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="StartGroup">
+      <tuv xml:lang="DE">
+        <seg>Gruppe starten</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="GroupComment">
+      <tuv xml:lang="DE">
+        <seg>Gruppen-Kommentar</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="EsniperIsRunning">
+      <tuv xml:lang="DE">
+        <seg>esniper läuft und ist bereit zu bieten...</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="ClickForEdit">
+      <tuv xml:lang="DE">
+        <seg><![CDATA[Klick für "inline" Bearbeitung]]></seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="RemoveGroupWillSplit">
+      <tuv xml:lang="DE">
+        <seg>Wenn Sie den Gruppenname leeren, werden die Auktionen wieder einzeln geführt.</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="EditSaveAuction">
+      <tuv xml:lang="DE">
+        <seg>Sichern</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="EditSaveGroup">
+      <tuv xml:lang="DE">
+        <seg>Sichern</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="EditStartGroup">
+      <tuv xml:lang="DE">
+        <seg>Starten</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="EditCancel">
+      <tuv xml:lang="DE">
+        <seg>Abbrechen</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Cancel">
+      <tuv xml:lang="DE">
+        <seg>Abbrechen</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="MarkedAuctions">
+      <tuv xml:lang="DE">
+        <seg>markierte 
+Auktionen</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Or">
+      <tuv xml:lang="DE">
+        <seg>oder</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Select">
+      <tuv xml:lang="DE">
+        <seg>Auswahl</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="MoveToCategory">
+      <tuv xml:lang="DE">
+        <seg>Nach Kategorie verschieben</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="MoveToGroup">
+      <tuv xml:lang="DE">
+        <seg>Nach Gruppe verschieben</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="SetImage">
+      <tuv xml:lang="DE">
+        <seg>Bild ersetzen</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="SetComment">
+      <tuv xml:lang="DE">
+        <seg>Kommentar setzen</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="SetBid">
+      <tuv xml:lang="DE">
+        <seg>Auktions-Gebot setzen</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="SetCurrency">
+      <tuv xml:lang="DE">
+        <seg>Währung zuweisen</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Refresh">
+      <tuv xml:lang="DE">
+        <seg>Auktion aktualisieren</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="RefreshAuctions">
+      <tuv xml:lang="DE">
+        <seg>Auktionen aktualisieren</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="RefreshCategory">
+      <tuv xml:lang="DE">
+        <seg>Auktionen der Kategorie aktualisieren</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="RefreshGroup">
+      <tuv xml:lang="DE">
+        <seg>Auktionen der Gruppe aktualisieren</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Go">
+      <tuv xml:lang="DE">
+        <seg>Los</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Error">
+      <tuv xml:lang="DE">
+        <seg>FEHLER</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="NoItem">
+      <tuv xml:lang="DE">
+        <seg>Keine Auktionsnummer angegeben!</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="GroupBidUpdated">
+      <note>%$1s - ...</note>
+      <tuv xml:lang="DE">
+        <seg>Gebot der Gruppe [%1$s] wurde von der Auktion übernommen.</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="MissingAmount">
+      <tuv xml:lang="DE">
+        <seg>Kein Gebot eingegeben!</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="AuctionSaved">
+      <note>%$1s - ...</note>
+      <tuv xml:lang="DE">
+        <seg>Auktion [%1$s] gespeichert.</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="AuctionDeleted">
+      <note>%$1s - ...</note>
+      <tuv xml:lang="DE">
+        <seg>Auktion [%1$s] gelöscht.</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="AuctionsDeleted">
+      <note>%$1s - ...</note>
+      <tuv xml:lang="DE">
+        <seg>%1$d Auktionen gelöscht.</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="DeletedEnded">
+      <note>%$1s - ...</note>
+      <tuv xml:lang="DE">
+        <seg>%1$d beendete Auktionen gelöscht.</seg>
+      </tuv>
+    </tu>
+    <tu tuid="DeletedEnded-1">
+      <tuv xml:lang="DE">
+        <seg>Eine beendete Auktion gelöscht.</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="NoDeletedEnded">
+      <tuv xml:lang="DE">
+        <seg>Keine beendeten Auktionen gefunden.</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="GroupSaved">
+      <tuv xml:lang="DE">
+        <seg>Biet-Gruppe gespeichert.</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="GroupStarted">
+      <note>%$1s - ...</note>
+      <tuv xml:lang="DE">
+        <seg>Biet-Gruppe [%1$s] gestartet.</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="GroupNotStarted">
+      <prop type="x-Format">html</prop>
+      <note>%$1s - ...</note>
+      <tuv xml:lang="DE">
+        <seg><![CDATA[Biet-Gruppe [%1$s] nicht gestartet! (weitere Informationen im <a href="?module=protocol#%2$s">Auktions-Logfile</a>)]]></seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="AuctionBiddedNow">
+      <tuv xml:lang="DE">
+        <seg>Auktions-Gebot plaziert.</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="GroupStopped">
+      <note>%$1s - ...</note>
+      <tuv xml:lang="DE">
+        <seg>Biet-Gruppe [%1$s] gestoppt.</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="MovedGroupToCategory">
+      <note>%$1s - ...</note>
+      <tuv xml:lang="DE">
+        <seg>Alle Auktionen der Gruppe [%1$s] wurden in die Kategorie [%2$s] verschoben.</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="RefreshedJustEnded">
+      <prop type="x-Format">html</prop>
+      <note>%$1s - ...</note>
+      <tuv xml:lang="DE">
+        <seg><![CDATA[Soeben beendete Auktion "%2$s" wurde aktualisiert.]]></seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="SkipMonitored">
+      <note>%$1s - ...</note>
+      <tuv xml:lang="DE">
+        <seg><![CDATA[Ignoriere bereits erfasste Auktion [%1$s] "%2$s"]]></seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="ErrorRetrieving">
+      <note>%$1s - ...</note>
+      <tuv xml:lang="DE">
+        <seg>Fehler beim Lesen der HTML-Daten für Auktion [%1$s]</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="ErrorRetrievingTryAgain">
+      <prop type="x-Format">html</prop>
+      <note>%$1s - ...</note>
+      <tuv xml:lang="DE">
+        <seg><![CDATA[Es kann sein, dass |es|f| die ebay-Seite nur nicht korrekt lesen konnte, in dem Fall solltest Du es <a href="?module=auction&amp;action=mrefresh&amp;auctions=%1$s">einfach nochmal versuchen</a> :-)]]></seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="ReportAuctionFiles">
+      <prop type="x-Format">html</prop>
+      <note>%$1s - ...</note>
+      <tuv xml:lang="DE">
+        <seg><![CDATA[Wenn dieser Fehler öfter vorkommt:
+<div class="li">gehe bitte in dieses Verzeichnis: %1$s</div>
+<div class="li">packe folgende Dateien zusammen: %2$s.*.html</div>
+<div class="li"><a href="%3$s">erstelle einen Bug-Report auf SourceForge</a> und hänge diese Dateien an</div>]]></seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Upgrade">
+      <note>%$1s - ...</note>
+      <tuv xml:lang="DE">
+        <seg>Aktualisiere alle Auktionen auf Version %s</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Upgraded">
+      <note>%$1s - ...</note>
+      <tuv xml:lang="DE">
+        <seg>Auktionen wurden auf Version %s aktualisiert.</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Dragger">
+      <tuv xml:lang="DE">
+        <seg><![CDATA[Ziehe dies auf ein Drag'n'Drop Ziel, um die Auktion zu verschieben.]]></seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Droptarget">
+      <tuv xml:lang="DE">
+        <seg><![CDATA[Drag'n'Drop Ziel]]></seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="DropRemoveGroup">
+      <tuv xml:lang="DE">
+        <seg>Lege eine Auktion hier ab, um sie aus ihrer Gruppe zu entfernen.</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="DropCategory">
+      <tuv xml:lang="DE">
+        <seg>Lege eine Auktion hier ab, um sie in diese Kategorie zu verschieben.</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="DropGroup">
+      <tuv xml:lang="DE">
+        <seg>Lege eine Auktion hier ab, um sie in diese Gruppe zu verschieben.</seg>
+      </tuv>
+    </tu>
+
+  </body>
+</tmx>

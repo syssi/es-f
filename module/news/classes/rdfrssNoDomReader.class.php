@@ -7,7 +7,7 @@
  * @package      Package rdfrssNoDomReader
  * @author       Elmar Eigner <eigner@open-eye.de>
  * @copyright    Elmar Eigner, http://www.open-eye.de
- * @version      $Id: rdfrssNoDomReader.class.php,v 1.1 2004/02/27 10:13:40 ee Exp $
+ * @version      : 'v2.3.1-5-g726118d'$
  * @access       public
  */
 

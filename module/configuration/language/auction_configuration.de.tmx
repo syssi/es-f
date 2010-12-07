@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  Don't "htmlspecialchar" your translation, please use <![CDATA[text...]]>
+
+  Nouns
+  tuid="name"   - default, noun is not required or >1
+  tuid="name-0" - for quantity 0, e.g. "%1$d files deleted"
+  tuid="name-1" - for quantity 1, e.g. "%1$d file deleted"
+
+  If your language have very special cases, just declare
+  tuid="name-10"  or what ever :-)
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<tmx version="1.4">
+  <header
+   creationtool="es-f"
+   creationtoolversion="1"
+   datatype="PlainText"
+   segtype="sentence"
+   adminlang="EN"
+   srclang="EN"
+   o-tmf="ABC"
+   changeid="Knut Kohl / knutkohl@users.sourceforge.net"
+   changedate="20101129T213215Z"
+   o-encoding="UTF-8"
+  >
+    <prop type="x-Namespace">Auction_configuration</prop>
+  </header>
+  <body>
+    <tu tuid="NAME">
+      <tuv xml:lang="DE">
+        <seg>Auktionen</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="DESCRIPTION">
+      <tuv xml:lang="DE">
+        <seg>Dieses Modul kann nicht deaktiviert werden.</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="DESCRIPTION_LONG">
+      <tuv xml:lang="DE">
+        <seg></seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="LAYOUTENDED">
+      <tuv xml:lang="DE">
+        <seg>Verwende für beendete Auktionen/Gruppen anderes (kleineres) Layout</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="IMAGESIZE">
+      <tuv xml:lang="DE">
+        <seg><![CDATA[Max. Bild-Breite/-Höhe im Anzeige-Modus (PopUp) [px <small>(0 für keine Beschränkung)</small>]]]></seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="NOIMAGE">
+      <tuv xml:lang="DE">
+        <seg>Ersatzbild-URL, wenn kein Bild bei ebay gefunden werden konnte [(rel. oder absoluter HTML-Pfad)]</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="CURRENCY">
+      <tuv xml:lang="DE">
+        <seg>Standard-Währung</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="REFRESHBUTTONS">
+      <tuv xml:lang="DE">
+        <seg>Extra Aktualisierungs-Icons auf welcher Ebene</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="REFRESHBUTTONS>0">
+      <tuv xml:lang="DE">
+        <seg>Keine extra Icons</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="REFRESHBUTTONS>1">
+      <tuv xml:lang="DE">
+        <seg>Nur auf Kategorie-Ebene</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="REFRESHBUTTONS>2">
+      <tuv xml:lang="DE">
+        <seg>Auf Gruppen- und Kategorie-Ebene</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="REFRESHBUTTONS>3">
+      <tuv xml:lang="DE">
+        <seg>Auf Auktions-, Gruppen- und Kategorie-Ebene</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="COUNTDOWN">
+      <tuv xml:lang="DE">
+        <seg>Zähle Auktions-Restzeit mittels JS herunter</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="COUNTDOWN>0">
+      <tuv xml:lang="DE">
+        <seg>Nein (statische Zeit)</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="COUNTDOWN>1">
+      <tuv xml:lang="DE">
+        <seg>Nur nächstendende Auktion</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="COUNTDOWN>2">
+      <tuv xml:lang="DE">
+        <seg>Alle Auktionen</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="POPUPEDIT">
+      <tuv xml:lang="DE">
+        <seg>Benutze Popup-Dialoge zum Ändern bzw. für Lösch-Bestätigung</seg>
+      </tuv>
+    </tu>
+
+  </body>
+</tmx>

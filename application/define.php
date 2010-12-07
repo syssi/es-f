@@ -1,8 +1,7 @@
 <?php
 /**
  * @package es-f
- * @subpackage Core
- * @desc Common used defines
+ * @version $Id$
  */
 
 defined('_ESF_OK') || die('No direct call allowed.');
@@ -15,12 +14,12 @@ if (!isset($_SERVER['REQUEST_TIME'])) $_SERVER['REQUEST_TIME'] = time();
 /**
  * Frontend version
  */
-define('ESF_VERSION', '2.3.1');
+define('ESF_VERSION', '2.4.0');
 
 /**
  * Frontend release date
  */
-define('ESF_RELEASE', '2010-11-22');
+define('ESF_RELEASE', '2010-12-07');
 
 /**
  * Frontend title
@@ -61,7 +60,7 @@ define('ESF_LONG_TITLE', ESF_TITLE . ' ' . ESF_SLOGAN);
  * @uses ESF_VERSION
  * @uses ESF_RELEASE
  */
-define('ESF_FULL_VERSION', 'Version ' . ESF_VERSION.' / ' . ESF_RELEASE);
+define('ESF_FULL_VERSION', 'es-f/' . ESF_VERSION.' (' . ESF_RELEASE . ')');
 
 /**
  * Full title
@@ -90,8 +89,10 @@ define('ESF_FULL_TITLE', ESF_LONG_TITLE . ', ' . ESF_FULL_VERSION);
  * - force extensions check
  * Version 7:
  * - search more binaries
+ * Version 8:
+ * - Auto probe caches
  */
-define('ESF_CONFIG_VERSION', 6);
+define('ESF_CONFIG_VERSION', 8);
 
 /**
  * Required PHP version
@@ -118,6 +119,7 @@ define('BASEDIR', !empty($_SERVER['DOCUMENT_ROOT'])
                 : realpath(dirname(__FILE__).'/..') );
 
 define('APPDIR',   BASEDIR.'/application');
+define('LIBDIR',   APPDIR.'/lib');
 define('LOCALDIR', BASEDIR.'/local');
 define('TEMPDIR',  realpath(dirname(__FILE__).'/..').'/local/tmp');
 

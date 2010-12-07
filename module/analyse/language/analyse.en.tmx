@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  Don't "htmlspecialchar" your translation, please use <![CDATA[text...]]>
+
+  Nouns
+  tuid="name"   - default, noun is not required or >1
+  tuid="name-0" - for quantity 0, e.g. "%1$d files deleted"
+  tuid="name-1" - for quantity 1, e.g. "%1$d file deleted"
+
+  If your language have very special cases, just declare
+  tuid="name-10"  or what ever :-)
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<tmx version="1.4">
+  <header
+   creationtool="es-f"
+   creationtoolversion="1"
+   datatype="PlainText"
+   segtype="sentence"
+   adminlang="EN"
+   srclang="EN"
+   o-tmf="ABC"
+   changeid="Knut Kohl / knutkohl@users.sourceforge.net"
+   changedate="20101129T213215Z"
+   o-encoding="UTF-8"
+  >
+    <prop type="x-Namespace">Analyse</prop>
+  </header>
+  <body>
+    <tu tuid="Menu">
+      <tuv xml:lang="EN">
+        <seg>Analyse</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Menuhint">
+      <tuv xml:lang="EN">
+        <seg>Analyse ended auctions</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Menuauction">
+      <tuv xml:lang="EN">
+        <seg>Auctions</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Menuauctionhint">
+      <tuv xml:lang="EN">
+        <seg>List of auctions</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Menu2">
+      <tuv xml:lang="EN">
+        <seg>Selection</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Menu2hint">
+      <tuv xml:lang="EN">
+        <seg>Group selection</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Title">
+      <tuv xml:lang="EN">
+        <seg>Analyse</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="TitleShow">
+      <tuv xml:lang="EN">
+        <seg>Show</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="TitleShowmulti">
+      <tuv xml:lang="EN">
+        <seg>Show multiple</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Group">
+      <tuv xml:lang="EN">
+        <seg>Bid group</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Groups">
+      <tuv xml:lang="EN">
+        <seg>Bid groups</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="ShowAuctions">
+      <tuv xml:lang="EN">
+        <seg>Show auctions</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="HideAuctions">
+      <tuv xml:lang="EN">
+        <seg>Hide auctions</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Analyse">
+      <tuv xml:lang="EN">
+        <seg>Analyse bid group(s)</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Auction">
+      <tuv xml:lang="EN">
+        <seg>Auction</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="End">
+      <tuv xml:lang="EN">
+        <seg>End time</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Ended">
+      <tuv xml:lang="EN">
+        <seg>ended</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Bid">
+      <tuv xml:lang="EN">
+        <seg>Highest bid</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Bids">
+      <tuv xml:lang="EN">
+        <seg># of bids</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="MyBid">
+      <tuv xml:lang="EN">
+        <seg>my bid</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Average">
+      <tuv xml:lang="EN">
+        <seg>average</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="HarmonicAverage">
+      <tuv xml:lang="EN">
+        <seg>harm. av.</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Description">
+      <prop type="x-Format">html</prop>
+      <tuv xml:lang="EN">
+        <seg><![CDATA[As bigger and greener a circle is, there are lesser bids on an auction.<br>
+As smaller and reder a circle is, there are more bids on an auction.<br>
+Not yet ended auctions are yellow.]]></seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="ChanceHeader">
+      <tuv xml:lang="EN">
+        <seg>Chance to win an auction</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="ChanceHeaderVariant">
+      <tuv xml:lang="EN">
+        <seg>Variant</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="PriceRange">
+      <tuv xml:lang="EN">
+        <seg>Price range</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Auctions">
+      <tuv xml:lang="EN">
+        <seg>Auctions</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Chance">
+      <tuv xml:lang="EN">
+        <seg>Chance</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="ChanceMessageDesc1">
+      <prop type="x-Format">html</prop>
+      <note>%$1s - ...</note>
+      <tuv xml:lang="EN">
+        <seg><![CDATA[<form style="display:inline" method="post">
+<input type="hidden" name="module" value="analyse">
+<input type="hidden" name="action" value="show">
+<input type="hidden" name="group" value="%s">
+<input style="float:right;margin-left:20px" type="submit" value="Recalc">
+Splitted price range until a range holds less than
+<input id="split" class="input" name="split" value="%d">%% of auctions.
+</form>]]></seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="ChanceMessageDesc2">
+      <tuv xml:lang="EN">
+        <seg>Splitted price range while no empty range occurs.</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="ChanceMessage">
+      <prop type="x-Format">html</prop>
+      <note>%$1s - ...</note>
+      <tuv xml:lang="EN">
+        <seg><![CDATA[The price range of <tt><strong>%1$.2f-%2$.2f</strong></tt>
+offers a chance of about <tt><strong>%3$.0f%%</strong></tt> to win an auction.]]></seg>
+      </tuv>
+    </tu>
+
+  </body>
+</tmx>

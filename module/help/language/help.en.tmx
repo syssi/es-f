@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  Don't "htmlspecialchar" your translation, please use <![CDATA[text...]]>
+
+  Nouns
+  tuid="name"   - default, noun is not required or >1
+  tuid="name-0" - for quantity 0, e.g. "%1$d files deleted"
+  tuid="name-1" - for quantity 1, e.g. "%1$d file deleted"
+
+  If your language have very special cases, just declare
+  tuid="name-10"  or what ever :-)
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<tmx version="1.4">
+  <header
+   creationtool="es-f"
+   creationtoolversion="1"
+   datatype="PlainText"
+   segtype="sentence"
+   adminlang="EN"
+   srclang="EN"
+   o-tmf="ABC"
+   changeid="Knut Kohl / knutkohl@users.sourceforge.net"
+   changedate="20101129T213215Z"
+   o-encoding="UTF-8"
+  >
+    <prop type="x-Namespace">Help</prop>
+  </header>
+  <body>
+    <tu tuid="Title">
+      <tuv xml:lang="EN">
+        <seg>Help</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="TitleShow">
+      <tuv xml:lang="EN">
+        <seg>Show</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="TitleEdit">
+      <tuv xml:lang="EN">
+        <seg>Edit</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Menu">
+      <tuv xml:lang="EN">
+        <seg>Help</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="ModuleMenu">
+      <tuv xml:lang="EN">
+        <seg>Help</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Menuhint">
+      <tuv xml:lang="EN">
+        <seg>Help for modules and plugins</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="ModuleMenuhint">
+      <tuv xml:lang="EN">
+        <seg>Module help</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Description">
+      <tuv xml:lang="EN">
+        <seg>Description</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Back">
+      <tuv xml:lang="EN">
+        <seg><![CDATA[<< back]]></seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Edit">
+      <tuv xml:lang="EN">
+        <seg>Edit</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Save">
+      <tuv xml:lang="EN">
+        <seg>Save</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Saved">
+      <tuv xml:lang="EN">
+        <seg>File saved.</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="CloseWindow">
+      <tuv xml:lang="EN">
+        <seg>Close window</seg>
+      </tuv>
+    </tu>
+
+  </body>
+</tmx>

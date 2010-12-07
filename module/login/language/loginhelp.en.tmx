@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  Don't "htmlspecialchar" your translation, please use <![CDATA[text...]]>
+
+  Nouns
+  tuid="name"   - default, noun is not required or >1
+  tuid="name-0" - for quantity 0, e.g. "%1$d files deleted"
+  tuid="name-1" - for quantity 1, e.g. "%1$d file deleted"
+
+  If your language have very special cases, just declare
+  tuid="name-10"  or what ever :-)
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<tmx version="1.4">
+  <header
+   creationtool="es-f"
+   creationtoolversion="1"
+   datatype="PlainText"
+   segtype="sentence"
+   adminlang="EN"
+   srclang="EN"
+   o-tmf="ABC"
+   changeid="Knut Kohl / knutkohl@users.sourceforge.net"
+   changedate="20101129T213215Z"
+   o-encoding="UTF-8"
+  >
+    <prop type="x-Namespace">LoginHelp</prop>
+  </header>
+  <body>
+    <tu tuid="Cookie">
+      <prop type="x-Format">html</prop>
+      <tuv xml:lang="EN">
+        <seg><![CDATA[<div class="li">When signing in, you can choose to have your computer
+remember your sign-in information for one day so that you don't have to
+re-enter your User ID and password.</div>
+<div class="li">Your password will be saved until you sign out, even if you disconnect from
+the Internet, close your browser, or turn off your computer.</div>]]></seg>
+      </tuv>
+    </tu>
+
+  </body>
+</tmx>

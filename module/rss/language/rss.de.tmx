@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  Don't "htmlspecialchar" your translation, please use <![CDATA[text...]]>
+
+  Nouns
+  tuid="name"   - default, noun is not required or >1
+  tuid="name-0" - for quantity 0, e.g. "%1$d files deleted"
+  tuid="name-1" - for quantity 1, e.g. "%1$d file deleted"
+
+  If your language have very special cases, just declare
+  tuid="name-10"  or what ever :-)
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<tmx version="1.4">
+  <header
+   creationtool="es-f"
+   creationtoolversion="1"
+   datatype="PlainText"
+   segtype="sentence"
+   adminlang="EN"
+   srclang="EN"
+   o-tmf="ABC"
+   changeid="Knut Kohl / knutkohl@users.sourceforge.net"
+   changedate="20101129T213215Z"
+   o-encoding="UTF-8"
+  >
+    <prop type="x-Namespace">Rss</prop>
+  </header>
+  <body>
+    <tu tuid="Language">
+      <tuv xml:lang="DE">
+        <seg>de-de</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="FeedFor">
+      <note>%$1s - ...</note>
+      <tuv xml:lang="DE">
+        <seg>Auktionen von %1$s</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="LastState">
+      <tuv xml:lang="DE">
+        <seg>Letzter Auktions-Stand</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Ended">
+      <tuv xml:lang="DE">
+        <seg>beendet</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="NoEnd">
+      <tuv xml:lang="DE">
+        <seg>Kein Endedatum</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="None">
+      <tuv xml:lang="DE">
+        <seg>keine</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Category">
+      <tuv xml:lang="DE">
+        <seg>Kategorie</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Group">
+      <tuv xml:lang="DE">
+        <seg>Gruppe</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Remain">
+      <tuv xml:lang="DE">
+        <seg>Restzeit</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="AuctionEnded">
+      <tuv xml:lang="DE">
+        <seg>Die Auktion ist beendet.</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Bids">
+      <tuv xml:lang="DE">
+        <seg>Gebote</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Bidder">
+      <tuv xml:lang="DE">
+        <seg>Höchstbieter</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Bid">
+      <tuv xml:lang="DE">
+        <seg>Gebot</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="BinPrice">
+      <tuv xml:lang="DE">
+        <seg>Sofortkauf-Preis</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Shipping">
+      <tuv xml:lang="DE">
+        <seg>Versand</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Total">
+      <tuv xml:lang="DE">
+        <seg>Total</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Comment">
+      <tuv xml:lang="DE">
+        <seg>Kommentar</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="End">
+      <tuv xml:lang="DE">
+        <seg>Auktionsende</seg>
+      </tuv>
+    </tu>
+
+  </body>
+</tmx>

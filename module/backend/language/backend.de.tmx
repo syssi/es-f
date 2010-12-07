@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  Don't "htmlspecialchar" your translation, please use <![CDATA[text...]]>
+
+  Nouns
+  tuid="name"   - default, noun is not required or >1
+  tuid="name-0" - for quantity 0, e.g. "%1$d files deleted"
+  tuid="name-1" - for quantity 1, e.g. "%1$d file deleted"
+
+  If your language have very special cases, just declare
+  tuid="name-10"  or what ever :-)
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<tmx version="1.4">
+  <header
+   creationtool="es-f"
+   creationtoolversion="1"
+   datatype="PlainText"
+   segtype="sentence"
+   adminlang="EN"
+   srclang="EN"
+   o-tmf="ABC"
+   changeid="Knut Kohl / knutkohl@users.sourceforge.net"
+   changedate="20101129T213215Z"
+   o-encoding="UTF-8"
+  >
+    <prop type="x-Namespace">Backend</prop>
+  </header>
+  <body>
+    <tu tuid="Menu">
+      <tuv xml:lang="DE">
+        <seg>Backend</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Menuhint">
+      <tuv xml:lang="DE">
+        <seg>Module und Plugins bearbeiten</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Title">
+      <tuv xml:lang="DE">
+        <seg>Backend</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="TitleIndex">
+      <tuv xml:lang="DE">
+        <seg>Backend</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Category">
+      <tuv xml:lang="DE">
+        <seg>Kategorie</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Modules">
+      <tuv xml:lang="DE">
+        <seg>Module</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Plugins">
+      <tuv xml:lang="DE">
+        <seg>Plugins</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Extension">
+      <tuv xml:lang="DE">
+        <seg>Erweiterung</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Version">
+      <tuv xml:lang="DE">
+        <seg>Version</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Description">
+      <tuv xml:lang="DE">
+        <seg>Beschreibung</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Actions">
+      <tuv xml:lang="DE">
+        <seg>Aktionen</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Enable">
+      <tuv xml:lang="DE">
+        <seg>aktivieren</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Enabled">
+      <tuv xml:lang="DE">
+        <seg>aktiv</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="State">
+      <tuv xml:lang="DE">
+        <seg>Status</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Disable">
+      <tuv xml:lang="DE">
+        <seg>deaktivieren</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Disabled">
+      <tuv xml:lang="DE">
+        <seg>inaktiv</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Install">
+      <tuv xml:lang="DE">
+        <seg>installieren</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Deinstall">
+      <tuv xml:lang="DE">
+        <seg>deinstallieren</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Reinstall">
+      <tuv xml:lang="DE">
+        <seg>neu installieren</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Installed">
+      <tuv xml:lang="DE">
+        <seg>installiert</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="NotInstalled">
+      <tuv xml:lang="DE">
+        <seg>nicht installiert</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="EditConfiguration">
+      <tuv xml:lang="DE">
+        <seg>Konfiguration bearbeiten</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="CoreInfo">
+      <tuv xml:lang="DE">
+        <seg>Basis-Funktion, kann nicht deaktiviert/deinstalliert werden</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="InstallSuccessed">
+      <tuv xml:lang="DE">
+        <seg>Installation erfolgreich durchgeführt.</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="InstallFailed">
+      <tuv xml:lang="DE">
+        <seg>Installation nicht erfolgreich durchgeführt.</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="DeinstallSuccessed">
+      <tuv xml:lang="DE">
+        <seg>Deinstallation erfolgreich durchgeführt.</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="DeinstallFailed">
+      <tuv xml:lang="DE">
+        <seg>Deinstallation nicht erfolgreich durchgeführt.</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="EnableSuccessed">
+      <tuv xml:lang="DE">
+        <seg>Aktivierung erfolgreich durchgeführt.</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="EnableFailed">
+      <tuv xml:lang="DE">
+        <seg>Aktivierung nicht erfolgreich durchgeführt.</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="DisableSuccessed">
+      <tuv xml:lang="DE">
+        <seg>Deaktivierung erfolgreich durchgeführt.</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="DisableFailed">
+      <tuv xml:lang="DE">
+        <seg>Deaktivierung nicht erfolgreich durchgeführt.</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="LookForInfo">
+      <prop type="x-Format">html</prop>
+      <note>%$1s - ...</note>
+      <tuv xml:lang="DE">
+        <seg><![CDATA[Lies bitte auf der <a href="%s">Informations-Seite</a> nach,
+ob zusätzliche Anforderungen bestehen!]]></seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="CreateDirectory">
+      <note>%$1s - ...</note>
+      <tuv xml:lang="DE">
+        <seg>Erstelle Verzeichnis [%s]</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="CantMakeDirectory">
+      <note>%$1s - ...</note>
+      <tuv xml:lang="DE">
+        <seg>Verzeichnis [%s] konnte nicht erstellt werden.</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="MakeDirectoryWritable">
+      <note>%$1s - ...</note>
+      <tuv xml:lang="DE">
+        <seg>Mache bitte das Verzeichnis [%s] beschreibbar!</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="CreateFile">
+      <note>%$1s - ...</note>
+      <tuv xml:lang="DE">
+        <seg>Erstelle Datei [%s]</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="CantMakeFile">
+      <note>%$1s - ...</note>
+      <tuv xml:lang="DE">
+        <seg>Datei [%s] konnte nicht erstellt werden.</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="ExtractArchive">
+      <note>%$1s - ...</note>
+      <tuv xml:lang="DE">
+        <seg>Extrahiere Archiv [%s]</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="MissingFile">
+      <note>%$1s - ...</note>
+      <tuv xml:lang="DE">
+        <seg>Datei [%s] nicht vorhanden!</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="RemoveDirectory">
+      <note>%$1s - ...</note>
+      <tuv xml:lang="DE">
+        <seg>Entferne Verzeichnis [%s]</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="RemoveFile">
+      <note>%$1s - ...</note>
+      <tuv xml:lang="DE">
+        <seg>Entferne Datei [%s]</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Done">
+      <tuv xml:lang="DE">
+        <seg>Erfolgreich</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Failed">
+      <tuv xml:lang="DE">
+        <seg>NICHT erfolgreich</seg>
+      </tuv>
+    </tu>
+
+  </body>
+</tmx>

@@ -1,0 +1,3 @@
+<FilesMatch "analyse\.php$" >
+allow from all
+</FilesMatch>

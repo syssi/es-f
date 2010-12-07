@@ -77,16 +77,22 @@ class esf_Extensions {
   public static $Types = array( 'module', 'plugin' );
 
   /**
+   *
+   */
+  public static $Cache;
+
+  /**
    * @param string $scope module|plugin
    * @return void
    */
   public static function Init( $scope='' ) {
-  
+
     if (!$scope) {
 
       // first run, read state.xml
-      $xml = new XML_Array_Configuration(Cache::getInstance());
-      self::$States = $xml->ParseXMLFile(BASEDIR.'/local/config/state.xml');
+      if (!isset(self::$Cache)) self::$Cache = Cache::factory('Mock');
+      $xml = new XML_Array_Configuration(self::$Cache);
+      self::$States = $xml->ParseXMLFile(LOCALDIR.'/config/state.xml');
       if (!self::$States) die($xml->Error);
 
     } else {

@@ -17,10 +17,8 @@
       <tt>{iif:INSTALL,"Installation","Reconfiguration"}</tt>
     </div>
     <div style="float:left;text-align:left;margin-bottom:5px">
-      <div style="font-size:150%;font-weight:bold">
-        <tt>{CONST.ESF.TITLE}</tt>
-      </div>
-      <tt>{CONST.ESF.SLOGAN}</tt><br /><small><em>{CONST.ESF.FULL_VERSION}</em></small>
+      <tt>{CONST.ESF.LONG_TITLE}</tt><br>
+      <small>{CONST.ESF.FULL_VERSION}</small>
     </div>
 
     <div style="max-width:600px;margin:auto">

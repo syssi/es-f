@@ -1,18 +1,22 @@
 <?php
+/**
+ * @package    es-f
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2007-2010 Knut Kohl
+ * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
+ * @version    $Id$
+ */
 
+// include functions
+Loader::Load(APPDIR.'/functions.php');
 // Configurations
 Loader::Load(APPDIR.'/init.php');
 Loader::Load(LOCALDIR.'/custom/init.php', TRUE, FALSE);
 
 HTMLPage::$Debug = (DEVELOP OR Registry::get('cURL.Verbose'));
 
-// include functions
-Loader::Load(APPDIR.'/functions.php');
-
 // Emulate register_globals off
 unregister_GLOBALS();
-
-checkDir(TEMPDIR);
 
 // >> Debug
 $sDebugFile = np('%s/%s.debug', TEMPDIR, APPID);
@@ -30,8 +34,8 @@ define('_DEBUG', file_exists($sDebugFile));
 
 $_TRACE = _DEBUG ? file_get_contents($sDebugFile) : FALSE;
 
-#DebugStack::$TimeUnit = DebugStack::MICROSECONDS;
 DebugStack::Active(_DEBUG);
+#DebugStack::$TimeUnit = DebugStack::MICROSECONDS;
 
 if ($_TRACE) {
   Messages::addSuccess('Debug trace is active: '.$_TRACE, TRUE);
@@ -41,14 +45,10 @@ if ($_TRACE) {
 unset($sDebugFile);
 // << Debug
 
-/// DebugStack::Info('Used cache: '.Registry::get('CacheClass', 'FileCombined'));
-$aCacheOptions = array('CacheDir'=>TEMPDIR, 'Token'=>'es-f');
-$oCache = Cache::Init(Registry::get('CacheClass', 'FileCombined'), $aCacheOptions);
-unset($aCacheOptions);
+// Prepare caching
+Loader::Load(LIBDIR.'/cache/cache.class.php');
 
-if (Registry::get('ClearCache')) $oCache->clear();
-
-$oXML = new XML_Array_Configuration($oCache);
+$oXML = new XML_Array_Configuration(Cache::factory('Mock'));
 $aConfiguration = $oXML->ParseXMLFile(LOCALDIR.'/config/config.xml');
 if (!$aConfiguration) die($oXML->Error);
 
@@ -65,25 +65,38 @@ Registry::set($aConfiguration);
 unset($oXML, $aConfiguration, $aUser, $key, $value);
 
 if (Registry::get('CfgVersion') < ESF_CONFIG_VERSION) {
-  $oCache->clear();
+  $oCache->flush();
   Header('Location: setup/index.php?msg='
         .urlencode('Need reconfiguration because of configuration changes!'));
 }
 if (count(esf_User::getAll()) == 0) {
-  $oCache->clear();
+  $oCache->flush();
   Header('Location: setup/index.php?msg='
         .urlencode('At least one user account have to be defined!'));
 }
-unset($oCache);
 
+/// DebugStack::Info('Used cache: '.Registry::get('CacheClass'));
+Loader::Load(LIBDIR.'/cache/cache/packer/gz.class.php');
+$aCacheOptions = array('cachedir'=>TEMPDIR, 'token'=>'es-f');
+$aCacheOptions['packer'] = new Cache_Packer_GZ;
+$oCache = Cache::factory(Registry::get('CacheClass'), $aCacheOptions);
+if (Registry::get('ClearCache')) $oCache->flush();
+unset($aCacheOptions);
+
+esf_Extensions::$Cache = $oCache;
 esf_Extensions::Init();
+
+Exec::InitInstance(ESF_OS, $oCache);
+
+checkDir(TEMPDIR);
 
 Loader::Load(APPDIR.'/ebay.php');
 
 // include additional configuration, mostly for development
+Core::$Cache = $oCache;
 Core::ReadConfigs('local');
 
-ErrorHandler::register(Registry::get('ErrorHandler', 'default'));
+#ErrorHandler::register(Registry::get('ErrorHandler', 'default'));
 // >> Debug
 DebugStack::Register();
 // << Debug
@@ -210,12 +223,18 @@ $sLanguage = Session::get('language');
 
 if (Registry::get('EnglishAsDefault') AND $sLanguage != 'en') {
   // load as default english texts and config
-  Core::IncludeSpecial(NULL, array(APPDIR.'/language/en', APPDIR.'/language/config/en'));
+  foreach (glob(APPDIR.'/language/*en.tmx') as $file)
+    Translation::LoadTMXFile($file, 'en', $oCache);
+  // Settings
+  Loader::Load(APPDIR.'/language/en.php');
 }
 
 // include translation
-if (file_exists(APPDIR.'/language/'.$sLanguage.'.php')) {
-  Core::IncludeSpecial(NULL, array(APPDIR.'/language/'.$sLanguage, APPDIR.'/language/config/'.$sLanguage));
+if (file_exists(APPDIR.'/language/core.'.$sLanguage.'.tmx')) {
+  foreach (glob(APPDIR.'/language/*'.$sLanguage.'.tmx') as $file)
+    Translation::LoadTMXFile($file, $sLanguage, $oCache);
+  // Settings
+  Loader::Load(APPDIR.'/language/'.$sLanguage.'.php');
 } else {
   Messages::addError(sprintf('Unknown language [%s]! Fallback to english!', $sLanguage));
   Session::set('language', 'en');
@@ -238,7 +257,7 @@ if ($locale = Session::get('locale')) {
 
 // Init template engine
 $oTemplate = esf_Template::getInstance();
-if (Registry::get('ClearCache')) $oTemplate->Template->ClearCache();
+if (Registry::get('Template.ClearCache')) $oTemplate->Template->ClearCache();
 
 // check if requested module is enabled
 if (!ModuleEnabled($sModule)) {
@@ -255,15 +274,29 @@ if (!ModuleEnabled($sModule)) {
 
 /// DebugStack::StartTimer('MoreLangLoad', 'Load plugin / module languages');
 
-if (Registry::get('EnglishAsDefault')) {
-  // include as default all english texts
-  Core::IncludeSpecial(esf_Extensions::$Types, 'language/en');
-}
+$sLanguage = Session::get('language');
 
-// include all translations
-if (!Registry::get('EnglishAsDefault') OR Session::get('Language') != 'en') {
-  // include only for enabled modules and plugins
-  Core::IncludeSpecial(esf_Extensions::$Types, 'language/'.Session::get('language'));
+foreach (esf_Extensions::$Types as $Scope) {
+  foreach (esf_Extensions::getExtensions($Scope) as $Extension) {
+    if (esf_Extensions::checkState($Scope, $Extension, esf_Extensions::BIT_ENABLED) AND
+        ($Scope != esf_Extensions::MODULE OR
+         !Registry::get('Module.'.$Extension.'.LoginRequired') OR
+         esf_User::isValid())) {
+      $path = sprintf(BASEDIR.'%1$s%2$s%1$s%3$s%1$s', DIRECTORY_SEPARATOR, $Scope, $Extension);
+      if (Registry::get('EnglishAsDefault') AND $sLanguage != 'en') {
+        // include as default all english texts
+        foreach (glob($path.'language/*en.tmx') as $file) {
+          Translation::LoadTMXFile($file, 'en', $oCache);
+        }
+      }
+      if (!Registry::get('EnglishAsDefault') OR $sLanguage != 'en') {
+        // include only for enabled modules and plugins
+        foreach (glob($path.'language/*'.$sLanguage.'.tmx') as $file) {
+          Translation::LoadTMXFile($file, $sLanguage, $oCache);
+        }
+      }
+    }
+  }
 }
 
 /// DebugStack::StopTimer('MoreLangLoad');
@@ -433,8 +466,8 @@ TplData::set('NoJS', Registry::get('NoJS'));
 TplData::set('Layout', Registry::get('LAYOUT'));
 
 if (_DEBUG) {
-  TplData::add('HtmlHeader.CSS', 'application/lib/debugstack/style.css');
-  TplData::add('HtmlHeader.JS', 'application/lib/debugstack/script.js');
+  TplData::add('HtmlHeader.CSS', '/application/lib/debugstack/style.css');
+  TplData::add('HtmlHeader.JS',  '/application/lib/debugstack/script.js');
 }
 
 $bc = Translation::getNVL($sModule.'.TitleIndex', TplData::get('Title'));
@@ -544,9 +577,8 @@ echo $html;
 /// DebugStack::StopTimer('HTMLHead');
 /// DebugStack::StartTimer('HTMLStart');
 
-if (!Registry::get('esf.contentonly')) {
-  TplData::set('esf_Messages', implode((array)Messages::get()));
-}
+TplData::set('esf_MessagesErrors', Messages::count(Messages::ERROR));
+TplData::set('esf_Messages', implode((array)Messages::get()));
 
 $html = $oTemplate->Render('html.start', TRUE, $RootDir);
 Event::Process('OutputFilterHtmlStart', $html);
