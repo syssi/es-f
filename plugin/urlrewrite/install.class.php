@@ -24,7 +24,7 @@ class esf_Install_Plugin_UrlRewrite extends esf_Install {
 
     if (!preg_match('~# START URLRewrite~i',file_get_contents('.htaccess'))) {
       if (is_writeable('.htaccess')) {
-        File::write('.htaccess', $htaccess, 'a');
+        File::write('.htaccess', "\n\n".$htaccess, 'a');
         $this->Message('Modified .htaccess successful for UrlRewrite plugin support.', Messages::SUCCESS);
       } else {
         $this->Message('Please make sure, .htaccess is writable from this script for automatic '
