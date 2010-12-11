@@ -2,12 +2,11 @@
 /**
  * Rewrite urls
  *
- * @category   Plugin
  * @package    Plugin-ModuleConfiguration
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2009 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    0.1.0
+ * @version    $Id$
  */
 class esf_Plugin_Module_Configuration extends esf_Plugin {
 
@@ -24,15 +23,13 @@ class esf_Plugin_Module_Configuration extends esf_Plugin {
   function BuildMenu() {
     // disable on mobile layouts
     if (Session::get('Mobile') AND !$this->Mobile) return;
-
     // require valid login
     if (!esf_User::isValid()) return;
-
     // Set first defined frontend user as admin, if no other defined
     if (!$this->Admins) $this->Admins = esf_User::$Admin;
-
     // Is logged in user an admin?
-    if (!in_array(esf_User::getActual(TRUE), explode('|', strtolower($this->Admins)))) return;
+    if (!in_array(esf_User::getActual(TRUE),
+                  explode('|', strtolower($this->Admins)))) return;
 
     // add menu entry, if module is configurable
     if (!Request::check('configuration') AND

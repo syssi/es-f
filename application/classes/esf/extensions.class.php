@@ -77,11 +77,6 @@ class esf_Extensions {
   public static $Types = array( 'module', 'plugin' );
 
   /**
-   *
-   */
-  public static $Cache;
-
-  /**
    * @param string $scope module|plugin
    * @return void
    */
@@ -90,8 +85,7 @@ class esf_Extensions {
     if (!$scope) {
 
       // first run, read state.xml
-      if (!isset(self::$Cache)) self::$Cache = Cache::factory('Mock');
-      $xml = new XML_Array_Configuration(self::$Cache);
+      $xml = new XML_Array_Configuration(Core::$Cache);
       self::$States = $xml->ParseXMLFile(LOCALDIR.'/config/state.xml');
       if (!self::$States) die($xml->Error);
 
@@ -104,7 +98,6 @@ class esf_Extensions {
       foreach (array_map('basename', glob($path.'/*', GLOB_ONLYDIR)) as $extension) {
         if (!file_exists($path.'/'.$extension.'/.disabled')) {
           // NOT disabled, set Event state
-          Registry::set($scope.'.'.$extension.'.Core.LocalPath', BASEDIR.'/local/'.$scope.'/'.$extension);
           Registry::add($scope.'.'.$extension, Registry::get('Defaults.'.$scope));
 
           self::$Extensions[$scope][] = $extension;

@@ -304,5 +304,11 @@ to find out, if there are additional requirements!]]></seg>
       </tuv>
     </tu>
 
+    <tu tuid="YouArNotAllowed">
+      <tuv xml:lang="EN">
+        <seg>You are not allowed to change the configuration!</seg>
+      </tuv>
+    </tu>
+
   </body>
 </tmx>

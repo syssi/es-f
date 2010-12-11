@@ -129,5 +129,11 @@
       </tuv>
     </tu>
 
+    <tu tuid="YouArNotAllowed">
+      <tuv xml:lang="DE">
+        <seg>Du bist nicht berechtigt, die Konfiguration zu ändern!</seg>
+      </tuv>
+    </tu>
+
   </body>
 </tmx>

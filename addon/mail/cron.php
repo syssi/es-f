@@ -68,9 +68,10 @@ EOT;
 // if no user forced, refresh all
 Registry::set('Develop', FALSE);
 
-Cache::Init('Mock');
+$oCache = Cache::factory('Mock');
+Registry::set('Cache', $oCache);
 
-$xml = new XML_Array_Configuration(Cache::getInstance());
+$xml = new XML_Array_Configuration($oCache);
 $cfg = $xml->ParseXMLFile(BASEDIR.'/local/config/config.xml');
 if (!$cfg) die($xml->Error);
 

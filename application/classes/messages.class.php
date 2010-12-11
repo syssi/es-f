@@ -50,7 +50,7 @@ abstract class Messages {
     if (is_array($msg)) {
       if (!$formated) $msg = array_map_recursive('htmlspecialchars', $msg);
     } else {
-      list($func, $msg) = @explode(':', $msg, 2);
+      @list($func, $msg) = explode(':', $msg, 2);
       if (!$msg) {
         $msg = $func;
       } elseif ($func == 'html') {
