@@ -14,7 +14,7 @@
       // <![CDATA[
       addLoadEvent(function(){
         $('msginnerx').show();
-        if (!'{CONST.DEVELOP}' && {ESF_MESSAGESERRORS} != 0)
+        if (!'{CONST.DEVELOP}' && {ESF_MESSAGESERRORS} == 0)
           setTimeout('Effect.BlindUp("messages")', 5000);
       });
       // ]]>
