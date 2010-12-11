@@ -33,15 +33,16 @@ class esf_Plugin_Module_Backend extends esf_Plugin {
   function BuildMenu() {
     // disable on mobile layouts
     if (Session::get('Mobile') AND !$this->Mobile) return;
-
     // require valid login
     if (!esf_User::isValid()) return;
-
     // Set first defined frontend user as admin, if no other defined
     if (!$this->Admins) $this->Admins = esf_User::$Admin;
+    // Is logged in user an admin?
+    if (!in_array(esf_User::getActual(TRUE),
+                  explode('|', strtolower($this->Admins)))) return;
 
-    if (in_array(esf_User::getActual(TRUE), explode('|', strtolower($this->Admins))))
-      esf_Menu::addSystem(array( 'module' => 'backend', 'id' => 999 ));
+    // add menu entry
+    esf_Menu::addSystem(array( 'module' => 'backend', 'id' => 999 ));
   }
 
   /**

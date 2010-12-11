@@ -365,7 +365,7 @@ abstract class ebayParser {
       $this->Transform(IniFile::$Data['EXPRESSIONS']);
 
 /*
-    $xml = new XML_Array_Parser(Cache::getInstance());
+    $xml = new XML_Array_Parser(Registry::get('Cache'));
     $xml->Key2Lower = FALSE;
 
     $data = $xml->ParseXMLFile($iniDir.$tld.'.xml');

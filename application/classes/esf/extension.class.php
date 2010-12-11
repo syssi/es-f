@@ -1,12 +1,17 @@
 <?php
 /**
  *
+ * @package    Core
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2009-2010 Knut Kohl
+ * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
+ * @version    $Id$
  */
 
 /**
  * Generic abstrct extension class for modules/plugins
  */
-abstract class esf_Extension extends MagicObject {
+abstract class esf_Extension {
 
   /**
    * Class constructor
@@ -17,14 +22,35 @@ abstract class esf_Extension extends MagicObject {
     list($this->ExtensionName, $this->ExtensionScope,) =
       array_reverse(explode('_', strtolower(get_class($this))));
 
-    parent::__construct(Registry::get($this->ExtensionScope.'.'.$this->ExtensionName, array()));
-
     if (!$this->isPost())
       $this->Request =& $_GET;
     else
       $this->Request =& $_POST;
 
-    is_dir($this->Core['localpath']) || Exec::getInstance()->MkDir($this->Core['localpath']);
+    $this->Core['localpath'] = LOCALDIR.'/'.$this->ExtensionScope.'/'.$this->ExtensionName;
+
+    if (!is_dir($this->Core['localpath'])) {
+      $res = Exec::getInstance()->MkDir($this->Core['localpath'], $err);
+      if ($res) Messages::Error($err);
+    }
+  }
+
+  /**
+   *
+   * @param $name string
+   * qparam $value mixed
+   */
+  public function __set( $name, $value ) {
+    Registry::set($this->ExtensionScope.'.'.$this->ExtensionName.'.'.$name, $value);
+  }
+
+  /**
+   *
+   * @param $name string
+   * @return mixed
+   */
+  public function __get( $name ) {
+    return Registry::get($this->ExtensionScope.'.'.$this->ExtensionName.'.'.$name);
   }
 
   // -------------------------------------------------------------------------
@@ -43,8 +69,16 @@ abstract class esf_Extension extends MagicObject {
 
   /**
    * Set to $_GET / $_POST from outside
+   *
+   * @var array
    */
-  protected $Request = array();
+  protected $Request;
+
+  /**
+   *
+   * @var array
+   */
+  public $Core = array();
 
   /**
    *
