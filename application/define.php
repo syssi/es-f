@@ -19,7 +19,7 @@ define('ESF_VERSION', '2.4.0');
 /**
  * Frontend release date
  */
-define('ESF_RELEASE', '2010-12-07');
+define('ESF_RELEASE', '2010-12-11');
 
 /**
  * Frontend title
