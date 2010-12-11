@@ -14,12 +14,12 @@ if (!isset($_SERVER['REQUEST_TIME'])) $_SERVER['REQUEST_TIME'] = time();
 /**
  * Frontend version
  */
-define('ESF_VERSION', '2.4.0');
+define('ESF_VERSION', '2.4.1');
 
 /**
  * Frontend release date
  */
-define('ESF_RELEASE', '2010-12-07');
+define('ESF_RELEASE', '2010-12-11');
 
 /**
  * Frontend title
