@@ -1,6 +1,11 @@
 <?php
 /**
  *
+ * @package    Plugin
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2009-2010 Knut Kohl
+ * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
+ * @version    $Id$
  */
 
 /**
@@ -8,6 +13,9 @@
  */
 abstract class esf_Plugin extends esf_Extension implements EventHandlerI {
 
+  /**
+   *
+   * /
   public function __construct() {
     parent::__construct();
     $this->Layouts = explode(',', $this->Layouts);

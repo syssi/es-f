@@ -25,6 +25,16 @@ class esf_Module_Backend extends esf_Module {
    */
   public function __construct() {
     parent::__construct();
+
+    // Set first defined frontend user as admin, if no other defined
+    if (!$this->Admins) $this->Admins = esf_User::$Admin;
+    // Is logged in user an admin?
+    if (!in_array(esf_User::getActual(TRUE),
+                  explode('|', strtolower($this->Admins)))) {
+      Messages::addError(Translation::get('Backend.YouArNotAllowed'));
+      $this->redirect(Registry::get('StartModule'));
+    }
+
     @list($this->Scope, $this->Extension) = explode('-', $this->Request('ext'));
 
     $modes = array('install', 'deinstall', 'reinstall', 'enable', 'disable', 'toggle');

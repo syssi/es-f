@@ -26,16 +26,13 @@ class esf_Module_Configuration extends esf_Module {
   public function __construct() {
     parent::__construct();
 
-    $admins = $this->Admins ? explode('|', $this->Admins) : array();
-
-    if (empty($admins)) {
-      Messages::addError('No Admins defined yet!');
-      Messages::addError('Please define at least one (e.g. you ;-) now!');
-      $this->Request['ext'] = 'module-configuration';
-      $this->Forward('edit');
-    } elseif (!in_array(esf_User::getActual(), $admins)) {
-      Messages::addError('You are not allowed to change the configuration!');
-      $this->Redirect();
+    // Set first defined frontend user as admin, if no other defined
+    if (!$this->Admins) $this->Admins = esf_User::$Admin;
+    // Is logged in user an admin?
+    if (!in_array(esf_User::getActual(TRUE),
+                  explode('|', strtolower($this->Admins)))) {
+      Messages::addError(Translation::get('Configuration.YouArNotAllowed'));
+      $this->Redirect(Registry::get('StartModule'));
     }
 
     $ext = @explode('-', @$this->Request['ext']);
@@ -172,7 +169,7 @@ class esf_Module_Configuration extends esf_Module {
       );
     }
 
-    $xml = new XML_Array_Definition(Cache::getInstance());
+    $xml = new XML_Array_Definition(Core::$Cache);
     if (!$data = $xml->ParseXMLFile($ConfigPath.'/configuration.xml')) {
       Messages::addError($xml->Error);
       $this->forward();

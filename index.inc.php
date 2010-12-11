@@ -83,7 +83,8 @@ $oCache = Cache::factory(Registry::get('CacheClass'), $aCacheOptions);
 if (Registry::get('ClearCache')) $oCache->flush();
 unset($aCacheOptions);
 
-esf_Extensions::$Cache = $oCache;
+Core::$Cache = $oCache;
+
 esf_Extensions::Init();
 
 Exec::InitInstance(ESF_OS, $oCache);
@@ -93,7 +94,6 @@ checkDir(TEMPDIR);
 Loader::Load(APPDIR.'/ebay.php');
 
 // include additional configuration, mostly for development
-Core::$Cache = $oCache;
 Core::ReadConfigs('local');
 
 #ErrorHandler::register(Registry::get('ErrorHandler', 'default'));
@@ -137,7 +137,7 @@ Core::IncludeSpecial(esf_Extensions::MODULE, 'plugin.class', TRUE);
 
 // include all plugin configs
 ################################
-Core::IncludeSpecial(esf_Extensions::PLUGIN, 'config');
+#Core::IncludeSpecial(esf_Extensions::PLUGIN, 'config');
 Core::ReadConfigs(esf_Extensions::PLUGIN);
 
 Event::ProcessInform('PluginConfigsLoaded');
