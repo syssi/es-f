@@ -354,7 +354,8 @@ do {
   TplData::set('Title', $sTitle);
   TplData::set('SubTitle1', $sTitle);
   /// TplData::set('SubTitle1',
-  ///              '<tt style="color:red"><img src="layout/images/devel.png" alt="[DEV]">&nbsp;</tt>'.$sTitle);
+  ///              $sTitle.' <tt style="font-size:80%;color:red">['
+  ///             .exec('git branch | grep \* | cut -d" " -f2').']</tt>');
   unset($sTitle);
 
   TplData::set('SubTitle2', '');
