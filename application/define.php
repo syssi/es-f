@@ -11,15 +11,17 @@ defined('_ESF_OK') || die('No direct call allowed.');
  */
 if (!isset($_SERVER['REQUEST_TIME'])) $_SERVER['REQUEST_TIME'] = time();
 
+$version = file(dirname(__FILE__).'/.version');
+
 /**
  * Frontend version
  */
-define('ESF_VERSION', '2.4.1');
+define('ESF_VERSION', $version[0]);
 
 /**
  * Frontend release date
  */
-define('ESF_RELEASE', '2010-12-11');
+define('ESF_RELEASE', $version[1]);
 
 /**
  * Frontend title
