@@ -45,7 +45,7 @@ class esf_Module_Auction extends esf_Module {
     $this->Item     = checkR('item');
     $this->Group    = checkR('group');
     $this->Auctions = checkR('auctions');
-    
+
     TplData::setConstant('CATEGORIES', esf_Auctions::getCategories());
     TplData::setConstant('GROUPS', esf_Auctions::getGroups());
   }
@@ -212,8 +212,10 @@ class esf_Module_Auction extends esf_Module {
       $auction = $data[0];
 
       // get new image
-      if ($this->Request('image') OR $this->Request('imagere'))
+      if ($this->Request('image') OR $this->Request('imagere')) {
+        if ($this->Request('image') == '?') $this->Request['image'] = '';
         $auction['image'] = esf_Auctions::fetchAuctionImage($this->Item, $this->Request('image'));
+      }
 
       if (!$this->Request('currency')) $this->Request['currency'] = $auction['currency'];
       $auction['currency'] = $this->Request('currencydef')
@@ -622,7 +624,7 @@ class esf_Module_Auction extends esf_Module {
     }
     $this->forward();
   }
-  
+
   // -------------------------------------------------------------------------
   // Refresh
   // -------------------------------------------------------------------------

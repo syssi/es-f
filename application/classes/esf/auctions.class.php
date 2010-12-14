@@ -189,27 +189,9 @@ abstract class esf_Auctions {
       $auction['item'] = $item;
     }
 
-    if (!is_array(Registry::get('ParseOrder')))
-      Registry::set('ParseOrder', explode(',', Registry::get('ParseOrder')));
-
     /// DebugStack::StartTimer('AuctionParse'.$item, 'Parse '.$item);
 
-    $parser = $invalid = FALSE;
-
-    foreach (Registry::get('ParseOrder') as $tld) {
-      $parser = ebayParser::factory(trim($tld));
-      if ($parser->getDetail($item, 'DISPATCH')) {
-        Registry::set('ebayParser', $parser);
-        $auction['parser'] = $tld;
-        break;
-      } elseif ($parser->getDetail($item, 'INVALID')) {
-        $parser = FALSE;
-        $invalid = TRUE;
-        break;
-      } else {
-        $parser = FALSE;
-      }
-    }
+    $parser = self::getParser($auction, $invalid);
 
     /// DebugStack::StopTimer('AuctionParse'.$item);
 
@@ -312,8 +294,9 @@ abstract class esf_Auctions {
 
     if (Registry::get('Module.Auction.LoadImages')) {
       // get from ebay
-      if (empty($url))
-        $url = Registry::get('ebayParser')->getDetail($item, 'IMAGE');
+      if (empty($url) AND
+          $parser = self::getParser(self::$Auctions[$item], $invalid))
+        $url = $parser->getDetail($item, 'IMAGE');
       // no-image image
       if (empty($url))
         $url = Registry::get('Module.Auction.NoImage');
@@ -1059,6 +1042,35 @@ abstract class esf_Auctions {
     'r'   => 0,                  // running, not ended autions in this group
     'cat' => '',                 // category
   );
+
+  /**
+   * Get the item id, if id given just return, if auction, return the auction item
+   *
+   * @param string|array $auction
+   */
+  private static function getParser( $auction, &$invalid ) {
+    $invalid = FALSE;
+    if (!$parser = Registry::get('ebayParser')) {
+      $item = $auction['item'];
+      if (!is_array(Registry::get('ParseOrder')))
+        Registry::set('ParseOrder', explode(',', Registry::get('ParseOrder')));
+      foreach (Registry::get('ParseOrder') as $tld) {
+        $parser = ebayParser::factory(trim($tld));
+        if ($parser->getDetail($item, 'DISPATCH')) {
+          Registry::set('ebayParser', $parser);
+          $auction['parser'] = $tld;
+          break;
+        } elseif ($parser->getDetail($item, 'INVALID')) {
+          $parser = FALSE;
+          $invalid = TRUE;
+          break;
+        } else {
+          $parser = FALSE;
+        }
+      }
+    }
+    return $parser;
+  }
 
   /**
    * Get the item id, if id given just return, if auction, return the auction item
