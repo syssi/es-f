@@ -30,8 +30,8 @@
   SOFTWARE.
   ==================================================*/
 
-if (typeof Tabber_RootDir === 'undefined') {
-  var Tabber_RootDir = './';
+if (typeof TabberRootDir === 'undefined') {
+  var TabberRootDir = './';
 }
 
 function tabberObj(argsObj)
@@ -456,7 +456,7 @@ function tabberAutomatic(tabberArgs)
   var l = document.createElement('link');
   l.type = 'text/css';
   l.rel = 'stylesheet';
-  l.href = Tabber_RootDir + 'tabber.css';
+  l.href = TabberRootDir + 'tabber.css';
   l.media = 'screen';
   document.getElementsByTagName('head')[0].appendChild(l);
 

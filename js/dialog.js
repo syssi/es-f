@@ -19,8 +19,8 @@ http://snippets.dzone.com/posts/show/3411
 
 var DialogOverlayId = 'DialogOverlay';
 
-if (DialogJsPath === undefined) {
-  var DialogJsPath = '.';
+if (typeof DialogJsPath === 'undefined') {
+  var DialogJsPath = './';
 }
 
 /** **************************************************************************
@@ -96,7 +96,7 @@ Object.extend(Dialog.Box.prototype, {
       document.body.insertBefore(this.overlay, document.body.childNodes[0]);
 
       var img = document.createElement('img');
-      img.src = DialogJsPath + '/ball.gif';
+      img.src = DialogJsPath + '/dialog.gif';
       img._size = 54;
       img.style.position = 'absolute';
       img.style.display = 'none';
