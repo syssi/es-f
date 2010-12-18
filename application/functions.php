@@ -2,8 +2,11 @@
 /**
  * Core functions
  *
- * @package es-f
- * @subpackage Core
+ * @package    es-f
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2007-2010 Knut Kohl
+ * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
+ * @version    $Id$
  */
 
 defined('_ESF_OK') || die('No direct call allowed.');
@@ -614,27 +617,14 @@ if (!function_exists('image_type_to_Extension')) {
  *
  * @ignore 
  */
-function image_type_to_Extension ( $imagetype, $include_dot=TRUE ) {
-  switch ($imagetype) {
-    case IMAGETYPE_GIF     : $ext = 'gif';
-    case IMAGETYPE_JPEG    : $ext = 'jpg';
-    case IMAGETYPE_PNG     : $ext = 'png';
-    case IMAGETYPE_SWF     : $ext = 'swf';
-    case IMAGETYPE_PSD     : $ext = 'psd';
-    case IMAGETYPE_BMP     : $ext = 'bmp';
-    case IMAGETYPE_TIFF_II : $ext = 'tiff';
-    case IMAGETYPE_TIFF_MM : $ext = 'tiff';
-    case IMAGETYPE_JPC     : $ext = 'jpc';
-    case IMAGETYPE_JP2     : $ext = 'jp2';
-    case IMAGETYPE_JPX     : $ext = 'jpf';
-    case IMAGETYPE_JB2     : $ext = 'jb2';
-    case IMAGETYPE_SWC     : $ext = 'swc';
-    case IMAGETYPE_IFF     : $ext = 'aiff';
-    case IMAGETYPE_WBMP    : $ext = 'wbmp';
-    case IMAGETYPE_XBM     : $ext = 'xbm';
-    default                : return FALSE;
-  }
-  if ($include_dot) $ext = '.'.$ext;
-  return $ext;
+function image_type_to_extension( $type, $dot=TRUE ) {
+  $e = array( 1 => 'gif', 'jpeg', 'png', 'swf', 'psd', 'bmp',
+                   'tiff', 'tiff', 'jpc', 'jp2', 'jpf', 'jb2', 'swc',
+                   'aiff', 'wbmp', 'xbm');
+  // We are expecting an integer.
+  $type = (int)$type;
+  if (!$type) return null;
+  if ( !isset($e[$type]) ) return null;
+  return ($dot ? '.' : '') . $e[$type];
 }
 }
