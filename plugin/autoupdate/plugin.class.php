@@ -2,12 +2,11 @@
 /**
  * Add some infos to seller data
  *
- * @category   Plugin
  * @package    Plugin-AutoUpdate
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
+ * @copyright  2009-2010 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    Release: @package_version@
+ * @version    $Id$
  */
 class esf_Plugin_AutoUpdate extends esf_Plugin {
 
@@ -57,10 +56,10 @@ class esf_Plugin_AutoUpdate extends esf_Plugin {
 
       Loader::Load(dirname(__FILE__).'/classes/appupdate.class.php');
 
-      $curl = new cURL;
-      $curl->setOpt(CURLOPT_CONNECTTIMEOUT, Registry::get('cURL.ConnectionTimeOut'))
-           ->setOpt(CURLOPT_TIMEOUT, Registry::get('cURL.TimeOut'))
-           ->setOpt(CURLOPT_VERBOSE, Registry::get('cURL.Verbose'));
+      $this->cURL = new cURL;
+      $this->cURL->setOpt(CURLOPT_CONNECTTIMEOUT, Registry::get('cURL.ConnectionTimeOut'))
+                 ->setOpt(CURLOPT_TIMEOUT, Registry::get('cURL.TimeOut'))
+                 ->setOpt(CURLOPT_VERBOSE, Registry::get('cURL.Verbose'));
 
       $options = array(
         'server'         => $this->Server,
@@ -70,18 +69,20 @@ class esf_Plugin_AutoUpdate extends esf_Plugin {
       );
 
       try {
-        $this->Updater = new AppUpdate($curl, $options);
+        $this->Updater = new AppUpdate($this->cURL, $options);
         $this->Updater->CheckUpdates(array(&$this, 'CheckFileVersion'));
         $this->UpdateCount = $this->Updater->getUpdatableCount();
         Session::set(self::SESSIONFLAG, TRUE);
         // >> Debug
-        DebugStack::Debug($curl->info());
-        if (Registry::get('cURL.Verbose')) DebugStack::Debug($curl->getDebug());
+        DebugStack::Debug($this->cURL->info());
+        if (Registry::get('cURL.Verbose')) DebugStack::Debug($this->cURL->getDebug());
         // << Debug
       } catch (AppUpdateException $e) {
         // ignore errors and try later
+        /// Messages::Error($e->getMessage());
         unset($this->Updater);
       }
+
     }
   }
 
@@ -90,12 +91,26 @@ class esf_Plugin_AutoUpdate extends esf_Plugin {
    */
   public function PageStart() {
 
-    if (!$this->Updater OR !$this->Update1 OR $this->Update2) return;
+    if (!$this->Update1) return;
+
+    Loader::Load(dirname(__FILE__).'/classes/checkversion.class.php');
+
+    try {
+      $CheckVersion = new CheckVersion( $this->cURL, $this->VersionURL );
+      $v = $CheckVersion->Version();
+      if (version_compare(ESF_VERSION, $v, '<'))
+        Messages::Info(Translation::get('AutoUpdate.LatestAppVersion', $v), TRUE);
+    } catch (CheckVersionException $e) {
+      // ignore errors and try later
+      /// Messages::Error($e->getMessage());
+    }
+
+    if (!$this->Updater OR $this->Update2) return;
 
     // check application version
-    $a = $this->Updater->getApplicationVersion();
-    if (version_compare(ESF_VERSION, $a['version'], '<'))
-      Messages::addSuccess(Translation::get('AutoUpdate.LatestAppRelease', $a['version'], $a['comment'], $a['url']), TRUE);
+#    $a = $this->Updater->getApplicationVersion();
+#    if (version_compare(ESF_VERSION, $a['version'], '<'))
+#     Messages::addSuccess(Translation::get('AutoUpdate.LatestAppRelease', $a['version'], $a['comment'], $a['url']), TRUE);
 
     if (!$this->UpdateCount) return;
 
@@ -183,6 +198,11 @@ class esf_Plugin_AutoUpdate extends esf_Plugin {
   // -------------------------------------------------------------------------
   // PRIVATE
   // -------------------------------------------------------------------------
+
+  /**
+   *
+   */
+  private $cURL;
 
   /**
    *
