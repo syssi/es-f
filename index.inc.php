@@ -87,7 +87,7 @@ Core::$Cache = $oCache;
 
 esf_Extensions::Init();
 
-Exec::InitInstance(ESF_OS, $oCache);
+Exec::InitInstance(ESF_OS, $oCache, Registry::get('bin_sh'));
 
 checkDir(TEMPDIR);
 
