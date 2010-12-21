@@ -1,21 +1,12 @@
 <?php
 /**
- * Copyright (c) 2006-2009 Knut Kohl <knutkohl@users.sourceforge.net>
+ * Exec for *nix platforms
  *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * GPL: http://www.gnu.org/licenses/gpl.txt
- *
- * @package exec
- * @subpackage unix
+ * @package    exec
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2007-2010 Knut Kohl
+ * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
+ * @version    $Id$
  */
 
 /**
@@ -118,7 +109,7 @@ class Exec_Unix extends Exec {
     }
     // quote
     $cmd = str_replace('\\\'','"',$cmd);
-    $cmd = 'sh -c '.$cmd;
+    $cmd = $this->Shell.' -c '.$cmd;
 
     // run as another user?
     if ($sudo) $cmd = sprintf('sudo -u %s %s', $sudo, $cmd);
@@ -128,6 +119,15 @@ class Exec_Unix extends Exec {
 
     return $this->_exec($cmd, $result);
   }
+
+  //---------------------------------------------------------------------------
+  // PROTECTED
+  //---------------------------------------------------------------------------
+
+  /**
+   * Assume sh as shell
+   */
+  protected $Shell = 'sh';
 
   //-------------------------------------------------------------------------
   // PRIVATE
