@@ -2,7 +2,11 @@
 /**
  * Factory and base class for system command execution
  *
- * @package exec
+ * @package    exec
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2007-2010 Knut Kohl
+ * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
+ * @version    $Id$
  */
 abstract class Exec {
 
@@ -90,32 +94,33 @@ abstract class Exec {
   /**
    * Returns instance of requested class
    *
-   * @throws Exec_Exception If intialized before
-   * @param string $class Name of requested class
+   * @throws ExecException If intialized before
+   * @param $class string Name of requested class
    * @param $cache Cache
+   * @param $shell string Shell binary for the instance
    */
-  public static final function InitInstance( $class, Cache $cache ) {
+  public static final function InitInstance( $class, Cache $cache, $shell='' ) {
     if (self::$Instance != NULL)
-      throw new Exec_Exception('Exec has been instantiated before!');
+      throw new ExecException('Exec has been instantiated before!');
 
     $file = dirname(__FILE__).DIRECTORY_SEPARATOR.'exec'.DIRECTORY_SEPARATOR.$class.'.class.php';
     if (file_exists($file)) {
       require_once $file;
       $class = 'Exec_'.$class;
-      self::$Instance = new $class($cache);
+      self::$Instance = new $class($cache, $shell);
       return self::$Instance;
     }
-    throw new Exec_Exception('Exec: Missing file: '.$file);
+    throw new ExecException('Exec: Missing file: '.$file);
   }
 
   /**
    * Returns instance of requested class
    *
-   * @throws Exec_Exception If not intialized yet
+   * @throws ExecException If not intialized yet
    */
   public static final function getInstance() {
     if(self::$Instance == NULL)
-      throw new Exec_Exception('Exec: has not been instantiated yet, use Exec::InitInstance(<class name>)');
+      throw new ExecException('Exec: has not been instantiated yet, use Exec::InitInstance(<class name>)');
     return self::$Instance;
   }
 
@@ -202,8 +207,17 @@ abstract class Exec {
   /**
    *
    */
-  protected final function __construct( Cache $cache ) {
+  protected $Shell;
+
+  /**
+   * Class constructor
+   *
+   * @param $cache Cache
+   * @param $shell string Shell binary for the instance
+   */
+  protected final function __construct( Cache $cache, $shell ) {
     $this->Cache = $cache;
+    if (!empty($shell)) $this->Shell = $shell;
   }
 
   /**
@@ -277,4 +291,4 @@ abstract class Exec {
 /**
  *
  */
-class Exec_Exception extends Exception {}
+class ExecException extends Exception {}
