@@ -1,10 +1,10 @@
 <?php
 /**
- *
- */
-
-/**
- *
+ * @package    es-f
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2007-2010 Knut Kohl
+ * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
+ * @version    $Id$
  */
 abstract class esf_User {
 
@@ -33,8 +33,7 @@ abstract class esf_User {
       self::USER_PASS => $passwords
     );
 
-    if (empty(self::$Admin))
-      self::$Admin = $user;
+    if (empty(self::$Admin)) self::$Admin = $user;
   }
 
   /**
@@ -42,10 +41,7 @@ abstract class esf_User {
    */
   public static function get( $user, $detail=self::USER_NAME ) {
     $user = strtolower($user);
-    if (!isset(self::$Users[$user]))
-      return FALSE;
-
-    return self::$Users[$user][$detail];
+    return isset(self::$Users[$user]) ? self::$Users[$user][$detail] : FALSE;
   }
 
   /**
@@ -82,8 +78,7 @@ abstract class esf_User {
     }
 
     $pass = self::get($user, self::USER_PASS);
-    if (!$pass)
-      return FALSE;
+    if (!$pass) return FALSE;
 
     $pass = explode("\x01", @MD5Encryptor::decrypt($pass, $password));
     // convert a bool to 0|1

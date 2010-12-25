@@ -1,8 +1,12 @@
 <?php
+/** @defgroup Exec
+
+*/
+
 /**
  * Factory and base class for system command execution
  *
- * @package    exec
+ * @ingroup    exec
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2007-2010 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
@@ -17,9 +21,9 @@ abstract class Exec {
   /**
    * Wrapper for make directory
    *
-   * @param string $dir Directory
-   * @param mixed &$result Return from system command
-   * @param string $sudo Run as another user
+   * @param $dir string Directory
+   * @param &$result mixed Return from system command
+   * @param $sudo string Run as another user
    * @return int Return code from system command
    */
   abstract function MkDir( $dir, &$result, $sudo='' );
@@ -27,11 +31,11 @@ abstract class Exec {
   /**
    * Wrapper for change mode
    *
-   * @param string $filemask
-   * @param string $mode
-   * @param string $rec Recursive
-   * @param mixed &$result Return from system command
-   * @param string $sudo Run as another user, if possible
+   * @param $filemask string
+   * @param $mode string
+   * @param $rec string Recursive
+   * @param &$result mixed Return from system command
+   * @param $sudo string Run as another user, if possible
    * @return int Return code from system command
    */
   abstract function ChMod( $filemask, $mode, $rec, &$result, $sudo='' );
@@ -39,10 +43,10 @@ abstract class Exec {
   /**
    * Wrapper for copy
    *
-   * @param string $source From
-   * @param string $dest To
-   * @param mixed &$result Return from system command
-   * @param string $sudo Run as another user, if possible
+   * @param $source string From
+   * @param $dest string To
+   * @param &$result mixed Return from system command
+   * @param $sudo string Run as another user, if possible
    * @return int Return code from system command
    */
   abstract function Copy( $source, $dest, &$result, $sudo='' );
@@ -50,10 +54,10 @@ abstract class Exec {
   /**
    * Wrapper for move
    *
-   * @param string $source From
-   * @param string $dest To
-   * @param mixed &$result Return from system command
-   * @param string $sudo Run as another user, if possible
+   * @param $source string From
+   * @param $dest string To
+   * @param &$result mixed Return from system command
+   * @param $sudo string Run as another user, if possible
    * @return int Return code from system command
    */
   abstract function Move( $source, $dest, &$result, $sudo='' );
@@ -61,9 +65,9 @@ abstract class Exec {
   /**
    * Wrapper for remove
    *
-   * @param string $filemask
-   * @param mixed &$result Return from system command
-   * @param string $sudo Run as another user, if possible
+   * @param $filemask string
+   * @param &$result mixed Return from system command
+   * @param $sudo string Run as another user, if possible
    * @return int Return code from system command
    */
   abstract function Remove( $filemask, &$result, $sudo='' );
@@ -75,9 +79,9 @@ abstract class Exec {
    * $this->_Exec($cmd)
    * to perform the call
    *
-   * @param string $cmd Command
-   * @param mixed &$result Return from system command
-   * @param string $sudo Run as another user, if possible
+   * @param $cmd string Command
+   * @param &$result mixed Return from system command
+   * @param $sudo string Run as another user, if possible
    * @return int Return code from system command
    */
   abstract function Execute( $cmd, &$result, $sudo='' );
@@ -125,23 +129,27 @@ abstract class Exec {
   }
 
   /**
+   * Set commands for a namespace
    *
-   * @param $cmds Commands
-   * @param $NS string
+   * @param $cmds array Commands
+   * @param $namespace string
    */
-  public final function setCommands( $cmds, $NS='Core' ) {
+  public final function setCommands( $cmds, $namespace='Core' ) {
     if (empty($cmds)) return;
 
-    $NS = strtoupper($NS);
+    $namespace = strtoupper($namespace);
     $cmds = array_change_key_case($cmds, CASE_UPPER);
 
-    $this->Commands[$NS] = !isset($this->Commands[$NS])
-                         ? $cmds
-                         : array_merge($this->Commands[$NS], $cmds);
+    $this->Commands[$namespace] = !isset($this->Commands[$namespace])
+                                ? $cmds
+                                : array_merge($this->Commands[$namespace], $cmds);
   }
 
   /**
+   * Set commands from a INI file
    *
+   * @param $file string
+   * @param $required bool Log an error message if file is not valid
    */
   public final function setCommandsFromINIFile( $file, $required=TRUE ) {
     $file = str_replace('/', DIRECTORY_SEPARATOR, $file);
@@ -154,12 +162,15 @@ abstract class Exec {
         }
       }
     } elseif ($required) {
-      Messages::addError(Inifile::$Error);
+      Messages::Error(Inifile::$Error);
     }
   }
 
   /**
+   * Set commands from a XML file
    *
+   * @param $file string
+   * @param $required bool Log an error message if file is not valid
    */
   public final function setCommandsFromXMLFile( $file, $required=TRUE ) {
     $file = str_replace('/', DIRECTORY_SEPARATOR, $file);
@@ -179,11 +190,11 @@ abstract class Exec {
   }
 
   /**
-   * Execute a predefined system command with some *nix specific settings
+   * Execute a predefined system command
    *
-   * @param string $cmd Command to execute
-   * @param array &$result Return of executed command
-   * @param string $sudo Run as defined sudo user
+   * @param $cmd string Command to execute
+   * @param &$result array Return of executed command
+   * @param $sudo string Run as defined sudo user
    * @return integer Return code of system command
    */
   public final function ExecuteCmd( $cmd, &$result, $sudo='' ) {
@@ -200,12 +211,16 @@ abstract class Exec {
   //---------------------------------------------------------------------------
 
   /**
+   * Cache
    *
+   * @var instance
    */
   protected $Cache;
 
   /**
+   * Shell binary / EXE
    *
+   * @var string
    */
   protected $Shell;
 
@@ -221,15 +236,13 @@ abstract class Exec {
   }
 
   /**
+   * Get real command for $cmd id
    *
+   * @param $cmd string|array Plain command or array of command and parameters
    */
   protected final function getCommand( &$cmd ) {
     $cmdArray = is_array($cmd);
-    if ($cmdArray) {
-      $cmd1 = array_shift($cmd);
-    } else {
-      $cmd1 = $cmd;
-    }
+    $cmd1 = $cmdArray ? array_shift($cmd) : $cmd;
     @list($namespace, $cmd1) = explode('::', $cmd1, 2);
     if ($cmd1 == '') {
       $cmd1 = $namespace;
@@ -250,7 +263,11 @@ abstract class Exec {
   }
 
   /**
+   * Execute finaly a command
    *
+   * @param $cmd string
+   * @param &$result array Return of executed command
+   * @return int Return code
    */
   protected final function _exec( $cmd, &$result ) {
     /// DebugStack::Trace(3);

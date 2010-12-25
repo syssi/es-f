@@ -4,11 +4,11 @@
  *
  * Core application functions
  *
- * @package    Ces-f
- * @author
- * @copyright
+ * @package    es-f
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2007-2010 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version
+ * @version    $Id$
  */
 abstract class Core {
 
@@ -201,9 +201,7 @@ abstract class Core {
 
     $do = array_merge($ua_params, $do);
     unset($do['module'], $do['action']);
-    foreach ($do as $key => $val) {
-      $_REQUEST[$key] = $val;
-    }
+    foreach ($do as $key => $val) $_REQUEST[$key] = $val;
   }
 
   /**
@@ -212,11 +210,8 @@ abstract class Core {
    * @param string $url
    */
   public static function Redirect( $url ) {
-
     Event::ProcessInform('Redirect', $url);
-
     Session::close();
-
     if (!headers_sent()) {
       Header('Location: ' . str_replace('&amp;', '&', $url));
       exit;
@@ -256,20 +251,18 @@ abstract class Core {
    * @param mixed &$var Variable to strip slashes
    */
   public static function StripSlashes( &$var ) {
-    if (get_magic_quotes_gpc()) {
-      if (!is_array($var)) {
-        $var = stripslashes($var);
-      } else {
-        foreach (array_keys($var) as $key) self::StripSlashes($var[$key]);
-      }
-    }
+    if (!get_magic_quotes_gpc()) return;
+
+    if (!is_array($var))
+      $var = stripslashes($var);
+    else
+      foreach (array_keys($var) as $key) self::StripSlashes($var[$key]);
   }
 
   /**
    *
    */
   public static function IncludeSpecial( $Scopes, $Patterns, $force=FALSE ) {
-
     if (!is_array($Scopes)) $Scopes = array($Scopes);
     if (!is_array($Patterns)) $Patterns = array($Patterns);
 
@@ -278,9 +271,7 @@ abstract class Core {
     // << Debug
 
     foreach ($Scopes as $Scope) {
-
       $chk4User = (!$force AND ($Scope == esf_Extensions::MODULE));
-
       switch ($Scope) {
         // --------------------
         case esf_Extensions::MODULE :
@@ -365,11 +356,9 @@ abstract class Core {
           foreach ($data1 as $key2=>$data2) {
             if (!is_array($data2)) {
               Registry::set($key1.'.'.$key2, $data2);
-            } else {
-              foreach ($data2 as $key3=>$data3) {
+            } else
+              foreach ($data2 as $key3=>$data3)
                 Registry::set($key1.'.'.$key2.'.'.$key3, $data3);
-              }
-            }
           }
         }
       }
@@ -410,26 +399,20 @@ abstract class Core {
     $checked = TRUE;
     if (!empty(self::$Required[$ls][$lp])) {
       foreach (self::$Required[$ls][$lp] as $reqscope => $reqparts) {
-        switch ($reqscope) {
-          case 'core':
-            break;
-          default:
-            foreach ($reqparts as $check => $version) {
-              $reqversion = Registry::get($reqscope.'.'.$check.'.Version', 0);
-              $partversion = Registry::get($reqscope.'.'.$part.'.Version', 0);
-              if (!esf_Extensions::checkState($reqscope, $check, esf_Extensions::BIT_ENABLED) OR
-                  version_compare($reqversion, $version, '<')) {
-                $msg = sprintf('%s "%s" Version %s requires enabled %s "%s"',
-                               ucwords($scope), ucwords($part), $partversion,
-                               ucwords($reqscope), ucwords($check));
-                if ($version) $msg .= sprintf(' with Version >= %s', $version);
-                $Err[] = $msg.'!';
-                $checked = FALSE;
-              } else {
-              }
-            }
-            break;
-        } // switch
+        if ($reqscope == 'core') continue;
+        foreach ($reqparts as $check => $version) {
+          $reqversion = Registry::get($reqscope.'.'.$check.'.Version', 0);
+          $partversion = Registry::get($reqscope.'.'.$part.'.Version', 0);
+          if (!esf_Extensions::checkState($reqscope, $check, esf_Extensions::BIT_ENABLED) OR
+              version_compare($reqversion, $version, '<')) {
+            $msg = sprintf('%s "%s" Version %s requires enabled %s "%s"',
+                           ucwords($scope), ucwords($part), $partversion,
+                           ucwords($reqscope), ucwords($check));
+            if ($version) $msg .= sprintf(' with Version >= %s', $version);
+            $Err[] = $msg.'!';
+            $checked = FALSE;
+          }
+        }
       }
     }
     return $checked;

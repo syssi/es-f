@@ -1,6 +1,10 @@
 <?php
 /**
- *
+ * @ingroup    es-f
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2007-2010 Knut Kohl
+ * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
+ * @version    $Id$
  */
 abstract class esf_Auctions {
 
@@ -107,7 +111,7 @@ abstract class esf_Auctions {
   public static function AuctionsInGroup( $group ) {
     $Auctions = array();
     foreach (self::$Auctions as $item => $auction)
-      if ($auction->Group == $group) $Auctions[] = $item;
+      if (self::getGroup($auction) == $group) $Auctions[] = $item;
     return $Auctions;
   }
 

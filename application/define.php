@@ -1,7 +1,10 @@
 <?php
 /**
- * @package es-f
- * @version $Id$
+ * @ingroup    es-f
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2007-2010 Knut Kohl
+ * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
+ * @version    $Id$
  */
 
 defined('_ESF_OK') || die('No direct call allowed.');
@@ -11,7 +14,7 @@ defined('_ESF_OK') || die('No direct call allowed.');
  */
 if (!isset($_SERVER['REQUEST_TIME'])) $_SERVER['REQUEST_TIME'] = time();
 
-$version = file(dirname(__FILE__).'/.version');
+$version = file(dirname(__FILE__).'/.version', FILE_IGNORE_NEW_LINES);
 
 /**
  * Frontend version

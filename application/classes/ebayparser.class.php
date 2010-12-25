@@ -1,13 +1,17 @@
 <?php
-/**
- * @package es-f
- * @subpackage ebayparser
- */
+/** @defgroup ebayParser
+
+*/
 
 /**
  * Parameters for HTML parser of eBay pages
  *
- * @throws ebayParserException
+ * @ingroup    ebayParser
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2007-2010 Knut Kohl
+ * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
+ * @version    $Id$
+ * @throws     ebayParserException
  */
 abstract class ebayParser {
 
@@ -17,7 +21,14 @@ abstract class ebayParser {
   public $Version;
 
   /**
+   * Urls to parse
+   */
+  public $URL = array();
+
+  /**
    * Constructor
+   *
+   * @param $tld string Top level domain to create
    */
   public final static function factory( $tld ) {
     $tld = str_replace('.', '_', strtolower($tld));
@@ -33,7 +44,13 @@ abstract class ebayParser {
   }
 
   /**
+   * Get an auction detail
    *
+   * @param $item string
+   * @param $name string Detail name
+   * @param $stripTags bool Strip tags from result
+   * @param $url string URL id
+   * @return string
    */
   public final function getDetail( $item, $name, $stripTags=TRUE, $url=NULL ) {
     if (!isset($this->RegEx[$name])) {
@@ -93,6 +110,9 @@ abstract class ebayParser {
 
   /**
    * Add another url to parse (e.g. from plugin)
+   *
+   * @param $name string URL id
+   * @param $url string URL
    */
   public final function setURL( $name, $url ) {
     $this->URL[strtoupper($name)] = $url;
@@ -100,6 +120,9 @@ abstract class ebayParser {
 
   /**
    * Add another expression (e.g. from plugin)
+   *
+   * @param $name string Detail name
+   * @param $expression string reg. expression matching the detail
    */
   public final function setExpression( $name, $expression ) {
     $this->RegEx[strtoupper($name)] = $expression;
@@ -108,11 +131,6 @@ abstract class ebayParser {
   //--------------------------------------------------------------------------
   // PROTECTED
   //--------------------------------------------------------------------------
-
-  /**
-   * Urls to parse
-   */
-  public $URL = array();
 
   /**
    * reg. expressions, load from config files
@@ -348,6 +366,8 @@ abstract class ebayParser {
 
   /**
    * Class constructor
+   *
+   * @param $tld string Top level domain to create
    */
   protected function __construct( $tld ) {
     $this->Timezone = date('T');
@@ -419,6 +439,5 @@ abstract class ebayParser {
 
 /**
  *
- * @usedby ebayParser
  */
 class ebayParserException extends Exception {}
