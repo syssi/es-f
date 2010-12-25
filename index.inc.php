@@ -451,9 +451,13 @@ if (stristr($_SERVER['SERVER_SOFTWARE'], 'Apache')) {
   TplData::setConstant('SERVER', array('NAME' => 'lighttpd', 'URL' => 'www.lighttpd.net'));
 } elseif (stristr($_SERVER['SERVER_SOFTWARE'], 'IIS')) {
   TplData::setConstant('SERVER', array('NAME' => 'iis', 'URL' => 'www.microsoft.com/iis'));
+} elseif (stristr($_SERVER['SERVER_SOFTWARE'], 'LiteSpeed')) {
+  TplData::setConstant('SERVER', array('NAME' => 'litespeed', 'URL' => 'www.litespeedtech.com'));
+} elseif (stristr($_SERVER['SERVER_SOFTWARE'], 'nginx')) {
+  TplData::setConstant('SERVER', array('NAME' => 'nginx', 'URL' => 'nginx.org'));
 } else {
   preg_match('~^[\w\s]+~', $_SERVER['SERVER_SOFTWARE'], $args);
-  TplData::setConstant('SERVER', array('NAME' => trim($args[0]), 'URL' => NULL));
+  TplData::setConstant('SERVER', array('NAME' => strtoupper(trim($args[0])), 'URL' => NULL));
 }
 
 TplData::setConstant('SERVER.VERSION', $_SERVER['SERVER_SOFTWARE']);
