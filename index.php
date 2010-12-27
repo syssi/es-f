@@ -2,12 +2,11 @@
 /**
  * Main program file
  *
- * @package    es-f
+ * @ingroup    es-f
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2007-2010 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
  * @version    $Id$
- * @since      File available since Release 0.0.1
  */
 
 ini_set('display_startup_errors', 0);

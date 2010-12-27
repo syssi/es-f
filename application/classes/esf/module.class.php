@@ -1,8 +1,14 @@
 <?php
 /**
+ * Abstract Module class
  *
+ * @ingroup    Module
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2007-2010 Knut Kohl
+ * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
+ * @version    $Id$
  */
-class esf_Module extends esf_Extension {
+abstract class esf_Module extends esf_Extension {
 
   /**
    * Handle called action routines
@@ -15,12 +21,20 @@ class esf_Module extends esf_Extension {
     $this->Action = $action;
     do {
       $saveaction = $this->Action;
-      $method = $this->Action . $step . 'Action';
-      if (method_exists($this, $method)) {
-        // >> Debug
-        DebugStack::Info(get_class($this).'->'.$method.'()');
-        // << Debug
-        $this->$method();
+      // Check for supported action
+      if (stristr($this->Actions, $this->Action)) {
+        $method = $this->Action . $step . 'Action';
+        // Check for method
+        if (method_exists($this, $method)) {
+          // >> Debug
+          DebugStack::Info(get_class($this).'::'.$method.'()');
+          // << Debug
+          $this->$method();
+        }
+      } else {
+        if (DEVELOP)
+          Messages::Error('Not handled action "'.$this->Action.'" in '.get_class($this));
+        $this->redirect();
       }
     } while ($saveaction != $this->Action);
   }
@@ -55,7 +69,7 @@ class esf_Module extends esf_Extension {
    *
    */
   protected function redirect( $module=NULL, $action=NULL, $params=array(), $anchor=NULL ) {
-    Core::Redirect(Core::URL(array('module'=>$module, 'action'=>$action,
+    Core::redirect(Core::URL(array('module'=>$module, 'action'=>$action,
                                    'params'=>$params, 'anchor'=>$anchor)));
   }
 

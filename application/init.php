@@ -2,13 +2,11 @@
 /**
  * Program initialization
  *
- * @package    es-f
- * @subpackage Core
+ * @ingroup    es-f
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2007-2009 Knut Kohl
+ * @copyright  2007-2010 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    1.1.2
- * @since      File available since Release 0.0.1
+ * @version    $Id$
  */
 
 defined('_ESF_OK') || die('No direct call allowed.');
@@ -137,6 +135,17 @@ TplData::$NVL = NULL;
  * Configure I18n System
  */
 Translation::$NameSpaceSeparator = '.';
+
+/**
+ * Icons for powered by footer
+ */
+$GLOBALS['Servers'] = array(
+  array( 'apache',    'http://www.apache.org' ),
+  array( 'lighttpd',  'http://www.lighttpd.net' ),
+  array( 'nginx',     'http://nginx.org' ),
+  array( 'litespeed', 'http://www.litespeedtech.com/overview.html' ),
+  array( 'iis',       'http://www.microsoft.com/iis' ),
+);
 
 // >> Debug
 /** --------------------------------------------------------------------------

@@ -445,20 +445,24 @@ TplData::setConstant('ESNIPER.VERSION', Session::get('esniperVersion'));
 TplData::setConstant('YUELO_VERSION', 'Yuelo - Template engine V. '.Yuelo::VERSION);
 TplData::setConstant('PHP.VERSION', PHP_VERSION);
 
-if (stristr($_SERVER['SERVER_SOFTWARE'], 'Apache')) {
-  TplData::setConstant('SERVER', array('NAME' => 'apache', 'URL' => 'www.apache.org'));
-} elseif (stristr($_SERVER['SERVER_SOFTWARE'], 'lighttpd')) {
-  TplData::setConstant('SERVER', array('NAME' => 'lighttpd', 'URL' => 'www.lighttpd.net'));
-} elseif (stristr($_SERVER['SERVER_SOFTWARE'], 'IIS')) {
-  TplData::setConstant('SERVER', array('NAME' => 'iis', 'URL' => 'www.microsoft.com/iis'));
-} elseif (stristr($_SERVER['SERVER_SOFTWARE'], 'LiteSpeed')) {
-  TplData::setConstant('SERVER', array('NAME' => 'litespeed', 'URL' => 'www.litespeedtech.com'));
-} elseif (stristr($_SERVER['SERVER_SOFTWARE'], 'nginx')) {
-  TplData::setConstant('SERVER', array('NAME' => 'nginx', 'URL' => 'nginx.org'));
-} else {
-  preg_match('~^[\w\s]+~', $_SERVER['SERVER_SOFTWARE'], $args);
-  TplData::setConstant('SERVER', array('NAME' => strtoupper(trim($args[0])), 'URL' => NULL));
+// Store server into cache
+while ($oCache->save('Server', $server)) {
+  reset($GLOBALS['Servers']);
+  while ($s = current($GLOBALS['Servers']) AND empty($server)) {
+    if (stristr($_SERVER['SERVER_SOFTWARE'], $s[0])) {
+      $server = array('NAME' => $s[0], 'URL' => $s[1]);
+      break;
+    }
+    next($GLOBALS['Servers']);
+  }
+  if (!$server) {
+    preg_match('~^[\w\s]+~', $_SERVER['SERVER_SOFTWARE'], $args);
+    $server = array('NAME' => strtoupper(trim($args[0])), 'URL' => NULL);
+  }
+  $oCache->set('Server', $server);
 }
+TplData::setConstant('SERVER', $server);
+unset($server, $s);
 
 TplData::setConstant('SERVER.VERSION', $_SERVER['SERVER_SOFTWARE']);
 
@@ -601,8 +605,8 @@ if (!DEVELOP) ob_end_flush();
 /// DebugStack::StartTimer('IndexSteps', 'HTML Content steps');
 
 foreach ($steps as $step) {
-  /// DebugStack::StartTimer($step.'block', ucwords($step).' block');
-
+  /// $block = $step.'block';
+  /// DebugStack::StartTimer($block, ucwords($step).' block');
   Event::ProcessInform('Output'.$step);
 
   if (isset($oModule)) $oModule->handle(Registry::get('esf.Action'), $step);
@@ -610,17 +614,6 @@ foreach ($steps as $step) {
   if (!DEVELOP) ob_start();
 
   if ($step == 'content') {
-
-/*
-    TplData::set('esf_Messages', implode((array)Messages::get()));
-
-    if (!Registry::get('esf.contentonly')) {
-      $html = $oTemplate->Render('html.messages', TRUE, $RootDir);
-      Event::Process('OutputFilter', $html);
-      echo $html;
-    }
-*/
-
     // if actual module is only a display module, try to render $step.Registry::get('esf.Action') ...
     if (TplData::isEmpty('Content')) {
       $content = $oTemplate->Render('content.'.Registry::get('esf.Action'), FALSE, $RootDir);
@@ -630,7 +623,6 @@ foreach ($steps as $step) {
     // Render general template 'content', if exists
     $content = $oTemplate->Render('content', FALSE, $RootDir);
     if ($content) TplData::set('Content', $content);
-
   }
 
   $html = $oTemplate->Render('html.'.$step, TRUE, $RootDir);
@@ -639,8 +631,7 @@ foreach ($steps as $step) {
   echo $html;
 
   if (!DEVELOP) ob_end_flush();
-
-  /// DebugStack::StopTimer($step.'block');
+  /// DebugStack::StopTimer($block);
 }
 
 /// DebugStack::StopTimer('IndexSteps');

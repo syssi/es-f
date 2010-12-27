@@ -1,5 +1,6 @@
 <?php
 /**
+ * Abstract Plugin class
  *
  * @package    Plugin
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>

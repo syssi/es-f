@@ -1,11 +1,10 @@
 <?php
 /**
- * @category   Module
- * @package    Module-Analyse
+ * @ingroup    Module-Analyse
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
+ * @copyright  2009-2010 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    0.1.0
+ * @version    $Id$
  */
 
 /**
