@@ -102,7 +102,7 @@ define('ESF_CONFIG_VERSION', 8);
 /**
  * Required PHP version
  */
-define('PHP_VERSION_REQUIRED', 5);
+define('PHP_VERSION_REQUIRED', '5.1.0');
 
 /**
  * Operating system
