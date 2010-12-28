@@ -257,12 +257,14 @@ function showCountDown() {
     if (El) {
       // remaining seconds
       Remain = ((new Date(esf_CountDown[Id][0]*1000)) - Now) / 1000;
-      // ends in about 30, 5 or 1 minute or is ended
-      if (esf_CountDownRefresh &&
-          ( ( (Remain >= 30*60-2)            && (Remain <= 30*60)              ) ||
-            ( (Remain >=  5*60-2)            && (Remain <=  5*60)              ) ||
-            ( (Remain >=    60-2)            && (Remain <=    60)              ) ||
-            ( (Remain >= ServerTimeOffset-4) && (Remain <= ServerTimeOffset-2) ) ) ) {
+      // ends in about 60, 20, 5 or 1 minute or is ended
+      if (esf_CountDownRefresh && (
+           ( (Remain >= 60*60-2)            && (Remain <= 60*60)              ) ||
+           ( (Remain >= 20*60-2)            && (Remain <= 20*60)              ) ||
+           ( (Remain >=  5*60-2)            && (Remain <=  5*60)              ) ||
+           ( (Remain >=    60-2)            && (Remain <=    60)              ) ||
+           ( (Remain >= ServerTimeOffset-4) && (Remain <= ServerTimeOffset-2) )
+        ) ) {
         // reload page and refresh auction
         location.href='index.php?module=auction&action=mrefresh&auctions[]=' + item +
                       // add timestamp to force reload of page...
