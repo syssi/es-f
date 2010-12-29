@@ -21,6 +21,7 @@ $XYGrace     = array( 3, 8 ); # x/y grace in percent
 // -----------------------------------------------------------------------------
 error_reporting(0);
 
+ini_set('display_startup_errors', 1);
 ini_set('display_errors', 1);
 error_reporting(-1);
 
@@ -79,7 +80,7 @@ $MinMaxBids = $x = $y = array(1E+10,0);
 $XY = $linebids = $linemid = $linehmid = array();
 
 foreach ($databids as $id => $bids) {
-  $XY[md5($datax[$id].$datay[$id])] = array($bids,$ends[$id]);
+  $XY[md5($datax[$id].$datay[$id])] = array($bids, $ends[$id]);
   if ($bids < $MinMaxBids[0]) $MinMaxBids[0] = $bids;
   if ($bids > $MinMaxBids[1]) $MinMaxBids[1] = $bids;
   // self calculation of x grace
@@ -93,7 +94,8 @@ foreach ($databids as $id => $bids) {
   $linehmid[] = $hmid;
 }
 
-$MinMaxScale = (count($datax) == 1 OR ($MinMaxBids[1]-$MinMaxBids[0]) == 0) ? 1
+$MinMaxScale = (count($datax) == 1 OR ($MinMaxBids[1]-$MinMaxBids[0]) == 0)
+             ? 1
              : ($MinMaxWidth[1]-$MinMaxWidth[0]) / ($MinMaxBids[1]-$MinMaxBids[0]);
 
 // move at least bid into graph...
@@ -136,7 +138,7 @@ $graph->xaxis->SetLabelAngle(90);
 $graph->xaxis->HideTicks(TRUE, FALSE);
 
 // Y-axis
-$graph->yaxis->SetLabelFormat('%0.2f'); 
+$graph->yaxis->SetLabelFormat('%0.2f');
 $graph->yaxis->HideTicks(TRUE, FALSE);
 
 // Grid
@@ -159,7 +161,7 @@ include $jppath.'/jpgraph_line.php';
 if ($bid > 0) {
   // Create bid line as lin. plot
   $lp1 = new LinePlot($linebids, $datax);
-  $lp1->SetColor('red');
+#  $lp1->SetColor('FF0000');
   $lp1->SetLegend(sprintf($flegend, $bid, $legend));
   $graph->Add($lp1);
 }
@@ -167,7 +169,7 @@ if ($bid > 0) {
 if ($mid > 0) {
   // Arithmetical average
   $lp2 = new LinePlot($linemid, $datax);
-  $lp2->SetColor('green');
+#  $lp2->SetColor('green');
   $lp2->SetLegend(sprintf($flegend, $mid, $mlegend));
   $graph->Add($lp2);
 }
@@ -175,12 +177,49 @@ if ($mid > 0) {
 if ($hmid > 0) {
   // Harmonic average
   $lp3 = new LinePlot($linehmid, $datax);
-  $lp3->SetColor('blue');
+#  $lp3->SetColor('blue');
   $lp3->SetLegend(sprintf($flegend, $hmid, $hlegend));
   $graph->Add($lp3);
 }
 
 include $jppath.'/jpgraph_scatter.php';
+
+/*
+if (count($ends) >= 3) {
+  // Moving average, 3 or more auctions required
+  $e = array();
+  foreach ($ends as $id => $end) {
+    // Prepare for sort by end time only, IGNORE date
+    $e[] = array(fTS($end), $end, 0, $datay[$id], $databids[$id]);
+  }
+  usort($e, function($a,$b){return $a[0]-$b[0];});
+
+  $max = count($e);
+  for ($i=0; $i<$max; $i++) {
+    if ($i == 1) {
+      // ignore 1st...
+      $e[$i-1][2] = ($e[$i-1][3] + $e[$i][3]) / 3;
+    }
+    if ($i >= 1 AND $i <= $max-2) {
+      $e[$i][2]   = ($e[$i-1][3] + $e[$i][3] + $e[$i+1][3]) / 3;
+    }
+    if ($i == $max-2) {
+      // ... and last value
+      $e[$i+1][2] = ($e[$i][3] + $e[$i+1][3]) / 2;
+    }
+  }
+  usort($e, function($a,$b){return $a[1]-$b[1];});
+
+  $lineavg = array();
+  foreach ($e as $d) $lineavg[] = $d[2];
+
+  $lp4 = new ScatterPlot($lineavg, $datax);
+#  $lp4->SetColor('yellow');
+#  $lp4->SetLegend(sprintf($flegend, $hmid, $hlegend));
+  $lp4->SetLegend('Moving average');
+  $graph->Add($lp4);
+}
+*/
 
 // Create the scatter plot
 $sp1 = new ScatterPlot($datay, $datax);
