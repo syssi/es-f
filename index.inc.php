@@ -289,11 +289,9 @@ foreach (esf_Extensions::$Types as $Scope) {
           Translation::LoadTMXFile($file, 'en', $oCache);
         }
       }
-      if (!Registry::get('EnglishAsDefault') OR $sLanguage != 'en') {
-        // include only for enabled modules and plugins
-        foreach (glob($path.'language/*'.$sLanguage.'.tmx') as $file) {
-          Translation::LoadTMXFile($file, $sLanguage, $oCache);
-        }
+      // include only for enabled modules and plugins
+      foreach (glob($path.'language/*'.$sLanguage.'.tmx') as $file) {
+        Translation::LoadTMXFile($file, $sLanguage, $oCache);
       }
     }
   }
@@ -307,22 +305,6 @@ foreach (esf_Extensions::$Types as $Scope) {
 if (esf_User::isValid()) esf_Auctions::Load();
 
 Event::ProcessInform('PageStart');
-
-$sModuleActions = Registry::get('Module.'.$sModule.'.Actions');
-if (empty($sModuleActions)) $sModuleActions = 'index';
-
-/**
- * TODO: >> esfmodule.class.php
- *
-$aModuleActions = explode('|', $sModuleActions);
-// supress not supported module actions
-if (!in_array(Registry::get('esf.Action'), $aModuleActions)) {
-  trigger_error(sprintf('Unknown module action: %s/%s!',
-                        $sModule, Registry::get('esf.Action')));
-  Registry::set('esf.Action', $aModuleActions[0]);
-}
-*/
-unset($sModuleActions, $aModuleActions);
 
 if (!esf_User::isValid() AND
     Registry::get('Module.'.$sModule.'.LoginRequired')) {

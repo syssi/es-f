@@ -13,6 +13,15 @@ abstract class esf_Module extends esf_Extension {
   /**
    * Handle called action routines
    *
+   * Simple actions
+   * - IndexAction
+   * - ShowAction
+   *
+   * Actions during processing
+   * - IndexHeaderAction
+   * - IndexContentAction
+   * - IndexFooterAction
+   *
    * @param string $action
    * @param string $step Header|Content|Footer
    * @return void
@@ -39,26 +48,21 @@ abstract class esf_Module extends esf_Extension {
     } while ($saveaction != $this->Action);
   }
 
-  // Action
-  // public function IndexAction() {}
-  // public function ShowAction() {}
-
-  // Action during processing
-  // public function IndexHeaderAction() {}
-  // public function IndexContentAction() {}
-  // public function IndexFooterAction() {}
-
   //--------------------------------------------------------------------------
   // PROTECTED
   //--------------------------------------------------------------------------
 
   /**
+   * Actual module action
+   *
    * @var string
    */
   protected $Action;
 
   /**
+   * Forward to another action
    *
+   * @param $action string
    */
   protected function forward( $action='index' ) {
     $this->Action = $action;
@@ -66,7 +70,12 @@ abstract class esf_Module extends esf_Extension {
   }
 
   /**
+   * Redirect to another module/action
    *
+   * @param $module string
+   * @param $action string
+   * @param $params array Additional parameters
+   * @param $anchor string
    */
   protected function redirect( $module=NULL, $action=NULL, $params=array(), $anchor=NULL ) {
     Core::redirect(Core::URL(array('module'=>$module, 'action'=>$action,
