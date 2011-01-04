@@ -661,6 +661,7 @@ if (!isset($_SERVER['REQUEST_TIME'])) $_SERVER['REQUEST_TIME'] = time();
 if (isset($GLOBALS['DEBUGSTACK_ADD_VERSIONS']) AND
     $GLOBALS['DEBUGSTACK_ADD_VERSIONS'] === TRUE) {
   DebugStack::add('DebugStack Version '.DebugStack::VERSION, 'version');
+  DebugStack::add(php_uname(), 'version');
   if (isset($_SERVER['SERVER_SOFTWARE']))
     DebugStack::add($_SERVER['SERVER_SOFTWARE'], 'version');
   DebugStack::add('PHP '.PHP_VERSION, 'version');
