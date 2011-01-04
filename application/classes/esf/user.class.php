@@ -186,7 +186,6 @@ abstract class esf_User {
     is_dir($UserDir) || mkdir($UserDir);
 
     Event::ProcessReturn('getLastUpdate') || Event::ProcessInform('setLastUpdate');
-#    checkUserConfig($UserDir.'/config.xml');
   }
 
   /**

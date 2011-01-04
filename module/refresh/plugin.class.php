@@ -1,22 +1,12 @@
 <?php
 /**
- * @category   Plugin
- * @package    Plugin-ModuleRefresh
- * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    0.1.0
- */
-
-/**
- * Rewrite urls
+ * Refresh auctions
  *
- * @category   Plugin
- * @package    Plugin-ModuleRefresh
+ * @ingroup    Plugin-ModuleRefresh
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
+ * @copyright  2009-2010 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    Release: @package_version@
+ * @version    $Id$
  */
 class esf_Plugin_Module_Refresh extends esf_Plugin {
 
@@ -119,7 +109,7 @@ class esf_Plugin_Module_Refresh extends esf_Plugin {
 
     // try to remove the refreshing output and update "last updated" timestamp
     $script = sprintf('$("autorefresh").remove();'
-                     .'$("messages").appendChild((new Element("div",{"class":"msginner"}).update("%s")));'
+                     .'$("msginner").appendChild((new Element("div").update("%s")));'
                      .'$("lastupdate").update("%s");',
                       $done,
                       date(Registry::get('Format.DateTime'),

@@ -32,7 +32,6 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 
   <link rel="stylesheet" type="text/css" href="layout/text.css">
-
   <!-- BEGIN HTMLHEADER.CSS -->
   <link rel="stylesheet" type="text/css" href="{CSS}">
   <!-- END HTMLHEADER.CSS -->
@@ -42,8 +41,10 @@
   <script type="text/javascript" src="js/efa/efa_fontsize.js"></script>
 
   <script type="text/javascript" src="js/_load.js"></script>
-
   <script type="text/javascript" src="layout/script.js"></script>
+  <!-- BEGIN HTMLHEADER.JS -->
+  <script type="text/javascript" src="{JS}"></script>
+  <!-- END HTMLHEADER.JS -->
 
   <script type="text/javascript">
     // <![CDATA[
@@ -55,10 +56,6 @@
     <!-- addLoadEvent(setupZoom); -->
     // ]]>
   </script>
-
-  <!-- BEGIN HTMLHEADER.JS -->
-  <script type="text/javascript" src="{JS}"></script>
-  <!-- END HTMLHEADER.JS -->
 
 {HTMLHEADER.RAW}
 

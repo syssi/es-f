@@ -114,7 +114,7 @@ function FindActualLayout( $Layout ) {
  * @return string
  */
 function StylesAndScripts( $dir, $layouts ) {
-  static $fmthead = array (
+  static $fmt = array (
     '  <link type="text/css" rel="stylesheet" href="%s">',
     '  <link type="text/css" rel="stylesheet" href="%s" media="print">',
     '  <script type="text/javascript" src="%s"></script>',
@@ -122,25 +122,25 @@ function StylesAndScripts( $dir, $layouts ) {
 
   if (!is_array($layouts)) $layouts = array($layouts);
 
-  $htmlhead = array();
+  $html = '';
 
   foreach (array('style.css', 'print.css', 'script.js') as $id => $f) {
     foreach ($layouts as $layout) {
       // common for all layouts
       $file = $dir.'/layout/'.$f;
-      if (file_exists(np($file))) $htmlhead[] = sprintf($fmthead[$id], $file);
+      if (file_exists(np($file))) $html .= sprintf($fmt[$id], $file);
       // custom common for all layouts
       $file = $dir.'/layout/custom/'.$f;
-      if (file_exists(np($file))) $htmlhead[] = sprintf($fmthead[$id], $file);
+      if (file_exists(np($file))) $html .= sprintf($fmt[$id], $file);
       // for specific layout ...
       $file = $dir.'/layout/'.$layout.'/'.$f;
-      if (file_exists(np($file))) $htmlhead[] = sprintf($fmthead[$id], $file);
+      if (file_exists(np($file))) $html .= sprintf($fmt[$id], $file);
       // custom for specific layout ...
       $file = $dir.'/layout/'.$layout.'/custom/'.$f;
-      if (file_exists(np($file))) $htmlhead[] = sprintf($fmthead[$id], $file);
+      if (file_exists(np($file))) $html .= sprintf($fmt[$id], $file);
     }
   }
-  return implode("\n", $htmlhead);
+  return $html;
 }
 
 /**
@@ -191,21 +191,6 @@ function RelativePath( $file ) {
        ? ((substr($_file,0,1) == '/') ? substr($_file,1) : $_file)
        // outside DOCUMENT_ROOT
        : $file;
-}
-
-/**
- * Check user specific confiuration file
- *
- * @param string $file User configuration file
- */
-function checkUserConfig( $file ) {
-  if (Loader::Load($file)) {
-    if (isset($esniper['seconds'])) Esniper::set('seconds', $esniper['seconds']);
-    if (isset($cfg['LANGUAGE']))    Registry::set('LANGUAGE', $cfg['LANGUAGE']);
-    if (isset($cfg['STARTMODULE'])) Registry::set('STARTMODULE', $cfg['MODULE']);
-    if (isset($cfg['LAYOUT']))      Registry::set('LAYOUT', $cfg['LAYOUT']);
-    if (isset($cfg['MENUSTYLE']))   Registry::set('MENUSTYLE', @explode(',', $cfg['MENUSTYLE']));
-  }
 }
 
 /**
@@ -332,7 +317,7 @@ function printf_flush() {
  * @param string $extension Event name
  * @param string $var Variable name
  * @param mixed $value Variable value
- */
+ * /
 function setExtensionVar( $scope, $extension, $var, $value=NULL ) {
   Registry::set($scope.'.'.$extension.'.'.$var, $value);
 
@@ -574,7 +559,7 @@ function toNum( $value, $decimalPlaces=2 ) {
 }
 
 /**
- * Base 64 encode string and remove trailing '='
+ * Base 64 encode string and remove unnecessary trailing '=' :-)
  *
  * @param string $str
  * @return string
