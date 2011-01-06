@@ -4,9 +4,9 @@
  *
  * @package    AuctionHTML
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2007-2009 Knut Kohl
+ * @copyright  2007-2011 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    1.0.0
+ * @version    $Id$
  */
 abstract class AuctionHTML {
 
@@ -52,12 +52,39 @@ abstract class AuctionHTML {
 
       $html = HTMLpage::get2file($url, $err, $file);
       if ($err) {
-        Messages::addError($err);
+        Messages::Error($err);
       } else {
         $html = file_get_contents($file);
+
+        /// $l1 = strlen($html);
+
         // remove some uninteresting stuff
-        $html = preg_replace('~<script.*?</script>~si', '', $html);
-        $html = preg_replace('~<noscript>.*?</noscript>~si', '', $html);
+        // strip out comments
+        $html = preg_replace('~<!--.*?-->~is', '', $html);
+        // strip out cdata
+        $html = preg_replace('~<!\[CDATA\[.*?\]\]>~is', '', $html);
+        // strip out <style> tags
+        $html = preg_replace('~<\s*style[^>]*[^/]>.*?<\s*/\s*style\s*>~is', '', $html);
+        $html = preg_replace('~<\s*style\s*>.*?<\s*/\s*style\s*>~is', '', $html);
+        // strip out <script> tags
+        $html = preg_replace('~<\s*script[^>]*[^/]>.*?<\s*/\s*script\s*>~is', '', $html);
+        $html = preg_replace('~<\s*script\s*>.*?<\s*/\s*script\s*>~is', '', $html);
+        // strip out preformatted tags
+        $html = preg_replace('~<\s*(?:code)[^>]*>.*?<\s*/\s*(?:code)\s*>~is', '', $html);
+        // strip out server side scripts
+        $html = preg_replace('~<\?.*?\?'.'>~s', '', $html);
+        // strip smarty scripts
+        $html = preg_replace('~\{\w.*?\}~s', '', $html);
+        // empty tag delimiters
+        $html = preg_replace('~</?(table|tbody|tr|td|div|p|span|font)>~s', '', $html);
+
+        /* ///
+          $l2 = strlen($html);
+          DebugStack::Info('File size reduced from %s Bytes to %s Bytes == %.2f%%',
+                           number_format($l1,0,',','.'),
+                           number_format($l2,0,',','.'), $l2/$l1*100);
+        /// */
+
         // add fetched item page URL
         $html = "<!-- $url -->\n" . $html;
         // save content to file for later debugging

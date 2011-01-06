@@ -1,12 +1,21 @@
 <?php
 /**
+ * prior PHP 5.1
+ */
+if (!isset($_SERVER['REQUEST_TIME'])) $_SERVER['REQUEST_TIME'] = time();
+
+/** @defgroup DebugStack
+
+*/
+
+/**
  * Package DebugStack
  *
  * Use to buffer debugging informations
  *
- * @package    DebugStack
+ * @ingroup    DebugStack
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2006-2009 Knut Kohl
+ * @copyright  2006-2011 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
  * @version    $Id$
  */
@@ -103,77 +112,126 @@ class DebugStack {
   /**
    * Add info
    *
+   * If more parameters are passed, $message will handeld with printf.
+   *
    * @uses add
    * @param string $message
    * @return void
    */
   public static function Info( $message ) {
+    if (func_num_args() > 1) {
+      $args = func_get_args();
+      $message = array_shift($args);
+      $message = vsprintf($message, $args);
+    }
     self::add($message, 'info');
   } // function Info()
 
   /**
    * Add code
    *
+   * If more parameters are passed, $message will handeld with printf.
+   *
    * @uses add
    * @param string $message
    * @return void
    */
   public static function Code( $message ) {
+    if (func_num_args() > 1) {
+      $args = func_get_args();
+      $message = array_shift($args);
+      $message = vsprintf($message, $args);
+    }
     self::add($message, 'code');
   } // function Code()
 
   /**
    * Add state
    *
+   * If more parameters are passed, $message will handeld with printf.
+   *
    * @uses add
    * @param string $message
    * @return void
    */
   public static function State( $message ) {
+    if (func_num_args() > 1) {
+      $args = func_get_args();
+      $message = array_shift($args);
+      $message = vsprintf($message, $args);
+    }
     self::add($message, 'state');
   } // function State()
 
   /**
    * Add SQL
    *
+   * If more parameters are passed, $message will handeld with printf.
+   *
    * @uses add
    * @param string $message
    * @return void
    */
   public static function SQL( $message ) {
+    if (func_num_args() > 1) {
+      $args = func_get_args();
+      $message = array_shift($args);
+      $message = vsprintf($message, $args);
+    }
     self::add($message, 'sql');
   } // function SQL()
 
   /**
    * Add debug
    *
+   * If more parameters are passed, $message will handeld with printf.
+   *
    * @uses add
    * @param string $message
    * @return void
    */
   public static function Debug( $message ) {
+    if (func_num_args() > 1) {
+      $args = func_get_args();
+      $message = array_shift($args);
+      $message = vsprintf($message, $args);
+    }
     self::add($message, 'debug');
   } // function Debug()
 
   /**
    * Add a warning
    *
+   * If more parameters are passed, $message will handeld with printf.
+   *
    * @uses add
    * @param string $message
    * @return void
    */
   public static function Warning( $message ) {
+    if (func_num_args() > 1) {
+      $args = func_get_args();
+      $message = array_shift($args);
+      $message = vsprintf($message, $args);
+    }
     self::add($message, 'warning');
   } // function Warning()
 
   /**
    * Add an error
    *
+   * If more parameters are passed, $message will handeld with printf.
+   *
    * @uses add
    * @param string $message
    * @return void
    */
   public static function Error( $message ) {
+    if (func_num_args() > 1) {
+      $args = func_get_args();
+      $message = array_shift($args);
+      $message = vsprintf($message, $args);
+    }
     self::add($message, 'error');
   } // function Error()
 
@@ -499,7 +557,7 @@ class DebugStack {
     self::add($errmsg, 'handler');
     self::Trace(2, TRUE, FALSE);
     self::Debug($errcontext);
-    if ($errno & (E_ERROR|E_CORE_ERROR|E_USER_ERROR)) die(self::CSS().self::HTML());
+    if ($errno & (E_ERROR|E_CORE_ERROR|E_USER_ERROR)) die(self::getCSS().self::HTML());
   } // function HandleError()
 
   /**
@@ -642,28 +700,23 @@ class DebugStack {
 /**
  * Exception used by {link:DebugStack}
  *
- * @package    DebugStack
+ * @ingroup    DebugStack
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2006-2009 Knut Kohl
+ * @copyright  2006-2011 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    1.0.0
+ * @version    $Id$
  */
 class DebugStackException extends Exception {}
-
-/**
- * prior PHP 5.1
- */
-if (!isset($_SERVER['REQUEST_TIME'])) $_SERVER['REQUEST_TIME'] = time();
 
 /**
  * Add versions to DebugStack log
  */
 if (isset($GLOBALS['DEBUGSTACK_ADD_VERSIONS']) AND
     $GLOBALS['DEBUGSTACK_ADD_VERSIONS'] === TRUE) {
-  DebugStack::add('DebugStack Version '.DebugStack::VERSION, 'version');
   DebugStack::add(php_uname(), 'version');
   if (isset($_SERVER['SERVER_SOFTWARE']))
     DebugStack::add($_SERVER['SERVER_SOFTWARE'], 'version');
   DebugStack::add('PHP '.PHP_VERSION, 'version');
+  DebugStack::add('DebugStack '.DebugStack::VERSION, 'version');
   DebugStack::add();  // empty line
 }

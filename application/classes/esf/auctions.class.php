@@ -299,7 +299,8 @@ abstract class esf_Auctions {
     if (Registry::get('Module.Auction.LoadImages')) {
       // get from ebay
       if (empty($url) AND
-          $parser = self::getParser(self::$Auctions[$item], $invalid))
+          ($parser = Registry::get('ebayParser') OR
+           $parser = self::getParser(self::$Auctions[$item], $invalid)))
         $url = $parser->getDetail($item, 'IMAGE');
       // no-image image
       if (empty($url))
@@ -307,7 +308,7 @@ abstract class esf_Auctions {
     }
 
     // >> Debug
-    DebugStack::Info($url);
+    DebugStack::Info('Image URL: '.$url);
     // << Debug
 
     // save image to disk
