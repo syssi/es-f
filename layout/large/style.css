@@ -1,0 +1,190 @@
+@charset "utf-8";
+/**
+ * layout/default/style.css
+ */
+
+body {
+/*
+  free image from http://www.everystockphoto.com/photo.php?imageId=238648
+*/
+  background: url(images/money.gif);
+}
+
+p.code {
+	background-color: #F8F8F8;
+}
+
+/*
+ * ****************************************************************************
+ * tables in general
+ */
+
+th {
+	background: url(images/th.png) top;
+	background-color: #BBB;
+}
+
+/*
+ * tables in general
+ * ****************************************************************************
+ */
+
+/*
+ * ****************************************************************************
+ * links in general
+ */
+
+a {
+	color: maroon;
+}
+
+/*
+ * links in general
+ * ****************************************************************************
+ */
+
+/*
+ * ****************************************************************************
+ * alternate table rows
+ */
+
+.tr1 {
+	background-color: #E0E0E0;
+}
+
+.tr2 {
+	background-color: #D0D0D0;
+}
+
+.tr3 {
+	background-color: #C0C0C0;
+}
+
+tr.selected {
+	background-color: #B0D0F0;
+}
+
+/*
+ * alternate table rows
+ * ****************************************************************************
+ */
+
+/*
+ * ****************************************************************************
+ * menus
+ */
+
+div#menu {
+	background: url(images/menuback.png) bottom;
+	background-color: #CCC;
+}
+
+a.textmenu,
+a.imagemenu,
+a.fullmenu {
+	color: black;
+}
+
+a.textmenu {
+	background: url(images/marker.gif) no-repeat left top;
+	padding-left: 0.7em;
+	height: 20px;
+}
+
+#menu_module,
+#menu_system {
+	color: white;
+}
+
+/*
+ * menus
+ * ****************************************************************************
+ */
+
+/*
+ * ****************************************************************************
+ * messages
+ */
+
+.msgsuccess {
+	color: green;
+}
+
+.msgerror {
+	color: red;
+}
+
+.msginfo,
+.msgcode {
+	color: navy;
+}
+
+/*
+ * messages
+ * ****************************************************************************
+ */
+
+/*
+ * ****************************************************************************
+ * forms
+ */
+
+select,
+input.input,
+.button,
+.buttonsmall {
+	border: solid #AAAAAA 1px;
+}
+
+select,
+input.input,
+textarea.input {
+	background-color: #FFFFEE;
+	border-left: solid black 1px;
+	border-top: solid black 1px;
+}
+
+.button {
+	border-right: solid black 1px;
+	border-bottom: solid black 1px;
+}
+
+/*
+ * forms
+ * ****************************************************************************
+ */
+
+/*
+ * ****************************************************************************
+ * popup window
+ */
+
+div.popupwindow {
+	background-color: white;
+	border-color: #202020;
+}
+
+div.popupwindow .title {
+	height: 22px;
+	background: url(images/popupheader.png) bottom repeat-x;
+	background-color: #909090;
+	border-bottom-color: #202020;
+}
+
+div.popupwindow .title .text {
+	color: white;
+}
+
+div.popupwindow .content {
+	background-color: white;
+}
+
+/*
+ * popup window
+ * ****************************************************************************
+ */
+
+/* debug-class */
+._d {
+	border: dotted red 1px;
+}
