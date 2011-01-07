@@ -1,22 +1,12 @@
 <?php
 /**
- * @category   Module
- * @package    Module-ExchangeRates
- * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    0.1.0
- */
-
-/**
- * Homepage module
+ * Exchange rates module
  *
- * @category   Module
- * @package    Module-ExchangeRates
+ * @ingroup    Module-ExchangeRates
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
+ * @copyright  2009-2011 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    Release: @package_version@
+ * @version    $Id$
  */
 class esf_Module_ExchangeRates extends esf_Module {
 
@@ -30,7 +20,7 @@ class esf_Module_ExchangeRates extends esf_Module {
         !($rates = Session::get('Module.ExchangeRates.Rates')) OR
         !($source = Session::get('Module.ExchangeRates.Source'))) {
 
-      /// DebugStack::Info('Read exchange rates from ECB: '.$this->URL);
+      /// Yryie::Info('Read exchange rates from ECB: '.$this->URL);
 
       Loader::Load($path.'/xmlparser.class.php');
 
@@ -63,7 +53,7 @@ class esf_Module_ExchangeRates extends esf_Module {
       Session::set('Module.ExchangeRates.Source', $source);
 
     /// } else {
-    ///   DebugStack::Info('Use buffered exchange rates.');
+    ///   Yryie::Info('Use buffered exchange rates.');
     }
 
     TplData::set('sourceurl', $this->URL);

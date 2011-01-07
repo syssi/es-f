@@ -36,7 +36,7 @@ abstract class ebayParser {
     if (Loader::Load($file)) {
       $class = 'ebayParser_'.$tld;
       // >> Debug
-      DebugStack::Info($class.' ('.$file.')');
+      Yryie::Info($class.' ('.$file.')');
       // << Debug
       return new $class;
     }
@@ -97,7 +97,7 @@ abstract class ebayParser {
         }
       }
       // >> Debug
-      foreach ($msgs as $dbg) DebugStack::Debug($name.' : '.$dbg);
+      foreach ($msgs as $dbg) Yryie::Debug($name.' : '.$dbg);
       // << Debug
     }
 
@@ -402,7 +402,7 @@ abstract class ebayParser {
 */
 
     // >> Debug
-    DebugStack::Debug($this->RegEx);
+    Yryie::Debug($this->RegEx);
     // << Debug
   }
 

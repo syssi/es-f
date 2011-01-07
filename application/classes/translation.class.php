@@ -1,10 +1,10 @@
 <?php
 /**
- * @package    es-f
+ * @ingroup    es-f
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2007-2009 Knut Kohl
+ * @copyright  2007-2011 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @since      File available since Release 0.0.1
+ * @version    $Id$
  */
 abstract class Translation {
 
@@ -27,11 +27,11 @@ abstract class Translation {
       /* ///
       $id = str_replace($_SERVER['DOCUMENT_ROOT'].'/', '', $file);
       $cached = TRUE;
-      DebugStack::StartTimer($id, $id, 'parse TMX file');
+      Yryie::StartTimer($id, $id, 'parse TMX file');
       /// */
       while ($cache->save($file, $tmxdata, File::MTime($file))) {
         /* ///
-        DebugStack::Info('Parse: '.$file);
+        Yryie::Info('Parse: '.$file);
         $cached = FALSE;
         /// */
         $tmx = new TMX($file, $language);
@@ -42,8 +42,8 @@ abstract class Translation {
         unset($tmx);
       }
       /* ///
-      if ($cached) DebugStack::Info('Cached: '.$file);
-      DebugStack::StopTimer($id);
+      if ($cached) Yryie::Info('Cached: '.$file);
+      Yryie::StopTimer($id);
       /// */
       foreach ($tmxdata[1] as $key => $data) {
         if (isset($data['']) AND $str = $data['']) {
@@ -65,7 +65,7 @@ abstract class Translation {
    */
   public static function Define( $Namespace, $translations ) {
     if (DEVELOP) self::writeTMX($Namespace, $translations, 1);
-    /// DebugStack::StartTimer(__METHOD__, __METHOD__, __METHOD__);
+    /// Yryie::StartTimer(__METHOD__, __METHOD__, __METHOD__);
     foreach ($translations as $key=>$str) {
       if (is_array($str)) {
         // singular & plural
@@ -80,7 +80,7 @@ abstract class Translation {
       }
       self::set($Namespace, $key, $str);
     }
-    /// DebugStack::StopTimer(__METHOD__);
+    /// Yryie::StopTimer(__METHOD__);
   }
 
   /**

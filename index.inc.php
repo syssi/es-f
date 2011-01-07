@@ -34,8 +34,8 @@ define('_DEBUG', file_exists($sDebugFile));
 
 $_TRACE = _DEBUG ? file_get_contents($sDebugFile) : FALSE;
 
-DebugStack::Active(_DEBUG);
-#DebugStack::$TimeUnit = DebugStack::MICROSECONDS;
+Yryie::Active(_DEBUG);
+#Yryie::$TimeUnit = Yryie::MICROSECONDS;
 
 if ($_TRACE) {
   Messages::addSuccess('Debug trace is active: '.$_TRACE, TRUE);
@@ -75,7 +75,7 @@ if (count(esf_User::getAll()) == 0) {
         .urlencode('At least one user account have to be defined!'));
 }
 
-/// DebugStack::Info('Used cache: '.Registry::get('CacheClass'));
+/// Yryie::Info('Used cache: '.Registry::get('CacheClass'));
 Loader::Load(LIBDIR.'/cache/cache/packer/gz.class.php');
 $aCacheOptions = array('cachedir'=>TEMPDIR, 'token'=>'es-f');
 $aCacheOptions['packer'] = new Cache_Packer_GZ;
@@ -98,7 +98,7 @@ Core::ReadConfigs('local');
 
 #ErrorHandler::register(Registry::get('ErrorHandler', 'default'));
 // >> Debug
-DebugStack::Register();
+Yryie::Register();
 // << Debug
 
 // since PHP 5.1.0
@@ -129,7 +129,7 @@ if (IniFile::Parse(APPDIR.'/language/languages.ini')) {
   $esf_Languages = array('en' => 'English');
 }
 
-/// DebugStack::StartTimer('LoadPlugins', 'Load plugins');
+/// Yryie::StartTimer('LoadPlugins', 'Load plugins');
 
 Core::ReadConfigs(esf_Extensions::MODULE);
 
@@ -147,7 +147,7 @@ Core::IncludeSpecial(esf_Extensions::PLUGIN, 'plugin.class');
 Event::ProcessInform('PluginsLoaded');
 Event::ProcessInform('ModuleConfigsLoaded');
 
-/// DebugStack::StopTimer('LoadPlugins');
+/// Yryie::StopTimer('LoadPlugins');
 
 ################################
 Core::StartSession();
@@ -161,7 +161,7 @@ if (PluginEnabled('Validate')) {
   DefineValidator('action', 'Regex', array('pattern'=>'\w*'));
 }
 
-/// DebugStack::StartTimer('AnalyseRequestParams', 'Analyse request parameters');
+/// Yryie::StartTimer('AnalyseRequestParams', 'Analyse request parameters');
 
 //_dbg($_COOKIE, '$_COOKIE');
 //_dbg($_SERVER, '$_SERVER');
@@ -170,21 +170,21 @@ if (PluginEnabled('Validate')) {
 
 Core::StripSlashes($_REQUEST);
 
-/// DebugStack::Debug('$_REQUEST : '.print_r($_REQUEST, TRUE));
+/// Yryie::Debug('$_REQUEST : '.print_r($_REQUEST, TRUE));
 
 if (strtoupper($_SERVER['REQUEST_METHOD']) == 'GET') {
-  /// DebugStack::Debug('$_GET before: '.print_r($_GET, TRUE));
+  /// Yryie::Debug('$_GET before: '.print_r($_GET, TRUE));
   Core::StripSlashes($_GET);
   Event::Process('UrlUnRewrite', $_GET);
   Event::Process('AnalyseRequest', $_GET);
-  /// DebugStack::Debug('$_GET after analyse: '.print_r($_GET, TRUE));
+  /// Yryie::Debug('$_GET after analyse: '.print_r($_GET, TRUE));
   $_POST = array();
 } else {
-  /// DebugStack::Debug('$_POST : '.print_r($_POST, TRUE));
+  /// Yryie::Debug('$_POST : '.print_r($_POST, TRUE));
   Core::StripSlashes($_POST);
   Event::Process('UrlUnRewrite', $_POST);
   Event::Process('AnalyseRequest', $_POST);
-  /// DebugStack::Debug('$_POST after analyse: '.print_r($_POST, TRUE));
+  /// Yryie::Debug('$_POST after analyse: '.print_r($_POST, TRUE));
   $_GET = array();
 }
 Event::Process('UrlUnRewrite', $_REQUEST);
@@ -203,7 +203,7 @@ if ($sModule != Registry::get('StartModule') AND
 Registry::set('esf.Action',      checkR('action',      'index'));
 Registry::set('esf.contentonly', checkR('contentonly', FALSE));
 
-/// DebugStack::StopTimer('AnalyseRequestParams');
+/// Yryie::StopTimer('AnalyseRequestParams');
 
 // ----------------------------------------------------------------------------
 // initialize application
@@ -217,7 +217,7 @@ TplData::set('HtmlHeader.JS', array());
 TplData::set('HtmlHeader.CSS', array());
 TplData::set('HtmlHeader.Script', array());
 
-/// DebugStack::StartTimer('CoreLangLoad', 'Load core languages');
+/// Yryie::StartTimer('CoreLangLoad', 'Load core languages');
 
 $sLanguage = Session::get('language');
 
@@ -253,7 +253,7 @@ if ($locale = Session::get('locale')) {
   Session::set('locale', setlocale(LC_ALL, 0));
 }
 
-/// DebugStack::StopTimer('CoreLangLoad');
+/// Yryie::StopTimer('CoreLangLoad');
 
 // Init template engine
 $oTemplate = esf_Template::getInstance();
@@ -272,7 +272,7 @@ if (!ModuleEnabled($sModule)) {
   Core::Redirect(Core::URL(array('module'=>Registry::get('StartModule'))));
 }
 
-/// DebugStack::StartTimer('MoreLangLoad', 'Load plugin / module languages');
+/// Yryie::StartTimer('MoreLangLoad', 'Load plugin / module languages');
 
 $sLanguage = Session::get('language');
 
@@ -297,7 +297,7 @@ foreach (esf_Extensions::$Types as $Scope) {
   }
 }
 
-/// DebugStack::StopTimer('MoreLangLoad');
+/// Yryie::StopTimer('MoreLangLoad');
 
 // ----------------------------------------------------------------------------
 // pre process
@@ -308,7 +308,7 @@ Event::ProcessInform('PageStart');
 
 if (!esf_User::isValid() AND
     Registry::get('Module.'.$sModule.'.LoginRequired')) {
-  /// DebugStack::Info('Forward: '.$sModule.' -> Login');
+  /// Yryie::Info('Forward: '.$sModule.' -> Login');
   if ($sModule != 'login') {
     unset($_REQUEST['ESFSESSID']);
     Session::setP('LoginReturn', $_REQUEST);
@@ -343,7 +343,7 @@ do {
   TplData::set('SubTitle2', '');
 
   // >> Debug
-  DebugStack::Info('Processing '.$sModule.' / '.Registry::get('esf.Action'));
+  Yryie::Info('Processing '.$sModule.' / '.Registry::get('esf.Action'));
   // << Debug
 
   if ($sModuleLast != $sModule) unset($oModule);
@@ -457,8 +457,8 @@ TplData::set('NoJS', Registry::get('NoJS'));
 TplData::set('Layout', Registry::get('LAYOUT'));
 
 if (_DEBUG) {
-  TplData::add('HtmlHeader.CSS', '/application/lib/debugstack/style.css');
-  TplData::add('HtmlHeader.JS',  '/application/lib/debugstack/script.js');
+  TplData::add('HtmlHeader.CSS', '/application/lib/Yryie/style.css');
+  TplData::add('HtmlHeader.JS',  '/application/lib/Yryie/script.js');
 }
 
 $bc = Translation::getNVL($sModule.'.TitleIndex', TplData::get('Title'));
@@ -496,7 +496,7 @@ unset($ExtType, $Event, $pExt, $vars, $key, $val);
 
 Event::ProcessInform('OutputStart');
 
-/// DebugStack::StartTimer('LoadPluginStyles', 'Load plugin styles and scripts');
+/// Yryie::StartTimer('LoadPluginStyles', 'Load plugin styles and scripts');
 
 // plugin specific styles/scripts, from defined layout or fallback layout
 foreach (esf_Extensions::getExtensions(esf_Extensions::PLUGIN) as $plugin) {
@@ -506,8 +506,8 @@ foreach (esf_Extensions::getExtensions(esf_Extensions::PLUGIN) as $plugin) {
   }
 }
 
-/// DebugStack::StopTimer('LoadPluginStyles');
-/// DebugStack::StartTimer('BuildMenus', 'Build menus');
+/// Yryie::StopTimer('LoadPluginStyles');
+/// Yryie::StartTimer('BuildMenus', 'Build menus');
 
 // language selectors
 foreach ((array)$esf_Languages as $name => $desc) {
@@ -526,8 +526,8 @@ TplData::set('Menu.Main',   esf_Menu::getMain($menustyle[0]));
 TplData::set('Menu.Module', esf_Menu::getModule($menustyle[1]));
 TplData::set('Menu.System', esf_Menu::getSystem($menustyle[2]));
 
-/// DebugStack::StopTimer('BuildMenus');
-/// DebugStack::StartTimer('esniperBugs', 'Check for esniper bug reports');
+/// Yryie::StopTimer('BuildMenus');
+/// Yryie::StartTimer('esniperBugs', 'Check for esniper bug reports');
 
 if (esf_User::isValid()) {
   // check for encountered esniper bug
@@ -546,8 +546,8 @@ if (esf_User::isValid()) {
 }
 unset($aBugReports, $sBugDir, $sFile, $sTo, $sResult);
 
-/// DebugStack::StopTimer('esniperBugs');
-/// DebugStack::StartTimer('HTMLHead');
+/// Yryie::StopTimer('esniperBugs');
+/// Yryie::StartTimer('HTMLHead');
 
 if (!DEVELOP) ob_start();
 
@@ -565,8 +565,8 @@ Event::Process('OutputFilterHtmlHead', $html);
 Event::Process('OutputFilter', $html);
 echo $html;
 
-/// DebugStack::StopTimer('HTMLHead');
-/// DebugStack::StartTimer('HTMLStart');
+/// Yryie::StopTimer('HTMLHead');
+/// Yryie::StartTimer('HTMLStart');
 
 TplData::set('esf_MessagesErrors', Messages::count(Messages::ERROR));
 TplData::set('esf_Messages', implode((array)Messages::get()));
@@ -580,15 +580,15 @@ $steps = Registry::get('esf.contentonly')
        ? array('content')
        : array('header', 'content', 'footer');
 
-/// DebugStack::StopTimer('HTMLStart');
+/// Yryie::StopTimer('HTMLStart');
 
 if (!DEVELOP) ob_end_flush();
 
-/// DebugStack::StartTimer('IndexSteps', 'HTML Content steps');
+/// Yryie::StartTimer('IndexSteps', 'HTML Content steps');
 
 foreach ($steps as $step) {
   /// $block = $step.'block';
-  /// DebugStack::StartTimer($block, ucwords($step).' block');
+  /// Yryie::StartTimer($block, ucwords($step).' block');
   Event::ProcessInform('Output'.$step);
 
   if (isset($oModule)) $oModule->handle(Registry::get('esf.Action'), $step);
@@ -613,24 +613,23 @@ foreach ($steps as $step) {
   echo $html;
 
   if (!DEVELOP) ob_end_flush();
-  /// DebugStack::StopTimer($block);
+  /// Yryie::StopTimer($block);
 }
 
-/// DebugStack::StopTimer('IndexSteps');
+/// Yryie::StopTimer('IndexSteps');
 
 if (!DEVELOP) ob_start();
 
 if (_DEBUG) {
-  DebugStack::Finalize();
-  if ($_TRACE) DebugStack::Save($_TRACE);
-  echo '<div id="debugstack_title"
+  Yryie::Finalize();
+  if ($_TRACE) Yryie::Save($_TRACE);
+  echo '<div id="Yryie_title"
              style="margin-top:1em;cursor:pointer;text-align:center;padding:0.25em"
-             onclick="$(\'debugstack_wrap\').toggle()"><tt><strong>DebugStack</strong></tt></div>
-        <div id="debugstack_wrap" style="height:40em;overflow:auto;display:none">';
-  DebugStack::Output(TRUE);
+             onclick="$(\'Yryie_wrap\').toggle()"><tt><strong>Yryie</strong></tt></div>
+        <div id="Yryie_wrap" style="height:40em;overflow:auto;display:none">';
+  Yryie::Output(TRUE, TRUE);
   echo '</div>';
 }
-// << Debug
 
 $html = $oTemplate->Render('html.end', TRUE, $RootDir);
 Event::Process('OutputFilterHtmlEnd', $html);

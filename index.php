@@ -32,11 +32,12 @@ try {
   }
 
   /**
-   * Load DebugStack
+   * Load Yryie
    */
-  $GLOBALS['DEBUGSTACK_ADD_VERSIONS'] = TRUE;
   require_once APPDIR . DIRECTORY_SEPARATOR . 'lib' . DIRECTORY_SEPARATOR
-             . 'debugstack' . DIRECTORY_SEPARATOR. 'debugstack.class.php';
+             . 'yryie' . DIRECTORY_SEPARATOR. 'yryie.class.php';
+  Yryie::Versions();
+
   /**
    * Class autoloading
    */

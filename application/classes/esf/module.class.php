@@ -36,7 +36,7 @@ abstract class esf_Module extends esf_Extension {
         // Check for method
         if (method_exists($this, $method)) {
           // >> Debug
-          DebugStack::Info(get_class($this).'::'.$method.'()');
+          Yryie::Info(get_class($this).'::'.$method.'()');
           // << Debug
           $this->$method();
         }

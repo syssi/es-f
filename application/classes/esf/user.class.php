@@ -157,7 +157,7 @@ abstract class esf_User {
         if ($relogin) {
           Event::ProcessInform('Log', 'Login: '.$user.' from '.$_SERVER['REMOTE_ADDR'].' (Cookie)');
           // >> Debug
-          DebugStack::Info('Login from cookie: '.$user);
+          Yryie::Info('Login from cookie: '.$user);
           // << Debug
         } else {
           Event::ProcessInform('Log', 'Login: '.$user.' from '.$_SERVER['REMOTE_ADDR']);

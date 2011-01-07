@@ -270,14 +270,14 @@ abstract class Exec {
    * @return int Return code
    */
   protected final function _exec( $cmd, &$result ) {
-    /// DebugStack::Trace(3);
+    /// Yryie::Trace(3);
 
     exec($cmd, $result, $rc);
 
     // >> Debug
     $dbg = sprintf('%s (%d)', $cmd, $rc);
     foreach ((array)$result as $v) $dbg .= "\n- " . Core::toUTF8($v);
-    DebugStack::Debug($dbg);
+    Yryie::Debug($dbg);
     // << Debug
 
     $this->LastCmd = $cmd;

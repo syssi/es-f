@@ -4,22 +4,22 @@
  */
 if (!isset($_SERVER['REQUEST_TIME'])) $_SERVER['REQUEST_TIME'] = time();
 
-/** @defgroup DebugStack
+/** @defgroup Yryie
 
 */
 
 /**
- * Package DebugStack
+ * Package Yryie
  *
  * Use to buffer debugging informations
  *
- * @ingroup    DebugStack
+ * @ingroup    Yryie
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2006-2011 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
  * @version    $Id$
  */
-class DebugStack {
+class Yryie {
 
   /**
    *
@@ -75,6 +75,33 @@ class DebugStack {
   // -------------------------------------------------------------------------
   // PUBLIC
   // -------------------------------------------------------------------------
+
+  /**
+   * Add version infos on top of stack
+   *
+   * @return void
+   */
+  public static function Versions() {
+    self::add(php_uname(), 'version');
+    if (isset($_SERVER['SERVER_SOFTWARE']))
+      self::add($_SERVER['SERVER_SOFTWARE'], 'version');
+    self::add('PHP '.PHP_VERSION, 'version');
+    self::add('Yryie '.self::getVersion(' (%s)'), 'version');
+    self::add();  // empty line
+  } // function Register()
+
+  /**
+   * Register error handler
+   *
+   * @param string $date Add version date using this format string
+   * @return string
+   */
+  public static function getVersion( $date='' ) {
+    $version = file(dirname(__FILE__).'/.version', FILE_IGNORE_NEW_LINES);
+    $return = $version[0];
+    if ($date) $return .= sprintf($date, $version[1]);
+    return $return;
+  } // function Register()
 
   /**
    * Register error handler
@@ -316,7 +343,7 @@ class DebugStack {
   public static function StartTimer( $id, $name='', $avg='' ) {
     if (!self::$Active) return;
     if (isset(self::$Timer[$id]))
-      throw new DebugStackException('Error: Timer "'.$id.'" ('.$name.') ist still started!');
+      throw new YryieException('Error: Timer "'.$id.'" ('.$name.') ist still started!');
 
     if ($name == '') $name = $id;
     self::add(self::$TimerStart . ' ' . $name, 'timer');
@@ -439,7 +466,7 @@ class DebugStack {
       fwrite($fh, self::CSV());
       fclose($fh);
     } else {
-      throw new DebugStackException('Can\'t write to file: '.$file);
+      throw new YryieException('Can\'t write to file: '.$file);
     }
   } // function Save()
 
@@ -466,7 +493,7 @@ class DebugStack {
     foreach (self::$Data as $row=>$data) $types[$data[1]] = $data[1];
     $sTypes = '';
     $cb = '<input type="checkbox" style="margin-left:1.5em" '
-         .'onchange="DebugStackSwitch(\'%s\', this.checked)" checked>%s';
+         .'onchange="YryieSwitch(\'%s\', this.checked)" checked>%s';
     foreach ($types as $type) if ($type) $sTypes .= sprintf($cb, $type, ucwords($type));
     unset($types);
 
@@ -698,25 +725,12 @@ class DebugStack {
 }
 
 /**
- * Exception used by {link:DebugStack}
+ * Exception used by {link:Yryie}
  *
- * @ingroup    DebugStack
+ * @ingroup    Yryie
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2006-2011 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
  * @version    $Id$
  */
-class DebugStackException extends Exception {}
-
-/**
- * Add versions to DebugStack log
- */
-if (isset($GLOBALS['DEBUGSTACK_ADD_VERSIONS']) AND
-    $GLOBALS['DEBUGSTACK_ADD_VERSIONS'] === TRUE) {
-  DebugStack::add(php_uname(), 'version');
-  if (isset($_SERVER['SERVER_SOFTWARE']))
-    DebugStack::add($_SERVER['SERVER_SOFTWARE'], 'version');
-  DebugStack::add('PHP '.PHP_VERSION, 'version');
-  DebugStack::add('DebugStack '.DebugStack::VERSION, 'version');
-  DebugStack::add();  // empty line
-}
+class YryieException extends Exception {}

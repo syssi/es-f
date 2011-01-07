@@ -35,19 +35,19 @@ abstract class AuctionHTML {
     $file = sprintf('%s/%s.%s.%s.html', TEMPDIR, $item, $urlId, md5($url));
 
     // >> Debug
-    DebugStack::Info(sprintf('AuctionHTML::getHTML : Read auction HTML for item "%s", Id "%s"', $item, $urlId));
+    Yryie::Info(sprintf('AuctionHTML::getHTML : Read auction HTML for item "%s", Id "%s"', $item, $urlId));
     // << Debug
 
     if (file_exists($file)) {
       // >> Debug
-      DebugStack::Info('AuctionHTML::getHTML : Found cached file = '.$file);
+      Yryie::Info('AuctionHTML::getHTML : Found cached file = '.$file);
       // << Debug
       $html = file_get_contents($file);
     } else {
       // >> Debug
-      DebugStack::Info('AuctionHTML::getHTML : Read from ebay');
-      DebugStack::Info('URL: '.$url);
-      DebugStack::Info('Cache file: '.$file);
+      Yryie::Info('AuctionHTML::getHTML : Read from ebay');
+      Yryie::Info('URL: '.$url);
+      Yryie::Info('Cache file: '.$file);
       // << Debug
 
       $html = HTMLpage::get2file($url, $err, $file);
@@ -80,7 +80,7 @@ abstract class AuctionHTML {
 
         /* ///
           $l2 = strlen($html);
-          DebugStack::Info('File size reduced from %s Bytes to %s Bytes == %.2f%%',
+          Yryie::Info('File size reduced from %s Bytes to %s Bytes == %.2f%%',
                            number_format($l1,0,',','.'),
                            number_format($l2,0,',','.'), $l2/$l1*100);
         /// */

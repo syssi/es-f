@@ -169,9 +169,9 @@ abstract class Core {
     }
 
     // >> Debug
-    if (DebugStack::Active())
+    if (Yryie::Active())
       foreach ((array)Session::$Messages as $msg)
-        DebugStack::Info($msg);
+        Yryie::Info($msg);
     Session::$Messages = array();
     // << Debug
   }
@@ -267,7 +267,7 @@ abstract class Core {
     if (!is_array($Patterns)) $Patterns = array($Patterns);
 
     // >> Debug
-    DebugStack::Info(sprintf('(%s)'.DIRECTORY_SEPARATOR.'(%s)', implode('|',$Scopes), implode('|',$Patterns)));
+    Yryie::Info(sprintf('(%s)'.DIRECTORY_SEPARATOR.'(%s)', implode('|',$Scopes), implode('|',$Patterns)));
     // << Debug
 
     foreach ($Scopes as $Scope) {
@@ -290,13 +290,13 @@ abstract class Core {
                 $Pattern = str_replace('/', DIRECTORY_SEPARATOR, $Pattern);
                 foreach (glob($path.$Pattern.'.php') as $file) {
                   /* ///
-                  DebugStack::StartTimer($file, $file, 'include special '.$Scope);
-                  DebugStack::Info(sprintf('%s [0%s]',
+                  Yryie::StartTimer($file, $file, 'include special '.$Scope);
+                  Yryie::Info(sprintf('%s [0%s]',
                                            str_replace(@$_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR, '', $file),
                                            File::Permissions($file)));
                   /// */
                   Loader::Load($file);
-                  /// DebugStack::StopTimer();
+                  /// Yryie::StopTimer();
                 }
               }
             }
@@ -314,13 +314,13 @@ abstract class Core {
                   : $Pattern.'.php';
             foreach (glob($path) as $file) {
               /* ///
-              DebugStack::StartTimer($file);
-              DebugStack::Info(sprintf('%s (0%s)',
+              Yryie::StartTimer($file);
+              Yryie::Info(sprintf('%s (0%s)',
                                        str_replace(@$_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR, '', $file),
                                        File::Permissions($file)));
               /// */
               Loader::Load($file);
-              /// DebugStack::StopTimer();
+              /// Yryie::StopTimer();
             }
           }
           break;

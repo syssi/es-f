@@ -2,8 +2,11 @@
 /**
  * es-f specific template class to wrap Yuelo templating system
  *
- * @author   Knut Kohl <knutkohl@users.sourceforge.net>
- * @version  1.0.0
+ * @ingroup    es-f
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2009-2011 Knut Kohl
+ * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
+ * @version    $Id$
  */
 class esf_Template {
 
@@ -44,11 +47,11 @@ class esf_Template {
     // internationalization
     $this->Template->AssignTranslation(Translation::getAll());
     // render template
-    /// Debugstack::Info('Render: '.$Template);
+    /// Yryie::Info('Render: '.$Template);
     $html = $this->Template->Render($Template, $dieOnError);
     /// if (!$dieOnError AND $this->Template->Error)
-    ///   Debugstack::Info($this->Template->Error);
-    /// Debugstack::Info($this->Adapter->getLastTemplate());
+    ///   Yryie::Info($this->Template->Error);
+    /// Yryie::Info($this->Adapter->getLastTemplate());
     return $html;
   }
 

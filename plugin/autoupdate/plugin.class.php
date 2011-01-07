@@ -44,15 +44,15 @@ class esf_Plugin_AutoUpdate extends esf_Plugin {
 
     // 1st call, check once per session
     $this->Update1 = !Session::get(self::SESSIONFLAG);
-    /// DebugStack::Info('Update1: '.($this->Update1?'TRUE':'FALSE'));
+    /// Yryie::Info('Update1: '.($this->Update1?'TRUE':'FALSE'));
 
     // 2nd call, check url parameter
     $this->Update2 = ($this->isPost() AND $this->Request(self::URLPARAM));
-    /// DebugStack::Info('Update2: '.($this->Update2?'TRUE':'FALSE'));
+    /// Yryie::Info('Update2: '.($this->Update2?'TRUE':'FALSE'));
 
     if ($this->Update1 OR $this->Update2) {
 
-      !is_dir($this->LocalPath) && Exec::getInstance()->MkDir($this->LocalPath);
+      !is_dir($this->LocalPath) && Exec::getInstance()->MkDir($this->LocalPath, $res);
 
       Loader::Load(dirname(__FILE__).'/classes/appupdate.class.php');
 
@@ -74,8 +74,8 @@ class esf_Plugin_AutoUpdate extends esf_Plugin {
         $this->UpdateCount = $this->Updater->getUpdatableCount();
         Session::set(self::SESSIONFLAG, TRUE);
         // >> Debug
-        DebugStack::Debug($this->cURL->info());
-        if (Registry::get('cURL.Verbose')) DebugStack::Debug($this->cURL->getDebug());
+        Yryie::Debug($this->cURL->info());
+        if (Registry::get('cURL.Verbose')) Yryie::Debug($this->cURL->getDebug());
         // << Debug
       } catch (AppUpdateException $e) {
         // ignore errors and try later
@@ -176,7 +176,7 @@ class esf_Plugin_AutoUpdate extends esf_Plugin {
       // compare with last known file version
       $update = version_compare($last, $version, '<');
     }
-    /// DebugStack::Info($file.' ('.$version.') update: '.(int)$update);
+    /// Yryie::Info($file.' ('.$version.') update: '.(int)$update);
   }
 
   /**

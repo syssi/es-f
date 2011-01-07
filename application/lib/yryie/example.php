@@ -1,6 +1,17 @@
+<?php
+/**
+ * Yryie example
+ *
+ * @ingroup    Yryie
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2011 Knut Kohl
+ * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
+ * @version    $Id$
+ */
+?>
 <html>
 <head>
-  <title>DebugStack example</title>
+  <title>Yryie example</title>
   <style type="text/css">
   .linenum{
       text-align:right;
@@ -40,31 +51,31 @@ highlight_string('<?php'."\n".trim($args[1]));
 
 // >>
 
-// Handle all errors by DebugStack
+// Handle all errors by Yryie
 error_reporting(-1);
 
-// Add version infos, set BEFORE include!
-$DEBUGSTACK_ADD_VERSIONS = TRUE;
+require_once 'yryie.class.php';
 
-require_once 'debugstack.class.php';
+// Add version infos, set BEFORE include!
+Yryie::Versions();
 
 // Register error handler
-DebugStack::Register();
+Yryie::Register();
 
-DebugStack::Info('An information...');
-DebugStack::Code('<b>code example</b>');
-DebugStack::State('State');
-DebugStack::SQL('SELECT * FROM table');
-DebugStack::Debug(array( 1, 2 ));
-DebugStack::Warning('A Warning.');
-DebugStack::Error('An ERROR!');
+Yryie::Info('An information...');
+Yryie::Code('<b>code example</b>');
+Yryie::State('State');
+Yryie::SQL('SELECT * FROM table');
+Yryie::Debug(array( 1, 2 ));
+Yryie::Warning('A Warning.');
+Yryie::Error('An ERROR!');
 
 function DoTrace( $level=1, $full=FALSE ) {
-  DebugStack::Trace($level, $full);
+  Yryie::Trace($level, $full);
 }
 
-DebugStack::Info('Trace 1:');  DoTrace();
-DebugStack::Info('Trace 2:');  DoTrace(0, TRUE);
+Yryie::Info('Trace 1:');  DoTrace();
+Yryie::Info('Trace 2:');  DoTrace(0, TRUE);
 
 function Error(&$a) {
   // Force an error to capture
@@ -74,9 +85,9 @@ Error($a);
 
 // Let's output all
 // 1st finalize it
-DebugStack::Finalize();
+Yryie::Finalize();
 // Output with the default script and CSS
-DebugStack::Output(TRUE, TRUE);
+Yryie::Output(TRUE, TRUE);
 // <<
 ?>
 </body>

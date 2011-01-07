@@ -1,22 +1,12 @@
 <?php
 /**
- * @category   Plugin
- * @package    Plugin-RefreshBackground
- * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    0.1.0
- */
-
-/**
  * Refresh auctions in background process, also as cron job
  *
- * @category   Plugin
- * @package    Plugin-RefreshBackground
+ * @ingroup    Plugin-RefreshBackground
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
+ * @copyright  2009-2011 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    Release: @package_version@
+ * @version    $Id$
  */
 class esf_Plugin_RefreshBackground extends esf_Plugin {
 

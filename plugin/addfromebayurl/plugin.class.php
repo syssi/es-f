@@ -1,22 +1,12 @@
 <?php
 /**
- * @category   Plugin
- * @package    Plugin-AddFromEbayUrl
- * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    0.1.0
- */
-
-/**
- * Auction statistics
+ * Add auctions from ebay URL
  *
- * @category   Plugin
- * @package    Plugin-AddFromEbayUrl
+ * @ingroup    Plugin-AddFromEbayUrl
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
+ * @copyright  2009-2011 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    Release: @package_version@
+ * @version    $Id$
  */
 class esf_Plugin_AddFromEbayUrl extends esf_Plugin {
 
@@ -68,15 +58,15 @@ class esf_Plugin_AddFromEbayUrl extends esf_Plugin {
    */
   private function scan( &$str ) {
     // >> Debug
-    DebugStack::Info($str);
+    Yryie::Info($str);
     // << Debug
 
     $h = '';
     foreach ($this->Pattern as $p) {
       if (preg_match_all($p, $str, $args, PREG_SET_ORDER)) {
         // >> Debug
-        DebugStack::Debug($p);
-        DebugStack::Debug($args);
+        Yryie::Debug($p);
+        Yryie::Debug($args);
         // << Debug
         foreach ($args as $arg) $h .= ' ' . $arg[1];
       }

@@ -13,8 +13,8 @@ function replace(s, t, u) {
 /**
  * Switch rows of given type on/off
  */
-function DebugStackSwitch( _type, _checked ) {
-  var rows = document.getElementById('debugstack')
+function YryieSwitch( _type, _checked ) {
+  var rows = document.getElementById('Yryie')
             .getElementsByTagName('table')[0]
             .getElementsByTagName('tr');
   if (!rows) {

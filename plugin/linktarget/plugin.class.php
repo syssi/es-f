@@ -1,22 +1,12 @@
 <?php
 /**
- * @category   Plugin
- * @package    Plugin-LinkTarget
- * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    0.1.0
- */
-
-/**
  * Auction statistics
  *
- * @category   Plugin
- * @package    Plugin-LinkTarget
+ * @ingroup    Plugin-LinkTarget
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
+ * @copyright  2009-2011 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    Release: @package_version@
+ * @version    $Id$
  */
 class esf_Plugin_LinkTarget extends esf_Plugin {
 
@@ -26,7 +16,6 @@ class esf_Plugin_LinkTarget extends esf_Plugin {
   public function __construct() {
     parent::__construct();
     $this->RegExp = sprintf('~<a[^>]+%s.*?'.'>~is', $this->RegExp);
-    /// DebugStack::Debug($this->RegExp);
   }
 
   /**

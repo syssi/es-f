@@ -2,12 +2,11 @@
 /**
  * Filesystem handling
  *
- * @category   Plugin
- * @package    Plugin-FileSystem
+ * @ingroup    Plugin-FileSystem
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
+ * @copyright  2009-2011 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    Release: @package_version@
+ * @version    $Id$
  */
 class esf_Plugin_FileSystem extends esf_Plugin {
 
@@ -54,7 +53,7 @@ class esf_Plugin_FileSystem extends esf_Plugin {
     self::getLastUpdate($last);    // reload each hour
     if ($fs AND $last < $fs[0] AND $fs[0]+3600 > $_SERVER['REQUEST_TIME']) {
       $auctions = $fs[1];
-      /// DebugStack::Info('Used auctions from session.');
+      /// Yryie::Info('Used auctions from session.');
     } else {
       $files = glob(esf_User::UserDir().'/'.sprintf(self::AUCTIONFILE, '*'));
       $auctions = array();
@@ -62,7 +61,7 @@ class esf_Plugin_FileSystem extends esf_Plugin {
         if ($auction = $this->LoadArrayFile($file))
           $auctions[$auction['item']] = $auction;
       Session::set(self::SESSIONKEY, array($_SERVER['REQUEST_TIME'], $auctions));
-      /// DebugStack::Info('Read auctions from file system.');
+      /// Yryie::Info('Read auctions from file system.');
     }
     return $auctions;
   }
@@ -158,7 +157,7 @@ class esf_Plugin_FileSystem extends esf_Plugin {
    */
   private function LoadArrayFile( $file ) {
     if (substr($file, 0, 1) != '/') $file = esf_User::UserDir().'/'.$file;
-    /// DebugStack::Info($file);
+    /// Yryie::Info($file);
     return file_exists($file) ? unserialize(file_get_contents($file)) : FALSE;
   }
 
@@ -167,7 +166,7 @@ class esf_Plugin_FileSystem extends esf_Plugin {
    */
   private function SaveArrayFile( $file, $array ) {
     if (substr($file, 0, 1) != '/') $file = esf_User::UserDir().'/'.$file;
-    /// DebugStack::Info($file);
+    /// Yryie::Info($file);
     file_put_contents($file, serialize($array));
   }
 

@@ -28,7 +28,7 @@ abstract class Event implements EventI {
    * @param $position Force position in event queue if defined
    */
   public static function Attach( EventHandlerI $handler, $position=0 ) {
-    /// DebugStack::StartTimer(__METHOD__, __METHOD__, 'attach event');
+    /// Yryie::StartTimer(__METHOD__, __METHOD__, 'attach event');
 
     // make sure not overwrite an existing handler, find next free position
     while (isset(self::$EventHandlers[$position])) $position++;
@@ -44,8 +44,8 @@ abstract class Event implements EventI {
     foreach (self::$HandlerMethods[$position] as $key=>$value)
       if (!method_exists($handler, $key))
         Message::Error('Missing: '.get_class($handler).'->'.$key.'()');
-    DebugStack::Info('Attached event handlers: '.count(self::$EventHandlers));
-    DebugStack::StopTimer(__METHOD__);
+    Yryie::Info('Attached event handlers: '.count(self::$EventHandlers));
+    Yryie::StopTimer(__METHOD__);
     /// */
   }
 
@@ -57,7 +57,7 @@ abstract class Event implements EventI {
   public static function Dettach( EventHandlerI $handler ) {
     if ($position = array_search($handler, self::$EventHandlers, TRUE))
       unset(self::$EventHandlers[$position], self::$HandlerMethods[$position]);
-    /// DebugStack::Info('Attached event handlers: '.count(self::$EventHandlers));
+    /// Yryie::Info('Attached event handlers: '.count(self::$EventHandlers));
   }
 
   /**
@@ -68,20 +68,20 @@ abstract class Event implements EventI {
    */
   public static function Process( $event, &$params ) {
     $event = strtolower($event);
-    /// DebugStack::StartTimer($event);
+    /// Yryie::StartTimer($event);
 
     if (!isset(self::$BlockedEvents[$event]) OR !self::$BlockedEvents[$event]) {
       foreach (self::$EventHandlers as $position=>$EventHandler) {
         if (!isset(self::$HandlerMethods[$position][$event])) continue;
         // >> Debug
-        DebugStack::Info(get_class($EventHandler).'->'.$event.'('.DebugStack::format($params).')');
+        Yryie::Info(get_class($EventHandler).'->'.$event.'('.Yryie::format($params).')');
         // << Debug
         $EventHandler->$event($params);
       }
     }
-    /// else DebugStack::Info('Skip "'.$event.'", actually blocked.');
+    /// else Yryie::Info('Skip "'.$event.'", actually blocked.');
 
-    /// DebugStack::StopTimer($event);
+    /// Yryie::StopTimer($event);
   }
 
   /**

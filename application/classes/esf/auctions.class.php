@@ -173,7 +173,7 @@ abstract class esf_Auctions {
     if (isset($auction['invalid']) AND $auction['invalid'] AND !$all) {
       // >> Debug
       Messages::addError('Auction '.$auction['item'].' "'.$auction['name'].'" is invalid.');
-      DebugStack::Error('Auction "'.$auction['name'].'" ('.$auction['item'].') '
+      Yryie::Error('Auction "'.$auction['name'].'" ('.$auction['item'].') '
                       . 'is invalid (removed from ebay or to old), ignored re-read request');
       // << Debug
       return $auction;
@@ -183,7 +183,7 @@ abstract class esf_Auctions {
     if (isset($auction['ended']) AND $auction['ended'] AND !$all) {
       // >> Debug
       $talk && Messages::addInfo('Auction '.$auction['item'].' "'.$auction['name'].'" is still ended.');
-      DebugStack::Warning('Auction "'.$auction['name'].'" is still ended, ignored re-read request');
+      Yryie::Warning('Auction "'.$auction['name'].'" is still ended, ignored re-read request');
       // << Debug
       return $auction;
     }
@@ -193,11 +193,11 @@ abstract class esf_Auctions {
       $auction['item'] = $item;
     }
 
-    /// DebugStack::StartTimer('AuctionParse'.$item, 'Parse '.$item);
+    /// Yryie::StartTimer('AuctionParse'.$item, 'Parse '.$item);
 
     $parser = self::getParser($auction, $invalid);
 
-    /// DebugStack::StopTimer('AuctionParse'.$item);
+    /// Yryie::StopTimer('AuctionParse'.$item);
 
     if (!$invalid AND !$parser) {
       Messages::addError(Translation::get('Auction.ErrorRetrieving', $item), TRUE);
@@ -280,8 +280,8 @@ abstract class esf_Auctions {
       }
       // >> Debug
       $msg = 'Auction %s "%s" found on ebay.%s';
-      DebugStack::Info(sprintf($msg, $auction['item'], $auction['name'], $auction['parser']));
-      DebugStack::Debug($auction);
+      Yryie::Info(sprintf($msg, $auction['item'], $auction['name'], $auction['parser']));
+      Yryie::Debug($auction);
       // << Debug
     }
     return $auction;
@@ -308,7 +308,7 @@ abstract class esf_Auctions {
     }
 
     // >> Debug
-    DebugStack::Info('Image URL: '.$url);
+    Yryie::Info('Image URL: '.$url);
     // << Debug
 
     // save image to disk
@@ -316,7 +316,7 @@ abstract class esf_Auctions {
       // find image type
       if ($info = @getimagesize($url) AND $ext = image_type_to_Extension($info[2])) {
         // >> Debug
-        DebugStack::Debug($info);
+        Yryie::Debug($info);
         // << Debug
         ob_start();
         readfile($url);

@@ -1,6 +1,10 @@
 <?php
 /**
- * @package es-f
+ * @ingroup    es-f
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2007-2011 Knut Kohl
+ * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
+ * @version    $Id$
  */
 
 ini_set('display_startup_errors', 0);
@@ -17,7 +21,7 @@ define('BASEDIR', dirname(dirname(__FILE__)));
 
 require_once '../application/define.php';
 
-require_once LIBDIR.'/debugstack/debugstack.class.php';
+require_once LIBDIR.'/yryie/yryie.class.php';
 require_once APPDIR.'/classes/loader.class.php';
 
 if (!Loader::Register()) {
