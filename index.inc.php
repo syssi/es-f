@@ -389,10 +389,8 @@ do {
     Session::set('returnto');
   }
 
-  $sModuleLayout = FindActualLayout(Registry::get(esf_Extensions::MODULE.'.'.$sModule.'.Layout', 'default'));
-
   // module specific styles/scripts, from defined layout
-  TplData::add('HtmlHeader.raw', StylesAndScripts('module/'.$sModule, $sModuleLayout));
+  TplData::add('HtmlHeader.raw', StylesAndScripts('module/'.$sModule, Session::getP('Layout')));
 
   // loop until no more forwarded
 } while ($sModuleLast != $sModule);
@@ -475,7 +473,7 @@ $bc = Translation::getNVL($sModule.'.TitleIndex', TplData::get('Title'));
 $path = 'module/'.$sModule.'/layout/';
 Loader::Load($path . 'layout.php', TRUE, FALSE);
 // for actual module layout, if exists
-Loader::Load($path . $sModuleLayout.'.php', TRUE, FALSE);
+Loader::Load($path . Session::getP('Layout').'.php', TRUE, FALSE);
 
 foreach (esf_Extensions::$Types as $ExtType) {
   foreach (esf_Extensions::getExtensions($ExtType) as $Ext) {
@@ -504,12 +502,9 @@ Event::ProcessInform('OutputStart');
 /// Yryie::StartTimer('LoadPluginStyles', 'Load plugin styles and scripts');
 
 // plugin specific styles/scripts, from defined layout or fallback layout
-foreach (esf_Extensions::getExtensions(esf_Extensions::PLUGIN) as $plugin) {
-  if (PluginEnabled($plugin)) {
-    $PluginLayout = FindActualLayout(Registry::get(esf_Extensions::PLUGIN.'.'.$plugin.'.Layout', 'default'));
-    TplData::add('HtmlHeader.raw', StylesAndScripts('plugin/'.$plugin, $PluginLayout));
-  }
-}
+foreach (esf_Extensions::getExtensions(esf_Extensions::PLUGIN) as $plugin)
+  if (PluginEnabled($plugin))
+    TplData::add('HtmlHeader.raw', StylesAndScripts('plugin/'.$plugin, Session::getP('Layout')));
 
 /// Yryie::StopTimer('LoadPluginStyles');
 /// Yryie::StartTimer('BuildMenus', 'Build menus');
@@ -557,7 +552,7 @@ unset($aBugReports, $sBugDir, $sFile, $sTo, $sResult);
 if (!DEVELOP) ob_start();
 
 Yuelo::set('Language', Session::get('language'));
-Yuelo::set('Layout', $sModuleLayout);
+Yuelo::set('Layout', Session::getP('Layout'));
 $RootDir = array(
   BASEDIR.'/module/'.$sModule.'/layout',
   BASEDIR.'/layout',

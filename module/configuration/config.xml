@@ -7,11 +7,6 @@
     <section name="Configuration">
 
       <!--
-        Module specific layout
-      -->
-      <config name="Layout">default</config>
-
-      <!--
         Edit multiple options as
         0 : radio buttons
         1 : select options

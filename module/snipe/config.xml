@@ -8,11 +8,6 @@
     <section name="Snipe">
 
       <!--
-        Module specific layout
-      -->
-      <config name="Layout">default</config>
-
-      <!--
         Disable help for modules (comma separated list)
       -->
       <config name="DisableHelp">index,logout</config>

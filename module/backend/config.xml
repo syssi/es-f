@@ -7,11 +7,6 @@
     <section name="Backend">
 
       <!--
-        Module specific layout
-      -->
-      <config name="Layout">default</config>
-
-      <!--
         Which accounts can edit the configuration online
         provide a pipe "|" separated string with account names defined in $users:
         Admins = <account1>[|<account2>[|...]]

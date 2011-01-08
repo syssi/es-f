@@ -5,11 +5,6 @@
     <section name="Protocol">
 
       <!--
-        Module specific layout
-      -->
-      <config name="Layout">default</config>
-
-      <!--
         Also show empty logs
       -->
       <config name="EmptyLogs" type="bool">FALSE</config>

@@ -7,11 +7,6 @@
 
     <section name="BulkAdd">
 
-      <!--
-        Module specific layout
-      -->
-      <config name="Layout">default</config>
-
       <!-- *******************************************************************
       **  Don't change from here
       ******************************************************************** -->

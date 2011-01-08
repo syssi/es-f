@@ -161,24 +161,14 @@ class esf_Module_Configuration extends esf_Module {
     TplData::set('Extension', $this->EditName);
     TplData::set('Changed', file_exists($ConfigFile));
 
-    $DefData = array();
-    if ($this->EditScope == esf_Extensions::MODULE) {
-      $DefData[esf_Extensions::MODULE.'.'.$this->EditName.'.Layout'] = array(
-        'description' => 'Layout',
-        'option' => getLayouts()
-      );
-    }
-
     $xml = new XML_Array_Definition(Core::$Cache);
-    if (!$data = $xml->ParseXMLFile($ConfigPath.'/configuration.xml')) {
+    if (!$DefData = $xml->ParseXMLFile($ConfigPath.'/configuration.xml')) {
       Messages::addError($xml->Error);
       $this->forward();
       return;
     }
 
-##_dbg($data);
-
-    $DefData = array_merge($DefData, $data);
+##_dbg($DefData);
 
     foreach ($DefData as $var => $data) {
 

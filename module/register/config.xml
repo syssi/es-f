@@ -8,11 +8,6 @@
     <section name="Register">
 
       <!--
-        Module specific layout
-      -->
-      <config name="Layout">default</config>
-
-      <!--
         If an email adress is defined, an email is send on every registration request.
       -->
       <config name="SendEmail"></config>

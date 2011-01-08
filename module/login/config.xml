@@ -19,11 +19,6 @@
       <config name="Afternoon" type="int">17</config>
 
       <!--
-        Module specific layout
-      -->
-      <config name="Layout">default</config>
-
-      <!--
         "Remember" cookie life span in days
         To disable, set to 0
       -->

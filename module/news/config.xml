@@ -8,11 +8,6 @@
     <section name="News">
 
       <!--
-        Module specific layout
-      -->
-      <config name="Layout">default</config>
-
-      <!--
         News urls
       -->
       <config name="URLs" type="array">

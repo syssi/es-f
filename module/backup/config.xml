@@ -8,11 +8,6 @@
     <section name="Backup">
 
       <!--
-        Module specific layout
-      -->
-      <config name="Layout">default</config>
-
-      <!--
         Backup also auction images
       -->
       <config name="Images" type="bool">TRUE</config>

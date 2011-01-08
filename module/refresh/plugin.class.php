@@ -45,8 +45,7 @@ class esf_Plugin_Module_Refresh extends esf_Plugin {
          Registry::get('esf.module') == 'auction' AND $maxage > 0 AND
          $_SERVER['REQUEST_TIME']-$maxage > Event::ProcessReturn('getLastUpdate'))) {
 
-      $Layout = FindActualLayout(Registry::get('Module.Refresh.Layout'));
-      TplData::add('HtmlHeader.raw', StylesAndScripts('module/refresh', $Layout));
+      TplData::add('HtmlHeader.raw', StylesAndScripts('module/refresh', Session::getP('Layout')));
 
       if (!$auctions)
         Session::set('Module.Refresh.Items', array_keys(esf_Auctions::$Auctions));

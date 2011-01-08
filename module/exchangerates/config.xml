@@ -8,11 +8,6 @@
     <section name="ExchangeRates">
 
       <!--
-        Module specific layout
-      -->
-      <config name="Layout">default</config>
-
-      <!--
         URL to get exchangerates in XML
       -->
       <config name="URL">http://www.ecb.int/stats/eurofxref/eurofxref-daily.xml</config>

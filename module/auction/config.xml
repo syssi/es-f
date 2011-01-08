@@ -8,11 +8,6 @@
     <section name="Auction">
 
       <!--
-        Module specific layout
-      -->
-      <config name="Layout">default</config>
-
-      <!--
         Show ended auctions/groups with an other (smaller) layout
       -->
       <config name="LayoutEnded" type="bool">TRUE</config>
