@@ -23,18 +23,18 @@
    changedate="20101129T213215Z"
    o-encoding="UTF-8"
   >
-    <prop type="x-Namespace">Auction_configuration</prop>
+    <prop type="x-Namespace">Plugin_Filesystem</prop>
   </header>
   <body>
     <tu tuid="NAME">
       <tuv xml:lang="EN">
-        <seg>Auctions</seg>
+        <seg>Data storage file system</seg>
       </tuv>
     </tu>
 
     <tu tuid="DESCRIPTION">
       <tuv xml:lang="EN">
-        <seg><![CDATA[You can't disable this module.]]></seg>
+        <seg>Save auction data into file system.</seg>
       </tuv>
     </tu>
 

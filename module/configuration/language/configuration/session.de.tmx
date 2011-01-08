@@ -23,23 +23,23 @@
    changedate="20101129T213215Z"
    o-encoding="UTF-8"
   >
-    <prop type="x-Namespace">Googlegadgets_configuration</prop>
+    <prop type="x-Namespace">Plugin_Session</prop>
   </header>
   <body>
     <tu tuid="NAME">
-      <tuv xml:lang="EN">
-        <seg>Google gadgets</seg>
+      <tuv xml:lang="DE">
+        <seg>Session</seg>
       </tuv>
     </tu>
 
     <tu tuid="DESCRIPTION">
-      <tuv xml:lang="EN">
-        <seg>Some useful Google gadgets.</seg>
+      <tuv xml:lang="DE">
+        <seg>Eigene (verschlüsselte) Session-Verwaltung</seg>
       </tuv>
     </tu>
 
     <tu tuid="DESCRIPTION_LONG">
-      <tuv xml:lang="EN">
+      <tuv xml:lang="DE">
         <seg></seg>
       </tuv>
     </tu>

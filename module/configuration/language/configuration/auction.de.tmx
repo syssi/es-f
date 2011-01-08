@@ -23,107 +23,113 @@
    changedate="20101129T213215Z"
    o-encoding="UTF-8"
   >
-    <prop type="x-Namespace">Auction_configuration</prop>
+    <prop type="x-Namespace">Module_Auction</prop>
   </header>
   <body>
-    <tu tuid="NAME">
-      <tuv xml:lang="DE">
+    <tu tuid="Name">
+      <tuv xml:lang="de">
         <seg>Auktionen</seg>
       </tuv>
     </tu>
 
-    <tu tuid="DESCRIPTION">
-      <tuv xml:lang="DE">
+    <tu tuid="Description">
+      <tuv xml:lang="de">
         <seg>Dieses Modul kann nicht deaktiviert werden.</seg>
       </tuv>
     </tu>
 
-    <tu tuid="DESCRIPTION_LONG">
-      <tuv xml:lang="DE">
+    <tu tuid="Description_Long">
+      <tuv xml:lang="de">
         <seg></seg>
       </tuv>
     </tu>
 
-    <tu tuid="LAYOUTENDED">
-      <tuv xml:lang="DE">
+    <tu tuid="LayoutEnded">
+      <tuv xml:lang="de">
         <seg>Verwende für beendete Auktionen/Gruppen anderes (kleineres) Layout</seg>
       </tuv>
     </tu>
 
-    <tu tuid="IMAGESIZE">
-      <tuv xml:lang="DE">
+    <tu tuid="ImageSize">
+      <tuv xml:lang="de">
         <seg><![CDATA[Max. Bild-Breite/-Höhe im Anzeige-Modus (PopUp) [px <small>(0 für keine Beschränkung)</small>]]]></seg>
       </tuv>
     </tu>
 
-    <tu tuid="NOIMAGE">
-      <tuv xml:lang="DE">
+    <tu tuid="NoImage">
+      <tuv xml:lang="de">
         <seg>Ersatzbild-URL, wenn kein Bild bei ebay gefunden werden konnte [(rel. oder absoluter HTML-Pfad)]</seg>
       </tuv>
     </tu>
 
-    <tu tuid="CURRENCY">
-      <tuv xml:lang="DE">
+    <tu tuid="LoadImages">
+      <tuv xml:lang="de">
+        <seg>Bilder von eBay lokal speichern</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Currency">
+      <tuv xml:lang="de">
         <seg>Standard-Währung</seg>
       </tuv>
     </tu>
 
-    <tu tuid="REFRESHBUTTONS">
-      <tuv xml:lang="DE">
+    <tu tuid="RefreshButtons">
+      <tuv xml:lang="de">
         <seg>Extra Aktualisierungs-Icons auf welcher Ebene</seg>
       </tuv>
     </tu>
 
-    <tu tuid="REFRESHBUTTONS>0">
-      <tuv xml:lang="DE">
+    <tu tuid="RefreshButtons>0">
+      <tuv xml:lang="de">
         <seg>Keine extra Icons</seg>
       </tuv>
     </tu>
 
-    <tu tuid="REFRESHBUTTONS>1">
-      <tuv xml:lang="DE">
+    <tu tuid="RefreshButtons>1">
+      <tuv xml:lang="de">
         <seg>Nur auf Kategorie-Ebene</seg>
       </tuv>
     </tu>
 
-    <tu tuid="REFRESHBUTTONS>2">
-      <tuv xml:lang="DE">
+    <tu tuid="RefreshButtons>2">
+      <tuv xml:lang="de">
         <seg>Auf Gruppen- und Kategorie-Ebene</seg>
       </tuv>
     </tu>
 
-    <tu tuid="REFRESHBUTTONS>3">
-      <tuv xml:lang="DE">
+    <tu tuid="RefreshButtons>3">
+      <tuv xml:lang="de">
         <seg>Auf Auktions-, Gruppen- und Kategorie-Ebene</seg>
       </tuv>
     </tu>
 
-    <tu tuid="COUNTDOWN">
-      <tuv xml:lang="DE">
+    <tu tuid="CountDown">
+      <tuv xml:lang="de">
         <seg>Zähle Auktions-Restzeit mittels JS herunter</seg>
       </tuv>
     </tu>
 
-    <tu tuid="COUNTDOWN>0">
-      <tuv xml:lang="DE">
+    <tu tuid="CountDown>0">
+      <tuv xml:lang="de">
         <seg>Nein (statische Zeit)</seg>
       </tuv>
     </tu>
 
-    <tu tuid="COUNTDOWN>1">
-      <tuv xml:lang="DE">
+    <tu tuid="CountDown>1">
+      <tuv xml:lang="de">
         <seg>Nur nächstendende Auktion</seg>
       </tuv>
     </tu>
 
-    <tu tuid="COUNTDOWN>2">
-      <tuv xml:lang="DE">
+    <tu tuid="CountDown>2">
+      <tuv xml:lang="de">
         <seg>Alle Auktionen</seg>
       </tuv>
     </tu>
 
-    <tu tuid="POPUPEDIT">
-      <tuv xml:lang="DE">
+    <tu tuid="PopupEdit">
+      <tuv xml:lang="de">
         <seg>Benutze Popup-Dialoge zum Ändern bzw. für Lösch-Bestätigung</seg>
       </tuv>
     </tu>

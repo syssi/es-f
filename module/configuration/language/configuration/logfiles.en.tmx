@@ -23,23 +23,23 @@
    changedate="20101129T213215Z"
    o-encoding="UTF-8"
   >
-    <prop type="x-Namespace">Configuration_configuration</prop>
+    <prop type="x-Namespace">Module_Logfiles</prop>
   </header>
   <body>
     <tu tuid="NAME">
-      <tuv xml:lang="DE">
-        <seg>Konfiguration</seg>
+      <tuv xml:lang="EN">
+        <seg>Log files</seg>
       </tuv>
     </tu>
 
     <tu tuid="DESCRIPTION">
-      <tuv xml:lang="DE">
-        <seg>Ändere Modul- und Plugin-Konfiguationen per Frontend.</seg>
+      <tuv xml:lang="EN">
+        <seg>Display the content of some log files</seg>
       </tuv>
     </tu>
 
     <tu tuid="DESCRIPTION_LONG">
-      <tuv xml:lang="DE">
+      <tuv xml:lang="EN">
         <seg></seg>
       </tuv>
     </tu>

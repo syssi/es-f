@@ -23,18 +23,18 @@
    changedate="20101129T213215Z"
    o-encoding="UTF-8"
   >
-    <prop type="x-Namespace">Logfiles_configuration</prop>
+    <prop type="x-Namespace">Plugin_Nextauction</prop>
   </header>
   <body>
     <tu tuid="NAME">
       <tuv xml:lang="EN">
-        <seg>Log files</seg>
+        <seg>Next auction</seg>
       </tuv>
     </tu>
 
     <tu tuid="DESCRIPTION">
       <tuv xml:lang="EN">
-        <seg>Display the content of some log files</seg>
+        <seg>Finds the next ending auction</seg>
       </tuv>
     </tu>
 

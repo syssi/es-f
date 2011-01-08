@@ -23,18 +23,18 @@
    changedate="20101129T213215Z"
    o-encoding="UTF-8"
   >
-    <prop type="x-Namespace">Watching_configuration</prop>
+    <prop type="x-Namespace">Module_Configuration</prop>
   </header>
   <body>
     <tu tuid="NAME">
       <tuv xml:lang="EN">
-        <seg>Watched auctions</seg>
+        <seg>Configuration</seg>
       </tuv>
     </tu>
 
     <tu tuid="DESCRIPTION">
       <tuv xml:lang="EN">
-        <seg>Read watched auctions from ebay.</seg>
+        <seg>Change module and plugin configurations via frontend.</seg>
       </tuv>
     </tu>
 

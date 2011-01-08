@@ -23,18 +23,18 @@
    changedate="20101129T213215Z"
    o-encoding="UTF-8"
   >
-    <prop type="x-Namespace">Support_configuration</prop>
+    <prop type="x-Namespace">Module_Analyse</prop>
   </header>
   <body>
     <tu tuid="NAME">
       <tuv xml:lang="EN">
-        <seg>Support</seg>
+        <seg>Analyse</seg>
       </tuv>
     </tu>
 
     <tu tuid="DESCRIPTION">
       <tuv xml:lang="EN">
-        <seg>System informations for support requests</seg>
+        <seg>Analyse bid groups by end time, bids and price.</seg>
       </tuv>
     </tu>
 

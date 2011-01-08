@@ -23,23 +23,23 @@
    changedate="20101129T213215Z"
    o-encoding="UTF-8"
   >
-    <prop type="x-Namespace">Backup_configuration</prop>
+    <prop type="x-Namespace">Module_Googlegadgets</prop>
   </header>
   <body>
     <tu tuid="NAME">
-      <tuv xml:lang="EN">
-        <seg>Backup</seg>
+      <tuv xml:lang="DE">
+        <seg>Google gadgets</seg>
       </tuv>
     </tu>
 
     <tu tuid="DESCRIPTION">
-      <tuv xml:lang="EN">
-        <seg>Backup auctions.</seg>
+      <tuv xml:lang="DE">
+        <seg>Ein paar hilfreiche Google gadgets.</seg>
       </tuv>
     </tu>
 
     <tu tuid="DESCRIPTION_LONG">
-      <tuv xml:lang="EN">
+      <tuv xml:lang="DE">
         <seg></seg>
       </tuv>
     </tu>

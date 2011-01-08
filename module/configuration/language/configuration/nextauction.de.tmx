@@ -23,23 +23,23 @@
    changedate="20101129T213215Z"
    o-encoding="UTF-8"
   >
-    <prop type="x-Namespace">Refreshbackground_configuration</prop>
+    <prop type="x-Namespace">Plugin_Nextauction</prop>
   </header>
   <body>
     <tu tuid="NAME">
-      <tuv xml:lang="EN">
-        <seg>Refresh in background</seg>
+      <tuv xml:lang="DE">
+        <seg>Nächste Auktion</seg>
       </tuv>
     </tu>
 
     <tu tuid="DESCRIPTION">
-      <tuv xml:lang="EN">
-        <seg>Refreshes auction data periodicly in a background process</seg>
+      <tuv xml:lang="DE">
+        <seg>Ermittelt die nächstendende Auktion</seg>
       </tuv>
     </tu>
 
     <tu tuid="DESCRIPTION_LONG">
-      <tuv xml:lang="EN">
+      <tuv xml:lang="DE">
         <seg></seg>
       </tuv>
     </tu>

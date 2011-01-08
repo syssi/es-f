@@ -23,18 +23,18 @@
    changedate="20101129T213215Z"
    o-encoding="UTF-8"
   >
-    <prop type="x-Namespace">Refresh_configuration</prop>
+    <prop type="x-Namespace">Plugin_Session</prop>
   </header>
   <body>
     <tu tuid="NAME">
       <tuv xml:lang="EN">
-        <seg>Refresh</seg>
+        <seg>Session</seg>
       </tuv>
     </tu>
 
     <tu tuid="DESCRIPTION">
       <tuv xml:lang="EN">
-        <seg>Refresh auctions, manually or automatic</seg>
+        <seg>Own (crypted) session management</seg>
       </tuv>
     </tu>
 

@@ -23,18 +23,18 @@
    changedate="20101129T213215Z"
    o-encoding="UTF-8"
   >
-    <prop type="x-Namespace">Analyse_configuration</prop>
+    <prop type="x-Namespace">Module_Refresh</prop>
   </header>
   <body>
     <tu tuid="NAME">
       <tuv xml:lang="EN">
-        <seg>Analyse</seg>
+        <seg>Refresh</seg>
       </tuv>
     </tu>
 
     <tu tuid="DESCRIPTION">
       <tuv xml:lang="EN">
-        <seg>Analyse bid groups by end time, bids and price.</seg>
+        <seg>Refresh auctions, manually or automatic</seg>
       </tuv>
     </tu>
 

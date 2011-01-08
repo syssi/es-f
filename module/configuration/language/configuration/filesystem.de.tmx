@@ -23,18 +23,18 @@
    changedate="20101129T213215Z"
    o-encoding="UTF-8"
   >
-    <prop type="x-Namespace">Session_configuration</prop>
+    <prop type="x-Namespace">Plugin_Filesystem</prop>
   </header>
   <body>
     <tu tuid="NAME">
       <tuv xml:lang="DE">
-        <seg>Session</seg>
+        <seg>Datenspeicher Dateisystem</seg>
       </tuv>
     </tu>
 
     <tu tuid="DESCRIPTION">
       <tuv xml:lang="DE">
-        <seg>Eigene (verschlüsselte) Session-Verwaltung</seg>
+        <seg>Speichert die Auktionsdaten ins Dateisystem.</seg>
       </tuv>
     </tu>
 

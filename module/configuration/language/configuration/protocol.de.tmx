@@ -23,18 +23,18 @@
    changedate="20101129T213215Z"
    o-encoding="UTF-8"
   >
-    <prop type="x-Namespace">Googlegadgets_configuration</prop>
+    <prop type="x-Namespace">Module_Protocol</prop>
   </header>
   <body>
     <tu tuid="NAME">
       <tuv xml:lang="DE">
-        <seg>Google gadgets</seg>
+        <seg>Protokolle</seg>
       </tuv>
     </tu>
 
     <tu tuid="DESCRIPTION">
       <tuv xml:lang="DE">
-        <seg>Ein paar hilfreiche Google gadgets.</seg>
+        <seg>Anzeige der esniper Protokolle.</seg>
       </tuv>
     </tu>
 

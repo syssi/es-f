@@ -23,23 +23,23 @@
    changedate="20101129T213215Z"
    o-encoding="UTF-8"
   >
-    <prop type="x-Namespace">Nextauction_configuration</prop>
+    <prop type="x-Namespace">Module_Snipe</prop>
   </header>
   <body>
     <tu tuid="NAME">
-      <tuv xml:lang="DE">
-        <seg>Nächste Auktion</seg>
+      <tuv xml:lang="EN">
+        <seg>Snipe auctions</seg>
       </tuv>
     </tu>
 
     <tu tuid="DESCRIPTION">
-      <tuv xml:lang="DE">
-        <seg>Ermittelt die nächstendende Auktion</seg>
+      <tuv xml:lang="EN">
+        <seg>Add auctions direct from eBay pages</seg>
       </tuv>
     </tu>
 
     <tu tuid="DESCRIPTION_LONG">
-      <tuv xml:lang="DE">
+      <tuv xml:lang="EN">
         <seg></seg>
       </tuv>
     </tu>

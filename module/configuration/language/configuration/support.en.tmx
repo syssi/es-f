@@ -23,23 +23,23 @@
    changedate="20101129T213215Z"
    o-encoding="UTF-8"
   >
-    <prop type="x-Namespace">Snipe_configuration</prop>
+    <prop type="x-Namespace">Module_Support</prop>
   </header>
   <body>
     <tu tuid="NAME">
-      <tuv xml:lang="DE">
-        <seg>Snipe Auktionen</seg>
+      <tuv xml:lang="EN">
+        <seg>Support</seg>
       </tuv>
     </tu>
 
     <tu tuid="DESCRIPTION">
-      <tuv xml:lang="DE">
-        <seg>Hinzufügen von Auktionen direkt von ebay-Seiten</seg>
+      <tuv xml:lang="EN">
+        <seg>System informations for support requests</seg>
       </tuv>
     </tu>
 
     <tu tuid="DESCRIPTION_LONG">
-      <tuv xml:lang="DE">
+      <tuv xml:lang="EN">
         <seg></seg>
       </tuv>
     </tu>

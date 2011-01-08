@@ -1,22 +1,13 @@
 <?php
 /**
- * @category   Module
- * @package    Module-Configuration
- * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    0.2.0
- */
-
-/**
- * Bulk auction add module
+ * Configuration module
  *
  * @category   Module
  * @package    Module-Configuration
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
+ * @copyright  2009-2011 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    Release: @package_version@
+ * @version    $Id$
  */
 class esf_Module_Configuration extends esf_Module {
 
@@ -98,8 +89,8 @@ class esf_Module_Configuration extends esf_Module {
           Messages::addError(Translation::get('Configuration.NotWritable',$dir));
         } else {
           $xml = array(
-            '<!--           !!! ATTENTION !!!',
-            '             Don\'t change manually!',
+            '<!--',
+            '  Don\'t change manually!',
             '  This file is written by module "Configuration"',
             '-->',
             '<configuration>',
@@ -144,12 +135,13 @@ class esf_Module_Configuration extends esf_Module {
     }
 
     // prepare edit form, only if exists
-    Loader::Load($ConfigPath.'/language/configuration.en.php', TRUE, FALSE);
-    Loader::Load($ConfigPath.'/language/configuration.'.Session::get('language').'.php', TRUE, FALSE);
+    $langFile = 'module/configuration/language/configuration/'.$this->EditName.'.%s.tmx';
+    Translation::LoadTMXFile(sprintf($langFile, 'en'), 'en', Core::$Cache);
+    Translation::LoadTMXFile(sprintf($langFile, Session::get('language')), Session::get('language'), Core::$Cache);
 
     $name = Registry::get($this->EditScope.'.'.$this->EditName.'.Name', '');
 
-    $cfgLangKey = $this->EditScope.$this->EditName.'Configuration.';
+    $cfgLangKey = $this->EditScope.'_'.$this->EditName.'.';
 
     TplData::set('Name', $name);
     TplData::set('Title', Translation::getNVL($cfgLangKey.'Name', ucwords($this->EditName)));
@@ -168,7 +160,7 @@ class esf_Module_Configuration extends esf_Module {
       return;
     }
 
-##_dbg($DefData);
+##  _dbg($DefData);
 
     foreach ($DefData as $var => $data) {
 
@@ -183,12 +175,14 @@ class esf_Module_Configuration extends esf_Module {
       );
 
       $desc = '';
-      // 1. from *.def.ini
+      // 1. from configuration.xml
       if (!empty($data['description'])) $desc = $data['description'];
-      // 2. Search for default (global) translation
-      $desc = Translation::getNVL('Configuration.'.$var, $desc);
-      // 3. Search for extension specific translation
-      $desc = Translation::getNVL($cfgLangKey.$var, $desc);
+      // 2. Search for extension specific TMX translation
+      // replace 1st dot with an _
+      $id = $var;
+      $dot = strpos($var, '.');
+      $id{$dot} = '_';
+      $desc = Translation::getNVL($id, $desc);
       $FieldData['Description'] = $desc;
 
       if ($data['type'] !== 'h') {
@@ -242,7 +236,7 @@ class esf_Module_Configuration extends esf_Module {
             $select = sprintf('<select name="vars[%1$s][v]">'."\n", $var);
             foreach ($values as $val => $desc) {
               if ($FieldData['VARTYPE'] == 's' AND is_int($val)) $val = $desc;
-              $desc = Translation::getNVL($this->EditName.'_Configuration.'.$var.'>'.$val, $desc);
+              $desc = Translation::getNVL($id.'>'.$val, $desc);
               $select .= sprintf('  <option value="%s"%s>%s</option>',
                                  $val, ($val==$value?' selected="selected"':''), $desc)."\n";
             }
@@ -253,7 +247,7 @@ class esf_Module_Configuration extends esf_Module {
             // build radio buttons
             foreach ($values as $val => $desc) {
               if ($FieldData['VARTYPE'] == 's' AND is_int($val)) $val = $desc;
-              $desc = Translation::getNVL($this->EditName.'_Configuration.'.$var.'>'.$val, $desc);
+              $desc = Translation::getNVL($id.'>'.$val, $desc);
               $FieldData['Input'][] = sprintf('<div style="%spadding-right:10px">'
                                             .'<input type="radio" name="vars[%s][v]" value="%s"%s>%s</div>',
                                              ($ratio<50?'float:left;':''), $var, $val,

@@ -23,22 +23,22 @@
    changedate="20101129T213215Z"
    o-encoding="UTF-8"
   >
-    <prop type="x-Namespace">Analyse_configuration</prop>
+    <prop type="x-Namespace">Module_Snipe</prop>
   </header>
   <body>
-    <tu tuid="Name">
+    <tu tuid="NAME">
       <tuv xml:lang="DE">
-        <seg>Analyse</seg>
+        <seg>Snipe Auktionen</seg>
       </tuv>
     </tu>
 
-    <tu tuid="Description">
+    <tu tuid="DESCRIPTION">
       <tuv xml:lang="DE">
-        <seg>Analysiere Bietgruppen bzgl. Auktionsende, Gebotsanzahl und Preis</seg>
+        <seg>Hinzufügen von Auktionen direkt von ebay-Seiten</seg>
       </tuv>
     </tu>
 
-    <tu tuid="DescriptionLong">
+    <tu tuid="DESCRIPTION_LONG">
       <tuv xml:lang="DE">
         <seg></seg>
       </tuv>

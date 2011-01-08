@@ -23,23 +23,23 @@
    changedate="20101129T213215Z"
    o-encoding="UTF-8"
   >
-    <prop type="x-Namespace">Filesystem_configuration</prop>
+    <prop type="x-Namespace">Module_Googlegadgets</prop>
   </header>
   <body>
     <tu tuid="NAME">
-      <tuv xml:lang="DE">
-        <seg>Datenspeicher Dateisystem</seg>
+      <tuv xml:lang="EN">
+        <seg>Google gadgets</seg>
       </tuv>
     </tu>
 
     <tu tuid="DESCRIPTION">
-      <tuv xml:lang="DE">
-        <seg>Speichert die Auktionsdaten ins Dateisystem.</seg>
+      <tuv xml:lang="EN">
+        <seg>Some useful Google gadgets.</seg>
       </tuv>
     </tu>
 
     <tu tuid="DESCRIPTION_LONG">
-      <tuv xml:lang="DE">
+      <tuv xml:lang="EN">
         <seg></seg>
       </tuv>
     </tu>

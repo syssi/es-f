@@ -23,18 +23,18 @@
    changedate="20101129T213215Z"
    o-encoding="UTF-8"
   >
-    <prop type="x-Namespace">Session_configuration</prop>
+    <prop type="x-Namespace">Module_Backup</prop>
   </header>
   <body>
     <tu tuid="NAME">
       <tuv xml:lang="EN">
-        <seg>Session</seg>
+        <seg>Backup</seg>
       </tuv>
     </tu>
 
     <tu tuid="DESCRIPTION">
       <tuv xml:lang="EN">
-        <seg>Own (crypted) session management</seg>
+        <seg>Backup auctions.</seg>
       </tuv>
     </tu>
 

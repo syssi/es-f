@@ -23,24 +23,30 @@
    changedate="20101129T213215Z"
    o-encoding="UTF-8"
   >
-    <prop type="x-Namespace">Refreshbackground_configuration</prop>
+    <prop type="x-Namespace">Module_Watching</prop>
   </header>
   <body>
     <tu tuid="NAME">
       <tuv xml:lang="DE">
-        <seg>Hintergrund-Aktualisierung</seg>
+        <seg>Beobachtete Auktionen</seg>
       </tuv>
     </tu>
 
     <tu tuid="DESCRIPTION">
       <tuv xml:lang="DE">
-        <seg>Aktualisiert die Auktionsdaten periodisch in einem Hintergrundprozess</seg>
+        <seg>Auslesen der beobachteten Artikel von ebay.</seg>
       </tuv>
     </tu>
 
     <tu tuid="DESCRIPTION_LONG">
       <tuv xml:lang="DE">
         <seg></seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="ENDED">
+      <tuv xml:lang="DE">
+        <seg>Zeige auch bereits beendete Auktionen</seg>
       </tuv>
     </tu>
 

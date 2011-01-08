@@ -23,23 +23,23 @@
    changedate="20101129T213215Z"
    o-encoding="UTF-8"
   >
-    <prop type="x-Namespace">Snipe_configuration</prop>
+    <prop type="x-Namespace">Module_Configuration</prop>
   </header>
   <body>
     <tu tuid="NAME">
-      <tuv xml:lang="EN">
-        <seg>Snipe auctions</seg>
+      <tuv xml:lang="DE">
+        <seg>Konfiguration</seg>
       </tuv>
     </tu>
 
     <tu tuid="DESCRIPTION">
-      <tuv xml:lang="EN">
-        <seg>Add auctions direct from eBay pages</seg>
+      <tuv xml:lang="DE">
+        <seg>Ändere Modul- und Plugin-Konfiguationen per Frontend.</seg>
       </tuv>
     </tu>
 
     <tu tuid="DESCRIPTION_LONG">
-      <tuv xml:lang="EN">
+      <tuv xml:lang="DE">
         <seg></seg>
       </tuv>
     </tu>

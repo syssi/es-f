@@ -23,23 +23,23 @@
    changedate="20101129T213215Z"
    o-encoding="UTF-8"
   >
-    <prop type="x-Namespace">Backup_configuration</prop>
+    <prop type="x-Namespace">Module_Auction</prop>
   </header>
   <body>
     <tu tuid="NAME">
-      <tuv xml:lang="DE">
-        <seg>Backup</seg>
+      <tuv xml:lang="EN">
+        <seg>Auctions</seg>
       </tuv>
     </tu>
 
     <tu tuid="DESCRIPTION">
-      <tuv xml:lang="DE">
-        <seg>Erstelle Auktions-Backups</seg>
+      <tuv xml:lang="EN">
+        <seg><![CDATA[You can't disable this module.]]></seg>
       </tuv>
     </tu>
 
     <tu tuid="DESCRIPTION_LONG">
-      <tuv xml:lang="DE">
+      <tuv xml:lang="EN">
         <seg></seg>
       </tuv>
     </tu>

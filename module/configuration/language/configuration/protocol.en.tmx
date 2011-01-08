@@ -23,23 +23,23 @@
    changedate="20101129T213215Z"
    o-encoding="UTF-8"
   >
-    <prop type="x-Namespace">Logfiles_configuration</prop>
+    <prop type="x-Namespace">Module_Protocol</prop>
   </header>
   <body>
     <tu tuid="NAME">
-      <tuv xml:lang="DE">
-        <seg>Log-Dateien</seg>
+      <tuv xml:lang="EN">
+        <seg>Protocols</seg>
       </tuv>
     </tu>
 
     <tu tuid="DESCRIPTION">
-      <tuv xml:lang="DE">
-        <seg>Anzeige diverser Log-Dateien</seg>
+      <tuv xml:lang="EN">
+        <seg>Show protocols of esniper processes.</seg>
       </tuv>
     </tu>
 
     <tu tuid="DESCRIPTION_LONG">
-      <tuv xml:lang="DE">
+      <tuv xml:lang="EN">
         <seg></seg>
       </tuv>
     </tu>

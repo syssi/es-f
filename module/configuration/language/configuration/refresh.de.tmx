@@ -23,7 +23,7 @@
    changedate="20101129T213215Z"
    o-encoding="UTF-8"
   >
-    <prop type="x-Namespace">Refresh_configuration</prop>
+    <prop type="x-Namespace">Module_Refresh</prop>
   </header>
   <body>
     <tu tuid="NAME">

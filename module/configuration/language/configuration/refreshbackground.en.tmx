@@ -23,23 +23,23 @@
    changedate="20101129T213215Z"
    o-encoding="UTF-8"
   >
-    <prop type="x-Namespace">Protocol_configuration</prop>
+    <prop type="x-Namespace">Plugin_Refreshbackground</prop>
   </header>
   <body>
     <tu tuid="NAME">
-      <tuv xml:lang="DE">
-        <seg>Protokolle</seg>
+      <tuv xml:lang="EN">
+        <seg>Refresh in background</seg>
       </tuv>
     </tu>
 
     <tu tuid="DESCRIPTION">
-      <tuv xml:lang="DE">
-        <seg>Anzeige der esniper Protokolle.</seg>
+      <tuv xml:lang="EN">
+        <seg>Refreshes auction data periodicly in a background process</seg>
       </tuv>
     </tu>
 
     <tu tuid="DESCRIPTION_LONG">
-      <tuv xml:lang="DE">
+      <tuv xml:lang="EN">
         <seg></seg>
       </tuv>
     </tu>
