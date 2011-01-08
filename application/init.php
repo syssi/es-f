@@ -49,9 +49,9 @@ Registry::$NameSpaceSeparator = '.';
 // Version 1:
 // Registry::set('esniper',     'esniper'); ->bin_exniper
 Registry::set('SuDo',        '');
-// Registry::set('RunDir',      '.run'); -> now fix: ./local
-Registry::set('Language',    'en');
-Registry::set('Layout',      'default');
+// Registry::set('RunDir',      '.run'); -> v. 5 - now fix: ./local
+// Registry::set('Language',    'en'); -> v. 9 - get during login from $_SERVER['HTTP_ACCEPT_LANGUAGE']
+// Registry::set('Layout',      'default'); -> v. 9 - during login
 Registry::set('MenuStyle',   'image,text,image');
 
 // Version 2:
@@ -84,6 +84,10 @@ Registry::set('bin_kill', 'kill');
 
 // Version 8:
 Registry::set('CacheClass', 'File');
+
+// Version 9:
+// get language during login from $_SERVER['HTTP_ACCEPT_LANGUAGE']
+// set Layout during login
 
 /**
  * esniper configuration

@@ -1,24 +1,24 @@
 <?php
 /**
- * @category   Module
- * @package    Module-Login
- * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    0.1.0
- */
-
-/**
- * Homepage module
+ * Login module
  *
- * @category   Module
- * @package    Module-Login
+ * @ingroup    Module-Login
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
+ * @copyright  2009-2011 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    Release: @package_version@
+ * @version    $Id$
  */
 class esf_Module_Login extends esf_Module {
+
+  /**
+   * Class constructor
+   *
+   * @return void
+   */
+  public function __construct() {
+    parent::__construct();
+    Registry::set('esf.contentonly', TRUE);
+  }
 
   /**
    *
@@ -66,6 +66,8 @@ class esf_Module_Login extends esf_Module {
         Messages::Success($msg.' '.$user.'!');
         Session::setP('ClearCache', TRUE);
         setcookie(APPID.'_esf_User', $user);
+        setcookie(APPID.'_esf_Layout', $this->Request('layout'));
+        Session::setP('Layout', $this->Request('layout'));
         $this->Redirect(Registry::get('StartModule'));
       } else {
         TplData::set('LoginMsg', Translation::get('Login.Failed'));

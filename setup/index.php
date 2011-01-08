@@ -107,7 +107,6 @@ switch ($step) {
 
     TplData::set('EBAYPARSERS', implode(', ', $parsers));
 
-    TplData::set('LAYOUTS', getLayouts());
     exec('locale -a', $locales);
     TplData::set('LOCALES', $locales);
     unset($locales);
@@ -119,14 +118,6 @@ switch ($step) {
 
     foreach (Esniper::getAll() as $key => $val)
       TplData::set('esniper.'.strtoupper($key), $val);
-
-    $ll = parse_ini_file(APPDIR.'/language/languages.ini');
-    foreach (glob(APPDIR.'/language/*.php') as $l) {
-      // check for not yet defined languages...
-      $l = basename($l , '.php');
-      if (!isset($ll[$l])) $ll[$l] = $l;
-    }
-    TplData::set('LANGUAGES', $ll);
 
     TplData::set('TIMEZONES', file(dirname(__FILE__).'/date.timezone', FILE_IGNORE_NEW_LINES));
     break;
@@ -174,8 +165,6 @@ if (function_exists('date_default_timezone_set'))
 // -----------------------------------------------------------------------------
 // Output
 // -----------------------------------------------------------------------------
-require_once 'config.php';
-
 TplData::setConstant('ESF.TITLE', ESF_TITLE);
 TplData::setConstant('ESF.SLOGAN', ESF_SLOGAN);
 TplData::setConstant('ESF.VERSION', ESF_VERSION);

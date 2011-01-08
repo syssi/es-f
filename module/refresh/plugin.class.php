@@ -109,11 +109,9 @@ class esf_Plugin_Module_Refresh extends esf_Plugin {
 
     // try to remove the refreshing output and update "last updated" timestamp
     $script = sprintf('$("autorefresh").remove();'
-                     .'$("msginner").appendChild((new Element("div").update("%s")));'
                      .'$("lastupdate").update("%s");',
-                      $done,
                       date(Registry::get('Format.DateTime'),
-                      Event::ProcessReturn('getLastUpdate')));
+                           Event::ProcessReturn('getLastUpdate')));
     echo_script($script);
   }
 

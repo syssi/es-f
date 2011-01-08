@@ -2,9 +2,12 @@
 /**
  * @package Module-Login
  * @author  Knut Kohl <knutkohl@users.sourceforge.net>
- * @version 0.2.0
+ * @version 0.4.0
  *
  * CHANGELOG
+ *
+ * Version 0.4.0
+ * - Clear table layout
  *
  * Version 0.3.0
  * - back to input submit
@@ -15,62 +18,58 @@
 -->
 
 <div id="content">
-<div id="inner">
 
-  <!-- IF LOGINMSG -->
-  <p class="msgerror b">{nvl:LOGINMSG}</p>
-  <!-- ENDIF -->
-
-  <form id="loginform" name="Login" action="{FORMACTION}" method="post" accept-charset="ISO-8859-1">
+  <form id="loginform" name="Login" action="{FORMACTION}" method="post"
+        accept-charset="ISO-8859-1">
   {fh:"module","login"}
 
-  <h2>[[Login.YourAccountAndPassword]]</h2>
+  <table id="login">
 
-  <br>
+  <tr><td class="menu">
+    Login
+  </td></tr>
 
-  <div>
+  <tr><td class="label">
+    <a href='http://es-f.com'><img src='module/login/images/login.gif'></a>
+  </td></tr>
 
-    <div style="float:left">
+  <!-- IF LOGINMSG -->
+  <tr><td class="label msgerror i">{LOGINMSG}</td></tr>
+  <!-- ENDIF -->
 
-      <div style="margin-bottom:0.5em">
-      <label for="user">[[Login.Account]]</label>
-      </div>
-      {ft:"user",USER,"input","id=\"user\" tabindex=\"1\""}
+  <tr><td class="value">
+    <label for="user">[[Login.Account]]</label><br>{ft:"user",USER}
+  </td></tr>
 
-      <p>
-      <div style="margin-bottom:0.5em">
-      <label for="pass">[[Login.Password]]</label>
-      </div>
-      {fp:"pass",,"input","id=\"pass\" tabindex=\"2\""}
-      </p>
+  <tr><td class="value">
+    <label for="pass">[[Login.Password]]</label><br>{fp:"pass"}
+  </td></tr>
 
-      <p>
-      <input class="button" type="submit" name="login" alt="[ [[Login.Login]] ]"
-             value="[[Login.Login|quote]]" tabindex="4">
-      </p>
+  <tr><td class="value">
+    <label for="layout">[[Login.Layout]]</label><br>
+    <select id="layout" name="layout">{options:LAYOUTS,LASTLAYOUT}</select>
+  </td></tr>
 
-    </div>
+  <!-- IF CONST.MODULE.COOKIE > "0" -->
+  <tr><td class="value">
+    {fcb:"cookie",,,,"style=\"width:0\""}
+    <label for="cookie">[[Login.Cookie]]</label> {help:"LoginHelp.Cookie"}
+    <p class="alert">[[Login.CookieHint]]</p>
+  </td></tr>
+  <!-- ENDIF -->
 
-    <div style="margin-left:16em">
+  <tr><td class="value">
+    {fs:[[Login.Login|quote]],"button"}
+  </td></tr>
 
-      <!-- IF CONST.MODULE.COOKIE > "0" -->
+  </table>
 
-      <input type="checkbox" id="cookie" name="cookie" tabindex="3">
-      <label for="cookie">[[Login.Cookie]]</label> {help:"LoginHelp.Cookie"}
-
-      <p class="alert">[[Login.CookieHint]]</p>
-
-      <!-- ENDIF -->
-
-    </div>
-
-    <br class="clear">
-
+  <div id="copyright">
+    Copyright &copy; 2009-{CONST.YEAR}. <a href='http://es-f.com'>|es|f| esniper frontend</a>
   </div>
 
   </form>
 
-</div>
 </div>
 
 <script type="text/javascript">

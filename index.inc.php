@@ -124,9 +124,11 @@ $oExec->setCommandsFromXMLFile(BASEDIR.'/local/custom/exec.xml', FALSE);
 
 if (IniFile::Parse(APPDIR.'/language/languages.ini')) {
   $esf_Languages = IniFile::$Data;
+  Registry::set('esf.Languages', IniFile::$Data);
 } else {
   Messages::addError(IniFile::$Error);
   $esf_Languages = array('en' => 'English');
+  Registry::set('esf.Languages', array('en' => 'English'));
 }
 
 /// Yryie::StartTimer('LoadPlugins', 'Load plugins');
@@ -154,7 +156,10 @@ Core::StartSession();
 
 Event::ProcessInform('SessionStarted');
 
-if (Session::get('Mobile')) Registry::set('Layout', 'mobile');
+if (Session::get('Mobile'))
+  Session::setP('Layout', 'mobile');
+elseif (!Session::getP('Layout'))
+  Session::setP('Layout', 'default');
 
 if (PluginEnabled('Validate')) {
   DefineValidator('module', 'Regex', array('pattern'=>'\w*'));
@@ -210,7 +215,7 @@ Registry::set('esf.contentonly', checkR('contentonly', FALSE));
 // ----------------------------------------------------------------------------
 Event::ProcessInform('Start');
 
-Session::checkRequest('language', Registry::get('language'));
+Session::checkRequest('language', 'en');
 
 // only initiate empty array data to mark as array, empty strings not required
 TplData::set('HtmlHeader.JS', array());
@@ -322,7 +327,7 @@ if (!esf_User::isValid() AND
 $sModule = Registry::get('esf.Module');
 
 // generic styles/scripts, from defined layout or fallback layout
-TplData::add('HtmlHeader.raw', StylesAndScripts('.', Registry::get('Layout')));
+TplData::add('HtmlHeader.raw', StylesAndScripts('.', Session::getP('Layout')));
 
 if (strtoupper($_SERVER['REQUEST_METHOD']) == 'GET')
   Session::set('returnto', @$_REQUEST['returnto']);
@@ -448,13 +453,13 @@ unset($server, $s);
 
 TplData::setConstant('SERVER.VERSION', $_SERVER['SERVER_SOFTWARE']);
 
-TplData::set('Ebay_Homepage', Registry::get('ebay.Homepage'));
 TplData::set('Layouts', getLayouts());
-TplData::set('GetCategoryFromGroup', FROMGROUP);
+TplData::set('Layout', Session::getP('Layout'));
 
+TplData::set('Ebay_Homepage', Registry::get('ebay.Homepage'));
 TplData::set('FormAction', Core::URL(array('module'=>$sModule)));
 TplData::set('NoJS', Registry::get('NoJS'));
-TplData::set('Layout', Registry::get('LAYOUT'));
+TplData::set('GetCategoryFromGroup', FROMGROUP);
 
 if (_DEBUG) {
   TplData::add('HtmlHeader.CSS', '/application/lib/Yryie/style.css');
@@ -551,7 +556,7 @@ unset($aBugReports, $sBugDir, $sFile, $sTo, $sResult);
 
 if (!DEVELOP) ob_start();
 
-Yuelo::set('Language', Session::get('Language'));
+Yuelo::set('Language', Session::get('language'));
 Yuelo::set('Layout', $sModuleLayout);
 $RootDir = array(
   BASEDIR.'/module/'.$sModule.'/layout',

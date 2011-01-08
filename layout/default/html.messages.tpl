@@ -5,11 +5,12 @@
 -->
 
 <div id="messages" class="messages">
+  <!-- IF ESF_MESSAGES -->
   <div id="msginner" class="msginner">
-    <!-- IF ESF_MESSAGES -->
     <img id="msginnerx" style="float:right;cursor:pointer;display:none"
          alt="[x]" title="Hide messages" src="layout/default/images/close.jpg"
          onclick="$('msginner').remove()" onmouseover="Tip('Hide messages')">
+    {ESF_MESSAGES}
     <script type="text/javascript">
       // <![CDATA[
       addLoadEvent(function(){
@@ -19,7 +20,6 @@
       });
       // ]]>
     </script>
-    {ESF_MESSAGES}
-    <!-- ENDIF -->
   </div>
+  <!-- ENDIF -->
 </div>

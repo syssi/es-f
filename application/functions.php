@@ -98,8 +98,8 @@ function getNewRequest( $request, $param ) {
  * @param string $Layout Layout to check against
  */
 function FindActualLayout( $Layout ) {
-  if (Registry::get('Layout') != 'default' AND $Layout == 'default')
-    $Layout = Registry::get('Layout');
+  $sLayout = Session::getP('Layout');
+  if ($sLayout != 'default' AND $Layout == 'default') $Layout = $sLayout;
   return $Layout;
 }
 

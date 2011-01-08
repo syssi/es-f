@@ -7,7 +7,7 @@
     {fdd:"switchlayout",LAYOUTS,LAYOUT,"small","onchange=this.form.submit()"}
   <!-- ELSE -->
     <!-- BEGIN LAYOUTS -->
-    {frb:"switchlayout",LAYOUTS,_parent.LAYOUT,"small","onchange=this.form.submit()"}{LAYOUTS}
+    {frb:"switchlayout",LAYOUTS,__LAYOUT,"small","onchange=this.form.submit()"}{LAYOUTS}
     <!-- END LAYOUTS -->
   <!-- ENDIF -->
   <noscript>
