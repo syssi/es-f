@@ -10,13 +10,11 @@
 
   <h3>{TITLE}</h3>
 
-  <p>
-    {HELP}
-  </p>
+  <p>{HELP}</p>
 
-  <p>
-    <img class="clickable" alt="[[[Help.CloseWindow|quote]]]" onclick="window.close()"
-         src="{button:"t",[[Help.CloseWindow]],"w","0","f","3"}">
-  </p>
+  <script type="text/javascript">
+    document.write('<p><button class="button" onclick="window.close()">'
+                  +'[[Help.CloseWindow]]</button></p>');
+  </script>
 
 </div>
