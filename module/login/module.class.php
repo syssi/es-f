@@ -68,7 +68,7 @@ class esf_Module_Login extends esf_Module {
         setcookie(APPID.'_esf_User', $user);
         setcookie(APPID.'_esf_Layout', $this->Request('layout'));
         Session::setP('Layout', $this->Request('layout'));
-        $this->Redirect(Registry::get('StartModule'));
+        $this->Redirect(STARTMODULE);
       } else {
         TplData::set('LoginMsg', Translation::get('Login.Failed'));
       }

@@ -196,7 +196,7 @@ abstract class Core {
     $do['module'] = $ud_module;
     $do['action'] = $ud_action;
 
-    Registry::set('esf.module', ($do['module'] ? $do['module'] : Registry::get('StartModule')));
+    Registry::set('esf.module', ($do['module'] ? $do['module'] : STARTMODULE));
     Registry::set('esf.action', ($do['action'] ? $do['action'] : 'index'));
 
     $do = array_merge($ua_params, $do);

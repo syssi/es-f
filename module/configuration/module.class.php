@@ -23,7 +23,7 @@ class esf_Module_Configuration extends esf_Module {
     if (!in_array(esf_User::getActual(TRUE),
                   explode('|', strtolower($this->Admins)))) {
       Messages::addError(Translation::get('Configuration.YouArNotAllowed'));
-      $this->Redirect(Registry::get('StartModule'));
+      $this->Redirect(STARTMODULE);
     }
 
     $ext = @explode('-', @$this->Request['ext']);

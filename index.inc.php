@@ -202,14 +202,14 @@ Event::Process('UrlUnRewrite', $_REQUEST);
 Event::Process('AnalyseRequest', $_REQUEST);
 
 // analyse request
-Registry::set('esf.Module', checkR('module', Registry::get('StartModule')));
+Registry::set('esf.Module', checkR('module', STARTMODULE));
 $sModule = Registry::get('esf.Module');
 
 // check module for mobile capability
-if ($sModule != Registry::get('StartModule') AND
+if ($sModule != STARTMODULE AND
     Session::get('Mobile') AND
     Registry::get('Module.'.$sModule.'.Mobile') === FALSE)
-  Core::Redirect(Core::URL(array('module'=>Registry::get('StartModule'))));
+  Core::Redirect(Core::URL(array('module'=>STARTMODULE)));
 
 Registry::set('esf.Action',      checkR('action',      'index'));
 Registry::set('esf.contentonly', checkR('contentonly', FALSE));
@@ -272,15 +272,15 @@ if (Registry::get('Template.ClearCache')) $oTemplate->Template->ClearCache();
 
 // check if requested module is enabled
 if (!ModuleEnabled($sModule)) {
-  if ($sModule == Registry::get('StartModule')) {
+  if ($sModule == STARTMODULE) {
     die('<p>Default module "'.$sModule.'" is disabled!</p>'
        .'<p>Please <a href="setup/">configure</a> a different default module!</p>');
   }
   Messages::addError(Translation::get('Core.ModuleNotFound', $sModule));
-  Core::Redirect(Core::URL(array('module'=>Registry::get('StartModule'))));
+  Core::Redirect(Core::URL(array('module'=>STARTMODULE)));
 } elseif (!Core::CheckRequired('module', $sModule, $Err)) {
   Messages::addError($Err);
-  Core::Redirect(Core::URL(array('module'=>Registry::get('StartModule'))));
+  Core::Redirect(Core::URL(array('module'=>STARTMODULE)));
 }
 
 /// Yryie::StartTimer('MoreLangLoad', 'Load plugin / module languages');

@@ -1,41 +1,25 @@
 <?php
 /**
- * @category   Module
- * @package    Module-Register
- * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    0.1.0
- */
-
-/**
  * Register module
  *
- * @category   Module
- * @package    Module-Register
+ * @ingroup    Module-Register
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
+ * @copyright  2009-2011 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    Release: @package_version@
+ * @version    $Id$
  */
 class esf_Module_Register extends esf_Module {
 
-  /**
-   *
-   */
-  private $Msgs = array();
-
-  /**
-   *
-   */
-  private $LocalPath;
+  // -------------------------------------------------------------------------
+  // PUBLIC
+  // -------------------------------------------------------------------------
 
   /**
    *
    */
   public function __construct() {
     parent::__construct();
-    $this->LocalPath = $this->Core['localpath'] . '/reg';
+    $this->RegisterPath = $this->Core['localpath'] . '/reg';
   }
 
   /**
@@ -50,7 +34,7 @@ class esf_Module_Register extends esf_Module {
           !empty($pp['ebay'][0]) AND !empty($pp['esf'][0]) AND
           $pp['ebay'][0] === $pp['ebay'][1] AND
           $pp['esf'][0]  === $pp['esf'][1]) {
-        File::write($this->LocalPath . '/' . md5($this->Request('user')),
+        File::write($this->RegisterPath . '/' . md5($this->Request('user')),
                     $this->Request('user') . "\n"
                   . MD5Encryptor::encrypt(md5($pp['esf'][0])."\x01".$pp['ebay'][0], md5($pp['esf'][0])) . "\n"
                   . $this->Request('cmt'));
@@ -60,7 +44,7 @@ class esf_Module_Register extends esf_Module {
           $msg = 'User: '.$this->Request['user']."\n\n".'Comment: '.$this->Request('cmt');
           mail($this->SendMail, '['.ESF_TITLE.'] Registration request', $msg);
         }
-        $this->redirect(Registry::get('StartModule'));
+        $this->redirect(STARTMODULE);
       }
 
       if (empty($this->Request['user']) OR
@@ -88,7 +72,7 @@ class esf_Module_Register extends esf_Module {
     }
 
     $regUsers = array();
-    foreach (glob($this->LocalPath.'/*') as $file) {
+    foreach (glob($this->RegisterPath.'/*') as $file) {
       $data = @file($file);
       $name = trim(array_shift($data));
       $regUsers[$name] = array (
@@ -116,7 +100,7 @@ class esf_Module_Register extends esf_Module {
         }
         if ($mode != 0) { // accept / reject
           unset($regUsers[$name]);
-          unlink($this->LocalPath . '/' . md5($name));
+          unlink($this->RegisterPath . '/' . md5($name));
         }
       }
 
@@ -139,5 +123,19 @@ class esf_Module_Register extends esf_Module {
       TplData::add('Requests', array( 'Account' => $name,
                                       'Comment' => $data['comment']));
   }
+
+  // -------------------------------------------------------------------------
+  // PRIVATE
+  // -------------------------------------------------------------------------
+
+  /**
+   *
+   */
+  private $Msgs = array();
+
+  /**
+   *
+   */
+  private $RegisterPath;
 
 }

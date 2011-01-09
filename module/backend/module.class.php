@@ -22,7 +22,7 @@ class esf_Module_Backend extends esf_Module {
     if (!in_array(esf_User::getActual(TRUE),
                   explode('|', strtolower($this->Admins)))) {
       Messages::addError(Translation::get('Backend.YouArNotAllowed'));
-      $this->redirect(Registry::get('StartModule'));
+      $this->redirect(STARTMODULE);
     }
 
     @list($this->Scope, $this->Extension) = explode('-', $this->Request('ext'));

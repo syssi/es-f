@@ -118,14 +118,6 @@
 </div>
 
 <div class="cfg {cycle:"CLASS","tr1","tr2"}">
-  <label class="td" for="STARTMODULE">Default / start module :</label>
-  <div class="input">
-    {ft:"data[cfg][startmodule]",cfg.startmodule,"input","id=\"STARTMODULE\""}
-    <br />Modules <strong>index</strong> and <strong>auction</strong> are good entry points.
-  </div>
-</div>
-
-<div class="cfg {cycle:"CLASS","tr1","tr2"}">
   <label class="td" for="NETMASK">Netmask to protect session hijacking :</label>
   <div class="input">
     {ft:"data[cfg][netmask]",cfg.netmask,"input","id=\"NETMASK\""}

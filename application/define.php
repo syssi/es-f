@@ -129,6 +129,11 @@ define('LOCALDIR', BASEDIR.'/local');
 define('TEMPDIR',  realpath(dirname(__FILE__).'/..').'/local/tmp');
 
 /**
+ * Start always with Auction module
+ */
+define('STARTMODULE', 'auction');
+
+/**
  * Placeholder flag for select option value of "- from group -"
  *
  * If user selects FROMGROUP as category for a new auction or during editing

@@ -69,7 +69,7 @@ Registry::set('ParseOrder',  'com,co_uk,de');
 // Version 5:
 // Registry::set('Module',      'index'); -> StartModule
 Registry::set('bin_esniper',  'esniper');
-Registry::set('StartModule',  'auction');
+// Registry::set('StartModule',  'auction'); -> v. 9 - STARTMODULE
 Registry::set('TimeZone',     'GMT');
 Registry::set('Locale',       'C');
 Registry::set('RunDir',       BASEDIR.'/local/data');
