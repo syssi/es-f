@@ -1,13 +1,12 @@
 <?php
 /**
- * Homepage module
+ * Support module
  *
- * @category   Module
- * @package    Module-Support
+ * @ingroup    Module-Support
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
+ * @copyright  2009-2011 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    0.1.0
+ * @version    $Id$
  */
 class esf_Module_Support extends esf_Module {
 
@@ -64,7 +63,7 @@ class esf_Module_Support extends esf_Module {
 
     foreach (glob(APPDIR.'/classes/ebayparser/*.ini') as $file) {
       if (!IniFile::Parse($file, TRUE)) {
-        Messages::addError(IniFile::$Error);
+        Messages::Error(IniFile::$Error);
       } else {
         TplData::set('Support.EBAYPARSER.'.basename($file, '.ini'),
                      array_change_key_case(IniFile::$Data, CASE_UPPER));

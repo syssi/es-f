@@ -21,7 +21,7 @@ class esf_Module_Backend extends esf_Module {
     // Is logged in user an admin?
     if (!in_array(esf_User::getActual(TRUE),
                   explode('|', strtolower($this->Admins)))) {
-      Messages::addError(Translation::get('Backend.YouArNotAllowed'));
+      Messages::Error(Translation::get('Backend.YouArNotAllowed'));
       $this->redirect(STARTMODULE);
     }
 
@@ -36,7 +36,7 @@ class esf_Module_Backend extends esf_Module {
         $this->forward();
       } elseif (esf_Extensions::checkState($this->Scope, $this->Extension, esf_Extensions::BIT_PROTECTED) AND
                 in_array(Registry::get('esf.Action'), $modes)) {
-        Messages::addError(Translation::get('Backend.CantChangeProtected', $this->Scope, $this->Extension));
+        Messages::Error(Translation::get('Backend.CantChangeProtected', $this->Scope, $this->Extension));
         $this->redirect();
       }
     }

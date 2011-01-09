@@ -163,7 +163,7 @@ function _dbg( $var, $name='' ) {
   ob_start();
   $options = array( 'name' => $name );
   new dBug($var, $options);
-  Messages::addInfo(ob_get_clean(), TRUE);
+  Messages::Info(ob_get_clean(), TRUE);
 }
 
 /**
@@ -181,7 +181,7 @@ function _dump() {
   foreach (func_get_args() as $arg) {
     ob_start();
     var_dump($arg);
-    Messages::addInfo('<pre>'.ob_get_clean().'</pre>', TRUE);
+    Messages::Info('<pre>'.ob_get_clean().'</pre>', TRUE);
   }
 }
 // << Debug

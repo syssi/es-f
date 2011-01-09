@@ -27,7 +27,7 @@ if (isset($_GET['DEBUG'])) {
   File::write($sDebugFile, $_TRACE);
 } elseif (isset($_GET['STOP'])) {
   @unlink($sDebugFile);
-  Messages::addInfo('Debug off');
+  Messages::Info('Debug off');
 }
 
 define('_DEBUG', file_exists($sDebugFile));
@@ -38,9 +38,9 @@ Yryie::Active(_DEBUG);
 #Yryie::$TimeUnit = Yryie::MICROSECONDS;
 
 if ($_TRACE) {
-  Messages::addSuccess('Debug trace is active: '.$_TRACE, TRUE);
+  Messages::Success('Debug trace is active: '.$_TRACE, TRUE);
 } elseif (_DEBUG) {
-  Messages::addSuccess('Debug active!', TRUE);
+  Messages::Success('Debug active!', TRUE);
 }
 unset($sDebugFile);
 // << Debug
@@ -126,7 +126,7 @@ if (IniFile::Parse(APPDIR.'/language/languages.ini')) {
   $esf_Languages = IniFile::$Data;
   Registry::set('esf.Languages', IniFile::$Data);
 } else {
-  Messages::addError(IniFile::$Error);
+  Messages::Error(IniFile::$Error);
   $esf_Languages = array('en' => 'English');
   Registry::set('esf.Languages', array('en' => 'English'));
 }
@@ -247,7 +247,7 @@ if (file_exists(APPDIR.'/language/core.'.$sLanguage.'.tmx')) {
   // Settings
   Loader::Load(APPDIR.'/language/'.$sLanguage.'.php');
 } else {
-  Messages::addError(sprintf('Unknown language [%s]! Fallback to english!', $sLanguage));
+  Messages::Error(sprintf('Unknown language [%s]! Fallback to english!', $sLanguage));
   Session::set('language', 'en');
 }
 unset($sLanguage);
@@ -256,10 +256,10 @@ if ($locale = Session::get('locale')) {
   setlocale(LC_ALL, $locale);
 } else {
   if (!setlocale(LC_ALL, Registry::get('locale'))) {
-    Messages::addError(sprintf('Locale <tt>['.Registry::get('locale').']</tt> not found on your system! '
+    Messages::Error(sprintf('Locale <tt>['.Registry::get('locale').']</tt> not found on your system! '
                               .'Please <a href="setup/">reconfigure</a> your system and select a correct locale!'),
                        TRUE);
-    Messages::addInfo(sprintf('Fall back for now to locale <tt>[%s]</tt>.', setlocale(LC_ALL, 0)), TRUE);
+    Messages::Info(sprintf('Fall back for now to locale <tt>[%s]</tt>.', setlocale(LC_ALL, 0)), TRUE);
   }
   Session::set('locale', setlocale(LC_ALL, 0));
 }
@@ -276,10 +276,10 @@ if (!ModuleEnabled($sModule)) {
     die('<p>Default module "'.$sModule.'" is disabled!</p>'
        .'<p>Please <a href="setup/">configure</a> a different default module!</p>');
   }
-  Messages::addError(Translation::get('Core.ModuleNotFound', $sModule));
+  Messages::Error(Translation::get('Core.ModuleNotFound', $sModule));
   Core::Redirect(Core::URL(array('module'=>STARTMODULE)));
 } elseif (!Core::CheckRequired('module', $sModule, $Err)) {
-  Messages::addError($Err);
+  Messages::Error($Err);
   Core::Redirect(Core::URL(array('module'=>STARTMODULE)));
 }
 
@@ -526,10 +526,10 @@ if (esf_User::isValid()) {
     foreach ($aBugReports as $sFile) {
       $sTo = sprintf('%s%s', $sBugDir, basename($sFile));
       if ($oExec->Move($sFile, $sTo, $sResult)) {
-        Messages::addError($sResult);
+        Messages::Error($sResult);
       }
     }
-    Messages::addError(Translation::get('Core.EsniperEncounteredBug', $sBugDir));
+    Messages::Error(Translation::get('Core.EsniperEncounteredBug', $sBugDir));
   }
 }
 unset($aBugReports, $sBugDir, $sFile, $sTo, $sResult);

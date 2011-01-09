@@ -1,22 +1,12 @@
 <?php
 /**
- * @category   Plugin
- * @package    Plugin-Backend
- * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    0.1.0
- */
-
-/**
- * Rewrite urls
+ * Backend plugin
  *
- * @category   Plugin
- * @package    Plugin-Backend
+ * @ingroup    Module-Backend
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
+ * @copyright  2009-2011 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    Release: @package_version@
+ * @version    $Id$
  */
 class esf_Plugin_Module_Backend extends esf_Plugin {
 
@@ -53,7 +43,7 @@ class esf_Plugin_Module_Backend extends esf_Plugin {
       $user = esf_User::getActual();
       if (!in_array($user, explode('|',$data['value']))) {
         $data['value'] = trim($user.'|'.$data['value'], '|');
-        Messages::addError('Add yourself to allowed users!');
+        Messages::Error('Add yourself to allowed users!');
       }
     }
   }

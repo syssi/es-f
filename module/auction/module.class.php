@@ -238,9 +238,9 @@ class esf_Module_Auction extends esf_Module {
         if ($Image = file_get_contents($Image)) {
           // remove all old thumbs
           if (Exec::getInstance()->Remove(sprintf('"%s/%s.img."*', esf_User::UserDir(), $auction['item']), $err))
-            Messages::addError($err);
+            Messages::Error($err);
           // save new image
-          if (!File::write($ImgFile, $Image)) Messages::addError('Error writing image file: '.$ImgFile);
+          if (!File::write($ImgFile, $Image)) Messages::Error('Error writing image file: '.$ImgFile);
         }
       }
       $auction['shipping'] = toNum($this->Request('shipping'));
@@ -311,7 +311,7 @@ class esf_Module_Auction extends esf_Module {
           $cnt = $cnt+1;
         }
       }
-      Messages::addSuccess(
+      Messages::Success(
         ( $cnt
         ? Translation::get('Auction.DeletedEnded', $cnt)
         : Translation::get('Auction.NoDeletedEnded') )
@@ -346,7 +346,7 @@ class esf_Module_Auction extends esf_Module {
       foreach ($this->Auctions as $item) {
         // check if auction is still monitored an got correct suction data back
         if ($auction = esf_Auctions::get($item)) {
-          Messages::addInfo(Translation::get('Auction.SkipMonitored', $item, $auction['name']));
+          Messages::Info(Translation::get('Auction.SkipMonitored', $item, $auction['name']));
           continue;
         }
 
@@ -407,7 +407,7 @@ class esf_Module_Auction extends esf_Module {
         TplData::set('Group', $this->getGroupTplData($this->Group));
       }
     } else {
-      Messages::addError('Unknown group: '.$this->Group);
+      Messages::Error('Unknown group: '.$this->Group);
       $this->forward();
     }
   }
@@ -545,14 +545,14 @@ class esf_Module_Auction extends esf_Module {
   public function MDelAction() {
     if ($this->isPost() AND $this->Auctions) {
       if (!$this->Request('mdel_confirm')) {
-        Messages::addError(Translation::get('Auction.PleaseConfirmDelete'), TRUE);
+        Messages::Error(Translation::get('Auction.PleaseConfirmDelete'), TRUE);
       } else {
         $i = 0;
         foreach ($this->Auctions as $item) {
           esf_Auctions::Delete($item);
           $i = $i + 1;
         }
-        if ($i) Messages::addSuccess(Translation::get('Auction.AuctionsDeleted', $i), TRUE);
+        if ($i) Messages::Success(Translation::get('Auction.AuctionsDeleted', $i), TRUE);
       }
     }
     $this->forward();
@@ -564,11 +564,11 @@ class esf_Module_Auction extends esf_Module {
   public function MDelGAction() {
     if ($this->isPost() AND $this->Auctions) {
       if (!$this->Request('mdelg_confirm')) {
-        Messages::addError(Translation::get('Auction.PleaseConfirmDelete'));
+        Messages::Error(Translation::get('Auction.PleaseConfirmDelete'));
       } else {
         foreach ($this->Auctions as $item) {
           $group = esf_Auctions::getGroup($item);
-          Messages::addInfo(Translation::get('Auction.DeleteAuctionsOfGroup', $group));
+          Messages::Info(Translation::get('Auction.DeleteAuctionsOfGroup', $group));
           foreach (esf_Auctions::$Auctions as $auction)
             if ($group == esf_Auctions::getGroup($auction)) esf_Auctions::Delete($auction);
         }

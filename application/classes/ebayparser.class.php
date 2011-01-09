@@ -54,14 +54,14 @@ abstract class ebayParser {
    */
   public final function getDetail( $item, $name, $stripTags=TRUE, $url=NULL ) {
     if (!isset($this->RegEx[$name])) {
-      Messages::addInfo('Missing reg. expression for detail "'.$name.'"');
+      Messages::Info('Missing reg. expression for detail "'.$name.'"');
       return FALSE;
     }
 
     $result = '';
     $html = AuctionHTML::getHTML($item, $this->URL, $err, ($url?$url:$name));
     if ($err) {
-      Messages::addError($err);
+      Messages::Error($err);
     } else {
       // >> Debug
       $dbg = '\'%s\' => %s';

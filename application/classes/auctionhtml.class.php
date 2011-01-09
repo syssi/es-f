@@ -15,7 +15,7 @@ abstract class AuctionHTML {
    */
   public static function clearBuffer( $item='*', $urlId='*' ) {
     $files = np('"%s/"%s.%s".html"', TEMPDIR, $item, $urlId);
-    if (Exec::getInstance()->Remove($files, $res)) Messages::addInfo($res);
+    if (Exec::getInstance()->Remove($files, $res)) Messages::Info($res);
   }
 
   /**

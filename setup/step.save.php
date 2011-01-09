@@ -1,6 +1,10 @@
 <?php
 /**
- *
+ * @ingroup    es-f-Setup
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2007-2011 Knut Kohl
+ * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
+ * @version    $Id$
  */
 
 defined('_ESF_OK') || die('No direct call allowed.');

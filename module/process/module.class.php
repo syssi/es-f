@@ -1,22 +1,12 @@
 <?php
 /**
- * @category   Module
- * @package    Module-Process
- * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    0.1.0
- */
-
-/**
  * esniper processes module
  *
- * @category   Module
- * @package    Module-Process
+ * @ingroup    Module-Process
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
+ * @copyright  2009-2011 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    Release: @package_version@
+ * @version    $Id$
  */
 class esf_Module_Process extends esf_Module {
 
@@ -45,7 +35,7 @@ class esf_Module_Process extends esf_Module {
         TplData::add('Processes', $p);
       }
     } else {
-      Messages::addInfo(Translation::get('Process.NoProcesses'));
+      Messages::Info(Translation::get('Process.NoProcesses'));
     }
   }
 
@@ -59,7 +49,7 @@ class esf_Module_Process extends esf_Module {
       if (isset($pids[$this->Request('pid')])) {
         $cmd = array('Process::KILL', $this->Request('pid'));
         if (Exec::getInstance()->ExecuteCmd($cmd, $res, Registry::get('SuDo'))) {
-          Messages::addError($res);
+          Messages::Error($res);
         }
       }
     }

@@ -185,7 +185,7 @@ abstract class Exec {
         }
       }
     } elseif ($required) {
-      Messages::addError($xml->Error);
+      Messages::Error($xml->Error);
     }
   }
 

@@ -81,7 +81,7 @@ switch ($step) {
     exec('rm -rf ../local/data/tmp/*');
     exec('rm -rf ../local/data/session/*');
 
-    if (!empty($_GET['msg'])) Messages::addError($_GET['msg']);
+    if (!empty($_GET['msg'])) Messages::Error($_GET['msg']);
 
     LoadConfig();
     $_SESSION['USERS'] = Registry::get('Users');

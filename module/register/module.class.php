@@ -38,7 +38,7 @@ class esf_Module_Register extends esf_Module {
                     $this->Request('user') . "\n"
                   . MD5Encryptor::encrypt(md5($pp['esf'][0])."\x01".$pp['ebay'][0], md5($pp['esf'][0])) . "\n"
                   . $this->Request('cmt'));
-        Messages::addInfo(Translation::get('Register.ThankYouForRegister'));
+        Messages::Info(Translation::get('Register.ThankYouForRegister'));
         if ($this->SendMail) {
           // send email about registration request
           $msg = 'User: '.$this->Request['user']."\n\n".'Comment: '.$this->Request('cmt');
@@ -67,7 +67,7 @@ class esf_Module_Register extends esf_Module {
   public function AdminAction() {
     // check auth.
     if (!esf_User::isValid() OR esf_User::getActual(TRUE) != strtolower(esf_User::$Admin)) {
-      Messages::addError('Not allowed!');
+      Messages::Error('Not allowed!');
       $this->redirect(Registy::get('StartModule'));
     }
 
@@ -87,12 +87,12 @@ class esf_Module_Register extends esf_Module {
         switch ($mode) {
           case -1:
             // reject
-            Messages::addInfo(Translation::get('Register.RejectedUser', $name));
+            Messages::Info(Translation::get('Register.RejectedUser', $name));
             break;
           case  1:
             // accept
             $newUsers[$name] = $regUsers[$name]['passwords'];
-            Messages::addSuccess(Translation::get('Register.AcceptedUser', $name));
+            Messages::Success(Translation::get('Register.AcceptedUser', $name));
             break;
           default:
             // do nothing yet, hold request back

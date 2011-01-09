@@ -2,12 +2,11 @@
 /**
  * Handle application messages
  *
- * @package    Messages
+ * @ingroup    Messages
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2007-2009 Knut Kohl
+ * @copyright  2007-2011 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    1.0.0
- * @since      File available since Release 2.0.0
+ * @version    $Id$
  */
 
 abstract class Messages {
@@ -73,9 +72,6 @@ abstract class Messages {
    * @param mixed $msg Message(s)
    * @param boolean $formated Message is still HTML formated
    */
-  public static function addInfo( $msg, $formated=FALSE ) {
-    self::add($msg, self::INFO, $formated);
-  }
   public static function Info( $msg, $formated=FALSE ) {
     self::add($msg, self::INFO, $formated);
   }
@@ -86,9 +82,6 @@ abstract class Messages {
    * @param mixed $msg Message(s)
    * @param boolean $formated Message is still HTML formated
    */
-  public static function addSuccess( $msg, $formated=FALSE ) {
-    self::add($msg, self::SUCCESS, $formated);
-  }
   public static function Success( $msg, $formated=FALSE ) {
     self::add($msg, self::SUCCESS, $formated);
   }
@@ -99,10 +92,6 @@ abstract class Messages {
    * @param mixed $msg Message(s)
    * @param boolean $formated Message is still HTML formated
    */
-  public static function addError( $msg, $formated=FALSE ) {
-    if (!is_array($msg)) $msg = '[Error] '.$msg;
-    self::add($msg, self::ERROR, $formated);
-  }
   public static function Error( $msg, $formated=FALSE ) {
     if (!is_array($msg)) $msg = '[Error] '.$msg;
     self::add($msg, self::ERROR, $formated);
@@ -114,9 +103,6 @@ abstract class Messages {
    * @param mixed $msg Message(s)
    * @param boolean $formated Message is still HTML formated
    */
-  public static function addCode( $msg, $formated=FALSE ) {
-    self::add($msg, self::CODE, $formated);
-  }
   public static function Code( $msg, $formated=FALSE ) {
     self::add($msg, self::CODE, $formated);
   }

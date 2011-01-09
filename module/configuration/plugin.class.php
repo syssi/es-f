@@ -77,7 +77,7 @@ class esf_Plugin_Module_Configuration extends esf_Plugin {
       $user = esf_User::getActual();
       if (!in_array($user, explode('|',$data['value']))) {
         $data['value'] = trim($user.'|'.$data['value'], '|');
-        Messages::addError('Add yourself to allowed users!');
+        Messages::Error('Add yourself to allowed users!');
       }
     }
   }

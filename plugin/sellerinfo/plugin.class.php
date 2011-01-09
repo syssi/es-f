@@ -77,7 +77,7 @@ class esf_Plugin_SellerInfo extends esf_Plugin {
       $url = $this->Homepage;
       $html = HTMLpage::get(str_ireplace('$SELLER', $auction['seller'], $url), $err);
       if ($err) {
-        Messages::addError($err);
+        Messages::Error($err);
       } elseif (preg_match($this->DataRegex, $html, $args)) {
         $info = trim($args[1]);
 

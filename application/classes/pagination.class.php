@@ -1,95 +1,18 @@
 <?php
 /**
+ * Creates pagination links
  *
- *
- * @package Pagination
- */
-
-/**
- *
- *
- * @package Pagination
+ * @ingroup    Pagination
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2009-2011 Knut Kohl
+ * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
+ * @version    $Id$
  */
 class Pagination {
 
-  private $options = array(
-
-    /**
-     * Page count
-     */
-    'pages' => 1,
-
-    /**
-     * URL parameter
-     */
-    'parameter' => '_page',
-
-    /**
-     * Count of prev./next page links
-     */
-    'shortcount' => 5,
-
-    /**
-     * Step range for wide prev./next links
-     * - negative value: in percent
-     * - positive value: absolute step width
-     */
-    'widestep' => -5,
-
-    /**
-     *
-     */
-    'pagehint' => 'Go to page {PAGE}',
-
-   /**
-     * Template for pagination
-     *
-     * Possible tags:
-     * <code>
-     * {FIRST:|<}              // default
-     * {FIRST:%d}
-     * {PREVWIDE:<<,100}       // pos. value: absolute step width
-     * {PREVWIDE:<<,-5}        // neg. value: procentual, here step width 5%
-     * {PREVSHORT:%d, | }      // implode links with 2nd parameter
-     * {PREV:<}
-     * {PAGE:%d}
-     * {PAGES:%d}
-     * {NEXT:>}
-     * {NEXTSHORT:%d, | }      // implode links with 2nd parameter
-     * {NEXTWIDE:>>,100}       // pos. value: absolute step width
-     * {NEXTWIDE:>>,-5}        // neg. value: procentual, here step width 5%
-     * {LAST:>|}               // default
-     * {LAST:%d}
-     * {INPUT}
-     * {SELECT:1}              // pos. value: absolute step width
-     * {SELECT:-5}             // neg. value: procentual, here step width 5%
-     * {SUBMIT:Go}';
-     * </code>
-     *
-     * To put HTML in the tag (e.g. images), use this notation:
-     *
-     * <code>
-     * {FIRSTHTML:<img...>}
-     * {PREVWIDEHTML:<img...>}
-     * {PREVSHORTHTML:<img...>}
-     * {PREVHTML:<img...>}
-     * {PAGEHTML:<img...>}
-     * {PAGESHTML:<img...>}
-     * {NEXTHTML:<img...>}
-     * {NEXTSHORTHTML:<img...>}
-     * {NEXTWIDEHTML:<img...>}
-     * {LASTHTML:<img...>}
-     * </code>
-
-     */
-    'template' => '{FIRST} {PREVWIDE} {PREVSHORT} {PREV} {PAGE} [{PAGES}] {NEXT}
-                   {NEXTSHORT} {NEXTWIDE} {LAST} | {INPUT} {SELECT} {SUBMIT}',
-
-    /**
-     * Extra link parameters
-     */
-     'linkparameters' => array(),
-  );
+  // -------------------------------------------------------------------------
+  // PUBLIC
+  // -------------------------------------------------------------------------
 
   /**
    *
@@ -125,6 +48,7 @@ class Pagination {
   font-size: 1.4em;
 }
 */
+
   /**
    *
    */
@@ -151,13 +75,8 @@ class Pagination {
     $form = ((strpos($this->options['template'], '{INPUT')  !== FALSE) OR
              (strpos($this->options['template'], '{SELECT') !== FALSE));
 
-
-#    Messages::addInfo($tpl);
-
     //                    {TAG[:param1[,param2]]}
     if (preg_match_all('~\{([A-Z]+):?([^}]*?)\}~s', $tpl, $tags, PREG_SET_ORDER)) {
-
-#      Messages::addInfo('<pre>'.print_r($tags,true).'</pre>',true);
 
       foreach ($tags as $tag) {
         // Tramsform NOT HTML tags into HTML
@@ -307,6 +226,85 @@ class Pagination {
   // -------------------------------------------------------------------------
   // PRIVATE
   // -------------------------------------------------------------------------
+
+  private $options = array(
+
+    /**
+     * Page count
+     */
+    'pages' => 1,
+
+    /**
+     * URL parameter
+     */
+    'parameter' => '_page',
+
+    /**
+     * Count of prev./next page links
+     */
+    'shortcount' => 5,
+
+    /**
+     * Step range for wide prev./next links
+     * - negative value: in percent
+     * - positive value: absolute step width
+     */
+    'widestep' => -5,
+
+    /**
+     *
+     */
+    'pagehint' => 'Go to page {PAGE}',
+
+   /**
+     * Template for pagination
+     *
+     * Possible tags:
+     * <code>
+     * {FIRST:|<}              // default
+     * {FIRST:%d}
+     * {PREVWIDE:<<,100}       // pos. value: absolute step width
+     * {PREVWIDE:<<,-5}        // neg. value: procentual, here step width 5%
+     * {PREVSHORT:%d, | }      // implode links with 2nd parameter
+     * {PREV:<}
+     * {PAGE:%d}
+     * {PAGES:%d}
+     * {NEXT:>}
+     * {NEXTSHORT:%d, | }      // implode links with 2nd parameter
+     * {NEXTWIDE:>>,100}       // pos. value: absolute step width
+     * {NEXTWIDE:>>,-5}        // neg. value: procentual, here step width 5%
+     * {LAST:>|}               // default
+     * {LAST:%d}
+     * {INPUT}
+     * {SELECT:1}              // pos. value: absolute step width
+     * {SELECT:-5}             // neg. value: procentual, here step width 5%
+     * {SUBMIT:Go}';
+     * </code>
+     *
+     * To put HTML in the tag (e.g. images), use this notation:
+     *
+     * <code>
+     * {FIRSTHTML:<img...>}
+     * {PREVWIDEHTML:<img...>}
+     * {PREVSHORTHTML:<img...>}
+     * {PREVHTML:<img...>}
+     * {PAGEHTML:<img...>}
+     * {PAGESHTML:<img...>}
+     * {NEXTHTML:<img...>}
+     * {NEXTSHORTHTML:<img...>}
+     * {NEXTWIDEHTML:<img...>}
+     * {LASTHTML:<img...>}
+     * </code>
+
+     */
+    'template' => '{FIRST} {PREVWIDE} {PREVSHORT} {PREV} {PAGE} [{PAGES}] {NEXT}
+                   {NEXTSHORT} {NEXTWIDE} {LAST} | {INPUT} {SELECT} {SUBMIT}',
+
+    /**
+     * Extra link parameters
+     */
+     'linkparameters' => array(),
+  );
 
   /**
    *

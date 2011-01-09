@@ -17,7 +17,7 @@ class esf_Module_Logout extends esf_Module {
     Session::setP('ClearCache', TRUE);
     // logout user and restart session
     Core::StartSession(TRUE);
-    Messages::addSuccess(Translation::get('Logout.Success'));
+    Messages::Success(Translation::get('Logout.Success'));
     // redirect to default start page/module
     $this->redirect(STARTMODULE);
   }

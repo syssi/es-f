@@ -170,12 +170,12 @@ function checkDir( $dir, $chmod=755 ) {
   $Exec = Exec::getInstance();
   if (!is_dir($dir)) {
     if ($Exec->MkDir($dir, $res)) {
-      Messages::addError($res);
+      Messages::Error($res);
     }
     is_dir($dir) OR die('Can\'t create directory ['.$dir.']!');
   }
   if ($Exec->ChMod($dir, $chmod, FALSE, $res)) {
-    Messages::addError($res);
+    Messages::Error($res);
   }
   return realpath($dir);
 }
@@ -327,7 +327,7 @@ function setExtensionVar( $scope, $extension, $var, $value=NULL ) {
 
   $id = $scope.$extension;
   if (!isset($mark[$id])) {
-    Messages::addError('<i>ATTENTION</i>: Due to design changes it is required to '
+    Messages::Error('<i>ATTENTION</i>: Due to design changes it is required to '
                       .Core::Link(Core::URL(array('module'=>'configuration',
                                                   'action'=>'edit',
                                                   'params'=>array('ext'=>$scope.'-'.$extension))),

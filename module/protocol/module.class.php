@@ -1,22 +1,12 @@
 <?php
 /**
- * @category   Module
- * @package    Module-Protocol
- * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    0.1.0
- */
-
-/**
  * esniper protocols module
  *
- * @category   Module
- * @package    Module-Protocol
+ * @ingroup    Module-Protocol
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
+ * @copyright  2009-2011 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    Release: @package_version@
+ * @version    $Id$
  */
 class esf_Module_Protocol extends esf_Module {
 
@@ -85,7 +75,7 @@ class esf_Module_Protocol extends esf_Module {
    */
   public function ShowAction() {
     if (!isset(esf_Auctions::$Groups[$this->Request('group')])) {
-      Messages::addError(Translation::get('Protocol.NoGroup'));
+      Messages::Error(Translation::get('Protocol.NoGroup'));
       $this->forward();
       return;
     } else {
@@ -108,7 +98,7 @@ class esf_Module_Protocol extends esf_Module {
    */
   public function DeleteAction() {
     if (!isset(esf_Auctions::$Groups[$this->Request('group')])) {
-      Messages::addError(Translation::get('Protocol.NoGroup'));
+      Messages::Error(Translation::get('Protocol.NoGroup'));
     } else {
       Exec::getInstance()->Remove(esf_Auctions::GroupLogFile($this->Request('group')), $res);
     }

@@ -1,13 +1,12 @@
 <?php
 /**
- * Homepage module
+ * Watching module
  *
- * @category   Module
- * @package    Module-Analyse
+ * @ingroup    Module-Watching
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
+ * @copyright  2009-2011 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    Release: @package_version@
+ * @version    $Id$
  */
 class esf_Module_Watching extends esf_Module {
 
@@ -27,7 +26,7 @@ class esf_Module_Watching extends esf_Module {
 
     foreach ($res as $line) {
       if (stristr($line, 'Login failed')) {
-        Messages::addError($res);
+        Messages::Error($res);
         break;
       }
 
@@ -53,7 +52,7 @@ class esf_Module_Watching extends esf_Module {
     }
 
     if (empty($myitems)) {
-      Messages::addInfo(Translation::get('WATCHING.NO_AUCTIONS'));
+      Messages::Info(Translation::get('WATCHING.NO_AUCTIONS'));
       if (!empty($res)) {
         $header = array('subject' => ESF_LONG_TITLE.': Watched items log',
                         'body'    => ESF_FULL_TITLE.', Module Version: '

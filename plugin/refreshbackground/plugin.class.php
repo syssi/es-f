@@ -41,7 +41,7 @@ class esf_Plugin_RefreshBackground extends esf_Plugin {
 
     if ($this->Refresh) {
       Event::ProcessInform('setLastUpdate');
-      Messages::addInfo(Translation::get('Refresh_Bg.Refresh'));
+      Messages::Info(Translation::get('Refresh_Bg.Refresh'));
     }
   }
 
@@ -61,7 +61,7 @@ class esf_Plugin_RefreshBackground extends esf_Plugin {
     if ($res)
       trigger_error('Messages from background refresh: '.implode('<br>', $res));
 
-    Messages::addInfo(Translation::get('Refresh_Bg.Refreshed'));
+    Messages::Info(Translation::get('Refresh_Bg.Refreshed'));
   }
 }
 

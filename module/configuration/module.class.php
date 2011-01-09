@@ -22,7 +22,7 @@ class esf_Module_Configuration extends esf_Module {
     // Is logged in user an admin?
     if (!in_array(esf_User::getActual(TRUE),
                   explode('|', strtolower($this->Admins)))) {
-      Messages::addError(Translation::get('Configuration.YouArNotAllowed'));
+      Messages::Error(Translation::get('Configuration.YouArNotAllowed'));
       $this->Redirect(STARTMODULE);
     }
 
@@ -68,7 +68,7 @@ class esf_Module_Configuration extends esf_Module {
     $ConfigPath = $this->EditScope.'/'.$this->EditName;
 
     if (!file_exists($ConfigPath.'/configuration.xml')) {
-      Messages::addError(ucwords($this->EditScope).' "'.$this->EditName.'" is not configurable!');
+      Messages::Error(ucwords($this->EditScope).' "'.$this->EditName.'" is not configurable!');
       $this->forward();
       return;
     }
@@ -86,7 +86,7 @@ class esf_Module_Configuration extends esf_Module {
         $Exec = Exec::getInstance();
         $dir = dirname($ConfigFile);
         if ($Exec->MkDir($dir, $res)) {
-          Messages::addError(Translation::get('Configuration.NotWritable',$dir));
+          Messages::Error(Translation::get('Configuration.NotWritable',$dir));
         } else {
           $xml = array(
             '<!--',
@@ -118,7 +118,7 @@ class esf_Module_Configuration extends esf_Module {
 
           // save config file
           File::write($ConfigFile, $xml);
-          Messages::addSuccess(Translation::get('Configuration.Saved', $ConfigFile));
+          Messages::Success(Translation::get('Configuration.Saved', $ConfigFile));
         }
 	    }
 
@@ -127,9 +127,9 @@ class esf_Module_Configuration extends esf_Module {
         if (unlink($ConfigFile)) {
           // re-read defaults and original configuration
           Core::ReadConfigs($ConfigPath);
-          Messages::addSuccess(Translation::get('Configuration.Reseted'));
+          Messages::Success(Translation::get('Configuration.Reseted'));
         } else {
-          Messages::addError('Can\'t delete "'.$ConfigFile.'"!', E_USER_ERROR);
+          Messages::Error('Can\'t delete "'.$ConfigFile.'"!', E_USER_ERROR);
         }
       }
     }
@@ -155,7 +155,7 @@ class esf_Module_Configuration extends esf_Module {
 
     $xml = new XML_Array_Definition(Core::$Cache);
     if (!$DefData = $xml->ParseXMLFile($ConfigPath.'/configuration.xml')) {
-      Messages::addError($xml->Error);
+      Messages::Error($xml->Error);
       $this->forward();
       return;
     }

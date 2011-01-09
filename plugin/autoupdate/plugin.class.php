@@ -110,11 +110,11 @@ class esf_Plugin_AutoUpdate extends esf_Plugin {
     // check application version
 #    $a = $this->Updater->getApplicationVersion();
 #    if (version_compare(ESF_VERSION, $a['version'], '<'))
-#     Messages::addSuccess(Translation::get('AutoUpdate.LatestAppRelease', $a['version'], $a['comment'], $a['url']), TRUE);
+#     Messages::Success(Translation::get('AutoUpdate.LatestAppRelease', $a['version'], $a['comment'], $a['url']), TRUE);
 
     if (!$this->UpdateCount) return;
 
-    Messages::addSuccess(Translation::get('AutoUpdate.FilesUpdatable', $this->UpdateCount), TRUE);
+    Messages::Success(Translation::get('AutoUpdate.FilesUpdatable', $this->UpdateCount), TRUE);
 
     $err = FALSE;
 
@@ -122,7 +122,7 @@ class esf_Plugin_AutoUpdate extends esf_Plugin {
     foreach ($this->Updater->getFiles(FALSE) as $file => $data) {
       $msg = '<tt>'.$file.' ('.$data['version'].')</tt>';
       if ($data['comment']) $msg .= ' : ' . $data['comment'];
-      Messages::addInfo($msg, TRUE);
+      Messages::Info($msg, TRUE);
 
       // check if the file is writable
       if (!$this->Updater->isWritable($file)) {
@@ -134,7 +134,7 @@ class esf_Plugin_AutoUpdate extends esf_Plugin {
       $form = '<form method="post"><input type="submit" name="'
             . self::URLPARAM . '" value="'
             . Translation::get('AutoUpdate.UpdateNow').'"></form>';
-      Messages::addInfo($form, TRUE);
+      Messages::Info($form, TRUE);
     }
   }
 

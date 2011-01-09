@@ -1,22 +1,12 @@
 <?php
 /**
- * @category   Plugin
- * @package    Plugin-NextAuction
- * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    0.1.0
- */
-
-/**
  * Link to jump to next auction
  *
- * @category   Plugin
- * @package    Plugin-NextAuction
+ * @ingroup    Plugin-NextAuction
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
+ * @copyright  2009-2011 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    Release: @package_version@
+ * @version    $Id$
  */
 class esf_Plugin_NextAuction extends esf_Plugin {
 
@@ -39,7 +29,7 @@ class esf_Plugin_NextAuction extends esf_Plugin {
    */
   public function OutputStart() {
     if ($this->Active AND $this->Style == 1 AND $content = $this->content())
-      Messages::addInfo($content, TRUE);
+      Messages::Info($content, TRUE);
   }
 
   /**
