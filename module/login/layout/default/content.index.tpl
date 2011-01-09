@@ -20,7 +20,7 @@
 <div id="content">
 
   <form id="loginform" name="Login" action="{FORMACTION}" method="post"
-        accept-charset="ISO-8859-1">
+        accept-charset="ISO-8859-1" onsubmit="$('button').disable().value='...'">
   {fh:"module","login"}
 
   <table id="login">
@@ -34,7 +34,7 @@
   </td></tr>
 
   <!-- IF LOGINMSG -->
-  <tr><td class="label msgerror i">{LOGINMSG}</td></tr>
+  <tr><td class="error">{LOGINMSG}</td></tr>
   <!-- ENDIF -->
 
   <tr><td class="value">

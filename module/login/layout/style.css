@@ -14,13 +14,13 @@ body#login {
 
 table#login {
   width: 310px;
-  margin: 60px auto 0.5em;
+  margin: 50px auto 0.5em;
   border: 1px solid #4D4D4D;
 	text-align: center;
 }
 
 table#login td {
-  padding: 5px 10px;
+  padding: 7px 10px;
 }
 
 table#login input,
@@ -44,7 +44,11 @@ table#login td.menu {
 
 table#login td.label {
   background-color: #EFEFEF;
-  border-top: 1px solid #4D4D4D;
+}
+
+table#login td.error {
+  background-color: #EFEFEF;
+  font-style: italic;
 }
 
 table#login td.value {
