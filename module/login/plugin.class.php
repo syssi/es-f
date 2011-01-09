@@ -15,38 +15,7 @@ class esf_Plugin_Module_Login extends esf_Plugin {
    * @return array Array of events handled by the plugin
    */
   public function handles() {
-    return array('Start', 'PageStart', 'BuildMenu');
-  }
-
-  /**
-   *
-   */
-  function Start() {
-    // Check only on 1st display of login-index
-    if (Session::get('language')) return;
-
-    $ESFlanguages = Registry::get('esf.Languages');
-
-    // Check full language Ids
-    if ($HTTPlanguages = HTTPlanguage::get()) {
-      foreach ($HTTPlanguages as $lang=>$name) {
-        if (array_key_exists($lang, $ESFlanguages)) {
-          Session::set('language', $lang);
-          return;
-        }
-      }
-    }
-    // Check primary language Ids if not found yet
-    if ($HTTPlanguages = HTTPlanguage::get(FALSE)) {
-      foreach ($HTTPlanguages as $lang=>$name) {
-        if (array_key_exists($lang, $ESFlanguages)) {
-          Session::set('language', $lang);
-          return;
-        }
-      }
-    }
-    // Fallback to english
-    Session::set('language', 'en');
+    return array('PageStart', 'BuildMenu');
   }
 
   /**

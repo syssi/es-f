@@ -8,8 +8,6 @@
 
 Idea from http://techpatterns.com/downloads/php_language_detection.php
 
-Source: http://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.10
-
 A language tag identifies a natural language spoken, written, or otherwise
 conveyed by human beings for communication of information to other human beings.
 Computer languages are explicitly excluded. HTTP uses language tags within the
@@ -23,7 +21,7 @@ A primary language tag and a possibly empty series of subtags:
         primary-tag   = 1*8ALPHA
         subtag        = 1*8ALPHA
 
-White space is not allowed within the tag and all tags are case- insensitive.
+White space is not allowed within the tag and all tags are case-insensitive.
 The name space of language tags is administered by the IANA. Example tags
 include:
 
@@ -33,6 +31,8 @@ where any two-letter primary-tag is an ISO-639 language abbreviation and any
 two-letter initial subtag is an ISO-3166 country code. (The last three tags
 above are not registered tags; all but the last are examples of tags which could
 be registered in future.)
+
+Source: http://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.10
 
 */
 
@@ -51,6 +51,7 @@ Long description goes here
  *
  * @ingroup    HTTPlanguage
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2011 Knut Kohl
  * @par Licence:
  * <a href="http://www.gnu.org/licenses/gpl.txt">GNU General Public License</a>
  * @version    $Id$
@@ -81,7 +82,7 @@ abstract class HTTPlanguage {
    * @param bool $full Find only full codes or only primary codes
    * @return array|FALSE
    */
-  public static function get( $full=TRUE ) {
+  public static function getAll( $full=TRUE ) {
     if (!isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) return FALSE;
 
     self::$Error = $return = array();
@@ -95,7 +96,7 @@ abstract class HTTPlanguage {
 
       // Full language incl. country?
       list($language) = explode(';', $language);
-      if (!$name = self::getName($language, FALSE)) continue; // skip
+      if (!$name = self::Name($language, FALSE)) continue; // skip
 
       $return[$full ? $language : substr($language, 0, 2)] = $name;
     }
@@ -114,10 +115,74 @@ abstract class HTTPlanguage {
    * @endcode
    *
    * @param string $language Full language code, e.g. en-us or en
+   * @return string|FALSE e.g. for en-us -> English (United states), en -> English
+   */
+  public static function getName( $language ) {
+    return self::Name($language, TRUE);
+  } // function getName()
+
+  /**
+   * Brief description goes here
+   *
+   * Long description goes here
+   *
+   * <strong>Usage example:</strong>
+   * @code
+   * // Assume: $_SERVER['HTTP_ACCEPT_LANGUAGE'] is
+   * //         'fr-ch;q=0.3, da, de-de;q=0.7, de, en-us;q=0.8, en;q=0.5, fr;q=0.3'
+   * echo HTTPlanguage::getMatch( array('de', 'en') );
+   * // Will output: de
+   *
+   * echo HTTPlanguage::getMatch( array('de-CH', 'en') );
+   * // Will output: en
+   *
+   * echo HTTPlanguage::getMatch( array('de-CH', 'en'), TRUE );
+   * // Will output: de because of the check for primary language,
+   * //              because de is before en
+   * @endcode
+   *
+   * @param array $languages Array of languages to check against.
+   *                         Return 1st match in HTTP_ACCEPT_LANGUAGE
+   * @param bool $primary Check also primary languages
+   * @return string|FALSE Check on FALSE HTTPlanguage::$Error
+   */
+  public static function getMatch( $languages, $primary=FALSE ) {
+    // Check full language Ids
+    if ($HTTPlanguages = self::getAll())
+      foreach ($HTTPlanguages as $lang=>$name)
+        if (in_array($lang, $languages)) return $lang;
+
+    // Check primary languages if not found yet
+    if ($primary AND $HTTPlanguages = HTTPlanguage::getAll(FALSE))
+      foreach ($HTTPlanguages as $lang=>$name)
+        if (in_array($lang, $languages)) return $lang;
+
+    return FALSE;
+  } // function getMatch()
+
+  // -------------------------------------------------------------------------
+  // PROTECTED
+  // -------------------------------------------------------------------------
+
+  // -------------------------------------------------------------------------
+  // PRIVATE
+  // -------------------------------------------------------------------------
+
+  /**
+   * Brief description goes here
+   *
+   * Long description goes here
+   *
+   * <strong>Usage example:</strong>
+   * @code
+   * ...
+   * @endcode
+   *
+   * @param string $language Full language code, e.g. en-us or en
    * @param bool $clear Clear $Error, do not, if called from get()
    * @return string|FALSE e.g. for en-us -> English (United states), en -> English
    */
-  public static function getName( $language, $clear=TRUE ) {
+  private static function Name( $language, $clear ) {
     if ($clear) self::$Error = array();
 
     // Try to split into language and country
@@ -135,15 +200,7 @@ abstract class HTTPlanguage {
     $return = self::$languages[$lg];
     if (!empty($cn)) $return .= ' ('.self::$countries[$cn].')';
     return $return;
-  } // function getName()
-
-  // -------------------------------------------------------------------------
-  // PROTECTED
-  // -------------------------------------------------------------------------
-
-  // -------------------------------------------------------------------------
-  // PRIVATE
-  // -------------------------------------------------------------------------
+  } // function Name()
 
   /**
    * Code for the representation of names of languages

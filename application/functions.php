@@ -28,14 +28,16 @@ function _Define( $define, $value ) {
  *
  */
 function encodeReturnTo( $params ) {
-  return trim(base64_encode(serialize($params)), '=');
+  return urlencode(Core::URL($params));
+#  return trim(base64_encode(serialize($params)), '=');
 }
 
 /**
  *
  */
 function decodeReturnTo( $params='' ) {
-  return unserialize(base64_decode($params));
+  return urldecode($params);
+#  return unserialize(base64_decode($params));
 }
 
 /**

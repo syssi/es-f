@@ -154,6 +154,12 @@ Event::ProcessInform('ModuleConfigsLoaded');
 ################################
 Core::StartSession();
 
+if (!Session::get('language')) {
+  if (!$language = HTTPlanguage::getMatch(array_keys(Registry::get('esf.Languages'), TRUE)))
+    $language = 'en';
+  Session::set('language', $language);
+}
+
 Event::ProcessInform('SessionStarted');
 
 if (Session::get('Mobile'))
@@ -329,8 +335,8 @@ $sModule = Registry::get('esf.Module');
 // generic styles/scripts, from defined layout or fallback layout
 TplData::add('HtmlHeader.raw', StylesAndScripts('.', Session::getP('Layout')));
 
-if (strtoupper($_SERVER['REQUEST_METHOD']) == 'GET')
-  Session::set('returnto', @$_REQUEST['returnto']);
+if (strtoupper($_SERVER['REQUEST_METHOD']) == 'GET' AND isset($_REQUEST['returnto']))
+  Session::set('returnto', $_REQUEST['returnto']);
 
 $sModuleLast = FALSE;
 
@@ -363,30 +369,12 @@ do {
   if (isset($oModule)) $oModule->handle(Registry::get('esf.Action'));
 
   // handle ReturnTo=...
-  $aReturnTo = decodeReturnTo(Session::get('returnto'));
-  if (!empty($aReturnTo) AND
-      (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST' OR isset($aReturnTo['force']))) {
-
-    // >> Debug
-    //_dbg($aReturnTo, 'ReturnTo');
-    // << Debug
-
-    unset($aReturnTo['force']);
-
-    foreach ($aReturnTo as $param => $value) {
-      switch ($param) {
-        case 'module':
-          Registry::set('esf.Module', $value);
-          $sModule = $value;
-          break;
-        case 'action':
-          Registry::set('esf.Action', $value);
-          break;
-        default:
-          $_REQUEST[$param] = $value;
-      }
-    }
-    Session::set('returnto');
+  $sReturnTo = decodeReturnTo(Session::get('returnto'));
+  if (!empty($sReturnTo) AND
+      (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST' OR
+       strpos($sReturnTo, 'force') !== FALSE )) {
+    ##_dbg($sReturnTo, 'ReturnTo');
+    Core::Redirect($sReturnTo);
   }
 
   // module specific styles/scripts, from defined layout
