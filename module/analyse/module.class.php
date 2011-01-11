@@ -207,12 +207,7 @@ class esf_Module_Analyse extends esf_Module {
   /**
    * Requested group(s)
    */
-  private $groups;
-
-  /**
-   * All groups
-   */
-  private $esfgroups;
+  private $group;
 
   /**
    * Calc auction win chance by a split limit

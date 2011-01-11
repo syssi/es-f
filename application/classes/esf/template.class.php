@@ -109,14 +109,14 @@ class esf_Template {
     // register own extensions
     if (Yuelo::get('Autoload')) {
       // preload user custom extensions, can't be found by Yuelo
-      require_once APPDIR.DIRECTORY_SEPARATOR.'yuelo'.DIRECTORY_SEPARATOR.'button.php';
-      require_once APPDIR.DIRECTORY_SEPARATOR.'yuelo'.DIRECTORY_SEPARATOR.'help.php';
-      require_once APPDIR.DIRECTORY_SEPARATOR.'yuelo'.DIRECTORY_SEPARATOR.'translate.php';
+      require_once np(APPDIR.'/yuelo/button.extension.php');
+      require_once np(APPDIR.'/yuelo/help.extension.php');
+      require_once np(APPDIR.'/yuelo/translate.extension.php');
     }
     $complier = Yuelo_Compiler::getInstance();
-    $complier->RegisterExtension('Button',    APPDIR.DIRECTORY_SEPARATOR.'yuelo'.DIRECTORY_SEPARATOR.'button.php');
-    $complier->RegisterExtension('Help',      APPDIR.DIRECTORY_SEPARATOR.'yuelo'.DIRECTORY_SEPARATOR.'help.php');
-    $complier->RegisterExtension('Translate', APPDIR.DIRECTORY_SEPARATOR.'yuelo'.DIRECTORY_SEPARATOR.'translate.php');
+    $complier->RegisterExtension('Button',    np(APPDIR.'/yuelo/button.extension.php'));
+    $complier->RegisterExtension('Help',      np(APPDIR.'/yuelo/help.extension.php'));
+    $complier->RegisterExtension('Translate', np(APPDIR.'/yuelo/translate.extension.php'));
 
     // register processors
     require_once YUELO_BASE_PROCESSOR.'removephp.class.php';
