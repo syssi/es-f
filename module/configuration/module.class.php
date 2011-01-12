@@ -96,7 +96,7 @@ class esf_Module_Configuration extends esf_Module {
             '<configuration>',
           );
 
-          foreach ($this->Request['vars'] as $var => $data) {
+          foreach ((array)$this->Request('vars') as $var => $data) {
             $check = array(
               'scope'     => $this->EditScope,
               'extension' => $this->EditName,
@@ -136,8 +136,12 @@ class esf_Module_Configuration extends esf_Module {
 
     // prepare edit form, only if exists
     $langFile = 'module/configuration/language/configuration/'.$this->EditName.'.%s.tmx';
-    Translation::LoadTMXFile(sprintf($langFile, 'en'), 'en', Core::$Cache);
-    Translation::LoadTMXFile(sprintf($langFile, Session::get('language')), Session::get('language'), Core::$Cache);
+    $lang = 'en';
+    $file = sprintf($langFile, $lang);
+    if (file_exists($file)) Translation::LoadTMXFile($file, $lang, Core::$Cache);
+    $lang = Session::get('language');
+    $file = sprintf($langFile, $lang);
+    if (file_exists($file)) Translation::LoadTMXFile($file, $lang, Core::$Cache);
 
     $name = Registry::get($this->EditScope.'.'.$this->EditName.'.Name', '');
 
