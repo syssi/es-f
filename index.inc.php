@@ -48,7 +48,8 @@ unset($sDebugFile);
 // Prepare caching
 Loader::Load(LIBDIR.'/cache/cache.class.php');
 
-$oXML = new XML_Array_Configuration(Cache::factory('Mock'));
+$aCacheOptions = array('cachedir'=>TEMPDIR, 'token'=>'es-f');
+$oXML = new XML_Array_Configuration(Cache::factory('Files', $aCacheOptions));
 $aConfiguration = $oXML->ParseXMLFile(LOCALDIR.'/config/config.xml');
 if (!$aConfiguration) die($oXML->Error);
 
@@ -77,7 +78,6 @@ if (count(esf_User::getAll()) == 0) {
 
 /// Yryie::Info('Used cache: '.Registry::get('CacheClass'));
 Loader::Load(LIBDIR.'/cache/cache/packer/gz.class.php');
-$aCacheOptions = array('cachedir'=>TEMPDIR, 'token'=>'es-f');
 $aCacheOptions['packer'] = new Cache_Packer_GZ;
 $oCache = Cache::factory(Registry::get('CacheClass'), $aCacheOptions);
 if (Registry::get('ClearCache')) $oCache->flush();

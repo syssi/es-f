@@ -29,7 +29,7 @@ abstract class Translation {
       $cached = TRUE;
       Yryie::StartTimer($id, $id, 'parse TMX file');
       /// */
-      while ($cache->save($file, $tmxdata, File::MTime($file))) {
+      while ($cache->save($file, $tmxdata, -File::MTime($file))) {
         /* ///
         Yryie::Info('Parse: '.$file);
         $cached = FALSE;
