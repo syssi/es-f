@@ -12,8 +12,8 @@
       <!--
         Diagram dimensions, multiple view
       -->
-      <config name="WidthMulti" type="int">450</config>
-      <config name="HeightMulti" type="int">150</config>
+      <config name="WidthMulti" type="int">900</config>
+      <config name="HeightMulti" type="int">200</config>
 
       <!--
         Diagram dimensions, single view

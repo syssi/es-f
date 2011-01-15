@@ -11,6 +11,8 @@ CHANGED:
   http://es-f.git.sourceforge.net/
 - Make Yuelo :: Template Engine a submodule of es-f
   http://yuelo.git.sourceforge.net/
+- Make Yryie :: Debugger for PHP applications (formerly DebugStack) a submodule of es-f
+  http://yryie.git.sourceforge.net/
 
 VERSION: 2.4.2
 --------------------

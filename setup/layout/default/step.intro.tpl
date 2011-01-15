@@ -16,6 +16,9 @@
   <div class="li">Directory and file permissions, system checks</div>
   <div class="li">User definition</div>
 
+  <h3>Change log</h3>
+  <pre>{loadfile:"setup/CHANGELOG"}</pre>
+
   <h3>Required PHP settings</h3>
 
   <div class="li">
