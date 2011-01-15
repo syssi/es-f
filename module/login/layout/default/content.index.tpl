@@ -38,6 +38,7 @@
   <!-- ENDIF -->
 
   <tr><td class="value">
+    {cookie:"LastUser" > USER}
     <label for="user">[[Login.Account]]</label><br>{ft:"user",USER}
   </td></tr>
 
@@ -47,7 +48,8 @@
 
   <tr><td class="value">
     <label for="layout">[[Login.Layout]]</label><br>
-    <select id="layout" name="layout">{options:LAYOUTS,LASTLAYOUT}</select>
+    {cookie:"LastLayout" > LAYOUT}
+    <select id="layout" name="layout">{options:LAYOUTS,LAYOUT}</select>
   </td></tr>
 
   <!-- IF CONST.MODULE.COOKIE > "0" -->

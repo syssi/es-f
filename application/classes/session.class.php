@@ -5,8 +5,7 @@
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2007-2009 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    1.1.0
- * @since      File available since Release 2.0.0
+ * @version    $Id$
  */
 abstract class Session {
 
@@ -81,16 +80,18 @@ abstract class Session {
    *
    * @return bool
    */
-  public static function Active() {
+  public static function active() {
     return (session_id() != '');
   }
 
   /**
    * Start session
    *
+   * @param int $ttl Time to live for session cookie
    * @return void
    */
-  public static function Start() {
+  public static function start( $ttl=0 ) {
+    session_set_cookie_params($ttl);
     session_start();
     if (self::$RegenerateIdAlways) self::RegenerateId(TRUE);
     self::dbg('Started "%s" = "%s"', session_name(), session_id());
@@ -166,10 +167,10 @@ abstract class Session {
    * Write the session data
    *
    * @see removeCookies()
-   * @param bool $removecookies Remove also all session cookies
+   * @param bool $removeCookies Remove also all session cookies
    * @return void
    */
-  public static function Close() {
+  public static function close() {
     @session_write_close();
   }
 
@@ -178,12 +179,12 @@ abstract class Session {
    *
    * @see removeCookies()
    * @see close()
-   * @param bool $removecookies Remove also all session cookies
+   * @param bool $removeCookies Remove also all session cookies
    * @return void
    */
-  public static function Destroy( $removecookies=TRUE ) {
+  public static function destroy( $removeCookies=TRUE ) {
     self::dbg('Destroy "%s" = "%s"', session_name(), session_id());
-    if ($removecookies) self::removeCookies();
+    if ($removeCookies) self::removeCookies();
     $_SESSION = array();
     Session::close();
     @session_destroy();
@@ -199,7 +200,7 @@ abstract class Session {
    * @param mixed $default Default value
    * @return void
    */
-  public static function CheckRequest( $param, $default=FALSE ) {
+  public static function checkRequest( $param, $default=FALSE ) {
     $lparam = self::mapKey($param);
     if (isset($_REQUEST[$param])) $_SESSION[$lparam] = $_REQUEST[$param];
     if (!isset($_SESSION[$lparam])) $_SESSION[$lparam] = $default;

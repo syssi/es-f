@@ -52,8 +52,7 @@ class esf_Module_Login extends esf_Module {
 
     // We found a user, but is it a valid one?
     if ($user AND $pass) {
-      $ls = isset($this->Request['cookie']) ? $this->Cookie : 0;
-      if (esf_User::isValid($user, $pass, $ls)) {
+      if (esf_User::isValid($user, $pass)) {
         $h = date('G');
         if ($h < $this->Morning)
           $msg = Translation::get('Login.GoodMorning');
@@ -64,20 +63,23 @@ class esf_Module_Login extends esf_Module {
         else
           $msg = Translation::get('Login.GoodEvening');
         Messages::Success($msg.' '.$user.'!');
-        Session::setP('ClearCache', TRUE);
-        setcookie(APPID.'_esf_User', $user);
-        setcookie(APPID.'_esf_Layout', $this->Request('layout'));
         Session::setP('Layout', $this->Request('layout'));
+        Session::setP('ClearCache', TRUE);
+        $ts = time()+60*60*24*365;
+        Cookie::set('LastUser', $user, $ts);
+        Cookie::set('LastLayout', $this->Request('layout'), $ts);
+        if ($this->Request('cookie'))
+          Cookie::set('ttl', 60*60*24*$this->Cookie, $ts);
+        else
+          Cookie::set('ttl');
         $this->Redirect(STARTMODULE);
       } else {
         TplData::set('LoginMsg', Translation::get('Login.Failed'));
       }
     }
 
+    Session::setP('Layout', 'default');
     TplData::set('Users', esf_User::getAll());
-    $user = APPID.'_esf_User';
-    $user = isset($_COOKIE[$user]) ? $_COOKIE[$user] : '';
-    TplData::set('User', $user);
   }
 
 }

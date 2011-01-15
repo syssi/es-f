@@ -148,32 +148,26 @@ abstract class Core {
    * Own session handling
    *
    * @param boolean $forceRestart Force restart of session, e.g. in case of logout
-   * @param boolean $keepCookie Keep cookie over session restart
    * @return void
    */
-  public static function StartSession( $forceRestart=FALSE, $keepCookie=FALSE ) {
+  public static function StartSession( $forceRestart=FALSE ) {
     /// Session::$Debug = TRUE;
     /// Session::$Messages = array();
     if (!Session::Active()) {
       // Session not started yet
       Event::ProcessInform('InitSession');
       Session::SetName(Registry::get('SessionName'));
-      Session::Start();
+      Session::Start(Cookie::get('ttl'));
     } elseif ($forceRestart) {
       // force restart
-      if (!$keepCookie) setCookie(esf_User::COOKIE, '');
-      Session::destroy(!$keepCookie);
+      Session::destroy();
       Event::ProcessInform('InitSession');
       Session::SetName(Registry::get('SessionName'));
       Session::Start();
     }
 
-    // >> Debug
-    if (Yryie::Active())
-      foreach ((array)Session::$Messages as $msg)
-        Yryie::Info($msg);
-    Session::$Messages = array();
-    // << Debug
+    /// if (Yryie::Active())
+    ///   foreach ((array)Session::$Messages as $msg) Yryie::Info($msg);
   }
 
   /**

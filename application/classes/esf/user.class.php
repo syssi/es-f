@@ -9,11 +9,6 @@
 abstract class esf_User {
 
   /**
-   * Session variables
-   */
-  const COOKIE = 'esf_cookie';
-
-  /**
    * User details
    */
   const USER_NAME = 1;
@@ -104,10 +99,9 @@ abstract class esf_User {
    * 
    * @param string $user
    * @param string $password
-   * @param boolean $CookieLs Cookie life span
    * @return boolean
    */
-  public static function isValid( $user=NULL, $password=NULL, $CookieLs=0 ) {
+  public static function isValid( $user=NULL, $password=NULL ) {
     // work inside this function only with hashed password!
     if (!is_null($password)) $password = md5($password);
 
@@ -123,18 +117,8 @@ abstract class esf_User {
         self::InitUser($user);
         return $user;
       }
-
-      // 2. try to relogin via cookie
-      if (!self::$LastUser AND isset($_COOKIE[self::COOKIE])) {
-        $cookie   = @unserialize(@MD5Encryptor::decrypt($_COOKIE[self::COOKIE]));
-        $user     = @$cookie[0];
-        $password = @$cookie[1];
-        $relogin = TRUE;
-      }
-    }
-
-    // 3. login with user ans password
-    if ($user AND $password) {
+    } else {
+      // 2. login with user ans password
       // Login: check user/password and store in session
       self::$LastUser = NULL;
       if (!($pass = self::get($user, self::USER_PASS))) return FALSE;
@@ -148,11 +132,6 @@ abstract class esf_User {
 
         Session::set(APPID, MD5Encryptor::encrypt($user));
         Session::set($token, $password);
-
-        if ($CookieLs)
-          setCookie(self::COOKIE,
-                    MD5Encryptor::encrypt(serialize(array($user, $password))),
-                    $_SERVER['REQUEST_TIME']+$CookieLs*24*60*60); // $CookieLs days
 
         if ($relogin) {
           Event::ProcessInform('Log', 'Login: '.$user.' from '.$_SERVER['REMOTE_ADDR'].' (Cookie)');

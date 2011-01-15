@@ -37,7 +37,6 @@
   <!-- END HTMLHEADER.CSS -->
 
   <!-- dynamic font size -->
-  <script type="text/javascript" src="js/efa/cookies.js"></script>
   <script type="text/javascript" src="js/efa/efa_fontsize.js"></script>
 
   <script type="text/javascript" src="js/_load.js"></script>
@@ -48,12 +47,11 @@
 
   <script type="text/javascript">
     // <![CDATA[
-    var esf_cookieManager = new esf_Cookiemanager('esf_cookieManager');
-    esf_cookieManager.setCookie('esf_jstest',true);
+    var cookieManager =
+      new Cookiemanager('cookieManager', '', 1, 'years', document.domain);
     <!-- BEGIN HTMLHEADER.SCRIPT -->
     {SCRIPT}
     <!-- END HTMLHEADER.SCRIPT -->
-    <!-- addLoadEvent(setupZoom); -->
     // ]]>
   </script>
 
