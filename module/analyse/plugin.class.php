@@ -2,12 +2,11 @@
 /**
  * Rewrite urls
  *
- * @category   Plugin
- * @package    Plugin-Analyse
+ * @ingroup    Module-Analyse
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    0.1.0
+ * @copyright  2009-2011 Knut Kohl
+ * @license
+ * @version    $Id$
  */
 class esf_Plugin_Module_Analyse extends esf_Plugin {
 

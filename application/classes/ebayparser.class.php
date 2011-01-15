@@ -1,5 +1,5 @@
 <?php
-/** @defgroup ebayParser
+/** @defgroup ebayParser eBay HTML page parser
 
 */
 
@@ -9,7 +9,7 @@
  * @ingroup    ebayParser
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2007-2010 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
+ * @license
  * @version    $Id$
  * @throws     ebayParserException
  */
@@ -438,6 +438,8 @@ abstract class ebayParser {
 } // class
 
 /**
+ * Exception used by ebay parser classes
  *
+ * @ingroup ebayParser
  */
 class ebayParserException extends Exception {}

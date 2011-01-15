@@ -143,6 +143,7 @@ abstract class Cache {
   /**
    * Function factory...
    *
+   * @param string $class Cache class to create
    * @param array $settings
    * @return void
    */
@@ -287,7 +288,6 @@ abstract class Cache {
   /**
    * Class constructor
    *
-   * @protected
    * @param array $settings
    * @return void
    */

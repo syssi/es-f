@@ -1,5 +1,5 @@
 <?php
-/** @defgroup Exec
+/** @defgroup exec Shell functions wrapper
 
 */
 
@@ -8,8 +8,8 @@
  *
  * @ingroup    exec
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2007-2010 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
+ * @copyright  2007-2011 Knut Kohl
+ * @license
  * @version    $Id$
  */
 abstract class Exec {

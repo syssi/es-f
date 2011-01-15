@@ -1,27 +1,17 @@
 <?php
 /**
- * @category   Module
- * @package    Module-BulkAdd
- * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    0.1.0
- */
-
-/**
  * Bulk auction add module
  *
- * @category   Module
- * @package    Module-BulkAdd
+ * @ingroup    Module-BulkAdd
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    Release: @package_version@
+ * @copyright  2009-2011 Knut Kohl
+ * @license
+ * @version    $Id$
  */
 class esf_Module_BulkAdd extends esf_Module {
 
   /**
-   *
+   * Handles index action
    */
   public function IndexAction() {
     // Correct form posted? (and NOT e.g. layoutswitch)
@@ -38,4 +28,5 @@ class esf_Module_BulkAdd extends esf_Module {
     Tpldata::set('CATEGORIES', esf_Auctions::getCategories());
     Tpldata::set('GROUPS', esf_Auctions::getGroups());
   }
+
 }
