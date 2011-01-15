@@ -15,7 +15,7 @@
     {fh:"module","process"}
     {fh:"action","kill"}
     {fh:"pid",PID}
-    <input type="image" src="layout/default/images/stop.gif" alt="[KILL]"
+    <input type="image" src="module/process/layout/images/kill.gif" alt="[KILL]"
            title="kill group {GROUP}" onmouseover="Tip('kill group {GROUP}');">
     </form>
   </td>

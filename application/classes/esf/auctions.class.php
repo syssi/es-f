@@ -461,7 +461,7 @@ abstract class esf_Auctions {
       $pid = preg_split('~\s+~', trim($pid));
 
       if (is_numeric($pid[0])) {
-        if (preg_match('~/([^/.]+)\.'.esf_User::getActual(TRUE).'$~', $pid[count($pid)-1], $args)) {
+        if (preg_match('~/([^/]+)\.'.esf_User::getActual(TRUE).'$~', $pid[count($pid)-1], $args)) {
           $group = $args[1];
           $group = str_replace('_', ' ', $group);
           $pids[$pid[0]] = $group;
@@ -841,7 +841,7 @@ abstract class esf_Auctions {
    * @param string &$group Group name to change
    */
   public static function SanitizeGroup( $group ) {
-    return trim(preg_replace('~[\W\s_]+~', ' ', utf8_unaccent($group)));
+    return trim(preg_replace('~[^A-Z0-9_#=.-]+~i', ' ', utf8_unaccent($group)));
   }
 
   /**

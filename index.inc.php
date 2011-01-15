@@ -413,6 +413,7 @@ TplData::setConstant('ESF.FULL_VERSION', ESF_FULL_VERSION);
 TplData::setConstant('ESF.FULL_TITLE', ESF_FULL_TITLE);
 TplData::setConstant('ESF.APPID', APPID);
 TplData::setConstant('ESF.LANGUAGE', Session::get('language'));
+TplData::setConstant('ESF.MODULE', Registry::get('esf.Module'));
 TplData::setConstant('YEAR', date('Y'));
 TplData::setConstant('ESNIPER.VERSION', Session::get('esniperVersion'));
 TplData::setConstant('YUELO_VERSION', 'Yuelo - Template engine V. '.Yuelo::VERSION);

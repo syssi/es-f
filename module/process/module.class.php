@@ -30,7 +30,7 @@ class esf_Module_Process extends esf_Module {
         // get last word as auction file ...
         $g = $g[count($g)-1];
         // ... and remove user name
-        $p['GROUP'] = str_replace('.'.$user, '', $g);
+        $p['GROUP'] = preg_replace('~.*/(.*)\.'.$user.'~', '$1', $g);
 
         TplData::add('Processes', $p);
       }
