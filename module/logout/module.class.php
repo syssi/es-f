@@ -14,6 +14,7 @@ class esf_Module_Logout extends esf_Module {
    *
    */
   public function IndexAction() {
+    Cookie::set('ttl');
     Session::setP('ClearCache', TRUE);
     // logout user and restart session
     Core::StartSession(TRUE);
