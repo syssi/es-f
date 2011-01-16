@@ -2,12 +2,11 @@
 /**
  * Sniping module
  *
- * @category   Module
- * @package    Module-Snipe
+ * @ingroup    Module-Snipe
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2009 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    0.1.0
+ * @version    $Id$
  */
 class esf_Module_Snipe extends esf_Module {
 
@@ -19,6 +18,13 @@ class esf_Module_Snipe extends esf_Module {
     Event::block('OutputFilterFooter');
     Event::block('OutputFilterHtmlEnd');
     Registry::set('esf.contentonly', TRUE);
+  }
+
+  /**
+   * @return array Array of actions handled by the module
+   */
+  public function handles() {
+    return array('index', 'save', 'error');
   }
 
   /**

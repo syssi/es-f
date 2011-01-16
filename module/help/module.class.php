@@ -38,6 +38,13 @@ class esf_Module_Help extends esf_Module {
   }
 
   /**
+   * @return array Array of actions handled by the module
+   */
+  public function handles() {
+    return array('index', 'topic', 'show', 'edit');
+  }
+
+  /**
    *
    */
   public function IndexAction() {

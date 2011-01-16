@@ -74,8 +74,6 @@
 
       <config name="LoginRequired" type="bool">TRUE</config>
 
-      <config name="Actions">index|add|editauction|delete|cleanup|editgroup|start|stop|refresh|refreshcategory|refreshgroup|mcategory|mgroup|mimage|mcomment|mbid|mcurrency|mrefresh|mdel|mdelg|mstart|mstop</config>
-
       <config name="Name">Main module for auction management</config>
 
       <config name="Author">Knut Kohl</config>

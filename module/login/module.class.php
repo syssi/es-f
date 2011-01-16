@@ -21,6 +21,13 @@ class esf_Module_Login extends esf_Module {
   }
 
   /**
+   * @return array Array of actions handled by the module
+   */
+  public function handles() {
+    return array('index');
+  }
+
+  /**
    *
    */
   public function IndexAction() {

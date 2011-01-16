@@ -13,8 +13,6 @@
 
       <config name="LoginRequired" type="bool">TRUE</config>
 
-      <config name="Actions">index</config>
-
       <config name="Name">Logout</config>
 
       <config name="Author">Knut Kohl</config>

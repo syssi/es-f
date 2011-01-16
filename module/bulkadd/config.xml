@@ -14,8 +14,6 @@
       <config name="LoginRequired" type="bool">TRUE</config>
       <config name="Mobile" type="bool">FALSE</config>
 
-      <config name="Actions">index</config>
-
       <config name="Name">Add multiple auctions at once</config>
 
       <config name="Author">Knut Kohl</config>

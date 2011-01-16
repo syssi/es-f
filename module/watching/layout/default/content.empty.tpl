@@ -19,6 +19,8 @@
 
 <div id="content">
 
+<p>[[Watching.No_Auctions]]</p>
+
 <!-- IF RESULT -->
 <p>But there was an output of esniper:</p>
 

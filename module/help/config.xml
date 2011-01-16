@@ -18,8 +18,6 @@
 
       <config name="Mobile" type="bool">FALSE</config>
 
-      <config name="Actions">index|topic|show|edit</config>
-
       <config name="Name">Module help screens</config>
 
       <config name="Author">Knut Kohl</config>

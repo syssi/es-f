@@ -11,10 +11,17 @@
 class esf_Module_ExchangeRates extends esf_Module {
 
   /**
+   * @return array Array of actions handled by the module
+   */
+  public function handles() {
+    return array('index');
+  }
+
+  /**
    *
    */
   public function IndexAction() {
-    $path = dirname(__file__);
+    $path = dirname(__file__).'/classes';
 
     if (time() > (Session::get('Module.ExchangeRates.TS')+$this->CacheLifespan*24*60*60) OR
         !($rates = Session::get('Module.ExchangeRates.Rates')) OR
@@ -66,12 +73,12 @@ class esf_Module_ExchangeRates extends esf_Module {
       TplData::set('Calced', 1);
       TplData::set('DCurr', 'EUR');
     } else {
-      TplData::set('Amount', @$this->Request['amount']);
-      TplData::set('SCurr',  @$this->Request['scurr']);
-      TplData::set('Calced', toNum(iif(@$this->Request['amount'], @$this->Request['amount'], 1))
-                           * $rates[@$this->Request['dcurr']]['rate']
-                           / $rates[@$this->Request['scurr']]['rate']);
-      TplData::set('DCurr',  @$this->Request['dcurr']);
+      TplData::set('Amount', $this->Request('amount'));
+      TplData::set('SCurr',  $this->Request('scurr'));
+      TplData::set('Calced', toNum(iif($this->Request('amount'), $this->Request('amount'), 1))
+                           * @$rates[$this->Request('dcurr')]['rate']
+                           / @$rates[$this->Request('scurr')]['rate']);
+      TplData::set('DCurr',  $this->Request('dcurr'));
     }
   }
 

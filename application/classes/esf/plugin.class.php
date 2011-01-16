@@ -12,7 +12,7 @@
 /**
  *
  */
-abstract class esf_Plugin extends esf_Extension implements EventHandlerI {
+abstract class esf_Plugin extends esf_Extension {
 
   /**
    *

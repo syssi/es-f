@@ -18,8 +18,6 @@
 
       <config name="Category">Other</config>
 
-      <config name="Actions">index</config>
-
       <config name="Name">News feed of your auctions</config>
 
       <config name="Author">Knut Kohl</config>

@@ -28,8 +28,6 @@
       <config name="LoginRequired" type="bool">TRUE</config>
       <config name="Mobile" type="bool">FALSE</config>
 
-      <config name="Actions">index|show|showmulti</config>
-
       <config name="Name">Analyse auctions regarding # of bids, end price and end time</config>
 
       <config name="Author">Knut Kohl</config>

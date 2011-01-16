@@ -13,8 +13,6 @@
       <config name="LoginRequired" type="bool">TRUE</config>
       <config name="Mobile" type="bool">FALSE</config>
 
-      <config name="Actions">index|download</config>
-
       <config name="Name">Some system informations for support requests</config>
 
       <config name="Category">System</config>

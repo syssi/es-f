@@ -14,8 +14,6 @@
       <config name="LoginRequired" type="bool">TRUE</config>
       <config name="Mobile" type="bool">FALSE</config>
 
-      <config name="Actions">index</config>
-
       <config name="Category">Auction</config>
 
       <config name="Name">Show savings of won auctions against your high bid</config>

@@ -23,8 +23,6 @@
 
       <config name="LoginRequired" type="bool">TRUE</config>
 
-      <config name="Actions">index</config>
-
       <config name="Name">Refresh auctions, also automatic each x minutes</config>
 
       <config name="Author">Knut Kohl</config>

@@ -37,8 +37,6 @@
 
       <config name="Mobile" type="bool">FALSE</config>
 
-      <config name="Actions">index</config>
-
       <config name="Category">Other</config>
 
       <config name="Name">Some useful gadgets</config>

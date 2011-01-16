@@ -11,7 +11,7 @@
 /**
  * Generic abstrct extension class for modules/plugins
  */
-abstract class esf_Extension {
+abstract class esf_Extension implements EventHandlerI {
 
   /**
    * Class constructor

@@ -24,8 +24,6 @@
       <config name="LoginRequired" type="bool">TRUE</config>
       <config name="Mobile" type="bool">FALSE</config>
 
-      <config name="Actions">index|show|delete|restore|lock|unlock|clear</config>
-
       <config name="Name">Backup auctions on delete and handle backed up auctions</config>
 
       <config name="Author">Knut Kohl</config>

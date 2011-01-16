@@ -56,8 +56,6 @@
       **  Don't change from here
       ******************************************************************** -->
 
-      <config name="Actions">index</config>
-
       <config name="Name">Login</config>
 
       <config name="Author">Knut Kohl</config>

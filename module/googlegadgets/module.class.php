@@ -1,24 +1,21 @@
 <?php
 /**
- * @category   Module
- * @package    Module-GoogleGadgets
- * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    0.1.0
- */
-
-/**
- * Homepage module
+ * GoogleGadget module
  *
- * @category   Module
- * @package    Module-GoogleGadgets
+ * @ingroup    Module-GoogleGadgets
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
+ * @copyright  2009-2011 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    Release: @package_version@
+ * @version    $Id$
  */
 class esf_Module_GoogleGadgets extends esf_Module {
+
+  /**
+   * @return array Array of actions handled by the module
+   */
+  public function handles() {
+    return array('index');
+  }
 
   /**
    *

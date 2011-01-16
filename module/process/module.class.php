@@ -11,6 +11,13 @@
 class esf_Module_Process extends esf_Module {
 
   /**
+   * @return array Array of actions handled by the module
+   */
+  public function handles() {
+    return array('index', 'kill', 'empty');
+  }
+
+  /**
    *
    */
   public function IndexAction() {
@@ -35,7 +42,7 @@ class esf_Module_Process extends esf_Module {
         TplData::add('Processes', $p);
       }
     } else {
-      Messages::Info(Translation::get('Process.NoProcesses'));
+      $this->forward('empty');
     }
   }
 

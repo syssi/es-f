@@ -20,8 +20,6 @@
       <config name="LoginRequired" type="bool">TRUE</config>
       <config name="Mobile" type="bool">FALSE</config>
 
-      <config name="Actions">index|show|delete|get</config>
-
       <config name="Name">Show some system log files</config>
 
       <config name="Author">Knut Kohl</config>

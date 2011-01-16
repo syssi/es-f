@@ -21,8 +21,6 @@
       -->
       <config name="LoginRequired" type="bool">FALSE</config>
 
-      <config name="Actions">index|save</config>
-
       <config name="Name">Snipe auctions from ebay sites</config>
 
       <config name="Category">System</config>

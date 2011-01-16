@@ -11,6 +11,13 @@
 class esf_Module_Watching extends esf_Module {
 
   /**
+   * @return array Array of actions handled by the module
+   */
+  public function handles() {
+    return array('index', 'empty');
+  }
+
+  /**
    *
    */
   public function IndexAction() {
@@ -52,7 +59,6 @@ class esf_Module_Watching extends esf_Module {
     }
 
     if (empty($myitems)) {
-      Messages::Info(Translation::get('WATCHING.NO_AUCTIONS'));
       if (!empty($res)) {
         $header = array('subject' => ESF_LONG_TITLE.': Watched items log',
                         'body'    => ESF_FULL_TITLE.', Module Version: '

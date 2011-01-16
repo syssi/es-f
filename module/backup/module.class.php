@@ -28,6 +28,13 @@ class esf_Module_Backup extends esf_Module {
   }
 
   /**
+   * @return array Array of actions handled by the module
+   */
+  public function handles() {
+    return array('index', 'show', 'delete', 'restore', 'lock', 'unlock', 'clear');
+  }
+
+  /**
    *
    */
   public function IndexAction() {

@@ -32,8 +32,6 @@
 
       <config name="Mobile" type="bool">FALSE</config>
 
-      <config name="Actions">index</config>
-
       <config name="Name">Show project news</config>
 
       <config name="Category">Other</config>

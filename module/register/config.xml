@@ -18,8 +18,6 @@
 
       <config name="Mobile" type="bool">FALSE</config>
 
-      <config name="Actions">index|admin</config>
-
       <config name="Name">User self registration, must be aproved by admin</config>
 
       <config name="Category">Other</config>

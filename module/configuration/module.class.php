@@ -35,6 +35,13 @@ class esf_Module_Configuration extends esf_Module {
   }
 
   /**
+   * @return array Array of actions handled by the module
+   */
+  public function handles() {
+    return array('index', 'edit');
+  }
+
+  /**
    *
    */
   public function IndexAction() {

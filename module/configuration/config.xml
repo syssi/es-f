@@ -27,8 +27,6 @@
       <config name="LoginRequired" type="bool">TRUE</config>
       <config name="Mobile" type="bool">FALSE</config>
 
-      <config name="Actions">index|edit</config>
-
       <config name="Name">Modify user specific configuration via frontend</config>
 
       <config name="Author">Knut Kohl</config>

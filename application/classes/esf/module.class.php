@@ -31,7 +31,7 @@ abstract class esf_Module extends esf_Extension {
     do {
       $saveaction = $this->Action;
       // Check for supported action
-      if (stristr($this->Actions, $this->Action)) {
+      if (in_array($this->Action, $this->handles())) {
         $method = $this->Action . $step . 'Action';
         // Check for method
         if (method_exists($this, $method)) {
@@ -43,7 +43,8 @@ abstract class esf_Module extends esf_Extension {
       } else {
         if (DEVELOP)
           Messages::Error('Not handled action "'.$this->Action.'" in '.get_class($this));
-        $this->redirect();
+        // redirect to 1st handled action (mostly "index") of module
+        $this->redirect($this->ExtensionName, reset($this->handles()));
       }
     } while ($saveaction != $this->Action);
   }

@@ -20,12 +20,17 @@ class esf_Module_Support extends esf_Module {
   }
 
   /**
+   * @return array Array of actions handled by the module
+   */
+  public function handles() {
+    return array('index', 'download');
+  }
+
+  /**
    *
    */
   public function IndexAction() {
     TplData::set('SYSTEMVERSION', php_uname());
-
-    Exec::getInstance()->ExecuteCmd('SUPPORT::WhichPHP', $res);
     TplData::set('PHPCliVersion', implode('<br>', $res));
     unset($res);
 
@@ -100,9 +105,9 @@ class esf_Module_Support extends esf_Module {
     Registry::set('esf.contentonly', TRUE);
     // fill data
     $this->IndexAction();
-    // output via plugin...
+    // output via plugin, now are the constants not set...
   }
-  
+
   // -------------------------------------------------------------------------
   // PRIVATE
   // -------------------------------------------------------------------------

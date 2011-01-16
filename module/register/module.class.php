@@ -23,6 +23,13 @@ class esf_Module_Register extends esf_Module {
   }
 
   /**
+   * @return array Array of actions handled by the module
+   */
+  public function handles() {
+    return array('index', 'admin');
+  }
+
+  /**
    *
    */
   public function IndexAction() {

@@ -20,8 +20,6 @@
       <config name="LoginRequired" type="bool">TRUE</config>
       <config name="Mobile" type="bool">FALSE</config>
 
-      <config name="Actions">index|install|deinstall|reinstall|enable|disable|toggle|info</config>
-
       <config name="Name">Module and plugin administration</config>
 
       <config name="Author">Knut Kohl</config>

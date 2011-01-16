@@ -5,5 +5,5 @@
 -->
 
 <div id="content">
-  [[Protocol.NoLog]]
+  [[Process.NoProcesses]]
 </div>

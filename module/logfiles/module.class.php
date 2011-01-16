@@ -22,6 +22,13 @@ class esf_Module_Logfiles extends esf_Module {
   }
 
   /**
+   * @return array Array of actions handled by the module
+   */
+  public function handles() {
+    return array('index', 'show', 'bug', 'delete', 'get');
+  }
+
+  /**
    *
    */
   public function IndexAction() {
