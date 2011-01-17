@@ -18,7 +18,7 @@ require_once dirname(__FILE__).'/filebase.class.php';
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2007-2010 Knut Kohl
  * @license
- * @version    $Id$
+ * @version    $Id: v2.4.1-45-g3faf669 - Wed Jan 12 21:35:21 2011 +0100 $
  */
 class Cache_File extends Cache_FileBase {
 

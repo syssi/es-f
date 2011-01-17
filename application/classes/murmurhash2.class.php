@@ -19,7 +19,7 @@
  * @copyright  2011 Knut Kohl
  * @par License:
  * <a href="http://www.gnu.org/licenses/gpl.txt">GNU General Public License</a>
- * @version    $Id$
+ * @version    $Id: v2.4.1-43-g9eb0fbd - Tue Jan 11 21:51:29 2011 +0100 $
  */
 abstract class murmurHash2 {
 

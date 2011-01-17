@@ -54,7 +54,7 @@ Long description goes here
  * @copyright  2011 Knut Kohl
  * @par Licence:
  * <a href="http://www.gnu.org/licenses/gpl.txt">GNU General Public License</a>
- * @version    $Id$
+ * @version    $Id: v2.4.1-34-gd7da3b4 - Sun Jan 9 12:51:52 2011 +0100 $
  */
 abstract class HTTPlanguage {
 

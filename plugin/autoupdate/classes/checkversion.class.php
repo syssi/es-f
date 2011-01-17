@@ -6,7 +6,7 @@
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2010 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    $Id$
+ * @version    $Id: v2.4.0-15-g82a2021 - Sun Dec 19 20:39:56 2010 +0100 $
  */
 class CheckVersion {
 
@@ -145,6 +145,6 @@ class CheckVersion {
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2010 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    $Id$
+ * @version    $Id: v2.4.0-15-g82a2021 - Sun Dec 19 20:39:56 2010 +0100 $
  */
 class CheckVersionException extends Exception {}
