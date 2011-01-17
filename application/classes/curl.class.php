@@ -1,6 +1,16 @@
 <?php
+/** @defgroup cURL Client URL Library wrapper
+
+*/
+
 /**
+ * cURL wrapper
  *
+ * @ingroup    cURL
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2010-2011 Knut Kohl
+ * @license
+ * @version    $Id: v2.4.1-46-gfa6b976 - Sat Jan 15 13:42:37 2011 +0100 $
  */
 class cURL {
 
@@ -14,9 +24,9 @@ class cURL {
   /**
    * Sets an option to a cURL session
    *
-   * @param int $option cURL option
-   * @param mixed $value value of option
-   * @return reference $this
+   * @param $option int cURL option
+   * @param $value mixed value of option
+   * @return $this reference for fluid interface
    */
   public function setOpt( $option, $value ) {
     curl_setopt($this->cURL, $option, $value);
@@ -27,8 +37,8 @@ class cURL {
   /**
    * Sets an array of options to a cURL session
    *
-   * @param array $options array of cURL options and values
-   * @return reference $this
+   * @param $options array array of cURL options and values
+   * @return $this reference for fluid interface
    */
   public function setOptArray( $options ) {
     if (is_array($options))
@@ -39,8 +49,8 @@ class cURL {
   /**
    * Sets an option to a cURL session
    *
-   * @param int $retry
-   * @return reference $this
+   * @param $retry int
+   * @return $this reference for fluid interface
    */
   public function setRetry( $retry ) {
     $this->Retry = $retry;
@@ -50,7 +60,7 @@ class cURL {
   /**
    * Executes as cURL session
    *
-   * @param  mixed &$res Result to return
+   * @param &$res mixed Result to return
    * @return int Error number in case of error
    */
   public function exec( &$res ) {
@@ -66,7 +76,7 @@ class cURL {
       $res = curl_exec($this->cURL);
       $code = $this->info(CURLINFO_HTTP_CODE);
     }
-    
+
     if ($this->Verbose) {
       @rewind($fh);
       $this->Debug = @stream_get_contents($fh);
@@ -79,7 +89,7 @@ class cURL {
   /**
    * Returns an array of session information
    *
-   * @param int $opt optional option to return
+   * @param $opt int optional option to return
    * @return string|array
    */
   public function info( $opt=NULL ) {
@@ -91,7 +101,7 @@ class cURL {
   /**
    * Reset curl (re-create)
    *
-   * @return reference $this
+   * @return $this reference for fluid interface
    */
   public function reset() {
     curl_close($this->cURL);

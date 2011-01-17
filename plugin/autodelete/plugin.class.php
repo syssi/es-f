@@ -2,12 +2,11 @@
 /**
  * Delete ended auctions automatic after certain days
  *
- * @category   Plugin
- * @package    Plugin-AutoDelete
+ * @ingroup    Plugin-AutoDelete
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
+ * @copyright  2009-2011 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    Release: @package_version@
+ * @version    $Id: v2.4.1-42-g440d05f - Sun Jan 9 21:40:58 2011 +0100 $
  */
 class esf_Plugin_AutoDelete extends esf_Plugin {
 
@@ -32,7 +31,7 @@ class esf_Plugin_AutoDelete extends esf_Plugin {
     foreach ($auctions as $item => $auction) {
       if ($auction['endts'] AND $auction['endts'] < $ts) {
         esf_Auctions::Delete($auction, FALSE);
-        Messages::addInfo(Translation::get('AutoDelete.Deleted', $item, $auction['name']));
+        Messages::Info(Translation::get('AutoDelete.Deleted', $item, $auction['name']));
       }
     }
     // Only once per script run!

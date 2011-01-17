@@ -1,22 +1,12 @@
 <?php
 /**
- * @category   Module
- * @package    Module-Help
- * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    0.1.0
- */
-
-/**
  * Auction Help module
  *
- * @category   Module
- * @package    Module-Help
+ * @ingroup    Module-Help
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
+ * @copyright  2009-2011 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    Release: @package_version@
+ * @version    $Id: v2.4.1-51-gfeddc24 - Sun Jan 16 21:09:59 2011 +0100 $
  */
 class esf_Module_Help extends esf_Module {
 
@@ -48,6 +38,13 @@ class esf_Module_Help extends esf_Module {
   }
 
   /**
+   * @return array Array of actions handled by the module
+   */
+  public function handles() {
+    return array('index', 'topic', 'show', 'edit');
+  }
+
+  /**
    *
    */
   public function IndexAction() {
@@ -75,7 +72,7 @@ class esf_Module_Help extends esf_Module {
         TplData::set('EditUrl', Core::URL(array('action'=>'edit', 'params'=>array('ext'=>$this->Scope.'-'.$this->Name))));
         TplData::set('HelpFile', $this->File);
       } else {
-        Messages::addError('['.$this->File.'] is not writable');
+        Messages::Error('['.$this->File.'] is not writable');
       }
     }
     // << Debug
@@ -99,9 +96,9 @@ class esf_Module_Help extends esf_Module {
       $this->File = $this->Request('helpfile');
       if (file_put_contents($this->File, trim($this->Request('helptext')))) {
         @chmod($this->File, 0666);
-        Messages::addSuccess(Translation::get('Help.Saved'));
+        Messages::Success(Translation::get('Help.Saved'));
       } else {
-        Messages::addError('Saving '.$this->File);
+        Messages::Error('Saving '.$this->File);
       }
       $this->Scope = $this->Request('scope');
       $this->Name = $this->Request('name');

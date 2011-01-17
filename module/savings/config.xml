@@ -7,19 +7,12 @@
 
     <section name="Savings">
 
-      <!--
-        Module specific layout
-      -->
-      <config name="Layout">default</config>
-
       <!-- *******************************************************************
       **  Don't change from here
       ******************************************************************** -->
 
       <config name="LoginRequired" type="bool">TRUE</config>
       <config name="Mobile" type="bool">FALSE</config>
-
-      <config name="Actions">index</config>
 
       <config name="Category">Auction</config>
 

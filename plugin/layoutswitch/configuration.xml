@@ -1,6 +1,6 @@
 <configuration>
 
-  <definition name="Plugin.LayoutSwitch.Mode" type="int">
+  <definition name="Plugin.LayoutSwitch.Mode">
     <![CDATA[
       Style
     ]]>

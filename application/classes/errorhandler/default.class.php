@@ -1,10 +1,12 @@
 <?php
 /**
+ * Writes errors to a log file
  *
- */
-
-/**
- *
+ * @ingroup    Messages
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2009-2011 Knut Kohl
+ * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
+ * @version    $Id: v2.4.1-42-g440d05f - Sun Jan 9 21:40:58 2011 +0100 $
  */
 class ErrorHandler_Default extends ErrorHandler {
 
@@ -26,7 +28,7 @@ class ErrorHandler_Default extends ErrorHandler {
       if (Registry::get('Module.LogFiles.Enabled'))
         $log = sprintf('<a href="index.php?module=logfiles">%s</a>', $log);
 
-      Messages::addError('An error occurred, please take a look into '.$log, TRUE);
+      Messages::Error('An error occurred, please take a look into '.$log, TRUE);
     }
   }
 

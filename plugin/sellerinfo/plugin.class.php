@@ -1,22 +1,12 @@
 <?php
 /**
- * @category   Plugin
- * @package    Plugin-SellerInfo
- * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    0.1.0
- */
-
-/**
  * Add some infos to seller data
  *
- * @category   Plugin
- * @package    Plugin-SellerInfo
+ * @ingroup    Plugin-SellerInfo
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
+ * @copyright  2009-2011 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    Release: @package_version@
+ * @version    $Id: v2.4.1-42-g440d05f - Sun Jan 9 21:40:58 2011 +0100 $
  */
 class esf_Plugin_SellerInfo extends esf_Plugin {
 
@@ -87,7 +77,7 @@ class esf_Plugin_SellerInfo extends esf_Plugin {
       $url = $this->Homepage;
       $html = HTMLpage::get(str_ireplace('$SELLER', $auction['seller'], $url), $err);
       if ($err) {
-        Messages::addError($err);
+        Messages::Error($err);
       } elseif (preg_match($this->DataRegex, $html, $args)) {
         $info = trim($args[1]);
 
@@ -105,7 +95,7 @@ class esf_Plugin_SellerInfo extends esf_Plugin {
         $info = trim($info);
         $this->Sellers[$auction['seller']] = $info;
         // >> Debug
-        DebugStack::Info('Seller info: ' . $info);
+        Yryie::Info('Seller info: ' . $info);
         // << Debug
       }
     }

@@ -1,13 +1,12 @@
 <?php
 /**
- * Rewrite urls
+ * Support plugin
  *
- * @category   Plugin
- * @package    Plugin-ModuleSupport
+ * @ingroup    Module-Support
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
+ * @copyright  2009-2011 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    0.1.0
+ * @version    $Id: v2.4.1-51-gfeddc24 - Sun Jan 16 21:09:59 2011 +0100 $
  */
 class esf_Plugin_Module_Support extends esf_Plugin {
 
@@ -37,14 +36,14 @@ class esf_Plugin_Module_Support extends esf_Plugin {
   public function OutputStart() {
     if (!Request::check('support', 'download')) return;
 
-    $file = $_SERVER['HTTP_HOST'].'-'.date('YmdHi').'.htm';
+    $file = sprintf('%s-%s.htm', $_SERVER['HTTP_HOST'], date('YmdHi'));
 
     $style = file_get_contents('module/support/layout/style.css');
     if (preg_match('~/\* download >> \*/(.*?)/\* << download \*/~si', $style, $args))
       $style = $args[1];
 
     // parse own template
-    $body = $this->Render('content.index');
+    $body = $this->Render('content.index', TplData::getAll());
     // extract infos to download
     if (preg_match('~<!-- download >> -->(.*)<!-- << download -->~si', $body, $args))
       $body = $args[1];

@@ -79,15 +79,6 @@
 </div>
 
 <div class="cfg {cycle:"CLASS","tr1","tr2"}">
-  <label class="td" for="LANGUAGE">Default language :</label>
-  <div class="input">
-    <select id="LANGUAGE" class="input" name="data[cfg][language]">
-      {options:LANGUAGES,cfg.language}
-    </select>
-  </div>
-</div>
-
-<div class="cfg {cycle:"CLASS","tr1","tr2"}">
   <label class="td" for="LOCALE">Your prefered locale :</label>
   <div class="input">
     <select id="LOCALE" class="input" name="data[cfg][locale]">
@@ -127,14 +118,6 @@
 </div>
 
 <div class="cfg {cycle:"CLASS","tr1","tr2"}">
-  <label class="td" for="STARTMODULE">Default / start module :</label>
-  <div class="input">
-    {ft:"data[cfg][startmodule]",cfg.startmodule,"input","id=\"STARTMODULE\""}
-    <br />Modules <strong>index</strong> and <strong>auction</strong> are good entry points.
-  </div>
-</div>
-
-<div class="cfg {cycle:"CLASS","tr1","tr2"}">
   <label class="td" for="NETMASK">Netmask to protect session hijacking :</label>
   <div class="input">
     {ft:"data[cfg][netmask]",cfg.netmask,"input","id=\"NETMASK\""}
@@ -161,15 +144,6 @@
 <br />
 
 {cycle:"CLASS"}
-
-<div class="cfg {cycle:"CLASS","tr1","tr2"}">
-  <label class="td" for="LAYOUT">Global layout :</label>
-  <div class="input">
-    <select name="data[cfg][layout]" id="LAYOUT">{options:LAYOUTS,cfg.layout}</select>
-    <br />
-    Templates &amp; images, each layout have a directory under layout/
-  </div>
-</div>
 
 <div class="cfg {cycle:"CLASS","tr1","tr2"}">
   <label class="td" for="MENUSTYLE">Menu style layout :</label>

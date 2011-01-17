@@ -4,19 +4,11 @@
  *
  * description ...
  *
- * @package    Loader
- * @author     
- * @copyright  
+ * @ingroup    es-f
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2009-2011 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- */
-
-/**
- * Class Loader
- *
- * description ...
- *
- * @package    Loader
- * @version    
+ * @version    $Id: v2.4.1-29-gacb4bc2 - Fri Jan 7 21:24:31 2011 +0100 $
  */
 abstract class Loader {
 
@@ -90,7 +82,7 @@ abstract class Loader {
           $file = sprintf($dir.DIRECTORY_SEPARATOR.$file, $path);
           // Don't throw an exception!
           if (self::Load($file, TRUE, FALSE)) {
-            /// DebugStack::Debug($class.' ('.$file.')');
+            /// Yryie::Debug($class.' ('.$file.')');
             return;
           }
         }

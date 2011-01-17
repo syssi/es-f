@@ -1,3 +1,33 @@
+VERSION: 2.5.0
+--------------------
+Feature release
+
+NEW:
+- At least PHP 5.1.0 is now required
+- Upgrade JpGraph in module Analyse to version 3.5.0b1 (2010-10-07)
+- [module] "Analyse" is now available without installation
+CHANGED:
+- Tracking with Git Source Code Management (SCM) on SourceForge
+  http://es-f.git.sourceforge.net/
+- Make Yuelo :: Template Engine a submodule of es-f
+  http://yuelo.git.sourceforge.net/
+- Make Yryie :: Debugger for PHP applications (formerly DebugStack) a submodule of es-f
+  http://yryie.git.sourceforge.net/
+
+VERSION: 2.4.2
+--------------------
+Bugfix release
+
+BUGFIXES:
+- #3141122 Hard coded "sh" in Exec_Unix
+
+VERSION: 2.4.1
+--------------------
+Bugfix release
+
+BUGFIXES:
+- Fix admin detection in module backend and configuration
+
 VERSION: 2.4.0
 --------------------
 Feature release

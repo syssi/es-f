@@ -2,13 +2,11 @@
 /**
  * Program initialization
  *
- * @package    es-f
- * @subpackage Core
+ * @ingroup    es-f
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2007-2009 Knut Kohl
+ * @copyright  2007-2010 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    1.1.2
- * @since      File available since Release 0.0.1
+ * @version    $Id: v2.4.1-42-g440d05f - Sun Jan 9 21:40:58 2011 +0100 $
  */
 
 defined('_ESF_OK') || die('No direct call allowed.');
@@ -51,9 +49,9 @@ Registry::$NameSpaceSeparator = '.';
 // Version 1:
 // Registry::set('esniper',     'esniper'); ->bin_exniper
 Registry::set('SuDo',        '');
-// Registry::set('RunDir',      '.run'); -> now fix: ./local
-Registry::set('Language',    'en');
-Registry::set('Layout',      'default');
+// Registry::set('RunDir',      '.run'); -> v. 5 - now fix: ./local
+// Registry::set('Language',    'en'); -> v. 9 - get during login from $_SERVER['HTTP_ACCEPT_LANGUAGE']
+// Registry::set('Layout',      'default'); -> v. 9 - during login
 Registry::set('MenuStyle',   'image,text,image');
 
 // Version 2:
@@ -71,7 +69,7 @@ Registry::set('ParseOrder',  'com,co_uk,de');
 // Version 5:
 // Registry::set('Module',      'index'); -> StartModule
 Registry::set('bin_esniper',  'esniper');
-Registry::set('StartModule',  'index');
+// Registry::set('StartModule',  'auction'); -> v. 9 - STARTMODULE
 Registry::set('TimeZone',     'GMT');
 Registry::set('Locale',       'C');
 Registry::set('RunDir',       BASEDIR.'/local/data');
@@ -86,6 +84,10 @@ Registry::set('bin_kill', 'kill');
 
 // Version 8:
 Registry::set('CacheClass', 'File');
+
+// Version 9:
+// get language during login from $_SERVER['HTTP_ACCEPT_LANGUAGE']
+// set Layout during login
 
 /**
  * esniper configuration
@@ -138,6 +140,17 @@ TplData::$NVL = NULL;
  */
 Translation::$NameSpaceSeparator = '.';
 
+/**
+ * Icons for powered by footer
+ */
+$GLOBALS['Servers'] = array(
+  array( 'apache',    'http://www.apache.org' ),
+  array( 'lighttpd',  'http://www.lighttpd.net' ),
+  array( 'nginx',     'http://nginx.org' ),
+  array( 'litespeed', 'http://www.litespeedtech.com/overview.html' ),
+  array( 'iis',       'http://www.microsoft.com/iis' ),
+);
+
 // >> Debug
 /** --------------------------------------------------------------------------
  * Helper functions
@@ -150,7 +163,7 @@ function _dbg( $var, $name='' ) {
   ob_start();
   $options = array( 'name' => $name );
   new dBug($var, $options);
-  Messages::addInfo(ob_get_clean(), TRUE);
+  Messages::Info(ob_get_clean(), TRUE);
 }
 
 /**
@@ -168,7 +181,7 @@ function _dump() {
   foreach (func_get_args() as $arg) {
     ob_start();
     var_dump($arg);
-    Messages::addInfo('<pre>'.ob_get_clean().'</pre>', TRUE);
+    Messages::Info('<pre>'.ob_get_clean().'</pre>', TRUE);
   }
 }
 // << Debug

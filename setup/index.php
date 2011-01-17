@@ -1,6 +1,10 @@
 <?php
 /**
- * @package es-f
+ * @ingroup    es-f
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2007-2011 Knut Kohl
+ * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
+ * @version    $Id: v2.4.1-42-g440d05f - Sun Jan 9 21:40:58 2011 +0100 $
  */
 
 ini_set('display_startup_errors', 0);
@@ -17,7 +21,7 @@ define('BASEDIR', dirname(dirname(__FILE__)));
 
 require_once '../application/define.php';
 
-require_once LIBDIR.'/debugstack/debugstack.class.php';
+require_once LIBDIR.'/yryie/yryie.class.php';
 require_once APPDIR.'/classes/loader.class.php';
 
 if (!Loader::Register()) {
@@ -77,7 +81,7 @@ switch ($step) {
     exec('rm -rf ../local/data/tmp/*');
     exec('rm -rf ../local/data/session/*');
 
-    if (!empty($_GET['msg'])) Messages::addError($_GET['msg']);
+    if (!empty($_GET['msg'])) Messages::Error($_GET['msg']);
 
     LoadConfig();
     $_SESSION['USERS'] = Registry::get('Users');
@@ -103,7 +107,6 @@ switch ($step) {
 
     TplData::set('EBAYPARSERS', implode(', ', $parsers));
 
-    TplData::set('LAYOUTS', getLayouts());
     exec('locale -a', $locales);
     TplData::set('LOCALES', $locales);
     unset($locales);
@@ -115,14 +118,6 @@ switch ($step) {
 
     foreach (Esniper::getAll() as $key => $val)
       TplData::set('esniper.'.strtoupper($key), $val);
-
-    $ll = parse_ini_file(APPDIR.'/language/languages.ini');
-    foreach (glob(APPDIR.'/language/*.php') as $l) {
-      // check for not yet defined languages...
-      $l = basename($l , '.php');
-      if (!isset($ll[$l])) $ll[$l] = $l;
-    }
-    TplData::set('LANGUAGES', $ll);
 
     TplData::set('TIMEZONES', file(dirname(__FILE__).'/date.timezone', FILE_IGNORE_NEW_LINES));
     break;
@@ -170,8 +165,6 @@ if (function_exists('date_default_timezone_set'))
 // -----------------------------------------------------------------------------
 // Output
 // -----------------------------------------------------------------------------
-require_once 'config.php';
-
 TplData::setConstant('ESF.TITLE', ESF_TITLE);
 TplData::setConstant('ESF.SLOGAN', ESF_SLOGAN);
 TplData::setConstant('ESF.VERSION', ESF_VERSION);

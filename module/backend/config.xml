@@ -7,11 +7,6 @@
     <section name="Backend">
 
       <!--
-        Module specific layout
-      -->
-      <config name="Layout">default</config>
-
-      <!--
         Which accounts can edit the configuration online
         provide a pipe "|" separated string with account names defined in $users:
         Admins = <account1>[|<account2>[|...]]
@@ -24,8 +19,6 @@
 
       <config name="LoginRequired" type="bool">TRUE</config>
       <config name="Mobile" type="bool">FALSE</config>
-
-      <config name="Actions">index|install|deinstall|reinstall|enable|disable|toggle|info</config>
 
       <config name="Name">Module and plugin administration</config>
 

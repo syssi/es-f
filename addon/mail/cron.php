@@ -6,7 +6,7 @@
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2007-2010 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    $Id$
+ * @version    $Id: v2.4.1-29-gacb4bc2 - Fri Jan 7 21:24:31 2011 +0100 $
  */
 
 Header('Content-type: text/plain');
@@ -21,7 +21,7 @@ define('LINE', str_repeat('-', 78) . "\n");
 define('BASEDIR', dirname(dirname(dirname(__FILE__))));
 
 require_once BASEDIR.'/application/define.php';
-require_once LIBDIR.'/debugstack/debugstack.class.php';
+require_once LIBDIR.'/Yryie/Yryie.class.php';
 require_once APPDIR.'/classes/loader.class.php';
 
 if (!Loader::Register()) {

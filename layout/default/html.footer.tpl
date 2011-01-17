@@ -66,7 +66,7 @@
          onmouseover="Tip('PHP {CONST.PHP.VERSION}',ABOVE,true,CENTERMOUSE,true)">
   </a>
   <!-- IF CONST.SERVER.URL -->
-  <a class="powered" href="http://{CONST.SERVER.URL}/">
+  <a class="powered" href="{CONST.SERVER.URL}/">
     <img src="layout/images/powered/{CONST.SERVER.NAME}.gif"
          title="{CONST.SERVER.VERSION}" alt="| {CONST.SERVER.VERSION}"
          onmouseover="Tip('{CONST.SERVER.VERSION}',WIDTH,250,ABOVE,true,CENTERMOUSE,true)">

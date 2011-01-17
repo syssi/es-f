@@ -1,24 +1,21 @@
 <?php
 /**
- * @category   Module
- * @package    Module-Process
- * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    0.1.0
- */
-
-/**
  * esniper processes module
  *
- * @category   Module
- * @package    Module-Process
+ * @ingroup    Module-Process
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
+ * @copyright  2009-2011 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    Release: @package_version@
+ * @version    $Id: v2.4.1-51-gfeddc24 - Sun Jan 16 21:09:59 2011 +0100 $
  */
 class esf_Module_Process extends esf_Module {
+
+  /**
+   * @return array Array of actions handled by the module
+   */
+  public function handles() {
+    return array('index', 'kill', 'empty');
+  }
 
   /**
    *
@@ -40,12 +37,12 @@ class esf_Module_Process extends esf_Module {
         // get last word as auction file ...
         $g = $g[count($g)-1];
         // ... and remove user name
-        $p['GROUP'] = str_replace('.'.$user, '', $g);
+        $p['GROUP'] = preg_replace('~.*/(.*)\.'.$user.'~', '$1', $g);
 
         TplData::add('Processes', $p);
       }
     } else {
-      Messages::addInfo(Translation::get('Process.NoProcesses'));
+      $this->forward('empty');
     }
   }
 
@@ -59,7 +56,7 @@ class esf_Module_Process extends esf_Module {
       if (isset($pids[$this->Request('pid')])) {
         $cmd = array('Process::KILL', $this->Request('pid'));
         if (Exec::getInstance()->ExecuteCmd($cmd, $res, Registry::get('SuDo'))) {
-          Messages::addError($res);
+          Messages::Error($res);
         }
       }
     }

@@ -8,11 +8,6 @@
     <section name="News">
 
       <!--
-        Module specific layout
-      -->
-      <config name="Layout">default</config>
-
-      <!--
         News urls
       -->
       <config name="URLs" type="array">
@@ -36,8 +31,6 @@
       ******************************************************************** -->
 
       <config name="Mobile" type="bool">FALSE</config>
-
-      <config name="Actions">index</config>
 
       <config name="Name">Show project news</config>
 

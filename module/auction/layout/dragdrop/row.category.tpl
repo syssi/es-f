@@ -62,7 +62,7 @@
       <script type="text/javascript">
         // <![CDATA[
         // hide tbody section using temp. class assignment, via #id don't work??
-        var c = esf_cookieManager.getCookie('esf_categories');
+        var c = cookieManager.getCookie('categories');
         if (c && c.match(/%%{CATEGORY.NAME|hash}/)) {
           addLoadEvent(function() {
             ShowHideCategory('{CATEGORY.NAME|hash}',false);

@@ -2,12 +2,11 @@
 /**
  * Add some infos to seller data
  *
- * @category   Plugin
  * @package    Plugin-AutoUpdate
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
+ * @copyright  2009-2010 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    Release: @package_version@
+ * @version    $Id: v2.4.1-42-g440d05f - Sun Jan 9 21:40:58 2011 +0100 $
  */
 class esf_Plugin_AutoUpdate extends esf_Plugin {
 
@@ -45,22 +44,22 @@ class esf_Plugin_AutoUpdate extends esf_Plugin {
 
     // 1st call, check once per session
     $this->Update1 = !Session::get(self::SESSIONFLAG);
-    /// DebugStack::Info('Update1: '.($this->Update1?'TRUE':'FALSE'));
+    /// Yryie::Info('Update1: '.($this->Update1?'TRUE':'FALSE'));
 
     // 2nd call, check url parameter
     $this->Update2 = ($this->isPost() AND $this->Request(self::URLPARAM));
-    /// DebugStack::Info('Update2: '.($this->Update2?'TRUE':'FALSE'));
+    /// Yryie::Info('Update2: '.($this->Update2?'TRUE':'FALSE'));
 
     if ($this->Update1 OR $this->Update2) {
 
-      !is_dir($this->LocalPath) && Exec::getInstance()->MkDir($this->LocalPath);
+      !is_dir($this->LocalPath) && Exec::getInstance()->MkDir($this->LocalPath, $res);
 
       Loader::Load(dirname(__FILE__).'/classes/appupdate.class.php');
 
-      $curl = new cURL;
-      $curl->setOpt(CURLOPT_CONNECTTIMEOUT, Registry::get('cURL.ConnectionTimeOut'))
-           ->setOpt(CURLOPT_TIMEOUT, Registry::get('cURL.TimeOut'))
-           ->setOpt(CURLOPT_VERBOSE, Registry::get('cURL.Verbose'));
+      $this->cURL = new cURL;
+      $this->cURL->setOpt(CURLOPT_CONNECTTIMEOUT, Registry::get('cURL.ConnectionTimeOut'))
+                 ->setOpt(CURLOPT_TIMEOUT, Registry::get('cURL.TimeOut'))
+                 ->setOpt(CURLOPT_VERBOSE, Registry::get('cURL.Verbose'));
 
       $options = array(
         'server'         => $this->Server,
@@ -70,18 +69,20 @@ class esf_Plugin_AutoUpdate extends esf_Plugin {
       );
 
       try {
-        $this->Updater = new AppUpdate($curl, $options);
+        $this->Updater = new AppUpdate($this->cURL, $options);
         $this->Updater->CheckUpdates(array(&$this, 'CheckFileVersion'));
         $this->UpdateCount = $this->Updater->getUpdatableCount();
         Session::set(self::SESSIONFLAG, TRUE);
         // >> Debug
-        DebugStack::Debug($curl->info());
-        if (Registry::get('cURL.Verbose')) DebugStack::Debug($curl->getDebug());
+        Yryie::Debug($this->cURL->info());
+        if (Registry::get('cURL.Verbose')) Yryie::Debug($this->cURL->getDebug());
         // << Debug
       } catch (AppUpdateException $e) {
         // ignore errors and try later
+        /// Messages::Error($e->getMessage());
         unset($this->Updater);
       }
+
     }
   }
 
@@ -90,16 +91,30 @@ class esf_Plugin_AutoUpdate extends esf_Plugin {
    */
   public function PageStart() {
 
-    if (!$this->Updater OR !$this->Update1 OR $this->Update2) return;
+    if (!$this->Update1) return;
+
+    Loader::Load(dirname(__FILE__).'/classes/checkversion.class.php');
+
+    try {
+      $CheckVersion = new CheckVersion( $this->cURL, $this->VersionURL );
+      $v = $CheckVersion->Version();
+      if (version_compare(ESF_VERSION, $v, '<'))
+        Messages::Info(Translation::get('AutoUpdate.LatestAppVersion', $v), TRUE);
+    } catch (CheckVersionException $e) {
+      // ignore errors and try later
+      /// Messages::Error($e->getMessage());
+    }
+
+    if (!$this->Updater OR $this->Update2) return;
 
     // check application version
-    $a = $this->Updater->getApplicationVersion();
-    if (version_compare(ESF_VERSION, $a['version'], '<'))
-      Messages::addSuccess(Translation::get('AutoUpdate.LatestAppRelease', $a['version'], $a['comment'], $a['url']), TRUE);
+#    $a = $this->Updater->getApplicationVersion();
+#    if (version_compare(ESF_VERSION, $a['version'], '<'))
+#     Messages::Success(Translation::get('AutoUpdate.LatestAppRelease', $a['version'], $a['comment'], $a['url']), TRUE);
 
     if (!$this->UpdateCount) return;
 
-    Messages::addSuccess(Translation::get('AutoUpdate.FilesUpdatable', $this->UpdateCount), TRUE);
+    Messages::Success(Translation::get('AutoUpdate.FilesUpdatable', $this->UpdateCount), TRUE);
 
     $err = FALSE;
 
@@ -107,7 +122,7 @@ class esf_Plugin_AutoUpdate extends esf_Plugin {
     foreach ($this->Updater->getFiles(FALSE) as $file => $data) {
       $msg = '<tt>'.$file.' ('.$data['version'].')</tt>';
       if ($data['comment']) $msg .= ' : ' . $data['comment'];
-      Messages::addInfo($msg, TRUE);
+      Messages::Info($msg, TRUE);
 
       // check if the file is writable
       if (!$this->Updater->isWritable($file)) {
@@ -119,7 +134,7 @@ class esf_Plugin_AutoUpdate extends esf_Plugin {
       $form = '<form method="post"><input type="submit" name="'
             . self::URLPARAM . '" value="'
             . Translation::get('AutoUpdate.UpdateNow').'"></form>';
-      Messages::addInfo($form, TRUE);
+      Messages::Info($form, TRUE);
     }
   }
 
@@ -161,7 +176,7 @@ class esf_Plugin_AutoUpdate extends esf_Plugin {
       // compare with last known file version
       $update = version_compare($last, $version, '<');
     }
-    /// DebugStack::Info($file.' ('.$version.') update: '.(int)$update);
+    /// Yryie::Info($file.' ('.$version.') update: '.(int)$update);
   }
 
   /**
@@ -183,6 +198,11 @@ class esf_Plugin_AutoUpdate extends esf_Plugin {
   // -------------------------------------------------------------------------
   // PRIVATE
   // -------------------------------------------------------------------------
+
+  /**
+   *
+   */
+  private $cURL;
 
   /**
    *

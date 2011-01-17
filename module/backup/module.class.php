@@ -1,22 +1,12 @@
 <?php
 /**
- * @category   Module
- * @package    Module-Backup
- * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    0.1.0
- */
-
-/**
  * Auction backup module
  *
- * @category   Module
- * @package    Module-Backup
+ * @ingroup    Module-Backup
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
+ * @copyright  2009-2011 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    Release: @package_version@
+ * @version    $Id: v2.4.1-51-gfeddc24 - Sun Jan 16 21:09:59 2011 +0100 $
  */
 class esf_Module_Backup extends esf_Module {
 
@@ -35,6 +25,13 @@ class esf_Module_Backup extends esf_Module {
     if ($page < 1) $page = 1;
     $this->Start = ($page-1) * $this->AuctionsPerPage + 1;
     $this->End = $page * $this->AuctionsPerPage;
+  }
+
+  /**
+   * @return array Array of actions handled by the module
+   */
+  public function handles() {
+    return array('index', 'show', 'delete', 'restore', 'lock', 'unlock', 'clear');
   }
 
   /**
@@ -69,9 +66,9 @@ class esf_Module_Backup extends esf_Module {
       $id = 0;
 
       foreach ($auctions as $auction) {
-      
+
         if (++$id < $this->Start OR $id > $this->End) continue;
-      
+
         $item = $auction['item'];
         $tpldata = array('id'=>$id);
         foreach ($auction as $key => $val)
@@ -120,13 +117,13 @@ class esf_Module_Backup extends esf_Module {
     if (file_exists($file)) {
       foreach (unserialize(file_get_contents($file)) as $key => $val) {
         if (substr($key, 0, 1) != '_') {
-          TplData::set('AUCTION.'.$key, 
+          TplData::set('AUCTION.'.$key,
                        (is_bool($val) ? ($val ? 'TRUE' : 'FALSE') : htmlspecialchars(print_r($val, TRUE)))
           );
         }
       }
     } else {
-      Messages::addError(Translation::get('Backup.AuctionMissing'));
+      Messages::Error(Translation::get('Backup.AuctionMissing'));
       $this->forward();
     }
   }
@@ -138,7 +135,7 @@ class esf_Module_Backup extends esf_Module {
     foreach ($this->Auctions as $auction) {
       touch($this->LockFile($auction));
     }
-    Messages::addSuccess(Translation::get('Backup.Locked'));
+    Messages::Success(Translation::get('Backup.Locked'));
     $this->forward();
   }
 
@@ -150,7 +147,7 @@ class esf_Module_Backup extends esf_Module {
       $file = $this->LockFile($auction);
       file_exists($file) && unlink($file);
     }
-    Messages::addSuccess(Translation::get('Backup.Unlocked'));
+    Messages::Success(Translation::get('Backup.Unlocked'));
     $this->forward();
   }
 
@@ -164,14 +161,14 @@ class esf_Module_Backup extends esf_Module {
     foreach ($this->Auctions as $auction) {
       if (!file_exists(LockFile($auction))) {
         if (Exec::getInstance()->Remove(sprintf('"%s/%s"*', $this->BackupDir, $auction), $result)) {
-          Messages::addError($res);
+          Messages::Error($res);
         } else {
           $cnt++;
         }
       }
     }
     if ($cnt > 0) {
-      Messages::addSuccess(Translation::get('Backup.Deleted', $cnt));
+      Messages::Success(Translation::get('Backup.Deleted', $cnt));
     }
     $this->forward();
   }
@@ -185,10 +182,10 @@ class esf_Module_Backup extends esf_Module {
     foreach ($this->Auctions as $auction) {
       $src = sprintf('"%s/%s"*', $this->BackupDir, $auction);
       if (Exec::getInstance()->copy($src, esf_User::UserDir(), $result)) {
-        Messages::addError($res);
+        Messages::Error($res);
       }
       Event::ProcessInform('AuctionFilesChanged');
-      Messages::addSuccess(Translation::get('Backup.Restored'));
+      Messages::Success(Translation::get('Backup.Restored'));
     }
     $this->redirect('auction');
   }
@@ -201,7 +198,7 @@ class esf_Module_Backup extends esf_Module {
 
     $file = sprintf('"%s/"*', $this->BackupDir);
 #    Exec::getInstance()->Remove($file, $res);
-    Messages::addSuccess(Translation::get('Backup.AllDeleted'));
+    Messages::Success(Translation::get('Backup.AllDeleted'));
     $this->redirect('auction');
   }
 

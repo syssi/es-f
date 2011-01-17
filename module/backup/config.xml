@@ -8,11 +8,6 @@
     <section name="Backup">
 
       <!--
-        Module specific layout
-      -->
-      <config name="Layout">default</config>
-
-      <!--
         Backup also auction images
       -->
       <config name="Images" type="bool">TRUE</config>
@@ -28,8 +23,6 @@
 
       <config name="LoginRequired" type="bool">TRUE</config>
       <config name="Mobile" type="bool">FALSE</config>
-
-      <config name="Actions">index|show|delete|restore|lock|unlock|clear</config>
 
       <config name="Name">Backup auctions on delete and handle backed up auctions</config>
 

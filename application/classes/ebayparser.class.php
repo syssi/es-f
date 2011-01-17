@@ -1,13 +1,17 @@
 <?php
-/**
- * @package es-f
- * @subpackage ebayparser
- */
+/** @defgroup ebayParser eBay HTML page parser
+
+*/
 
 /**
  * Parameters for HTML parser of eBay pages
  *
- * @throws ebayParserException
+ * @ingroup    ebayParser
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2007-2010 Knut Kohl
+ * @license
+ * @version    $Id: v2.4.1-46-gfa6b976 - Sat Jan 15 13:42:37 2011 +0100 $
+ * @throws     ebayParserException
  */
 abstract class ebayParser {
 
@@ -17,7 +21,14 @@ abstract class ebayParser {
   public $Version;
 
   /**
+   * Urls to parse
+   */
+  public $URL = array();
+
+  /**
    * Constructor
+   *
+   * @param $tld string Top level domain to create
    */
   public final static function factory( $tld ) {
     $tld = str_replace('.', '_', strtolower($tld));
@@ -25,7 +36,7 @@ abstract class ebayParser {
     if (Loader::Load($file)) {
       $class = 'ebayParser_'.$tld;
       // >> Debug
-      DebugStack::Info($class.' ('.$file.')');
+      Yryie::Info($class.' ('.$file.')');
       // << Debug
       return new $class;
     }
@@ -33,18 +44,24 @@ abstract class ebayParser {
   }
 
   /**
+   * Get an auction detail
    *
+   * @param $item string
+   * @param $name string Detail name
+   * @param $stripTags bool Strip tags from result
+   * @param $url string URL id
+   * @return string
    */
   public final function getDetail( $item, $name, $stripTags=TRUE, $url=NULL ) {
     if (!isset($this->RegEx[$name])) {
-      Messages::addInfo('Missing reg. expression for detail "'.$name.'"');
+      Messages::Info('Missing reg. expression for detail "'.$name.'"');
       return FALSE;
     }
 
     $result = '';
     $html = AuctionHTML::getHTML($item, $this->URL, $err, ($url?$url:$name));
     if ($err) {
-      Messages::addError($err);
+      Messages::Error($err);
     } else {
       // >> Debug
       $dbg = '\'%s\' => %s';
@@ -80,7 +97,7 @@ abstract class ebayParser {
         }
       }
       // >> Debug
-      foreach ($msgs as $dbg) DebugStack::Debug($name.' : '.$dbg);
+      foreach ($msgs as $dbg) Yryie::Debug($name.' : '.$dbg);
       // << Debug
     }
 
@@ -93,6 +110,9 @@ abstract class ebayParser {
 
   /**
    * Add another url to parse (e.g. from plugin)
+   *
+   * @param $name string URL id
+   * @param $url string URL
    */
   public final function setURL( $name, $url ) {
     $this->URL[strtoupper($name)] = $url;
@@ -100,6 +120,9 @@ abstract class ebayParser {
 
   /**
    * Add another expression (e.g. from plugin)
+   *
+   * @param $name string Detail name
+   * @param $expression string reg. expression matching the detail
    */
   public final function setExpression( $name, $expression ) {
     $this->RegEx[strtoupper($name)] = $expression;
@@ -108,11 +131,6 @@ abstract class ebayParser {
   //--------------------------------------------------------------------------
   // PROTECTED
   //--------------------------------------------------------------------------
-
-  /**
-   * Urls to parse
-   */
-  public $URL = array();
 
   /**
    * reg. expressions, load from config files
@@ -348,6 +366,8 @@ abstract class ebayParser {
 
   /**
    * Class constructor
+   *
+   * @param $tld string Top level domain to create
    */
   protected function __construct( $tld ) {
     $this->Timezone = date('T');
@@ -382,7 +402,7 @@ abstract class ebayParser {
 */
 
     // >> Debug
-    DebugStack::Debug($this->RegEx);
+    Yryie::Debug($this->RegEx);
     // << Debug
   }
 
@@ -418,7 +438,8 @@ abstract class ebayParser {
 } // class
 
 /**
+ * Exception used by ebay parser classes
  *
- * @usedby ebayParser
+ * @ingroup ebayParser
  */
 class ebayParserException extends Exception {}

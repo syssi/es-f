@@ -2,12 +2,11 @@
 /**
  * Main program file
  *
- * @package    es-f
+ * @ingroup    es-f
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2007-2010 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    $Id$
- * @since      File available since Release 0.0.1
+ * @license
+ * @version    $Id: v2.4.1-45-g3faf669 - Wed Jan 12 21:35:21 2011 +0100 $
  */
 
 ini_set('display_startup_errors', 0);
@@ -33,11 +32,12 @@ try {
   }
 
   /**
-   * Load DebugStack
+   * Load Yryie
    */
-  $GLOBALS['DEBUGSTACK_ADD_VERSIONS'] = TRUE;
   require_once APPDIR . DIRECTORY_SEPARATOR . 'lib' . DIRECTORY_SEPARATOR
-             . 'debugstack' . DIRECTORY_SEPARATOR. 'debugstack.class.php';
+             . 'yryie' . DIRECTORY_SEPARATOR. 'yryie.class.php';
+  Yryie::Versions();
+
   /**
    * Class autoloading
    */

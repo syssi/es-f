@@ -1,22 +1,12 @@
 <?php
 /**
- * @category   Plugin
- * @package    Plugin-Process
- * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    0.1.0
- */
-
-/**
- * Rewrite urls
+ * Processes plugin
  *
- * @category   Plugin
  * @package    Plugin-Process
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
+ * @copyright  2009-2011 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    Release: @package_version@
+ * @version    $Id: v2.4.1-51-gfeddc24 - Sun Jan 16 21:09:59 2011 +0100 $
  */
 class esf_Plugin_Module_Process extends esf_Plugin {
 
@@ -30,7 +20,7 @@ class esf_Plugin_Module_Process extends esf_Plugin {
   /**
    * NOT YET ACTIVE
    */
-  function ProcessStart() {
+  public function ProcessStart() {
     if (PluginEnabled('Validate') AND Request::check('process')) {
       DefineValidator('group', 'Required');
     }
@@ -39,7 +29,7 @@ class esf_Plugin_Module_Process extends esf_Plugin {
   /**
    *
    */
-  function BuildMenu() {
+  public function BuildMenu() {
     // disable on mobile layouts
     if (Session::get('Mobile') AND !$this->Mobile) return;
 

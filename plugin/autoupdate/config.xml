@@ -5,6 +5,11 @@
     <section name="AutoUpdate">
 
       <!--
+        URL of version file
+      -->
+      <config name="VersionURL">http://es-f.git.sourceforge.net/git/gitweb.cgi?p=es-f/es-f;f=application/.version;a=blob_plain</config>
+
+      <!--
         Server to query for updates
       -->
       <config name="Server">http://update.es-f.com/</config>

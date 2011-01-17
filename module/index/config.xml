@@ -4,16 +4,9 @@
 
     <section name="Index">
 
-      <!--
-        Module specific layout
-      -->
-      <config name="Layout">default</config>
-
       <!-- *******************************************************************
       **  Don't change from here
       ******************************************************************** -->
-
-      <config name="Actions">index</config>
 
       <config name="Name">Homepage with some useful hints</config>
 

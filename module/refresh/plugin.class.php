@@ -1,22 +1,12 @@
 <?php
 /**
- * @category   Plugin
- * @package    Plugin-ModuleRefresh
- * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    0.1.0
- */
-
-/**
- * Rewrite urls
+ * Refresh auctions
  *
- * @category   Plugin
- * @package    Plugin-ModuleRefresh
+ * @ingroup    Plugin-ModuleRefresh
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
+ * @copyright  2009-2010 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    Release: @package_version@
+ * @version    $Id: v2.4.1-32-g2795bc8 - Sat Jan 8 22:41:44 2011 +0100 $
  */
 class esf_Plugin_Module_Refresh extends esf_Plugin {
 
@@ -55,8 +45,7 @@ class esf_Plugin_Module_Refresh extends esf_Plugin {
          Registry::get('esf.module') == 'auction' AND $maxage > 0 AND
          $_SERVER['REQUEST_TIME']-$maxage > Event::ProcessReturn('getLastUpdate'))) {
 
-      $Layout = FindActualLayout(Registry::get('Module.Refresh.Layout'));
-      TplData::add('HtmlHeader.raw', StylesAndScripts('module/refresh', $Layout));
+      TplData::add('HtmlHeader.raw', StylesAndScripts('module/refresh', Session::getP('Layout')));
 
       if (!$auctions)
         Session::set('Module.Refresh.Items', array_keys(esf_Auctions::$Auctions));
@@ -119,11 +108,9 @@ class esf_Plugin_Module_Refresh extends esf_Plugin {
 
     // try to remove the refreshing output and update "last updated" timestamp
     $script = sprintf('$("autorefresh").remove();'
-                     .'$("messages").appendChild((new Element("div",{"class":"msginner"}).update("%s")));'
                      .'$("lastupdate").update("%s");',
-                      $done,
                       date(Registry::get('Format.DateTime'),
-                      Event::ProcessReturn('getLastUpdate')));
+                           Event::ProcessReturn('getLastUpdate')));
     echo_script($script);
   }
 

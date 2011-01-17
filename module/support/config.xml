@@ -6,19 +6,12 @@
 
     <section name="Support">
 
-      <!--
-        Module specific layout
-      -->
-      <config name="Layout">default</config>
-
       <!-- *******************************************************************
       **  Don't change from here
       ******************************************************************** -->
 
       <config name="LoginRequired" type="bool">TRUE</config>
       <config name="Mobile" type="bool">FALSE</config>
-
-      <config name="Actions">index|download</config>
 
       <config name="Name">Some system informations for support requests</config>
 

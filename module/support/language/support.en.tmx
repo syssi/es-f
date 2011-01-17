@@ -45,9 +45,28 @@
     </tu>
 
     <tu tuid="Support">
-      <prop type="x-Format">file</prop>
+      <prop type="x-Format">html</prop>
       <tuv xml:lang="EN">
-        <seg>/mnt/www/html/es-f.dev/html/module/support/language/support.en.htm</seg>
+        <seg><![CDATA[
+<h1>Support</h1>
+
+<p>To get an overview about the support resources of the project, take a look at the
+<a class="sourceforge" href="https://sourceforge.net/projects/es-f/support">Support page</a>
+for the project on <a class="sourceforge" href="http://sourceforge.net/">SourceForge</a>.</p>
+
+<p>On this page are collected some information about your installation.</p>
+
+<p>If you find a bug, please</p>
+
+<ul>
+  <li><a class="save" href="?module=support&amp;action=download">Save</a> the following output to a file.</li>
+  <li>Go to the <a class="sourceforge"
+    href="http://sourceforge.net/tracker/?func=add&group_id=185222&atid=912405">bug tracker</a> on SourceForge.</li>
+  <li>Describe the symptoms and attach the file saved before to your message.</li>
+</ul>
+
+<p>(The user name is masked in output.)</p>
+        ]]></seg>
       </tuv>
     </tu>
 

@@ -1,22 +1,12 @@
 <?php
 /**
- * @category   Module
- * @package    Module-RSS
- * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    0.1.0
- */
-
-/**
  * RSS module
  *
- * @category   Module
- * @package    Module-RSS
+ * @ingroup    Module-RSS
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2009 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    Release: @package_version@
+ * @version    $Id: v2.4.1-51-gfeddc24 - Sun Jan 16 21:09:59 2011 +0100 $
  */
 class esf_Module_RSS extends esf_Module {
 
@@ -116,6 +106,13 @@ class esf_Module_RSS extends esf_Module {
     }
 
     die($feed);
+  }
+
+  /**
+   * @return array Array of actions handled by the module
+   */
+  public function handles() {
+    return array();
   }
 
 }

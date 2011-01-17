@@ -70,6 +70,12 @@
       </tuv>
     </tu>
 
+    <tu tuid="Layout">
+      <tuv xml:lang="DE">
+        <seg>Layout</seg>
+      </tuv>
+    </tu>
+
     <tu tuid="YourAccountAndPassword">
       <tuv xml:lang="DE">
         <seg><![CDATA[Dein eBay-Mitgliedsname und <tt>|es|f|</tt>-Passwort]]></seg>

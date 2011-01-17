@@ -1,22 +1,12 @@
 <?php
 /**
- * @category   Plugin
- * @package    Plugin-ModuleRegister
- * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    0.1.0
- */
-
-/**
- * Rewrite urls
+ * Register plugin
  *
- * @category   Plugin
- * @package    Plugin-ModuleRegister
+ * @ingroup    Module-Register
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
+ * @copyright  2009-2011 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    Release: @package_version@
+ * @version    $Id: v2.4.1-42-g440d05f - Sun Jan 9 21:40:58 2011 +0100 $
  */
 class esf_Plugin_Module_Register extends esf_Plugin {
 
@@ -45,7 +35,7 @@ class esf_Plugin_Module_Register extends esf_Plugin {
         $title = Translation::get('Register.RegistrationsPending', $cnt);
         $link = Core::Link(Core::URL(array('module'=>'register', 'action'=>'admin')),
                            Translation::get('Register.RegistrationsEdit'));
-        Messages::addSuccess($title.' '.$link, TRUE);
+        Messages::Success($title.' '.$link, TRUE);
       }
     }
   }

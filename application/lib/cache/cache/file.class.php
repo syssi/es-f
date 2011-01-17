@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Cache_File extends Cache_FileBase
+ */
 require_once dirname(__FILE__).'/filebase.class.php';
 
 /**
@@ -12,8 +14,11 @@ require_once dirname(__FILE__).'/filebase.class.php';
  * - token    : used to build unique cache ids (optional)
  * - cachedir : Where to store the file with the cached data (optional)
  *
- * @ingroup  Cache
- * @version  1.0.0
+ * @ingroup    Cache
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2007-2010 Knut Kohl
+ * @license
+ * @version    $Id: v2.4.1-45-g3faf669 - Wed Jan 12 21:35:21 2011 +0100 $
  */
 class Cache_File extends Cache_FileBase {
 
@@ -50,7 +55,7 @@ class Cache_File extends Cache_FileBase {
    *
    * @param string $id
    * @param $expire int Time to live or timestamp
-   *                    0  - expire never
+   *                     0 - expire never
    *                    >0 - Time to live
    *                    <0 - Timestamp of expiration
    * @return mixed

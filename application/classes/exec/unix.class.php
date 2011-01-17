@@ -6,7 +6,7 @@
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2007-2010 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    $Id$
+ * @version    $Id: v2.4.1-3-gd6df604 - Tue Dec 21 21:12:15 2010 +0100 $
  */
 
 /**

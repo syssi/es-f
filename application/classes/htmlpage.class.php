@@ -1,7 +1,12 @@
 <?php
-
 /**
  * Class that graps the html code of an url
+ *
+ * @ingroup    es-f
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2009-2011 Knut Kohl
+ * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
+ * @version    $Id: v2.4.1-29-gacb4bc2 - Fri Jan 7 21:24:31 2011 +0100 $
  */
 abstract class HTMLpage {
 
@@ -52,9 +57,9 @@ abstract class HTMLpage {
     @fclose($fh);
 
     // >> Debug
-    DebugStack::Info($url);
-    if (self::$Debug) DebugStack::Debug(self::$curl->getDebug());
-    DebugStack::Debug(self::$curl->info());
+    Yryie::Info($url);
+    if (self::$Debug) Yryie::Debug(self::$curl->getDebug());
+    Yryie::Debug(self::$curl->info());
     // << Debug
 
     return $ret;

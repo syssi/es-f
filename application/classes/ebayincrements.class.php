@@ -1,10 +1,10 @@
 <?php
 /**
- *
- */
-
-/**
- *
+ * @ingroup    es-f
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2007-2010 Knut Kohl
+ * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
+ * @version    $Id: v2.4.1-19-gc734aa2 - Sat Dec 25 22:49:29 2010 +0100 $
  */
 abstract class eBayIncrements {
 
@@ -17,7 +17,7 @@ abstract class eBayIncrements {
    * For example, 1.00, 0.05 means that under $1.00 the increment is $0.05.
    *
    * Increments obtained from:
-   *  http://pages.ebay.com/help/buy/bid-increments.html
+   * http://pages.ebay.com/help/buy/bid-increments.html
    * (and similar pages on international sites)
    */
 
@@ -63,20 +63,16 @@ abstract class eBayIncrements {
     /*
      * Australia: http://pages.ebay.com.au/help/buy/bid-increments.html
      */
-    'AU'    => array(
-
-          0 =>   0.05,
-          1 =>   0.25,
-          5 =>   0.50,
-         25 =>   1.00,
-        100 =>   2.50,
-        250 =>   5.00,
-        500 =>  10.00,
-       1000 =>  25.00,
-       2500 =>  50.00,
-       5000 => 100.00,
-
-    ),
+    'AU'  => array(    0 =>   0.05,
+                       1 =>   0.25,
+                       5 =>   0.50,
+                      25 =>   1.00,
+                     100 =>   2.50,
+                     250 =>   5.00,
+                     500 =>  10.00,
+                    1000 =>  25.00,
+                    2500 =>  50.00,
+                    5000 => 100.00),
 
     /*
      * Austria: http://pages.ebay.at/help/buy/bid-increments.html
@@ -87,46 +83,34 @@ abstract class eBayIncrements {
      * Netherlands: http://pages.ebay.nl/help/buy/bid-increments.html
      * Spain: http://pages.es.ebay.com/help/buy/bid-increments.html
      */
-    'EUR'   => array(
-
-          0 =>  0.50,
-         50 =>  1.00,
-        500 =>  5.00,
-       1000 => 10.00,
-       5000 => 50.00,
-
-    ),
+    'EUR' => array(    0 =>   0.50,
+                      50 =>   1.00,
+                     500 =>   5.00,
+                    1000 =>  10.00,
+                    5000 =>  50.00),
 
     /*
      * Canada: http://pages.ebay.ca/help/buy/bid-increments.html
      */
-    'C'     => array(
-
-          0 => 0.05,
-          1 => 0.25,
-          5 => 0.50,
-         25 => 1.00,
-        100 => 2.50,
-
-    ),
+    'C'   => array(    0 =>   0.05,
+                       1 =>   0.25,
+                       5 =>   0.50,
+                      25 =>   1.00,
+                     100 =>   2.50),
 
     /*
      * China: http://pages.ebay.com.cn/help/buy/bid-increments.html
      */
-    'RMB'   => array(
-
-          0 =>   0.05,
-          1 =>   0.20,
-          5 =>   0.50,
-         15 =>   1.00,
-         60 =>   2.00,
-        150 =>   5.00,
-        300 =>  10.00,
-        600 =>  20.00,
-       1500 =>  50.00,
-       3000 => 100.00,
-
-    ),
+    'RMB' => array(    0 =>   0.05,
+                       1 =>   0.20,
+                       5 =>   0.50,
+                      15 =>   1.00,
+                      60 =>   2.00,
+                     150 =>   5.00,
+                     300 =>  10.00,
+                     600 =>  20.00,
+                    1500 =>  50.00,
+                    3000 => 100.00),
 
     /*
      * Hong Kong: http://www.ebay.com.hk/
@@ -145,28 +129,20 @@ abstract class eBayIncrements {
     /*
      * Switzerland: http://pages.ebay.ch/help/buy/bid-increments.html
      */
-    'CHF'   => array(
-
-          0 =>  0.50,
-         50 =>  1.00,
-        500 =>  5.00,
-       1000 => 10.00,
-       5000 => 50.00,
-
-    ),
+    'CHF' => array(    0 =>  0.50,
+                      50 =>  1.00,
+                     500 =>  5.00,
+                    1000 => 10.00,
+                    5000 => 50.00),
 
     /*
      * Taiwan: http://pages.tw.ebay.com/help/buy/bid-increments.html
      */
-    'NT'    => array(
-
-          0 =>  15.00,
-        500 =>  30.00,
-       2500 =>  50.00,
-       5000 => 100.00,
-      25000 => 200.00,
-
-    ),
+    'NT'  => array(    0 =>  15.00,
+                     500 =>  30.00,
+                    2500 =>  50.00,
+                    5000 => 100.00,
+                   25000 => 200.00),
 
     /*
      * Ireland: http://pages.ebay.co.uk/help/buy/bid-increments.html
@@ -176,20 +152,16 @@ abstract class eBayIncrements {
      * Note: Sweden & Ireland use GBP or EUR.  English help pages redirect
      *       to UK site.
      */
-    'GBP'   => array(
-
-          0 =>   0.05,
-          1 =>   0.20,
-          5 =>   0.50,
-         15 =>   1.00,
-         60 =>   2.00,
-        150 =>   5.00,
-        300 =>  10.00,
-        600 =>  20.00,
-       1500 =>  50.00,
-       3000 => 100.00,
-
-    ),
+    'GBP' => array(    0 =>   0.05,
+                       1 =>   0.20,
+                       5 =>   0.50,
+                      15 =>   1.00,
+                      60 =>   2.00,
+                     150 =>   5.00,
+                     300 =>  10.00,
+                     600 =>  20.00,
+                    1500 =>  50.00,
+                    3000 => 100.00),
 
     /*
      * New Zealand: http://pages.ebay.com/help/buy/bid-increments.html
@@ -197,20 +169,16 @@ abstract class eBayIncrements {
      *
      * Note: New Zealand site uses US or NT.
      */
-    'US'    => array(
-
-          0 =>   0.05,
-          1 =>   0.25,
-          5 =>   0.50,
-         25 =>   1.00,
-        100 =>   2.50,
-        250 =>   5.00,
-        500 =>  10.00,
-       1000 =>  25.00,
-       2500 =>  50.00,
-       5000 => 100.00,
-
-    ),
+    'US'  => array(    0 =>   0.05,
+                       1 =>   0.25,
+                       5 =>   0.50,
+                      25 =>   1.00,
+                     100 =>   2.50,
+                     250 =>   5.00,
+                     500 =>  10.00,
+                    1000 =>  25.00,
+                    2500 =>  50.00,
+                    5000 => 100.00),
 
   ); // $Increments
 

@@ -5,11 +5,6 @@
     <section name="Protocol">
 
       <!--
-        Module specific layout
-      -->
-      <config name="Layout">default</config>
-
-      <!--
         Also show empty logs
       -->
       <config name="EmptyLogs" type="bool">FALSE</config>
@@ -30,8 +25,6 @@
 
       <config name="LoginRequired" type="bool">TRUE</config>
       <config name="Mobile" type="bool">FALSE</config>
-
-      <config name="Actions">index|show|delete</config>
 
       <config name="Name">Show esniper processes</config>
 

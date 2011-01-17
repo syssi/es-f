@@ -1,22 +1,12 @@
 <?php
 /**
- * @category   Plugin
- * @package    Plugin-ClearTitle
- * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    0.1.0
- */
-
-/**
  * Clear auction title, make more readable
  *
- * @category   Plugin
- * @package    Plugin-ClearTitle
+ * @ingroup    Plugin-ClearTitle
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
+ * @copyright  2009-2011 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    Release: @package_version@
+ * @version    $Id: v2.4.1-29-gacb4bc2 - Fri Jan 7 21:24:31 2011 +0100 $
  */
 class esf_Plugin_ClearTitle extends esf_Plugin {
 
@@ -36,18 +26,14 @@ class esf_Plugin_ClearTitle extends esf_Plugin {
       $from[] = $p['from'];
       $to[]   = str_replace('__', ' ', $p['to']);
     }
-    // >> Debug
-    DebugStack::Info('Title before: '.$auction['name']);
-    // << Debug
+    /// Yryie::Info('Title before: '.$auction['name']);
     do {
       $h = $auction['name'];
       $auction['name'] = preg_replace($from, $to, $auction['name']);
       // repeat until all changes done
     } while ($h != $auction['name']);
     $auction['name'] = trim($auction['name']);
-    // >> Debug
-    DebugStack::Info('Title after: '.$auction['name']);
-    // << Debug
+    /// Yryie::Info('Title after: '.$auction['name']);
   }
 
   /**

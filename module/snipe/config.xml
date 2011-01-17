@@ -8,11 +8,6 @@
     <section name="Snipe">
 
       <!--
-        Module specific layout
-      -->
-      <config name="Layout">default</config>
-
-      <!--
         Disable help for modules (comma separated list)
       -->
       <config name="DisableHelp">index,logout</config>
@@ -25,8 +20,6 @@
         Handle login inside!
       -->
       <config name="LoginRequired" type="bool">FALSE</config>
-
-      <config name="Actions">index|save</config>
 
       <config name="Name">Snipe auctions from ebay sites</config>
 

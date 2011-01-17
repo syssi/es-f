@@ -1,13 +1,12 @@
 <?php
 /**
+ * Auction backup plugin
  *
- *
- * @category   Plugin
- * @package    Plugin-ModuleBackup
+ * @ingroup    Module-Backup
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
+ * @copyright  2009-2011 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    Release: @package_version@
+ * @version    $Id: v2.4.1-42-g440d05f - Sun Jan 9 21:40:58 2011 +0100 $
  */
 class esf_Plugin_Module_Backup extends esf_Plugin {
 
@@ -64,10 +63,10 @@ class esf_Plugin_Module_Backup extends esf_Plugin {
       $Exec = Exec::getInstance();
       $src = sprintf('%s/%s.auction', $UserDir, $item);
       $dest = sprintf('%s/backup/', $UserDir);
-      if ($Exec->Copy($src, $dest, $res)) Messages::addError($res);
+      if ($Exec->Copy($src, $dest, $res)) Messages::Error($res);
       if ($this->Images) {
         $src = sprintf('"%s/%s.%s"', $UserDir, $item, $auction['image']);
-        if ($Exec->Copy($src, $dest, $res)) Messages::addError($res);
+        if ($Exec->Copy($src, $dest, $res)) Messages::Error($res);
       }
     }
   }

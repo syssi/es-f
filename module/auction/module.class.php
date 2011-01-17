@@ -1,22 +1,12 @@
 <?php
 /**
- * @category   Module
- * @package    Module-Auction
- * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    0.1.0
- */
-
-/**
- * Homepage module
+ * Auction module
  *
- * @category   Module
- * @package    Module-Auction
+ * @ingroup    Module
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
+ * @copyright  2009-2010 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    Release: @package_version@
+ * @version    $Id: v2.4.1-51-gfeddc24 - Sun Jan 16 21:09:59 2011 +0100 $
  */
 class esf_Module_Auction extends esf_Module {
 
@@ -45,9 +35,20 @@ class esf_Module_Auction extends esf_Module {
     $this->Item     = checkR('item');
     $this->Group    = checkR('group');
     $this->Auctions = checkR('auctions');
-    
+
     TplData::setConstant('CATEGORIES', esf_Auctions::getCategories());
     TplData::setConstant('GROUPS', esf_Auctions::getGroups());
+  }
+
+  /**
+   * @return array Array of actions handled by the module
+   */
+  public function handles() {
+    return array('index', 'add', 'editauction', 'delete', 'cleanup',
+                 'editgroup', 'start', 'stop',
+                 'refresh', 'refreshcategory', 'refreshgroup',
+                 'mcategory', 'mgroup', 'mimage', 'mcomment', 'mbid',
+                 'mcurrency', 'mrefresh', 'mdel', 'mdelg', 'mstart', 'mstop');
   }
 
   /**
@@ -204,73 +205,77 @@ class esf_Module_Auction extends esf_Module {
    *
    */
   public function EditAuctionAction() {
-    if ($this->isPost() AND $this->Item AND
-        ($this->Request('confirm') OR $this->Request('confirm_x'))) {
+    if ($this->isPost()) {
+      if ($this->Item AND ($this->Request('confirm') OR $this->Request('confirm_x'))) {
 
-      $data = array(esf_Auctions::get($this->Item), $this->Request);
-      Event::Process('AuctionEdited', $data);
-      $auction = $data[0];
+        $data = array(esf_Auctions::get($this->Item), $this->Request);
+        Event::Process('AuctionEdited', $data);
+        $auction = $data[0];
 
-      // get new image
-      if ($this->Request('image') OR $this->Request('imagere'))
-        $auction['image'] = esf_Auctions::fetchAuctionImage($this->Item, $this->Request('image'));
-
-      if (!$this->Request('currency')) $this->Request['currency'] = $auction['currency'];
-      $auction['currency'] = $this->Request('currencydef')
-                           ? Registry::get('Module.Auction.Currency')
-                           : $this->Request('currency');
-
-      if ($this->Request('categorynew')) $this->Request['category'] = $this->Request('categorynew');
-
-      if ($this->Request('groupnew')) $this->Request['group'] = $this->Request('groupnew');
-      $this->Request['group'] = esf_Auctions::SanitizeGroup($this->Request('group'));
-
-      $oldgroup = esf_Auctions::getGroup($auction);
-      $auction['group'] = $this->Request('group');
-      $this->Group = esf_Auctions::getGroup($auction);
-
-      if (!isset(esf_Auctions::$Groups[$this->Group])) {
-        esf_Auctions::$Groups[$this->Group] = esf_Auctions::$Groups[$oldgroup];
-        esf_Auctions::$Groups[$this->Group]['cat'] = $this->Request('category');
-      } elseif ($this->Group != $oldgroup) {
-        if ($this->Request('category') == FROMGROUP)
-           $this->Request['category'] = esf_Auctions::$Groups[$this->Group]['cat'];
-      }
-      esf_Auctions::handleCategory($auction, $this->Request('category'));
-
-      if ($this->Request('rotate') AND $angle=(int)$this->Request('rotate')) {
-        // absolute image file name
-        $ImgFile = sprintf('%s/%s.%s', esf_User::UserDir(), $auction['item'], $auction['image']);
-        // rotate image using our own image.php
-        $Image = sprintf('%shtml/image.php?n&i=%s&r=%d', BASEHTML, $ImgFile, $angle);
-        if ($Image = file_get_contents($Image)) {
-          // remove all old thumbs
-          if (Exec::getInstance()->Remove(sprintf('"%s/%s.img."*', esf_User::UserDir(), $auction['item']), $err))
-            Messages::addError($err);
-          // save new image
-          if (!File::write($ImgFile, $Image)) Messages::addError('Error writing image file: '.$ImgFile);
+        // get new image
+        if ($this->Request('image') OR $this->Request('imagere')) {
+          if ($this->Request('image') == '?') $this->Request['image'] = '';
+          $auction['image'] = esf_Auctions::fetchAuctionImage($this->Item, $this->Request('image'));
         }
+
+        if (!$this->Request('currency')) $this->Request['currency'] = $auction['currency'];
+        $auction['currency'] = $this->Request('currencydef')
+                             ? Registry::get('Module.Auction.Currency')
+                             : $this->Request('currency');
+
+        if ($this->Request('categorynew')) $this->Request['category'] = $this->Request('categorynew');
+
+        if ($this->Request('groupnew')) $this->Request['group'] = $this->Request('groupnew');
+        $this->Request['group'] = esf_Auctions::SanitizeGroup($this->Request('group'));
+
+        $oldgroup = esf_Auctions::getGroup($auction);
+        $auction['group'] = $this->Request('group');
+        $this->Group = esf_Auctions::getGroup($auction);
+
+        if (!isset(esf_Auctions::$Groups[$this->Group])) {
+          esf_Auctions::$Groups[$this->Group] = esf_Auctions::$Groups[$oldgroup];
+          esf_Auctions::$Groups[$this->Group]['cat'] = $this->Request('category');
+        } elseif ($this->Group != $oldgroup) {
+          if ($this->Request('category') == FROMGROUP)
+             $this->Request['category'] = esf_Auctions::$Groups[$this->Group]['cat'];
+        }
+        esf_Auctions::handleCategory($auction, $this->Request('category'));
+
+        if ($this->Request('rotate') AND $angle=(int)$this->Request('rotate')) {
+          // absolute image file name
+          $ImgFile = sprintf('%s/%s.%s', esf_User::UserDir(), $auction['item'], $auction['image']);
+          // rotate image using our own image.php
+          $Image = sprintf('%shtml/image.php?n&i=%s&r=%d', BASEHTML, $ImgFile, $angle);
+          if ($Image = file_get_contents($Image)) {
+            // remove all old thumbs
+            if (Exec::getInstance()->Remove(sprintf('"%s/%s.img."*', esf_User::UserDir(), $auction['item']), $err))
+              Messages::Error($err);
+            // save new image
+            if (!File::write($ImgFile, $Image)) Messages::Error('Error writing image file: '.$ImgFile);
+          }
+        }
+        $auction['shipping'] = toNum($this->Request('shipping'));
+        if ($this->Request('shippingfree')) $auction['shipping'] = 'FREE';
+        if (isset($this->Request['comment'])) $auction['comment'] = $this->Request('comment');
+        $auction['mybid'] = toNum($this->Request('mybid'));
+
+        // save data
+        esf_Auctions::set($auction);
+        esf_Auctions::SaveGroups(FALSE);
+
+        $running = esf_Auctions::PID($this->Group);
+        esf_Auctions::Stop($oldgroup, FALSE);
+        esf_Auctions::Stop($this->Group, FALSE);
+
+        if ($this->Request('now')) esf_Auctions::BidNow($this->Item, $this->Request('now'));
+
+        // restart auction if required
+        if ($running) esf_Auctions::Start($this->Group);
+        // redirect in case of inline editing
+        $this->Request('ajax') && $this->redirect('auction') || $this->forward();
+      } else {
+        $this->forward();
       }
-      $auction['shipping'] = toNum($this->Request('shipping'));
-      if ($this->Request('shippingfree')) $auction['shipping'] = 'FREE';
-      if (isset($this->Request['comment'])) $auction['comment'] = $this->Request('comment');
-      $auction['mybid'] = toNum($this->Request('mybid'));
-
-      // save data
-      esf_Auctions::set($auction);
-      esf_Auctions::SaveGroups(FALSE);
-
-      $running = esf_Auctions::PID($this->Group);
-      esf_Auctions::Stop($oldgroup, FALSE);
-      esf_Auctions::Stop($this->Group, FALSE);
-
-      if ($this->Request('now')) esf_Auctions::BidNow($this->Item, $this->Request('now'));
-
-      // restart auction if required
-      if ($running) esf_Auctions::Start($this->Group);
-      // redirect in case of inline editing
-      $this->Request('ajax') && $this->redirect('auction') || $this->forward();
-
     } elseif ($auction = esf_Auctions::get($this->Item)) {
 
       TplData::set('SubTitle2', Translation::get('Auction.EditAuction'));
@@ -290,17 +295,17 @@ class esf_Module_Auction extends esf_Module {
    *
    */
   public function DeleteAction() {
-    if ($this->isPost() AND ($this->Request('confirm') OR $this->Request('confirm_x'))) {
-
-      esf_Auctions::Delete($this->Item);
-      // redirect in case of inline editing
-      $this->Request('ajax') && $this->redirect('auction') || $this->forward();
-
+    if ($this->isPost()) {
+      if ($this->Request('confirm') OR $this->Request('confirm_x')) {
+        esf_Auctions::Delete($this->Item);
+        // redirect in case of inline editing
+        $this->Request('ajax') && $this->redirect('auction') || $this->forward();
+      } else {
+        $this->forward();
+      }
     } elseif ($auction = esf_Auctions::get($this->Item)) {
-
       TplData::set('SubTitle2', Translation::get('Auction.DeleteAuction'));
       TplData::set($this->getAuctionTplData($auction));
-
     } else {
       $this->forward();
     }
@@ -319,7 +324,7 @@ class esf_Module_Auction extends esf_Module {
           $cnt = $cnt+1;
         }
       }
-      Messages::addSuccess(
+      Messages::Success(
         ( $cnt
         ? Translation::get('Auction.DeletedEnded', $cnt)
         : Translation::get('Auction.NoDeletedEnded') )
@@ -354,7 +359,7 @@ class esf_Module_Auction extends esf_Module {
       foreach ($this->Auctions as $item) {
         // check if auction is still monitored an got correct suction data back
         if ($auction = esf_Auctions::get($item)) {
-          Messages::addInfo(Translation::get('Auction.SkipMonitored', $item, $auction['name']));
+          Messages::Info(Translation::get('Auction.SkipMonitored', $item, $auction['name']));
           continue;
         }
 
@@ -383,39 +388,42 @@ class esf_Module_Auction extends esf_Module {
    */
   public function EditGroupAction() {
     if (isset(esf_Auctions::$Groups[$this->Group])) {
-      if ($this->isPost() AND
-          ($this->Request('save') OR $this->Request('save_x') OR
-           $this->Request('start') OR $this->Request('start_x'))) {
-        $groupNew = checkR('groupnew');
-        $groupNew = esf_Auctions::SanitizeGroup($groupNew);
-        $doStart  = ($this->Request('start') OR $this->Request('start_x'));
-        if (/* !empty($groupNew) AND */ $this->Group != $groupNew) {
-          // rename group
-          esf_Auctions::Stop($this->Group, FALSE);
-          Exec::getInstance()->Remove(esf_Auctions::GroupLogFile($this->Group), $res);
+      if ($this->isPost()) {
+        if ($this->Request('save') OR $this->Request('save_x') OR
+           $this->Request('start') OR $this->Request('start_x')) {
+          $groupNew = checkR('groupnew');
+          $groupNew = esf_Auctions::SanitizeGroup($groupNew);
+          $doStart  = ($this->Request('start') OR $this->Request('start_x'));
+          if (/* !empty($groupNew) AND */ $this->Group != $groupNew) {
+            // rename group
+            esf_Auctions::Stop($this->Group, FALSE);
+            Exec::getInstance()->Remove(esf_Auctions::GroupLogFile($this->Group), $res);
 
-          unset(esf_Auctions::$Groups[$this->Group]);
-          foreach (esf_Auctions::$Auctions as $item => $auction) {
-            // change all auctions of "old" group
-            if (esf_Auctions::getGroup($auction) == $this->Group) {
-              $auction['group'] = $groupNew;
-              esf_Auctions::set($auction);
-              $group = esf_Auctions::getGroup($auction);
-              esf_Auctions::HandleGroup($group, $this->Request, FALSE, (!$groupNew AND $doStart));
+            unset(esf_Auctions::$Groups[$this->Group]);
+            foreach (esf_Auctions::$Auctions as $item => $auction) {
+              // change all auctions of "old" group
+              if (esf_Auctions::getGroup($auction) == $this->Group) {
+                $auction['group'] = $groupNew;
+                esf_Auctions::set($auction);
+                $group = esf_Auctions::getGroup($auction);
+                esf_Auctions::HandleGroup($group, $this->Request, FALSE, (!$groupNew AND $doStart));
+              }
             }
+            $this->Group = $groupNew;
           }
-          $this->Group = $groupNew;
+          if ($this->Group)
+            esf_Auctions::HandleGroup($this->Group, $this->Request, TRUE, $doStart);
+          // redirect in case of inline editing
+          $this->Request('ajax') && $this->redirect('auction') || $this->forward();
+        } else {
+          $this->forward();
         }
-        if ($this->Group)
-          esf_Auctions::HandleGroup($this->Group, $this->Request, TRUE, $doStart);
-        // redirect in case of inline editing
-        $this->Request('ajax') && $this->redirect('auction') || $this->forward();
       } else {
         TplData::set('SubTitle2', Translation::get('Auction.EditGroup'));
         TplData::set('Group', $this->getGroupTplData($this->Group));
       }
     } else {
-      Messages::addError('Unknown group: '.$this->Group);
+      Messages::Error('Unknown group: '.$this->Group);
       $this->forward();
     }
   }
@@ -553,14 +561,14 @@ class esf_Module_Auction extends esf_Module {
   public function MDelAction() {
     if ($this->isPost() AND $this->Auctions) {
       if (!$this->Request('mdel_confirm')) {
-        Messages::addError(Translation::get('Auction.PleaseConfirmDelete'), TRUE);
+        Messages::Error(Translation::get('Auction.PleaseConfirmDelete'), TRUE);
       } else {
         $i = 0;
         foreach ($this->Auctions as $item) {
           esf_Auctions::Delete($item);
           $i = $i + 1;
         }
-        if ($i) Messages::addSuccess(Translation::get('Auction.AuctionsDeleted', $i), TRUE);
+        if ($i) Messages::Success(Translation::get('Auction.AuctionsDeleted', $i), TRUE);
       }
     }
     $this->forward();
@@ -572,11 +580,11 @@ class esf_Module_Auction extends esf_Module {
   public function MDelGAction() {
     if ($this->isPost() AND $this->Auctions) {
       if (!$this->Request('mdelg_confirm')) {
-        Messages::addError(Translation::get('Auction.PleaseConfirmDelete'));
+        Messages::Error(Translation::get('Auction.PleaseConfirmDelete'));
       } else {
         foreach ($this->Auctions as $item) {
           $group = esf_Auctions::getGroup($item);
-          Messages::addInfo(Translation::get('Auction.DeleteAuctionsOfGroup', $group));
+          Messages::Info(Translation::get('Auction.DeleteAuctionsOfGroup', $group));
           foreach (esf_Auctions::$Auctions as $auction)
             if ($group == esf_Auctions::getGroup($auction)) esf_Auctions::Delete($auction);
         }
@@ -622,7 +630,7 @@ class esf_Module_Auction extends esf_Module {
     }
     $this->forward();
   }
-  
+
   // -------------------------------------------------------------------------
   // Refresh
   // -------------------------------------------------------------------------

@@ -2,12 +2,11 @@
 /**
  * Check for new esniper releases
  *
- * @category   Plugin
- * @package    Plugin-esniperVersion
+ * @ingroup    Plugin-esniperVersion
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
+ * @copyright  2009-2011 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    Release: @package_version@
+ * @version    $Id: v2.4.1-42-g440d05f - Sun Jan 9 21:40:58 2011 +0100 $
  */
 class esf_Plugin_esniperVersion extends esf_Plugin {
 
@@ -29,7 +28,7 @@ class esf_Plugin_esniperVersion extends esf_Plugin {
       $cmd = array('ESNIPERVERSION::VERSION', Registry::get('bin_esniper'));
       // alarm in case of new version
       if (Exec::getInstance()->ExecuteCmd($cmd, $res) OR count($res) > 1)
-        Messages::addError($res);
+        Messages::Error($res);
       $ver = trim(implode("\n", $res));
       file_put_contents($file, $ver);
       Session::set('esniperVersion', $ver);

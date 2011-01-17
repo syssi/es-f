@@ -1,22 +1,12 @@
 <?php
 /**
- * @category   Plugin
- * @package    Plugin-ImageSize
- * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    0.1.0
- */
-
-/**
  * Add image sizes to img tags
  *
- * @category   Plugin
- * @package    Plugin-ImageSize
+ * @ingroup    Plugin-ImageSize
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
+ * @copyright  2009-2011 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    Release: @package_version@
+ * @version    $Id: v2.4.1-52-g26c3418 - Mon Jan 17 19:09:09 2011 +0100 $
  */
 class esf_Plugin_ImageSize extends esf_Plugin {
 
@@ -68,7 +58,10 @@ class esf_Plugin_ImageSize extends esf_Plugin {
   // PRIVATE
   //--------------------------------------------------------------------------
 
-  private $Images = array();
+  /**
+   * Cache image hashes
+   */
+  private static $Images = array();
 
 }
 

@@ -1,22 +1,14 @@
 <?php
 /**
- * Copyright (c) 2006-2009 Knut Kohl <knutkohl@users.sourceforge.net>
+ * Wrapper for JpGraph
  *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
+ * http://jpgraph.net/
  *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * GPL: http://www.gnu.org/licenses/gpl.txt
- *
- * @package Module-Analyse
- * @subpackage Core
- * @desc Generates the analyse graph
+ * @ingroup    Module-Analyse
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2009-2010 Knut Kohl
+ * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
+ * @version    $Id: v2.4.1-48-g52d1631 - Sat Jan 15 16:45:56 2011 +0100 $
  */
 
 // -----------------------------------------------------------------------------
@@ -27,30 +19,35 @@ $MinMaxWidth = array( 4, 8 );
 $XYGrace     = array( 3, 8 ); # x/y grace in percent
 
 // -----------------------------------------------------------------------------
+ini_set('display_startup_errors', 0);
+ini_set('display_errors', 0);
 error_reporting(0);
-error_reporting(E_ALL);
+
+#ini_set('display_startup_errors', 1);
+#ini_set('display_errors', 1);
+#error_reporting(-1);
 
 $time = time();
 
-$jppath = '../../local/module/analyse/jpgraph';
+$jppath = 'jpgraph';
 
 /**
  * @ignore
  */
-require $jppath.'/jpgraph.php';
+require_once $jppath.'/jpgraph.php';
 
 $data = FALSE;
 
 if (!empty($_GET['data'])) {
-  # 1. via ?data=...
+  // 1. via ?data=...
   $data = $_GET['data'];
 } elseif (!empty($_SERVER['QUERY_STRING'])) {
-  # 2. via query ?...
+  // 2. via query ?...
   $data = $_SERVER['QUERY_STRING'];
 }
 
 if (!$data) {
-  # error handling via jpgraph ...
+  // error handling via jpgraph ...
   $e = new JpGraphErrObjectImg();
   $e->Raise('No data!'."\n\n".'There are 2 ways to provide data:'."\n\n"
            .'1. as ...?<data>'."\n"
@@ -85,7 +82,7 @@ $MinMaxBids = $x = $y = array(1E+10,0);
 $XY = $linebids = $linemid = $linehmid = array();
 
 foreach ($databids as $id => $bids) {
-  $XY[md5($datax[$id].$datay[$id])] = array($bids,$ends[$id]);
+  $XY[md5($datax[$id].$datay[$id])] = array($bids, $ends[$id]);
   if ($bids < $MinMaxBids[0]) $MinMaxBids[0] = $bids;
   if ($bids > $MinMaxBids[1]) $MinMaxBids[1] = $bids;
   // self calculation of x grace
@@ -99,12 +96,9 @@ foreach ($databids as $id => $bids) {
   $linehmid[] = $hmid;
 }
 
-$MinMaxScale = (count($datax) == 1 OR ($MinMaxBids[1]-$MinMaxBids[0]) == 0) ? 1
+$MinMaxScale = (count($datax) == 1 OR ($MinMaxBids[1]-$MinMaxBids[0]) == 0)
+             ? 1
              : ($MinMaxWidth[1]-$MinMaxWidth[0]) / ($MinMaxBids[1]-$MinMaxBids[0]);
-
-include $jppath.'/jpgraph_scatter.php';
-include $jppath.'/jpgraph_line.php';
-include $jppath.'/jpgraph_date.php';
 
 // move at least bid into graph...
 if ($y[0] > $bid) $y[0] = $bid;
@@ -120,6 +114,8 @@ $Grace[1] = $y[1] + ($y[1]-$y[0])*$XYGrace[1]/100;
 $Grace[2] = $x[0] - ($x[1]-$x[0])*$XYGrace[0]/100;
 if ($Grace[2] < 0) $Grace[2] = '1';
 $Grace[3] = $x[1] + ($x[1]-$x[0])*$XYGrace[0]/100;
+
+include $jppath.'/jpgraph_date.php';
 
 // Setup a basic graph
 $graph = new Graph($xsize, $ysize, 'auto');
@@ -144,7 +140,7 @@ $graph->xaxis->SetLabelAngle(90);
 $graph->xaxis->HideTicks(TRUE, FALSE);
 
 // Y-axis
-$graph->yaxis->SetLabelFormat('%0.2f'); 
+$graph->yaxis->SetLabelFormat('%0.2f');
 $graph->yaxis->HideTicks(TRUE, FALSE);
 
 // Grid
@@ -154,17 +150,20 @@ $graph->ygrid->SetColor('gray@0.8');
 
 // Legend
 $graph->legend->SetColor('black', 'white');
-$graph->legend->SetFillColor('white');
-$graph->legend->SetShadow(FALSE);
-$graph->legend->SetPos(0.005, 0.01);
-$graph->legend->SetLayout(LEGEND_HOR);
+#$graph->legend->SetFillColor('#E0E0E0');
+#$graph->legend->SetShadow(TRUE);
+$graph->legend->SetPos(0.015, 0.01);
+#$graph->legend->SetLayout(LEGEND_HOR);
 
 $flegend = '%1$.2f : %2$s';
+
+include $jppath.'/jpgraph_line.php';
+
 // Lines
 if ($bid > 0) {
   // Create bid line as lin. plot
   $lp1 = new LinePlot($linebids, $datax);
-  $lp1->SetColor('red');
+#  $lp1->SetColor('FF0000');
   $lp1->SetLegend(sprintf($flegend, $bid, $legend));
   $graph->Add($lp1);
 }
@@ -172,7 +171,7 @@ if ($bid > 0) {
 if ($mid > 0) {
   // Arithmetical average
   $lp2 = new LinePlot($linemid, $datax);
-  $lp2->SetColor('green');
+#  $lp2->SetColor('green');
   $lp2->SetLegend(sprintf($flegend, $mid, $mlegend));
   $graph->Add($lp2);
 }
@@ -180,10 +179,49 @@ if ($mid > 0) {
 if ($hmid > 0) {
   // Harmonic average
   $lp3 = new LinePlot($linehmid, $datax);
-  $lp3->SetColor('blue');
+#  $lp3->SetColor('blue');
   $lp3->SetLegend(sprintf($flegend, $hmid, $hlegend));
   $graph->Add($lp3);
 }
+
+include $jppath.'/jpgraph_scatter.php';
+
+/*
+if (count($ends) >= 3) {
+  // Moving average, 3 or more auctions required
+  $e = array();
+  foreach ($ends as $id => $end) {
+    // Prepare for sort by end time only, IGNORE date
+    $e[] = array(fTS($end), $end, 0, $datay[$id], $databids[$id]);
+  }
+  usort($e, function($a,$b){return $a[0]-$b[0];});
+
+  $max = count($e);
+  for ($i=0; $i<$max; $i++) {
+    if ($i == 1) {
+      // ignore 1st...
+      $e[$i-1][2] = ($e[$i-1][3] + $e[$i][3]) / 3;
+    }
+    if ($i >= 1 AND $i <= $max-2) {
+      $e[$i][2]   = ($e[$i-1][3] + $e[$i][3] + $e[$i+1][3]) / 3;
+    }
+    if ($i == $max-2) {
+      // ... and last value
+      $e[$i+1][2] = ($e[$i][3] + $e[$i+1][3]) / 2;
+    }
+  }
+  usort($e, function($a,$b){return $a[1]-$b[1];});
+
+  $lineavg = array();
+  foreach ($e as $d) $lineavg[] = $d[2];
+
+  $lp4 = new ScatterPlot($lineavg, $datax);
+#  $lp4->SetColor('yellow');
+#  $lp4->SetLegend(sprintf($flegend, $hmid, $hlegend));
+  $lp4->SetLegend('Moving average');
+  $graph->Add($lp4);
+}
+*/
 
 // Create the scatter plot
 $sp1 = new ScatterPlot($datay, $datax);
@@ -191,8 +229,6 @@ $sp1->mark->SetType(MARK_FILLEDCIRCLE);
 
 // Specify the callback
 $sp1->mark->SetCallbackYX('fCallbackYX');
-
-//$sp1->SetLegend('Auctions');
 
 // Plot to the graph
 $graph->Add($sp1);
@@ -222,7 +258,6 @@ function fTS ( $ts ) {
  * @return array
  */
 function fCallbackYX ( $Y, $X ) {
-  # return array(width,border_color,fill_color,NULL,NULL)
   global $XY, $MinMaxScale, $MinMaxWidth, $MinMaxBids, $time;
   $point = md5($X.$Y);
   $bids = $XY[$point][0];

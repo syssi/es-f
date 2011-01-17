@@ -1,15 +1,20 @@
 <?php
+/** @defgroup Cache Caching classes
+
+*/
+
 /**
  * Abstract class Cache
  *
  * The following settings are supported:
  * - token    : used to build unique cache ids (general)
  *
- * @ingroup  Cache
- * @version  1.0.0
- * @author
+ * @ingroup    Cache
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2007-2010 Knut Kohl
+ * @license
+ * @version    $Id: v2.4.1-46-gfa6b976 - Sat Jan 15 13:42:37 2011 +0100 $
  */
-
 abstract class Cache {
 
   /**
@@ -20,7 +25,7 @@ abstract class Cache {
   /**
    * Take first ID_LENGTH characters from generated MD5 hash
    */
-  const ID_LENGTH = 7;
+  const ID_LENGTH = 8;
 
   // -------------------------------------------------------------------------
   // ABSTRACT
@@ -138,6 +143,7 @@ abstract class Cache {
   /**
    * Function factory...
    *
+   * @param string $class Cache class to create
    * @param array $settings
    * @return void
    */
@@ -282,7 +288,6 @@ abstract class Cache {
   /**
    * Class constructor
    *
-   * @protected
    * @param array $settings
    * @return void
    */

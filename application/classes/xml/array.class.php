@@ -1,14 +1,11 @@
 <?php
 /**
  *
- * @package XMLParser
- *
- */
-
-/**
- *
- * @package XMLParser
- *
+ * @ingroup    XMLParser
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2009-2011 Knut Kohl
+ * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
+ * @version    $Id: v2.4.1-29-gacb4bc2 - Fri Jan 7 21:24:31 2011 +0100 $
  */
 abstract class XML_Array extends XML_Object implements XML_ArrayI {
 
@@ -49,19 +46,19 @@ abstract class XML_Array extends XML_Object implements XML_ArrayI {
     /* ///
     $id = str_replace($_SERVER['DOCUMENT_ROOT'].'/', '', $XMLURI);
     $cached = TRUE;
-    DebugStack::StartTimer($id, $id, 'parse XML file');
+    Yryie::StartTimer($id, $id, 'parse XML file');
     /// */
     while ($this->Cache->save($XMLURI, $array, -File::MTime($XMLURI))) {
       /* ///
-      DebugStack::Info('Parse: '.$XMLURI);
+      Yryie::Info('Parse: '.$XMLURI);
       $cached = FALSE;
       /// */
       $data = parent::ParseXMLFile($XMLURI);
       $array = is_array($data) ? $this->XML2Array($data[0]->Childs) : '';
     }
     /* ///
-    if ($cached) DebugStack::Info('Cached: '.$XMLURI);
-    DebugStack::StopTimer($id);
+    if ($cached) Yryie::Info('Cached: '.$XMLURI);
+    Yryie::StopTimer($id);
     /// */
     return $array;
   } // function ParseXMLFile()

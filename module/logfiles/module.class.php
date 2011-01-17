@@ -1,22 +1,12 @@
 <?php
 /**
- * @category   Module
- * @package    Module-Logfiles
- * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    0.1.0
- */
-
-/**
- * Homepage module
+ * Logfiles module
  *
- * @category   Module
- * @package    Module-Logfiles
+ * @ingroup    Module-Logfiles
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
+ * @copyright  2009-2011 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    Release: @package_version@
+ * @version    $Id: v2.4.1-51-gfeddc24 - Sun Jan 16 21:09:59 2011 +0100 $
  */
 
 class esf_Module_Logfiles extends esf_Module {
@@ -29,6 +19,13 @@ class esf_Module_Logfiles extends esf_Module {
 
     $this->Id = $this->Request('id');
     $this->Bug = @base64_decode($this->Request('bug'));
+  }
+
+  /**
+   * @return array Array of actions handled by the module
+   */
+  public function handles() {
+    return array('index', 'show', 'bug', 'delete', 'get');
   }
 
   /**
@@ -99,13 +96,13 @@ class esf_Module_Logfiles extends esf_Module {
     if (!empty($this->LogFile[$this->Id])) {
       $log = $this->LogFile[$this->Id];
       if (File::Delete($log)) {
-        Messages::addSuccess(Translation::get('Logfiles.Deleted', $log));
+        Messages::Success(Translation::get('Logfiles.Deleted', $log));
       } else {
-        Messages::addError(Translation::get('Logfiles.DeleteError', $log));
+        Messages::Error(Translation::get('Logfiles.DeleteError', $log));
       }
     } elseif ($this->Bug) {
       File::Delete($this->Bug);
-      Messages::addSuccess(Translation::get('Logfiles.BugDeleted', $log));
+      Messages::Success(Translation::get('Logfiles.BugDeleted', $log));
     }
     $this->forward();
   }

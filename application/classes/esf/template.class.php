@@ -2,8 +2,11 @@
 /**
  * es-f specific template class to wrap Yuelo templating system
  *
- * @author   Knut Kohl <knutkohl@users.sourceforge.net>
- * @version  1.0.0
+ * @ingroup    es-f
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2009-2011 Knut Kohl
+ * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
+ * @version    $Id: v2.4.1-43-g9eb0fbd - Tue Jan 11 21:51:29 2011 +0100 $
  */
 class esf_Template {
 
@@ -44,11 +47,11 @@ class esf_Template {
     // internationalization
     $this->Template->AssignTranslation(Translation::getAll());
     // render template
-    /// Debugstack::Info('Render: '.$Template);
+    /// Yryie::Info('Render: '.$Template);
     $html = $this->Template->Render($Template, $dieOnError);
     /// if (!$dieOnError AND $this->Template->Error)
-    ///   Debugstack::Info($this->Template->Error);
-    /// Debugstack::Info($this->Adapter->getLastTemplate());
+    ///   Yryie::Info($this->Template->Error);
+    /// Yryie::Info($this->Adapter->getLastTemplate());
     return $html;
   }
 
@@ -106,14 +109,14 @@ class esf_Template {
     // register own extensions
     if (Yuelo::get('Autoload')) {
       // preload user custom extensions, can't be found by Yuelo
-      require_once APPDIR.DIRECTORY_SEPARATOR.'yuelo'.DIRECTORY_SEPARATOR.'button.php';
-      require_once APPDIR.DIRECTORY_SEPARATOR.'yuelo'.DIRECTORY_SEPARATOR.'help.php';
-      require_once APPDIR.DIRECTORY_SEPARATOR.'yuelo'.DIRECTORY_SEPARATOR.'translate.php';
+      require_once np(APPDIR.'/yuelo/button.extension.php');
+      require_once np(APPDIR.'/yuelo/help.extension.php');
+      require_once np(APPDIR.'/yuelo/translate.extension.php');
     }
     $complier = Yuelo_Compiler::getInstance();
-    $complier->RegisterExtension('Button',    APPDIR.DIRECTORY_SEPARATOR.'yuelo'.DIRECTORY_SEPARATOR.'button.php');
-    $complier->RegisterExtension('Help',      APPDIR.DIRECTORY_SEPARATOR.'yuelo'.DIRECTORY_SEPARATOR.'help.php');
-    $complier->RegisterExtension('Translate', APPDIR.DIRECTORY_SEPARATOR.'yuelo'.DIRECTORY_SEPARATOR.'translate.php');
+    $complier->RegisterExtension('Button',    np(APPDIR.'/yuelo/button.extension.php'));
+    $complier->RegisterExtension('Help',      np(APPDIR.'/yuelo/help.extension.php'));
+    $complier->RegisterExtension('Translate', np(APPDIR.'/yuelo/translate.extension.php'));
 
     // register processors
     require_once YUELO_BASE_PROCESSOR.'removephp.class.php';

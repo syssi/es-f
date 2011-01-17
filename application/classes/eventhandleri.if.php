@@ -1,14 +1,22 @@
 <?php
 
 /**
- * Mostly oberver pattern
+ * The EventHandler is mostly the oberver pattern
+ *
+ * @ingroup    Event
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2007-2010 Knut Kohl
+ * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
+ * @version    $Id: v2.4.1-51-gfeddc24 - Sun Jan 16 21:09:59 2011 +0100 $
  */
 interface EventHandlerI {
 
   /**
-   * Will be called to detect which events are handled by a plugin
+   * Will be called to detect which
+   * - actions are handled by a module
+   * - events are handled by a plugin
    *
-   * @return array Array of event names handled by plugin
+   * @return array Array of event names handled by handler
    */
   public function handles();
 

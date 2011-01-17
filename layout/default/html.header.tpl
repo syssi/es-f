@@ -29,9 +29,10 @@
 <div id="header">
 
   <div id="header_title" style="text-align:center">
+
     <div id="esf_title" style="float:left;text-align:left;margin-bottom:5px">
-      <tt>{CONST.ESF.LONG_TITLE}</tt><br>
-      <small>{CONST.ESF.FULL_VERSION}</small>
+      <strong style="font-size:18px"><tt>{CONST.ESF.TITLE}</tt> {CONST.ESF.SLOGAN}</strong><br>
+      {CONST.ESF.FULL_VERSION}
       <!-- IF CONST.DEVELOP -->
       <br>
       <span style="font-size:smaller;font-style:italic">
@@ -42,11 +43,9 @@
         </script>
       </span>
       <!-- ENDIF -->
-
     </div>
 
     <div style="float:right;text-align:right;margin-bottom:5px">
-
       <div style="float:right;margin-left:2em">
         <!-- BEGIN LANGUAGE -->
         <a class="language" href="{URL}" onmouseover="Tip('{DESC}')"><img
@@ -72,7 +71,6 @@
       {server:"REMOTE_HOST"} ({server:"REMOTE_ADDR"})
       </span>
       <!-- ENDIF -->
-
     </div>
 
     <div style="width:35em;margin:0 auto">

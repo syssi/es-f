@@ -32,33 +32,28 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 
   <link rel="stylesheet" type="text/css" href="layout/text.css">
-
   <!-- BEGIN HTMLHEADER.CSS -->
   <link rel="stylesheet" type="text/css" href="{CSS}">
   <!-- END HTMLHEADER.CSS -->
 
   <!-- dynamic font size -->
-  <script type="text/javascript" src="js/efa/cookies.js"></script>
   <script type="text/javascript" src="js/efa/efa_fontsize.js"></script>
 
   <script type="text/javascript" src="js/_load.js"></script>
-
   <script type="text/javascript" src="layout/script.js"></script>
-
-  <script type="text/javascript">
-    // <![CDATA[
-    var esf_cookieManager = new esf_Cookiemanager('esf_cookieManager');
-    esf_cookieManager.setCookie('esf_jstest',true);
-    <!-- BEGIN HTMLHEADER.SCRIPT -->
-    {SCRIPT}
-    <!-- END HTMLHEADER.SCRIPT -->
-    <!-- addLoadEvent(setupZoom); -->
-    // ]]>
-  </script>
-
   <!-- BEGIN HTMLHEADER.JS -->
   <script type="text/javascript" src="{JS}"></script>
   <!-- END HTMLHEADER.JS -->
+
+  <script type="text/javascript">
+    // <![CDATA[
+    var cookieManager =
+      new Cookiemanager('cookieManager', '', 1, 'years', document.domain);
+    <!-- BEGIN HTMLHEADER.SCRIPT -->
+    {SCRIPT}
+    <!-- END HTMLHEADER.SCRIPT -->
+    // ]]>
+  </script>
 
 {HTMLHEADER.RAW}
 

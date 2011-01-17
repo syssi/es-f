@@ -47,10 +47,7 @@
 
       <script type="text/javascript">
         // <![CDATA[
-        var c = esf_cookieManager.getCookie('esf_categories');
-        if (c && c.match(/%%{CATEGORY.NAME|hash}/)) {
-          addLoadEvent(ShowHideCategory('{CATEGORY.NAME|hash}',false));
-        }
+        // check box for all auctions in category
         addLoadEvent(function(){
           $('cb_{CATEGORY.NAME|hash}').show()
         });

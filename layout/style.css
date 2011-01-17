@@ -160,7 +160,7 @@ td.action {
   text-align: center;
 }
 
-#debugstack_title {
+#Yryie_title {
   background-color: #909090;
   color: black;
   border: solid #606060 2px;
@@ -334,13 +334,39 @@ div.messages {
   padding: 0.4em;
 }
 
+.msginfo,
+.msgsuccess,
+.msgerror,
+.msgcode {
+  padding-left: 22px;
+}
+
+.msginfo {
+  background: url(images/icon/warning.png) left top no-repeat;
+}
+
 .msgsuccess {
+  background: url(images/icon/info.png) left top no-repeat;
 }
 
 .msgerror {
+  background: url(images/icon/error.png) left top no-repeat;
 }
 
-.msginfo,
+/*
+.msginfo {
+  background: url(images/icon/Shield_Blue.gif) left top no-repeat;
+}
+
+.msgsuccess {
+  background: url(images/icon/Shield_Green.gif) left top no-repeat;
+}
+
+.msgerror {
+  background: url(images/icon/Shield_Red.gif) left top no-repeat;
+}
+*/
+
 .msgcode {
 }
 

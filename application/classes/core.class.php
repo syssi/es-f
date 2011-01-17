@@ -4,11 +4,11 @@
  *
  * Core application functions
  *
- * @package    Ces-f
- * @author
- * @copyright
+ * @package    es-f
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2007-2010 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version
+ * @version    $Id: v2.4.1-49-g0f62a5c - Sat Jan 15 23:05:05 2011 +0100 $
  */
 abstract class Core {
 
@@ -148,32 +148,26 @@ abstract class Core {
    * Own session handling
    *
    * @param boolean $forceRestart Force restart of session, e.g. in case of logout
-   * @param boolean $keepCookie Keep cookie over session restart
    * @return void
    */
-  public static function StartSession( $forceRestart=FALSE, $keepCookie=FALSE ) {
+  public static function StartSession( $forceRestart=FALSE ) {
     /// Session::$Debug = TRUE;
     /// Session::$Messages = array();
     if (!Session::Active()) {
       // Session not started yet
       Event::ProcessInform('InitSession');
       Session::SetName(Registry::get('SessionName'));
-      Session::Start();
+      Session::Start(Cookie::get('ttl'));
     } elseif ($forceRestart) {
       // force restart
-      if (!$keepCookie) setCookie(esf_User::COOKIE, '');
-      Session::destroy(!$keepCookie);
+      Session::destroy();
       Event::ProcessInform('InitSession');
       Session::SetName(Registry::get('SessionName'));
       Session::Start();
     }
 
-    // >> Debug
-    if (DebugStack::Active())
-      foreach ((array)Session::$Messages as $msg)
-        DebugStack::Info($msg);
-    Session::$Messages = array();
-    // << Debug
+    /// if (Yryie::Active())
+    ///   foreach ((array)Session::$Messages as $msg) Yryie::Info($msg);
   }
 
   /**
@@ -196,14 +190,12 @@ abstract class Core {
     $do['module'] = $ud_module;
     $do['action'] = $ud_action;
 
-    Registry::set('esf.module', ($do['module'] ? $do['module'] : Registry::get('StartModule')));
+    Registry::set('esf.module', ($do['module'] ? $do['module'] : STARTMODULE));
     Registry::set('esf.action', ($do['action'] ? $do['action'] : 'index'));
 
     $do = array_merge($ua_params, $do);
     unset($do['module'], $do['action']);
-    foreach ($do as $key => $val) {
-      $_REQUEST[$key] = $val;
-    }
+    foreach ($do as $key => $val) $_REQUEST[$key] = $val;
   }
 
   /**
@@ -212,11 +204,8 @@ abstract class Core {
    * @param string $url
    */
   public static function Redirect( $url ) {
-
     Event::ProcessInform('Redirect', $url);
-
     Session::close();
-
     if (!headers_sent()) {
       Header('Location: ' . str_replace('&amp;', '&', $url));
       exit;
@@ -256,31 +245,27 @@ abstract class Core {
    * @param mixed &$var Variable to strip slashes
    */
   public static function StripSlashes( &$var ) {
-    if (get_magic_quotes_gpc()) {
-      if (!is_array($var)) {
-        $var = stripslashes($var);
-      } else {
-        foreach (array_keys($var) as $key) self::StripSlashes($var[$key]);
-      }
-    }
+    if (!get_magic_quotes_gpc()) return;
+
+    if (!is_array($var))
+      $var = stripslashes($var);
+    else
+      foreach (array_keys($var) as $key) self::StripSlashes($var[$key]);
   }
 
   /**
    *
    */
   public static function IncludeSpecial( $Scopes, $Patterns, $force=FALSE ) {
-
     if (!is_array($Scopes)) $Scopes = array($Scopes);
     if (!is_array($Patterns)) $Patterns = array($Patterns);
 
     // >> Debug
-    DebugStack::Info(sprintf('(%s)'.DIRECTORY_SEPARATOR.'(%s)', implode('|',$Scopes), implode('|',$Patterns)));
+    Yryie::Info(sprintf('(%s)'.DIRECTORY_SEPARATOR.'(%s)', implode('|',$Scopes), implode('|',$Patterns)));
     // << Debug
 
     foreach ($Scopes as $Scope) {
-
       $chk4User = (!$force AND ($Scope == esf_Extensions::MODULE));
-
       switch ($Scope) {
         // --------------------
         case esf_Extensions::MODULE :
@@ -299,13 +284,13 @@ abstract class Core {
                 $Pattern = str_replace('/', DIRECTORY_SEPARATOR, $Pattern);
                 foreach (glob($path.$Pattern.'.php') as $file) {
                   /* ///
-                  DebugStack::StartTimer($file, $file, 'include special '.$Scope);
-                  DebugStack::Info(sprintf('%s [0%s]',
+                  Yryie::StartTimer($file, $file, 'include special '.$Scope);
+                  Yryie::Info(sprintf('%s [0%s]',
                                            str_replace(@$_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR, '', $file),
                                            File::Permissions($file)));
                   /// */
                   Loader::Load($file);
-                  /// DebugStack::StopTimer();
+                  /// Yryie::StopTimer();
                 }
               }
             }
@@ -323,13 +308,13 @@ abstract class Core {
                   : $Pattern.'.php';
             foreach (glob($path) as $file) {
               /* ///
-              DebugStack::StartTimer($file);
-              DebugStack::Info(sprintf('%s (0%s)',
+              Yryie::StartTimer($file);
+              Yryie::Info(sprintf('%s (0%s)',
                                        str_replace(@$_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR, '', $file),
                                        File::Permissions($file)));
               /// */
               Loader::Load($file);
-              /// DebugStack::StopTimer();
+              /// Yryie::StopTimer();
             }
           }
           break;
@@ -365,11 +350,9 @@ abstract class Core {
           foreach ($data1 as $key2=>$data2) {
             if (!is_array($data2)) {
               Registry::set($key1.'.'.$key2, $data2);
-            } else {
-              foreach ($data2 as $key3=>$data3) {
+            } else
+              foreach ($data2 as $key3=>$data3)
                 Registry::set($key1.'.'.$key2.'.'.$key3, $data3);
-              }
-            }
           }
         }
       }
@@ -410,26 +393,20 @@ abstract class Core {
     $checked = TRUE;
     if (!empty(self::$Required[$ls][$lp])) {
       foreach (self::$Required[$ls][$lp] as $reqscope => $reqparts) {
-        switch ($reqscope) {
-          case 'core':
-            break;
-          default:
-            foreach ($reqparts as $check => $version) {
-              $reqversion = Registry::get($reqscope.'.'.$check.'.Version', 0);
-              $partversion = Registry::get($reqscope.'.'.$part.'.Version', 0);
-              if (!esf_Extensions::checkState($reqscope, $check, esf_Extensions::BIT_ENABLED) OR
-                  version_compare($reqversion, $version, '<')) {
-                $msg = sprintf('%s "%s" Version %s requires enabled %s "%s"',
-                               ucwords($scope), ucwords($part), $partversion,
-                               ucwords($reqscope), ucwords($check));
-                if ($version) $msg .= sprintf(' with Version >= %s', $version);
-                $Err[] = $msg.'!';
-                $checked = FALSE;
-              } else {
-              }
-            }
-            break;
-        } // switch
+        if ($reqscope == 'core') continue;
+        foreach ($reqparts as $check => $version) {
+          $reqversion = Registry::get($reqscope.'.'.$check.'.Version', 0);
+          $partversion = Registry::get($reqscope.'.'.$part.'.Version', 0);
+          if (!esf_Extensions::checkState($reqscope, $check, esf_Extensions::BIT_ENABLED) OR
+              version_compare($reqversion, $version, '<')) {
+            $msg = sprintf('%s "%s" Version %s requires enabled %s "%s"',
+                           ucwords($scope), ucwords($part), $partversion,
+                           ucwords($reqscope), ucwords($check));
+            if ($version) $msg .= sprintf(' with Version >= %s', $version);
+            $Err[] = $msg.'!';
+            $checked = FALSE;
+          }
+        }
       }
     }
     return $checked;

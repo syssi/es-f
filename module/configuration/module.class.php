@@ -1,22 +1,13 @@
 <?php
 /**
- * @category   Module
- * @package    Module-Configuration
- * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    0.2.0
- */
-
-/**
- * Bulk auction add module
+ * Configuration module
  *
  * @category   Module
  * @package    Module-Configuration
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
+ * @copyright  2009-2011 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    Release: @package_version@
+ * @version    $Id: v2.4.1-51-gfeddc24 - Sun Jan 16 21:09:59 2011 +0100 $
  */
 class esf_Module_Configuration extends esf_Module {
 
@@ -31,8 +22,8 @@ class esf_Module_Configuration extends esf_Module {
     // Is logged in user an admin?
     if (!in_array(esf_User::getActual(TRUE),
                   explode('|', strtolower($this->Admins)))) {
-      Messages::addError(Translation::get('Configuration.YouArNotAllowed'));
-      $this->Redirect(Registry::get('StartModule'));
+      Messages::Error(Translation::get('Configuration.YouArNotAllowed'));
+      $this->Redirect(STARTMODULE);
     }
 
     $ext = @explode('-', @$this->Request['ext']);
@@ -41,6 +32,13 @@ class esf_Module_Configuration extends esf_Module {
 
     // reset not valid calls
     if (!$this->EditScope OR !$this->EditName) $this->Forward();
+  }
+
+  /**
+   * @return array Array of actions handled by the module
+   */
+  public function handles() {
+    return array('index', 'edit');
   }
 
   /**
@@ -77,7 +75,7 @@ class esf_Module_Configuration extends esf_Module {
     $ConfigPath = $this->EditScope.'/'.$this->EditName;
 
     if (!file_exists($ConfigPath.'/configuration.xml')) {
-      Messages::addError(ucwords($this->EditScope).' "'.$this->EditName.'" is not configurable!');
+      Messages::Error(ucwords($this->EditScope).' "'.$this->EditName.'" is not configurable!');
       $this->forward();
       return;
     }
@@ -95,17 +93,17 @@ class esf_Module_Configuration extends esf_Module {
         $Exec = Exec::getInstance();
         $dir = dirname($ConfigFile);
         if ($Exec->MkDir($dir, $res)) {
-          Messages::addError(Translation::get('Configuration.NotWritable',$dir));
+          Messages::Error(Translation::get('Configuration.NotWritable',$dir));
         } else {
           $xml = array(
-            '<!--           !!! ATTENTION !!!',
-            '             Don\'t change manually!',
+            '<!--',
+            '  Don\'t change manually!',
             '  This file is written by module "Configuration"',
             '-->',
             '<configuration>',
           );
 
-          foreach ($this->Request['vars'] as $var => $data) {
+          foreach ((array)$this->Request('vars') as $var => $data) {
             $check = array(
               'scope'     => $this->EditScope,
               'extension' => $this->EditName,
@@ -127,7 +125,7 @@ class esf_Module_Configuration extends esf_Module {
 
           // save config file
           File::write($ConfigFile, $xml);
-          Messages::addSuccess(Translation::get('Configuration.Saved', $ConfigFile));
+          Messages::Success(Translation::get('Configuration.Saved', $ConfigFile));
         }
 	    }
 
@@ -136,20 +134,25 @@ class esf_Module_Configuration extends esf_Module {
         if (unlink($ConfigFile)) {
           // re-read defaults and original configuration
           Core::ReadConfigs($ConfigPath);
-          Messages::addSuccess(Translation::get('Configuration.Reseted'));
+          Messages::Success(Translation::get('Configuration.Reseted'));
         } else {
-          Messages::addError('Can\'t delete "'.$ConfigFile.'"!', E_USER_ERROR);
+          Messages::Error('Can\'t delete "'.$ConfigFile.'"!', E_USER_ERROR);
         }
       }
     }
 
     // prepare edit form, only if exists
-    Loader::Load($ConfigPath.'/language/configuration.en.php', TRUE, FALSE);
-    Loader::Load($ConfigPath.'/language/configuration.'.Session::get('language').'.php', TRUE, FALSE);
+    $langFile = 'module/configuration/language/configuration/'.$this->EditName.'.%s.tmx';
+    $lang = 'en';
+    $file = sprintf($langFile, $lang);
+    if (file_exists($file)) Translation::LoadTMXFile($file, $lang, Core::$Cache);
+    $lang = Session::get('language');
+    $file = sprintf($langFile, $lang);
+    if (file_exists($file)) Translation::LoadTMXFile($file, $lang, Core::$Cache);
 
     $name = Registry::get($this->EditScope.'.'.$this->EditName.'.Name', '');
 
-    $cfgLangKey = $this->EditScope.$this->EditName.'Configuration.';
+    $cfgLangKey = $this->EditScope.'_'.$this->EditName.'.';
 
     TplData::set('Name', $name);
     TplData::set('Title', Translation::getNVL($cfgLangKey.'Name', ucwords($this->EditName)));
@@ -161,24 +164,14 @@ class esf_Module_Configuration extends esf_Module {
     TplData::set('Extension', $this->EditName);
     TplData::set('Changed', file_exists($ConfigFile));
 
-    $DefData = array();
-    if ($this->EditScope == esf_Extensions::MODULE) {
-      $DefData[esf_Extensions::MODULE.'.'.$this->EditName.'.Layout'] = array(
-        'description' => 'Layout',
-        'option' => getLayouts()
-      );
-    }
-
     $xml = new XML_Array_Definition(Core::$Cache);
-    if (!$data = $xml->ParseXMLFile($ConfigPath.'/configuration.xml')) {
-      Messages::addError($xml->Error);
+    if (!$DefData = $xml->ParseXMLFile($ConfigPath.'/configuration.xml')) {
+      Messages::Error($xml->Error);
       $this->forward();
       return;
     }
 
-##_dbg($data);
-
-    $DefData = array_merge($DefData, $data);
+##  _dbg($DefData);
 
     foreach ($DefData as $var => $data) {
 
@@ -193,12 +186,14 @@ class esf_Module_Configuration extends esf_Module {
       );
 
       $desc = '';
-      // 1. from *.def.ini
+      // 1. from configuration.xml
       if (!empty($data['description'])) $desc = $data['description'];
-      // 2. Search for default (global) translation
-      $desc = Translation::getNVL('Configuration.'.$var, $desc);
-      // 3. Search for extension specific translation
-      $desc = Translation::getNVL($cfgLangKey.$var, $desc);
+      // 2. Search for extension specific TMX translation
+      // replace 1st dot with an _
+      $id = $var;
+      $dot = strpos($var, '.');
+      $id{$dot} = '_';
+      $desc = Translation::getNVL($id, $desc);
       $FieldData['Description'] = $desc;
 
       if ($data['type'] !== 'h') {
@@ -252,7 +247,7 @@ class esf_Module_Configuration extends esf_Module {
             $select = sprintf('<select name="vars[%1$s][v]">'."\n", $var);
             foreach ($values as $val => $desc) {
               if ($FieldData['VARTYPE'] == 's' AND is_int($val)) $val = $desc;
-              $desc = Translation::getNVL($this->EditName.'_Configuration.'.$var.'>'.$val, $desc);
+              $desc = Translation::getNVL($id.'>'.$val, $desc);
               $select .= sprintf('  <option value="%s"%s>%s</option>',
                                  $val, ($val==$value?' selected="selected"':''), $desc)."\n";
             }
@@ -263,7 +258,7 @@ class esf_Module_Configuration extends esf_Module {
             // build radio buttons
             foreach ($values as $val => $desc) {
               if ($FieldData['VARTYPE'] == 's' AND is_int($val)) $val = $desc;
-              $desc = Translation::getNVL($this->EditName.'_Configuration.'.$var.'>'.$val, $desc);
+              $desc = Translation::getNVL($id.'>'.$val, $desc);
               $FieldData['Input'][] = sprintf('<div style="%spadding-right:10px">'
                                             .'<input type="radio" name="vars[%s][v]" value="%s"%s>%s</div>',
                                              ($ratio<50?'float:left;':''), $var, $val,

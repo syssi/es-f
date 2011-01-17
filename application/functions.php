@@ -2,8 +2,11 @@
 /**
  * Core functions
  *
- * @package es-f
- * @subpackage Core
+ * @package    es-f
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2007-2010 Knut Kohl
+ * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
+ * @version    $Id: v2.4.1-42-g440d05f - Sun Jan 9 21:40:58 2011 +0100 $
  */
 
 defined('_ESF_OK') || die('No direct call allowed.');
@@ -25,14 +28,16 @@ function _Define( $define, $value ) {
  *
  */
 function encodeReturnTo( $params ) {
-  return trim(base64_encode(serialize($params)), '=');
+  return urlencode(Core::URL($params));
+#  return trim(base64_encode(serialize($params)), '=');
 }
 
 /**
  *
  */
 function decodeReturnTo( $params='' ) {
-  return unserialize(base64_decode($params));
+  return urldecode($params);
+#  return unserialize(base64_decode($params));
 }
 
 /**
@@ -95,8 +100,8 @@ function getNewRequest( $request, $param ) {
  * @param string $Layout Layout to check against
  */
 function FindActualLayout( $Layout ) {
-  if (Registry::get('Layout') != 'default' AND $Layout == 'default')
-    $Layout = Registry::get('Layout');
+  $sLayout = Session::getP('Layout');
+  if ($sLayout != 'default' AND $Layout == 'default') $Layout = $sLayout;
   return $Layout;
 }
 
@@ -111,7 +116,7 @@ function FindActualLayout( $Layout ) {
  * @return string
  */
 function StylesAndScripts( $dir, $layouts ) {
-  static $fmthead = array (
+  static $fmt = array (
     '  <link type="text/css" rel="stylesheet" href="%s">',
     '  <link type="text/css" rel="stylesheet" href="%s" media="print">',
     '  <script type="text/javascript" src="%s"></script>',
@@ -119,25 +124,25 @@ function StylesAndScripts( $dir, $layouts ) {
 
   if (!is_array($layouts)) $layouts = array($layouts);
 
-  $htmlhead = array();
+  $html = '';
 
   foreach (array('style.css', 'print.css', 'script.js') as $id => $f) {
     foreach ($layouts as $layout) {
       // common for all layouts
       $file = $dir.'/layout/'.$f;
-      if (file_exists(np($file))) $htmlhead[] = sprintf($fmthead[$id], $file);
+      if (file_exists(np($file))) $html .= sprintf($fmt[$id], $file);
       // custom common for all layouts
       $file = $dir.'/layout/custom/'.$f;
-      if (file_exists(np($file))) $htmlhead[] = sprintf($fmthead[$id], $file);
+      if (file_exists(np($file))) $html .= sprintf($fmt[$id], $file);
       // for specific layout ...
       $file = $dir.'/layout/'.$layout.'/'.$f;
-      if (file_exists(np($file))) $htmlhead[] = sprintf($fmthead[$id], $file);
+      if (file_exists(np($file))) $html .= sprintf($fmt[$id], $file);
       // custom for specific layout ...
       $file = $dir.'/layout/'.$layout.'/custom/'.$f;
-      if (file_exists(np($file))) $htmlhead[] = sprintf($fmthead[$id], $file);
+      if (file_exists(np($file))) $html .= sprintf($fmt[$id], $file);
     }
   }
-  return implode("\n", $htmlhead);
+  return $html;
 }
 
 /**
@@ -165,12 +170,12 @@ function checkDir( $dir, $chmod=755 ) {
   $Exec = Exec::getInstance();
   if (!is_dir($dir)) {
     if ($Exec->MkDir($dir, $res)) {
-      Messages::addError($res);
+      Messages::Error($res);
     }
     is_dir($dir) OR die('Can\'t create directory ['.$dir.']!');
   }
   if ($Exec->ChMod($dir, $chmod, FALSE, $res)) {
-    Messages::addError($res);
+    Messages::Error($res);
   }
   return realpath($dir);
 }
@@ -188,21 +193,6 @@ function RelativePath( $file ) {
        ? ((substr($_file,0,1) == '/') ? substr($_file,1) : $_file)
        // outside DOCUMENT_ROOT
        : $file;
-}
-
-/**
- * Check user specific confiuration file
- *
- * @param string $file User configuration file
- */
-function checkUserConfig( $file ) {
-  if (Loader::Load($file)) {
-    if (isset($esniper['seconds'])) Esniper::set('seconds', $esniper['seconds']);
-    if (isset($cfg['LANGUAGE']))    Registry::set('LANGUAGE', $cfg['LANGUAGE']);
-    if (isset($cfg['STARTMODULE'])) Registry::set('STARTMODULE', $cfg['MODULE']);
-    if (isset($cfg['LAYOUT']))      Registry::set('LAYOUT', $cfg['LAYOUT']);
-    if (isset($cfg['MENUSTYLE']))   Registry::set('MENUSTYLE', @explode(',', $cfg['MENUSTYLE']));
-  }
 }
 
 /**
@@ -329,7 +319,7 @@ function printf_flush() {
  * @param string $extension Event name
  * @param string $var Variable name
  * @param mixed $value Variable value
- */
+ * /
 function setExtensionVar( $scope, $extension, $var, $value=NULL ) {
   Registry::set($scope.'.'.$extension.'.'.$var, $value);
 
@@ -337,7 +327,7 @@ function setExtensionVar( $scope, $extension, $var, $value=NULL ) {
 
   $id = $scope.$extension;
   if (!isset($mark[$id])) {
-    Messages::addError('<i>ATTENTION</i>: Due to design changes it is required to '
+    Messages::Error('<i>ATTENTION</i>: Due to design changes it is required to '
                       .Core::Link(Core::URL(array('module'=>'configuration',
                                                   'action'=>'edit',
                                                   'params'=>array('ext'=>$scope.'-'.$extension))),
@@ -571,7 +561,7 @@ function toNum( $value, $decimalPlaces=2 ) {
 }
 
 /**
- * Base 64 encode string and remove trailing '='
+ * Base 64 encode string and remove unnecessary trailing '=' :-)
  *
  * @param string $str
  * @return string
@@ -614,27 +604,14 @@ if (!function_exists('image_type_to_Extension')) {
  *
  * @ignore 
  */
-function image_type_to_Extension ( $imagetype, $include_dot=TRUE ) {
-  switch ($imagetype) {
-    case IMAGETYPE_GIF     : $ext = 'gif';
-    case IMAGETYPE_JPEG    : $ext = 'jpg';
-    case IMAGETYPE_PNG     : $ext = 'png';
-    case IMAGETYPE_SWF     : $ext = 'swf';
-    case IMAGETYPE_PSD     : $ext = 'psd';
-    case IMAGETYPE_BMP     : $ext = 'bmp';
-    case IMAGETYPE_TIFF_II : $ext = 'tiff';
-    case IMAGETYPE_TIFF_MM : $ext = 'tiff';
-    case IMAGETYPE_JPC     : $ext = 'jpc';
-    case IMAGETYPE_JP2     : $ext = 'jp2';
-    case IMAGETYPE_JPX     : $ext = 'jpf';
-    case IMAGETYPE_JB2     : $ext = 'jb2';
-    case IMAGETYPE_SWC     : $ext = 'swc';
-    case IMAGETYPE_IFF     : $ext = 'aiff';
-    case IMAGETYPE_WBMP    : $ext = 'wbmp';
-    case IMAGETYPE_XBM     : $ext = 'xbm';
-    default                : return FALSE;
-  }
-  if ($include_dot) $ext = '.'.$ext;
-  return $ext;
+function image_type_to_extension( $type, $dot=TRUE ) {
+  $e = array( 1 => 'gif', 'jpeg', 'png', 'swf', 'psd', 'bmp',
+                   'tiff', 'tiff', 'jpc', 'jp2', 'jpf', 'jb2', 'swc',
+                   'aiff', 'wbmp', 'xbm');
+  // We are expecting an integer.
+  $type = (int)$type;
+  if (!$type) return null;
+  if ( !isset($e[$type]) ) return null;
+  return ($dot ? '.' : '') . $e[$type];
 }
 }

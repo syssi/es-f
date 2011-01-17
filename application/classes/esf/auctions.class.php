@@ -1,6 +1,10 @@
 <?php
 /**
- *
+ * @ingroup    es-f
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2007-2010 Knut Kohl
+ * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
+ * @version    $Id: v2.4.1-47-g938fb93 - Sat Jan 15 14:26:18 2011 +0100 $
  */
 abstract class esf_Auctions {
 
@@ -107,7 +111,7 @@ abstract class esf_Auctions {
   public static function AuctionsInGroup( $group ) {
     $Auctions = array();
     foreach (self::$Auctions as $item => $auction)
-      if ($auction->Group == $group) $Auctions[] = $item;
+      if (self::getGroup($auction) == $group) $Auctions[] = $item;
     return $Auctions;
   }
 
@@ -158,7 +162,7 @@ abstract class esf_Auctions {
    */
   public static function fetchAuction( $item, $all=TRUE, $talk=TRUE ) {
     if (empty($item)) {
-      Messages::addError(Translation::get('Core.Error').': '.Translation::get('Core.NoItem'));
+      Messages::Error(Translation::get('Core.Error').': '.Translation::get('Core.NoItem'));
       return FALSE;
     }
 
@@ -168,8 +172,8 @@ abstract class esf_Auctions {
     // Don't reread still invalid auctions, except it is allowed
     if (isset($auction['invalid']) AND $auction['invalid'] AND !$all) {
       // >> Debug
-      Messages::addError('Auction '.$auction['item'].' "'.$auction['name'].'" is invalid.');
-      DebugStack::Error('Auction "'.$auction['name'].'" ('.$auction['item'].') '
+      Messages::Error('Auction '.$auction['item'].' "'.$auction['name'].'" is invalid.');
+      Yryie::Error('Auction "'.$auction['name'].'" ('.$auction['item'].') '
                       . 'is invalid (removed from ebay or to old), ignored re-read request');
       // << Debug
       return $auction;
@@ -178,8 +182,8 @@ abstract class esf_Auctions {
     // skip ended auctions, $auction can be FALSE!
     if (isset($auction['ended']) AND $auction['ended'] AND !$all) {
       // >> Debug
-      $talk && Messages::addInfo('Auction '.$auction['item'].' "'.$auction['name'].'" is still ended.');
-      DebugStack::Warning('Auction "'.$auction['name'].'" is still ended, ignored re-read request');
+      $talk && Messages::Info('Auction '.$auction['item'].' "'.$auction['name'].'" is still ended.');
+      Yryie::Warning('Auction "'.$auction['name'].'" is still ended, ignored re-read request');
       // << Debug
       return $auction;
     }
@@ -189,34 +193,16 @@ abstract class esf_Auctions {
       $auction['item'] = $item;
     }
 
-    if (!is_array(Registry::get('ParseOrder')))
-      Registry::set('ParseOrder', explode(',', Registry::get('ParseOrder')));
+    /// Yryie::StartTimer('AuctionParse'.$item, 'Parse '.$item);
 
-    /// DebugStack::StartTimer('AuctionParse'.$item, 'Parse '.$item);
+    $parser = self::getParser($auction, $invalid);
 
-    $parser = $invalid = FALSE;
-
-    foreach (Registry::get('ParseOrder') as $tld) {
-      $parser = ebayParser::factory(trim($tld));
-      if ($parser->getDetail($item, 'DISPATCH')) {
-        Registry::set('ebayParser', $parser);
-        $auction['parser'] = $tld;
-        break;
-      } elseif ($parser->getDetail($item, 'INVALID')) {
-        $parser = FALSE;
-        $invalid = TRUE;
-        break;
-      } else {
-        $parser = FALSE;
-      }
-    }
-
-    /// DebugStack::StopTimer('AuctionParse'.$item);
+    /// Yryie::StopTimer('AuctionParse'.$item);
 
     if (!$invalid AND !$parser) {
-      Messages::addError(Translation::get('Auction.ErrorRetrieving', $item), TRUE);
-      Messages::addInfo(Translation::get('Auction.ErrorRetrievingTryAgain', $item), TRUE);
-      Messages::addInfo(Translation::get('Auction.ReportAuctionFiles', TEMPDIR, $item, Registry::get('URL.CreateBugTrackerItem')), TRUE);
+      Messages::Error(Translation::get('Auction.ErrorRetrieving', $item), TRUE);
+      Messages::Info(Translation::get('Auction.ErrorRetrievingTryAgain', $item), TRUE);
+      Messages::Info(Translation::get('Auction.ReportAuctionFiles', TEMPDIR, $item, Registry::get('URL.CreateBugTrackerItem')), TRUE);
       return FALSE;
     }
 
@@ -252,7 +238,7 @@ abstract class esf_Auctions {
           $file = self::GroupLogFile($item.'.bidnow');
           if (file_exists($file) AND preg_match($regex, file_get_contents($file))) {
             $auction['bidder'] = $user;
-            if (Exec::getInstance()->Move($file, $file.'.last', $res)) Messages::addError($res);
+            if (Exec::getInstance()->Move($file, $file.'.last', $res)) Messages::Error($res);
           }
         }
 
@@ -264,7 +250,7 @@ abstract class esf_Auctions {
     }
 
     if ($invalid) {
-      Messages::addError(Translation::get('Core.Error').': '.Translation::get('Core.InvalidItem', $item));
+      Messages::Error(Translation::get('Core.Error').': '.Translation::get('Core.InvalidItem', $item));
       if (isset(self::$Auctions[$item])) {
         $auction['ended'] = $auction['invalid'] = TRUE;
         // add item id only once to auction title...
@@ -294,8 +280,8 @@ abstract class esf_Auctions {
       }
       // >> Debug
       $msg = 'Auction %s "%s" found on ebay.%s';
-      DebugStack::Info(sprintf($msg, $auction['item'], $auction['name'], $auction['parser']));
-      DebugStack::Debug($auction);
+      Yryie::Info(sprintf($msg, $auction['item'], $auction['name'], $auction['parser']));
+      Yryie::Debug($auction);
       // << Debug
     }
     return $auction;
@@ -312,15 +298,17 @@ abstract class esf_Auctions {
 
     if (Registry::get('Module.Auction.LoadImages')) {
       // get from ebay
-      if (empty($url))
-        $url = Registry::get('ebayParser')->getDetail($item, 'IMAGE');
+      if (empty($url) AND
+          ($parser = Registry::get('ebayParser') OR
+           $parser = self::getParser(self::$Auctions[$item], $invalid)))
+        $url = $parser->getDetail($item, 'IMAGE');
       // no-image image
       if (empty($url))
         $url = Registry::get('Module.Auction.NoImage');
     }
 
     // >> Debug
-    DebugStack::Info($url);
+    Yryie::Info('Image URL: '.$url);
     // << Debug
 
     // save image to disk
@@ -328,13 +316,13 @@ abstract class esf_Auctions {
       // find image type
       if ($info = @getimagesize($url) AND $ext = image_type_to_Extension($info[2])) {
         // >> Debug
-        DebugStack::Debug($info);
+        Yryie::Debug($info);
         // << Debug
         ob_start();
         readfile($url);
         $img = ob_get_clean();
       } else {
-        Messages::addError('Error opening image file: '.$url);
+        Messages::Error('Error opening image file: '.$url);
         $url = FALSE;
       }
     }
@@ -347,7 +335,7 @@ abstract class esf_Auctions {
 
     // remove old thumbs
     $file = sprintf('"%s/%s.img."*', esf_User::UserDir(), $item);
-    if (Exec::getInstance()->Remove($file, $res)) Messages::addError($res);
+    if (Exec::getInstance()->Remove($file, $res)) Messages::Error($res);
     $ext = 'img'.$ext;
 
     // save image
@@ -419,7 +407,7 @@ abstract class esf_Auctions {
       }
     }
     if ($multi)
-      Messages::addSuccess(Translation::get('Auction.MovedGroupToCategory',
+      Messages::Success(Translation::get('Auction.MovedGroupToCategory',
                                             $auction['group'], $category));
   }
 
@@ -450,7 +438,7 @@ abstract class esf_Auctions {
       $group = self::AuctionFile($group, FALSE);
       Exec::getInstance()->ExecuteCmd(array('CORE::AUCTION_PID', $group), $res);
       if (count($res) > 1) {
-        Messages::addError(Translation::get('Core.Error').': '.Translation::get('Core.ToMuchProcesses', $group));
+        Messages::Error(Translation::get('Core.Error').': '.Translation::get('Core.ToMuchProcesses', $group));
         return FALSE;
       }
       if (isset($res[0])) {
@@ -473,7 +461,7 @@ abstract class esf_Auctions {
       $pid = preg_split('~\s+~', trim($pid));
 
       if (is_numeric($pid[0])) {
-        if (preg_match('~/([^/.]+)\.'.esf_User::getActual(TRUE).'$~', $pid[count($pid)-1], $args)) {
+        if (preg_match('~/([^/]+)\.'.esf_User::getActual(TRUE).'$~', $pid[count($pid)-1], $args)) {
           $group = $args[1];
           $group = str_replace('_', ' ', $group);
           $pids[$pid[0]] = $group;
@@ -503,9 +491,9 @@ abstract class esf_Auctions {
     $cmd = array('CORE::BID_NOW', Registry::get('bin_esniper'),
                  esf_User::UserDir(), $item, $bid, $log);
     if (Exec::getInstance()->ExecuteCmd($cmd, $res, Registry::get('SuDo'))) {
-      Messages::addError($res);
+      Messages::Error($res);
     } else {
-      Messages::addSuccess(Translation::get('Auction.AuctionBiddedNow', $item));
+      Messages::Success(Translation::get('Auction.AuctionBiddedNow', $item));
       // refresh auction data
       AuctionHTML::clearBuffer($item);
       $auction = self::fetchAuction($item, FALSE);
@@ -524,7 +512,7 @@ abstract class esf_Auctions {
    */
   public static function Start( $group, $talk=TRUE ) {
     if (!isset(self::$Groups[$group])) {
-      Messages::addError('ERROR: Group ['.$group.'] not found!');
+      Messages::Error('ERROR: Group ['.$group.'] not found!');
       return 0;
     }
 
@@ -541,7 +529,7 @@ abstract class esf_Auctions {
       foreach (self::$Auctions as $item => $auction) {
         if ($group == self::getGroup($auction) AND $bid=self::getBid($auction)) {
           self::$Groups[$group]['b'] = $bid;
-          Messages::addInfo(Translation::get('Auction.GroupBidUpdated', $groupname));
+          Messages::Info(Translation::get('Auction.GroupBidUpdated', $groupname));
           self::saveGroups(FALSE);
         }
       }
@@ -551,7 +539,7 @@ abstract class esf_Auctions {
     if ($gdata['b'] == 0) {
       $msg = Translation::get('Auction.MissingAmount');
       File::append($LogFile, '#- '.$msg.' -#');
-      Messages::addError($msg);
+      Messages::Error($msg);
       return 0;
     }
 
@@ -621,17 +609,17 @@ abstract class esf_Auctions {
 
       $pid = self::PID($group);
       if ($rc) {
-        $talk && Messages::addError(Exec::getInstance()->LastCmd);
-        $talk && Messages::addError($res);
-        $talk && Messages::addError('Take also a look into the esniper log!');
+        $talk && Messages::Error(Exec::getInstance()->LastCmd);
+        $talk && Messages::Error($res);
+        $talk && Messages::Error('Take also a look into the esniper log!');
       } elseif (!$pid) {
-        $talk && Messages::addError(Translation::get('Auction.GroupNotStarted', $groupname, md5($groupname)), TRUE);
+        $talk && Messages::Error(Translation::get('Auction.GroupNotStarted', $groupname, md5($groupname)), TRUE);
       } else {
-        $talk && Messages::addSuccess(Translation::get('Auction.GroupStarted', $groupname), TRUE);
+        $talk && Messages::Success(Translation::get('Auction.GroupStarted', $groupname), TRUE);
       }
     } else {
       File::append($LogFile, 'Sorry, no possible auction found!');
-      $talk && Messages::addInfo('Sorry, no possible auction found!');
+      $talk && Messages::Info('Sorry, no possible auction found!');
     }
     return $pid;
   }
@@ -654,13 +642,13 @@ abstract class esf_Auctions {
         '### Manually stopped ###' . "\n" .
         '#----------------------#'
       );
-      $talk && Messages::addSuccess(Translation::get('Auction.GroupStopped', $group));
+      $talk && Messages::Success(Translation::get('Auction.GroupStopped', $group));
     }
 
     $file = self::AuctionFile($group);
     if (Exec::getInstance()->Remove($file, $res)) {
-      Messages::addError('Error removing "' . $file . '": ');
-      Messages::addError($res);
+      Messages::Error('Error removing "' . $file . '": ');
+      Messages::Error($res);
     }
 
     return self::PID($group);
@@ -675,7 +663,7 @@ abstract class esf_Auctions {
   public static function Save( $auction, $talk=TRUE ) {
     if ($auction = self::_auction($auction)) {
       Event::Process('SaveAuction', $auction);
-      $talk && Messages::addSuccess(Translation::get('Core.AuctionSaved', $auction['name']), TRUE);
+      $talk && Messages::Success(Translation::get('Core.AuctionSaved', $auction['name']), TRUE);
     }
   }
 
@@ -703,7 +691,7 @@ abstract class esf_Auctions {
         'c' => (string)@$data['c']
       );
     Event::Process('SaveGroups', $groups);
-    $talk && Messages::addSuccess(Translation::get('Core.GroupSaved'));
+    $talk && Messages::Success(Translation::get('Core.GroupSaved'));
   }
 
   /**
@@ -764,7 +752,7 @@ abstract class esf_Auctions {
     if (self::$Groups[$group]['a'] < 1)
       $Exec->Remove(self::GroupLogFile($group), $res);
 
-    $talk && Messages::addSuccess(Translation::get('Auction.AuctionDeleted', $auction['name']), TRUE);
+    $talk && Messages::Success(Translation::get('Auction.AuctionDeleted', $auction['name']), TRUE);
 
     return array($item, $auction['name']);
   }
@@ -853,7 +841,7 @@ abstract class esf_Auctions {
    * @param string &$group Group name to change
    */
   public static function SanitizeGroup( $group ) {
-    return trim(preg_replace('~[\W\s_]+~', ' ', utf8_unaccent($group)));
+    return trim(preg_replace('~[^A-Z0-9_#=.-]+~i', ' ', utf8_unaccent($group)));
   }
 
   /**
@@ -1006,7 +994,7 @@ abstract class esf_Auctions {
     if (!Registry::get('Module.Auction.HoldEsniperConfig')) {
       $cmd = array('CORE::SLEEP_RM', $delay, esf_User::UserDir());
       if (Exec::getInstance()->ExecuteCmd($cmd, $res)) {
-        Messages::addError($res);
+        Messages::Error($res);
       }
     }
   }
@@ -1059,6 +1047,35 @@ abstract class esf_Auctions {
     'r'   => 0,                  // running, not ended autions in this group
     'cat' => '',                 // category
   );
+
+  /**
+   * Get the item id, if id given just return, if auction, return the auction item
+   *
+   * @param string|array $auction
+   */
+  private static function getParser( $auction, &$invalid ) {
+    $invalid = FALSE;
+    if (!$parser = Registry::get('ebayParser')) {
+      $item = $auction['item'];
+      if (!is_array(Registry::get('ParseOrder')))
+        Registry::set('ParseOrder', explode(',', Registry::get('ParseOrder')));
+      foreach (Registry::get('ParseOrder') as $tld) {
+        $parser = ebayParser::factory(trim($tld));
+        if ($parser->getDetail($item, 'DISPATCH')) {
+          Registry::set('ebayParser', $parser);
+          $auction['parser'] = $tld;
+          break;
+        } elseif ($parser->getDetail($item, 'INVALID')) {
+          $parser = FALSE;
+          $invalid = TRUE;
+          break;
+        } else {
+          $parser = FALSE;
+        }
+      }
+    }
+    return $parser;
+  }
 
   /**
    * Get the item id, if id given just return, if auction, return the auction item

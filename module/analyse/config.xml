@@ -5,11 +5,6 @@
     <section name="Analyse">
 
       <!--
-        Module specific layout
-      -->
-      <config name="Layout">default</config>
-
-      <!--
         Sort groups in listing by name
       -->
       <config name="SortByName" type="bool">TRUE</config>
@@ -17,8 +12,8 @@
       <!--
         Diagram dimensions, multiple view
       -->
-      <config name="WidthMulti" type="int">450</config>
-      <config name="HeightMulti" type="int">150</config>
+      <config name="WidthMulti" type="int">900</config>
+      <config name="HeightMulti" type="int">200</config>
 
       <!--
         Diagram dimensions, single view
@@ -32,8 +27,6 @@
 
       <config name="LoginRequired" type="bool">TRUE</config>
       <config name="Mobile" type="bool">FALSE</config>
-
-      <config name="Actions">index|show|showmulti</config>
 
       <config name="Name">Analyse auctions regarding # of bids, end price and end time</config>
 

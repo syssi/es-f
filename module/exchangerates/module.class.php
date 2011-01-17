@@ -1,36 +1,33 @@
 <?php
 /**
- * @category   Module
- * @package    Module-ExchangeRates
- * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    0.1.0
- */
-
-/**
- * Homepage module
+ * Exchange rates module
  *
- * @category   Module
- * @package    Module-ExchangeRates
+ * @ingroup    Module-ExchangeRates
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
+ * @copyright  2009-2011 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    Release: @package_version@
+ * @version    $Id: v2.4.1-51-gfeddc24 - Sun Jan 16 21:09:59 2011 +0100 $
  */
 class esf_Module_ExchangeRates extends esf_Module {
+
+  /**
+   * @return array Array of actions handled by the module
+   */
+  public function handles() {
+    return array('index');
+  }
 
   /**
    *
    */
   public function IndexAction() {
-    $path = dirname(__file__);
+    $path = dirname(__file__).'/classes';
 
     if (time() > (Session::get('Module.ExchangeRates.TS')+$this->CacheLifespan*24*60*60) OR
         !($rates = Session::get('Module.ExchangeRates.Rates')) OR
         !($source = Session::get('Module.ExchangeRates.Source'))) {
 
-      /// DebugStack::Info('Read exchange rates from ECB: '.$this->URL);
+      /// Yryie::Info('Read exchange rates from ECB: '.$this->URL);
 
       Loader::Load($path.'/xmlparser.class.php');
 
@@ -63,7 +60,7 @@ class esf_Module_ExchangeRates extends esf_Module {
       Session::set('Module.ExchangeRates.Source', $source);
 
     /// } else {
-    ///   DebugStack::Info('Use buffered exchange rates.');
+    ///   Yryie::Info('Use buffered exchange rates.');
     }
 
     TplData::set('sourceurl', $this->URL);
@@ -76,12 +73,12 @@ class esf_Module_ExchangeRates extends esf_Module {
       TplData::set('Calced', 1);
       TplData::set('DCurr', 'EUR');
     } else {
-      TplData::set('Amount', @$this->Request['amount']);
-      TplData::set('SCurr',  @$this->Request['scurr']);
-      TplData::set('Calced', toNum(iif(@$this->Request['amount'], @$this->Request['amount'], 1))
-                           * $rates[@$this->Request['dcurr']]['rate']
-                           / $rates[@$this->Request['scurr']]['rate']);
-      TplData::set('DCurr',  @$this->Request['dcurr']);
+      TplData::set('Amount', $this->Request('amount'));
+      TplData::set('SCurr',  $this->Request('scurr'));
+      TplData::set('Calced', toNum(iif($this->Request('amount'), $this->Request('amount'), 1))
+                           * @$rates[$this->Request('dcurr')]['rate']
+                           / @$rates[$this->Request('scurr')]['rate']);
+      TplData::set('DCurr',  $this->Request('dcurr'));
     }
   }
 

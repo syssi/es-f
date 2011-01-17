@@ -7,7 +7,7 @@
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2009 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    Release: @package_version@
+ * @version    $Id: v2.4.1-21-gc3e5473 - Mon Dec 27 20:37:07 2010 +0100 $
  */
 class esf_Plugin_Debug extends esf_Plugin {
 
@@ -32,7 +32,7 @@ class esf_Plugin_Debug extends esf_Plugin {
       'url'   => _DEBUG ? '?STOP' : '?DEBUG',
       'title' => Translation::get('Debug.MenuDebug_'.$dbg),
       'hint'  => Translation::get('Debug.MenuDebugHint_'.$dbg),
-      'img'   => 'plugin/debug/images/debug-'.$dbg.'.png',
+      'img'   => 'plugin/debug/images/debug-'.$dbg.'.gif',
       'alt'   => 'D',
       'style' => 'image',
       'id'    => 9995 )
@@ -42,7 +42,7 @@ class esf_Plugin_Debug extends esf_Plugin {
       'url'   => '?TRACE',
       'title' => Translation::get('Debug.MenuTrace'),
       'hint'  => Translation::get('Debug.MenuTraceHint'),
-      'img'   => 'plugin/debug/images/trace.png',
+      'img'   => 'plugin/debug/images/trace.gif',
       'alt'   => 'T',
       'style' => 'image',
       'id'    => 9996 )

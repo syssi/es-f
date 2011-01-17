@@ -1,24 +1,21 @@
 <?php
 /**
  * Registry class to pass global variables between classes.
+ *
+ * @ingroup    es-f
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2007-2010 Knut Kohl
+ * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
+ * @version    $Id: v2.4.1-19-gc734aa2 - Sat Dec 25 22:49:29 2010 +0100 $
  */
-class Esniper {
-
-  /**
-   * Object registry provides storage for shared objects
-   *
-   * @var array
-   * @access private
-   */
-  private static $Data = array();
+abstract class Esniper {
 
   /**
    * Adds a new variable to the Registry.
    *
-   * @param string $key Name of the variable
-   * @param mixed $value Value of the variable
+   * @param $key string Name of the variable
+   * @param $value mixed Value of the variable
    * @return bool
-   * @access public
    */
   public static function set( $key, $value=FALSE ) {
     self::$Data[$key] = $value;
@@ -28,10 +25,9 @@ class Esniper {
   /**
    * Adds additional data to a registry variable
    *
-   * @param string $key Name of the variable
-   * @param mixed $value Value of the variable
+   * @param $key string Name of the variable
+   * @param $value mixed Value of the variable
    * @return bool
-   * @access public
    */
   public static function add( $key, $value=FALSE ) {
     $reg = self::get($key);
@@ -45,9 +41,8 @@ class Esniper {
   /**
    * Returns the value of the specified $key in the Registry.
    *
-   * @param string $key Name of the variable
+   * @param $key string Name of the variable
    * @return mixed Value of the specified $key
-   * @access public
    */
   public static function get( $key ) {
     return isset(self::$Data[$key]) ? self::$Data[$key] : NULL;
@@ -56,9 +51,8 @@ class Esniper {
   /**
    * Check, if a given key is allready set
    *
-   * @param string $key Name of the variable
+   * @param $key string Name of the variable
    * @return bool Is key set
-   * @access public
    */
   public static function is_set( $key ) {
     return isset(self::$Data[$key]);
@@ -68,7 +62,6 @@ class Esniper {
    * Returns the whole Registry as an array.
    *
    * @return array Whole Registry
-   * @access public
    */
   public static function getAll() {
     return self::$Data;
@@ -77,9 +70,8 @@ class Esniper {
   /**
    * Removes a variable from the Registry.
    *
-   * @param string $key Name of the variable
+   * @param $key string Name of the variable
    * @return bool
-   * @access public
    */
   public static function delete( $key ) {
     if (isset(self::$Data[$key])) {
@@ -93,10 +85,20 @@ class Esniper {
    * Removes all variables from the Registry.
    *
    * @return void
-   * @access public
    */
   public static function clear() {
     self::$Data = array();
   }
+
+  // -------------------------------------------------------------------------
+  // PRIVATE
+  // -------------------------------------------------------------------------
+
+  /**
+   * Object registry provides storage for shared objects
+   *
+   * @var array
+   */
+  private static $Data = array();
 
 }

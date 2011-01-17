@@ -26,6 +26,14 @@
     <prop type="x-Namespace">Autoupdate</prop>
   </header>
   <body>
+    <tu tuid="LatestAppVersion">
+      <prop type="x-Format">html</prop>
+      <note>%$1s - ...</note>
+      <tuv xml:lang="DE">
+        <seg><![CDATA[Die neueste <tt>|es|f|</tt> Version ist &nbsp; <tt>%1$s</tt>, du kannst upgraden!]]></seg>
+      </tuv>
+    </tu>
+
     <tu tuid="LatestAppRelease">
       <prop type="x-Format">html</prop>
       <note>%$1s - ...</note>

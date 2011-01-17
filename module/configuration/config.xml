@@ -7,11 +7,6 @@
     <section name="Configuration">
 
       <!--
-        Module specific layout
-      -->
-      <config name="Layout">default</config>
-
-      <!--
         Edit multiple options as
         0 : radio buttons
         1 : select options
@@ -31,8 +26,6 @@
 
       <config name="LoginRequired" type="bool">TRUE</config>
       <config name="Mobile" type="bool">FALSE</config>
-
-      <config name="Actions">index|edit</config>
 
       <config name="Name">Modify user specific configuration via frontend</config>
 

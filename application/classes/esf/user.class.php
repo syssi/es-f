@@ -1,17 +1,12 @@
 <?php
 /**
- *
- */
-
-/**
- *
+ * @package    es-f
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2007-2010 Knut Kohl
+ * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
+ * @version    $Id: v2.4.1-49-g0f62a5c - Sat Jan 15 23:05:05 2011 +0100 $
  */
 abstract class esf_User {
-
-  /**
-   * Session variables
-   */
-  const COOKIE = 'esf_cookie';
 
   /**
    * User details
@@ -33,8 +28,7 @@ abstract class esf_User {
       self::USER_PASS => $passwords
     );
 
-    if (empty(self::$Admin))
-      self::$Admin = $user;
+    if (empty(self::$Admin)) self::$Admin = $user;
   }
 
   /**
@@ -42,10 +36,7 @@ abstract class esf_User {
    */
   public static function get( $user, $detail=self::USER_NAME ) {
     $user = strtolower($user);
-    if (!isset(self::$Users[$user]))
-      return FALSE;
-
-    return self::$Users[$user][$detail];
+    return isset(self::$Users[$user]) ? self::$Users[$user][$detail] : FALSE;
   }
 
   /**
@@ -82,8 +73,7 @@ abstract class esf_User {
     }
 
     $pass = self::get($user, self::USER_PASS);
-    if (!$pass)
-      return FALSE;
+    if (!$pass) return FALSE;
 
     $pass = explode("\x01", @MD5Encryptor::decrypt($pass, $password));
     // convert a bool to 0|1
@@ -109,10 +99,9 @@ abstract class esf_User {
    * 
    * @param string $user
    * @param string $password
-   * @param boolean $CookieLs Cookie life span
    * @return boolean
    */
-  public static function isValid( $user=NULL, $password=NULL, $CookieLs=0 ) {
+  public static function isValid( $user=NULL, $password=NULL ) {
     // work inside this function only with hashed password!
     if (!is_null($password)) $password = md5($password);
 
@@ -128,18 +117,8 @@ abstract class esf_User {
         self::InitUser($user);
         return $user;
       }
-
-      // 2. try to relogin via cookie
-      if (!self::$LastUser AND isset($_COOKIE[self::COOKIE])) {
-        $cookie   = @unserialize(@MD5Encryptor::decrypt($_COOKIE[self::COOKIE]));
-        $user     = @$cookie[0];
-        $password = @$cookie[1];
-        $relogin = TRUE;
-      }
-    }
-
-    // 3. login with user ans password
-    if ($user AND $password) {
+    } else {
+      // 2. login with user ans password
       // Login: check user/password and store in session
       self::$LastUser = NULL;
       if (!($pass = self::get($user, self::USER_PASS))) return FALSE;
@@ -154,15 +133,10 @@ abstract class esf_User {
         Session::set(APPID, MD5Encryptor::encrypt($user));
         Session::set($token, $password);
 
-        if ($CookieLs)
-          setCookie(self::COOKIE,
-                    MD5Encryptor::encrypt(serialize(array($user, $password))),
-                    $_SERVER['REQUEST_TIME']+$CookieLs*24*60*60); // $CookieLs days
-
         if ($relogin) {
           Event::ProcessInform('Log', 'Login: '.$user.' from '.$_SERVER['REMOTE_ADDR'].' (Cookie)');
           // >> Debug
-          DebugStack::Info('Login from cookie: '.$user);
+          Yryie::Info('Login from cookie: '.$user);
           // << Debug
         } else {
           Event::ProcessInform('Log', 'Login: '.$user.' from '.$_SERVER['REMOTE_ADDR']);
@@ -191,7 +165,6 @@ abstract class esf_User {
     is_dir($UserDir) || mkdir($UserDir);
 
     Event::ProcessReturn('getLastUpdate') || Event::ProcessInform('setLastUpdate');
-#    checkUserConfig($UserDir.'/config.xml');
   }
 
   /**

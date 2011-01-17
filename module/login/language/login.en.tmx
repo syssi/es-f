@@ -66,7 +66,13 @@
     <tu tuid="Password">
       <prop type="x-Format">html</prop>
       <tuv xml:lang="EN">
-        <seg><![CDATA[<tt>|es|f|</tt> passwort]]></seg>
+        <seg><![CDATA[<tt>|es|f|</tt> password]]></seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Layout">
+      <tuv xml:lang="EN">
+        <seg>Layout</seg>
       </tuv>
     </tu>
 

@@ -1,22 +1,12 @@
 <?php
 /**
- * @category   Module
- * @package    Module-Analyse
- * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    0.1.0
- */
-
-/**
- * Homepage module
+ * Analyse module
  *
- * @category   Module
- * @package    Module-Analyse
+ * @ingroup    Module-Analyse
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
+ * @copyright  2009-2010 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    Release: @package_version@
+ * @version    $Id: v2.4.1-51-gfeddc24 - Sun Jan 16 21:09:59 2011 +0100 $
  */
 class esf_Module_Analyse extends esf_Module {
 
@@ -25,13 +15,28 @@ class esf_Module_Analyse extends esf_Module {
    */
   public function __construct() {
     parent::__construct();
-    $this->groups = checkR('group');
+    $this->group = $this->Request('group');
   }
+
+  /**
+   * @return array Array of actions handled by the module
+   */
+  public function handles() {
+    return array('index', 'show', 'showmulti');
+  }
+
 
   /**
    *
    */
   public function IndexAction() {
+    // Skip group selection if only one exists, redirect direct to this group
+    if (count(esf_Auctions::$Groups) == 1) {
+      $groups = array_keys(esf_Auctions::$Groups);
+      $this->group = reset($groups);
+      $this->forward('show');
+      return;
+    }
     foreach (esf_Auctions::$Groups as $group => $data) {
       TplData::add('Groups', array(
         'GROUP'     => $group,
@@ -48,35 +53,36 @@ class esf_Module_Analyse extends esf_Module {
    *
    */
   public function ShowAction() {
-    if (!isset(esf_Auctions::$Groups[$this->groups])) {
+    if (!isset(esf_Auctions::$Groups[$this->group])) {
       $this->forward();
       return;
     }
-    TplData::set('GroupName', (esf_Auctions::$Groups[$this->groups]['a'] > 1 OR !isset(esf_Auctions::$Auctions[$this->groups]))
-                            ? $this->groups : esf_Auctions::$Auctions[$this->groups]['name']);
+    TplData::set('GroupName', (esf_Auctions::$Groups[$this->group]['a'] > 1 OR
+                               !isset(esf_Auctions::$Auctions[$this->group]))
+                            ? $this->group : esf_Auctions::$Auctions[$this->group]['name']);
     TplData::set('Width',  Registry::get('Module.Analyse.Width'));
     TplData::set('Height', Registry::get('Module.Analyse.Height'));
 
     $AuctionData = $bids = array();
     $cnt = $mid = $hmid = 0;
     foreach (esf_Auctions::$Auctions as $item => $auction) {
-      if (esf_Auctions::getGroup($auction) == $this->groups) {
-        if ($auction['ended']) {
-          $bids[] = $auction['bid'];
-          $cnt++;
-          $mid += $auction['bid'];
-          $hmid += 1/$auction['bid'];
-        }
+      if (esf_Auctions::getGroup($auction) != $this->group) continue;
 
-        $AuctionData['endts'][] = $auction['endts'];
-        $AuctionData['bid'][]   = $auction['bid'];
-        $AuctionData['bids'][]  = $auction['bids'];
-
-        $TplData = $auction;
-        $TplData['AUCTIONURL'] = sprintf(Registry::get('ebay.ShowUrl'), $item);
-        $TplData['END'] = strftime(Registry::get('Format.DateTimeS'), $auction['endts']);
-        TplData::add('Auctions', $TplData);
+      if ($auction['ended']) {
+        $bids[] = $auction['bid'];
+        $cnt++;
+        $mid += $auction['bid'];
+        $hmid += 1/$auction['bid'];
       }
+
+      $AuctionData['endts'][] = $auction['endts'];
+      $AuctionData['bid'][]   = $auction['bid'];
+      $AuctionData['bids'][]  = $auction['bids'];
+
+      $TplData = $auction;
+      $TplData['AUCTIONURL'] = sprintf(Registry::get('ebay.ShowUrl'), $item);
+      $TplData['END'] = strftime(Registry::get('Format.DateTimeS'), $auction['endts']);
+      TplData::add('Auctions', $TplData);
     }
 
     if ($cnt) {
@@ -85,7 +91,7 @@ class esf_Module_Analyse extends esf_Module {
     }
 
     $data = serialize(array( TplData::get('Width'), TplData::get('Height'),
-                             esf_Auctions::$Groups[$this->groups]['b'],
+                             esf_Auctions::$Groups[$this->group]['b'],
                              Translation::get('Analyse.MyBid'),
                              $mid,
                              Translation::get('Analyse.Average'),
@@ -113,7 +119,7 @@ class esf_Module_Analyse extends esf_Module {
 
       $rows = $this->TplDataChance($min, $max, $bids, $this->calcChanceWithRange($min, $max, $bids, $splitrange), $bestrow);
       TplData::add('Variants', array(
-        'CHANCE_MESSAGE_DESC' => Translation::get('Analyse.ChanceMessageDesc1', $this->groups, $splitrange),
+        'CHANCE_MESSAGE_DESC' => Translation::get('Analyse.ChanceMessageDesc1', $this->group, $splitrange),
         'ROWS' => $rows,
         'BEST' => array(
           'ROW'    => $bestrow,
@@ -141,11 +147,11 @@ class esf_Module_Analyse extends esf_Module {
    *
    */
   public function ShowMultiAction() {
-    if (empty($this->groups)) {
+    if (empty($this->group)) {
       $this->forward();
       return;
-    } elseif (count($this->groups) == 1) {
-      $this->groups = reset($this->groups);
+    } elseif (count($this->group) == 1) {
+      $this->group = reset($this->group);
       $this->forward('show');
       return;
     }
@@ -154,7 +160,7 @@ class esf_Module_Analyse extends esf_Module {
     $_tpldata['WIDTH']  = Registry::get('Module.Analyse.WidthMulti');
     $_tpldata['HEIGHT'] = Registry::get('Module.Analyse.HeightMulti');
 
-    foreach ($this->groups as $group) {
+    foreach ($this->group as $group) {
       if (!isset(esf_Auctions::$Groups[$group])) return;
 
       $_tpldata['GROUP'] = $group;
@@ -171,7 +177,7 @@ class esf_Module_Analyse extends esf_Module {
     $gdata = array();
     foreach (esf_Auctions::$Auctions as $item => $auction) {
       $ag = esf_Auctions::getGroup($auction);
-      if (in_array($ag, $this->groups)) {
+      if (in_array($ag, $this->group)) {
         if ($auction['ended']) {
           $cnt[$ag]++;
           $hmid[$ag] += 1/$auction['bid'];
@@ -207,14 +213,9 @@ class esf_Module_Analyse extends esf_Module {
   //--------------------------------------------------------------------------
 
   /**
-   * Requested groups
+   * Requested group(s)
    */
-  private $groups;
-
-  /**
-   * All groups
-   */
-  private $esfgroups;
+  private $group;
 
   /**
    * Calc auction win chance by a split limit
@@ -253,7 +254,7 @@ class esf_Module_Analyse extends esf_Module {
   private function calcChanceMinimal( $min, $max, $bids ) {
     $range = $max - $min;
     $ranges = 0;
-    $res = array_fill(1, $ranges, 0);
+    $res = array(0);
 
     do {
       $ranges++;

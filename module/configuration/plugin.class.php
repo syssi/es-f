@@ -6,7 +6,7 @@
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2009 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    $Id$
+ * @version    $Id: v2.4.1-42-g440d05f - Sun Jan 9 21:40:58 2011 +0100 $
  */
 class esf_Plugin_Module_Configuration extends esf_Plugin {
 
@@ -77,7 +77,7 @@ class esf_Plugin_Module_Configuration extends esf_Plugin {
       $user = esf_User::getActual();
       if (!in_array($user, explode('|',$data['value']))) {
         $data['value'] = trim($user.'|'.$data['value'], '|');
-        Messages::addError('Add yourself to allowed users!');
+        Messages::Error('Add yourself to allowed users!');
       }
     }
   }

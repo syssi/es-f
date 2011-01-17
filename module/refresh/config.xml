@@ -8,11 +8,6 @@
     <section name="Refresh">
 
       <!--
-        Module specific layout
-      -->
-      <config name="Layout">default</config>
-
-      <!--
         Refresh auctions automatic every x minutes, 0 disables automatic refresh
       -->
       <config name="MaxAge" type="int">0</config>
@@ -27,8 +22,6 @@
       ******************************************************************** -->
 
       <config name="LoginRequired" type="bool">TRUE</config>
-
-      <config name="Actions">index</config>
 
       <config name="Name">Refresh auctions, also automatic each x minutes</config>
 

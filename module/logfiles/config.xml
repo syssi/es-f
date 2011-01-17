@@ -7,11 +7,6 @@
     <section name="LogFiles">
 
       <!--
-        Module specific layout
-      -->
-      <config name="Layout">default</config>
-
-      <!--
         Log files to display (array of file names)
       -->
       <config name="LogFile" type="array">
@@ -24,8 +19,6 @@
 
       <config name="LoginRequired" type="bool">TRUE</config>
       <config name="Mobile" type="bool">FALSE</config>
-
-      <config name="Actions">index|show|delete|get</config>
 
       <config name="Name">Show some system log files</config>
 

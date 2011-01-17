@@ -28,14 +28,14 @@
   <body>
     <tu tuid="Menu">
       <tuv xml:lang="DE">
-        <seg>Logout</seg>
+        <seg>Abmelden</seg>
       </tuv>
     </tu>
 
     <tu tuid="MenuHint">
       <prop type="x-Format">html</prop>
       <tuv xml:lang="DE">
-        <seg><![CDATA[<tt>|es|f|</tt>-Logout]]></seg>
+        <seg><![CDATA[Von <tt>|es|f|</tt> abmelden]]></seg>
       </tuv>
     </tu>
 

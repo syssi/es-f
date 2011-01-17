@@ -1,22 +1,12 @@
 <?php
 /**
- * @category   Plugin
- * @package    Plugin-Session
- * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    0.1.0
- */
-
-/**
  * Own session handling
  *
- * @category   Plugin
- * @package    Plugin-Session
+ * @ingroup    Plugin-Session
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
+ * @copyright  2009-2011 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    Release: @package_version@
+ * @version    $Id: v2.4.1-29-gacb4bc2 - Fri Jan 7 21:24:31 2011 +0100 $
  */
 class esf_Plugin_Session extends esf_Plugin {
 
@@ -62,7 +52,7 @@ class esf_Plugin_Session extends esf_Plugin {
    * @return boolean Always TRUE
    */
   public function open( $path, $name ) {
-    /// DebugStack::Info($name . ' from ' . $path);
+    /// Yryie::Info($name . ' from ' . $path);
     return TRUE;
   }
 
@@ -74,15 +64,15 @@ class esf_Plugin_Session extends esf_Plugin {
    */
   public function read( $id ) {
     $file = $this->FileName($id);
-    /// DebugStack::Info($id);
-    /// DebugStack::Info(sprintf('%s (%s)', $file, date('r', @filemtime($file))));
+    /// Yryie::Info($id);
+    /// Yryie::Info(sprintf('%s (%s)', $file, date('r', @filemtime($file))));
     touch($file);
     $content = (string)file_get_contents($file);
     if ($content) {
       if ($this->Encrypt) $content = $this->decode($content);
       $content = unserialize($content);
     }
-    /// DebugStack::Info($content);
+    /// Yryie::Info($content);
     return $content;
   }
 
@@ -94,7 +84,7 @@ class esf_Plugin_Session extends esf_Plugin {
    * @return boolean Write succes
    */
   public function write( $id, $content ) {
-    /// DebugStack::Info($content . ' to ' . $id);
+    /// Yryie::Info($content . ' to ' . $id);
     if ($fp = @fopen($this->FileName($id), 'w')) {
       if ($content) {
         $content = serialize($content);
@@ -114,7 +104,7 @@ class esf_Plugin_Session extends esf_Plugin {
    * @return boolean Always TRUE
    */
   public function close() {
-    /// DebugStack::Info();
+    /// Yryie::Info();
     return TRUE;
   }
 
@@ -125,7 +115,7 @@ class esf_Plugin_Session extends esf_Plugin {
    * @return boolean
    */
   public function destroy( $id ) {
-    /// DebugStack::Info($id);
+    /// Yryie::Info($id);
     return @unlink($this->FileName($id));
   }
 
@@ -136,7 +126,7 @@ class esf_Plugin_Session extends esf_Plugin {
    * @return boolean Always TRUE
    */
   public function gc( $maxlifetime ) {
-    /// DebugStack::Info($maxlifetime);
+    /// Yryie::Info($maxlifetime);
     $now = time();
     foreach (glob($this->FileName('*')) as $file) {
       if (filemtime($file)+$maxlifetime < $now) @unlink($file);

@@ -1,7 +1,10 @@
 <?php
 /**
- * @package es-f
- * @version $Id$
+ * @ingroup    es-f
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2007-2010 Knut Kohl
+ * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
+ * @version    $Id: v2.4.1-35-gde219e1 - Sun Jan 9 13:07:24 2011 +0100 $
  */
 
 defined('_ESF_OK') || die('No direct call allowed.');
@@ -11,15 +14,17 @@ defined('_ESF_OK') || die('No direct call allowed.');
  */
 if (!isset($_SERVER['REQUEST_TIME'])) $_SERVER['REQUEST_TIME'] = time();
 
+$version = file(dirname(__FILE__).'/.version', FILE_IGNORE_NEW_LINES);
+
 /**
  * Frontend version
  */
-define('ESF_VERSION', '2.4.0');
+define('ESF_VERSION', $version[0]);
 
 /**
  * Frontend release date
  */
-define('ESF_RELEASE', '2010-12-11');
+define('ESF_RELEASE', $version[1]);
 
 /**
  * Frontend title
@@ -97,7 +102,7 @@ define('ESF_CONFIG_VERSION', 8);
 /**
  * Required PHP version
  */
-define('PHP_VERSION_REQUIRED', 5);
+define('PHP_VERSION_REQUIRED', '5.1.0');
 
 /**
  * Operating system
@@ -122,6 +127,11 @@ define('APPDIR',   BASEDIR.'/application');
 define('LIBDIR',   APPDIR.'/lib');
 define('LOCALDIR', BASEDIR.'/local');
 define('TEMPDIR',  realpath(dirname(__FILE__).'/..').'/local/tmp');
+
+/**
+ * Start always with Auction module
+ */
+define('STARTMODULE', 'auction');
 
 /**
  * Placeholder flag for select option value of "- from group -"

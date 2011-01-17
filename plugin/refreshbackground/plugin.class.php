@@ -1,22 +1,12 @@
 <?php
 /**
- * @category   Plugin
- * @package    Plugin-RefreshBackground
- * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    0.1.0
- */
-
-/**
  * Refresh auctions in background process, also as cron job
  *
- * @category   Plugin
- * @package    Plugin-RefreshBackground
+ * @ingroup    Plugin-RefreshBackground
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
+ * @copyright  2009-2011 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    Release: @package_version@
+ * @version    $Id: v2.4.1-42-g440d05f - Sun Jan 9 21:40:58 2011 +0100 $
  */
 class esf_Plugin_RefreshBackground extends esf_Plugin {
 
@@ -51,7 +41,7 @@ class esf_Plugin_RefreshBackground extends esf_Plugin {
 
     if ($this->Refresh) {
       Event::ProcessInform('setLastUpdate');
-      Messages::addInfo(Translation::get('Refresh_Bg.Refresh'));
+      Messages::Info(Translation::get('Refresh_Bg.Refresh'));
     }
   }
 
@@ -71,7 +61,7 @@ class esf_Plugin_RefreshBackground extends esf_Plugin {
     if ($res)
       trigger_error('Messages from background refresh: '.implode('<br>', $res));
 
-    Messages::addInfo(Translation::get('Refresh_Bg.Refreshed'));
+    Messages::Info(Translation::get('Refresh_Bg.Refreshed'));
   }
 }
 

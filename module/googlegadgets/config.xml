@@ -8,11 +8,6 @@
     <section name="GoogleGadgets">
 
       <!--
-        Module specific layout
-      -->
-      <config name="Layout">default</config>
-
-      <!--
         Gadgets
       -->
       <config name="Gadgets" type="array">
@@ -41,8 +36,6 @@
       ******************************************************************** -->
 
       <config name="Mobile" type="bool">FALSE</config>
-
-      <config name="Actions">index</config>
 
       <config name="Category">Other</config>
 

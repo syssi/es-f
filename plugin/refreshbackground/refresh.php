@@ -2,7 +2,11 @@
 /**
  * Scritp to refresh auctions in background via cron job
  *
- * @package Plugin-Refreshbackground
+ * @ingroup    Plugin-Refreshbackground
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2009-2011 Knut Kohl
+ * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
+ * @version    $Id: v2.4.1-29-gacb4bc2 - Fri Jan 7 21:24:31 2011 +0100 $
  */
 
 error_reporting(0);
@@ -15,7 +19,7 @@ define( '_ESF_OK', TRUE );
 define('BASEDIR', dirname(dirname(dirname(__FILE__))));
 
 require_once BASEDIR.'/application/define.php';
-require_once LIBDIR.'/debugstack/debugstack.class.php';
+require_once LIBDIR.'/yryie/yryie.class.php';
 require_once APPDIR.'/classes/loader.class.php';
 
 if (!Loader::Register()) {

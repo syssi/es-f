@@ -88,19 +88,16 @@ function SetGroupCategory ( _group, _select ) {
 // ---------------------------------------------------------------------------
 function ShowHideCategory( _category, _force ) {
   var El = $('tbody_'+_category);
-//  var remain = $('remain_'+_category);
-//  if (El && remain) {
   if (El) {
     $(El).toggle(_force);
-    //$(remain).toggle(!El.visible());
-    var categories = esf_cookieManager.getCookie('esf_categories');
+    var categories = cookieManager.getCookie('categories');
     if (categories) {
       eval("categories = categories.replace(/%%"+_category+"/g,'');");
     } else {
       categories = '';
     }
-    if (!El.visible()) categories += '%%'+_category;
-    esf_cookieManager.setCookie('esf_categories', categories);
+    if (!El.visible()) categories += '%%' + _category;
+    cookieManager.setCookie('categories', categories);
   }
 }
 
@@ -257,12 +254,14 @@ function showCountDown() {
     if (El) {
       // remaining seconds
       Remain = ((new Date(esf_CountDown[Id][0]*1000)) - Now) / 1000;
-      // ends in about 30, 5 or 1 minute or is ended
-      if (esf_CountDownRefresh &&
-          ( ( (Remain >= 30*60-2)            && (Remain <= 30*60)              ) ||
-            ( (Remain >=  5*60-2)            && (Remain <=  5*60)              ) ||
-            ( (Remain >=    60-2)            && (Remain <=    60)              ) ||
-            ( (Remain >= ServerTimeOffset-4) && (Remain <= ServerTimeOffset-2) ) ) ) {
+      // ends in about 60, 20, 5 or 1 minute or is ended
+      if (esf_CountDownRefresh && (
+           ( (Remain >= 60*60-2)            && (Remain <= 60*60)              ) ||
+           ( (Remain >= 20*60-2)            && (Remain <= 20*60)              ) ||
+           ( (Remain >=  5*60-2)            && (Remain <=  5*60)              ) ||
+           ( (Remain >=    60-2)            && (Remain <=    60)              ) ||
+           ( (Remain >= ServerTimeOffset-4) && (Remain <= ServerTimeOffset-2) )
+        ) ) {
         // reload page and refresh auction
         location.href='index.php?module=auction&action=mrefresh&auctions[]=' + item +
                       // add timestamp to force reload of page...

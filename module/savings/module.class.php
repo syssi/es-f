@@ -1,24 +1,21 @@
 <?php
 /**
- * @category   Module
- * @package    Module-Savings
- * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    0.1.0
- */
-
-/**
- * Homepage module
+ * Auction savings module
  *
- * @category   Module
- * @package    Module-Savings
+ * @ingroup    Module-Savings
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
+ * @copyright  2009-2011 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    Release: @package_version@
+ * @version    $Id: v2.4.1-51-gfeddc24 - Sun Jan 16 21:09:59 2011 +0100 $
  */
 class esf_Module_Savings extends esf_Module {
+
+  /**
+   * @return array Array of actions handled by the module
+   */
+  public function handles() {
+    return array('index');
+  }
 
   /**
    *
@@ -27,7 +24,7 @@ class esf_Module_Savings extends esf_Module {
     $auctions = $total = array();
     $user = esf_User::getActual();
     foreach (esf_Auctions::$Auctions as $item=>$auction) {
-    	if ($auction['ended'] AND $auction['bidder'] == $user) {
+      if ($auction['ended'] AND $auction['bidder'] == $user) {
         $bid = esf_Auctions::getBid(esf_Auctions::getGroup($item));
         $bid = esf_Auctions::getBid($item);
         $save = $bid - $auction['bid'];
@@ -51,7 +48,7 @@ class esf_Module_Savings extends esf_Module {
       $total['SAVINGPERCENT'] = $total['SAVINGPERCENT'] / count($auctions);
       TplData::set('TOTAL', $total);
     } else {
-      Messages::addInfo('No won auctions found.');
+      Messages::Info('No won auctions found.');
       $this->forward('auction');
     }
   }
