@@ -10,7 +10,7 @@
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2007-2010 Knut Kohl
  * @license
- * @version    $Id$
+ * @version    $Id: v2.4.1-46-gfa6b976 - Sat Jan 15 13:42:37 2011 +0100 $
  * @throws     ebayParserException
  */
 abstract class ebayParser {

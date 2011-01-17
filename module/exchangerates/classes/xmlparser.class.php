@@ -6,7 +6,7 @@
  * Idea from http://php.net/function.xml_parse
  * UCN from james @at@ mercstudio dot Com dot nospam at 02-Apr-2006 09:10
  *
- * @version   $Id$
+ * @version   $Id: v2.4.1-51-gfeddc24 - Sun Jan 16 21:09:59 2011 +0100 $
  */
 class XMLParser {
 

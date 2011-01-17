@@ -8,7 +8,7 @@
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2009-2010 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    $Id$
+ * @version    $Id: v2.4.1-48-g52d1631 - Sat Jan 15 16:45:56 2011 +0100 $
  */
 
 // -----------------------------------------------------------------------------

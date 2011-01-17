@@ -16,7 +16,7 @@ Long description goes here
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @coyright   2011 Knut Kohl
  * @licence    <a href="http://www.gnu.org/licenses/gpl.txt">GNU General Public License</a>
- * @version    $Id$
+ * @version    $Id: v2.4.1-49-g0f62a5c - Sat Jan 15 23:05:05 2011 +0100 $
  */
 class Cookie {
 

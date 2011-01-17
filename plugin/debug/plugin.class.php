@@ -7,7 +7,7 @@
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2009 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    $Id$
+ * @version    $Id: v2.4.1-21-gc3e5473 - Mon Dec 27 20:37:07 2010 +0100 $
  */
 class esf_Plugin_Debug extends esf_Plugin {
 

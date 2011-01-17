@@ -6,7 +6,7 @@
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2009-2010 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    $Id$
+ * @version    $Id: v2.4.1-32-g2795bc8 - Sat Jan 8 22:41:44 2011 +0100 $
  */
 class esf_Plugin_Module_Refresh extends esf_Plugin {
 
