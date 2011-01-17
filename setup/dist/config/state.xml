@@ -16,8 +16,10 @@
     <config name="refresh" type="int">7</config>
     <config name="snipe" type="int">3</config>
     <config name="support" type="int">3</config>
+    <config name="watching" type="int">3</config>
   </section>
   <section name="Plugin">
+    <config name="addfromebayurl" type="int">3</config>
     <config name="api" type="int">7</config>
     <config name="autoupdate" type="int">7</config>
     <config name="cleartitle" type="int">3</config>
