@@ -10,10 +10,13 @@
       %2$s = esniper binary
       %3$s = esniper auction file
       %4$s = Log file
+
+      LONG:
+      %2$s -c "%1$s/.es-f" "%1$s/%3$s" & >>"%4$s" 2>&1
     -->
     <cmd name="START_AUCTION">
     <![CDATA[
-      %2$s -c "%1$s/.es-f" "%1$s/%3$s" & >>"%4$s" 2>&1
+      cd "%1$s"; %2$s -c .c "%3$s" & >>"%4$s" 2>&1
     ]]>
     </cmd>
 
@@ -28,7 +31,7 @@
     -->
     <cmd name="BID_NOW">
     <![CDATA[
-      %1$s -c %2$s/.es-f -s now %3$s %4$s >>"%5$s" 2>&1
+      %1$s -c %2$s/.c -s now %3$s %4$s >>"%5$s" 2>&1
     ]]>
     </cmd>
 
@@ -76,7 +79,7 @@
     -->
     <cmd name="SLEEP_RM">
     <![CDATA[
-      sleep %d && rm -f "%s/.es-f" & >/dev/null
+      sleep %1$d && rm -f "%2$s/.c" & >/dev/null
     ]]>
     </cmd>
 

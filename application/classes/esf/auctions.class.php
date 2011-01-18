@@ -14,6 +14,11 @@ abstract class esf_Auctions {
   const FORCEUPGRADE = 'ForceUpgradeAuctions';
 
   /**
+   *
+   */
+  const CONFIGFILE = '.c';
+
+  /**
    * @var array
    */
   public static $Auctions = array();
@@ -459,9 +464,8 @@ abstract class esf_Auctions {
     $pids = array();
     foreach ((array)$res as $pid) {
       $pid = preg_split('~\s+~', trim($pid));
-
       if (is_numeric($pid[0])) {
-        if (preg_match('~/([^/]+)\.'.esf_User::getActual(TRUE).'$~', $pid[count($pid)-1], $args)) {
+        if (preg_match('~(.+)\.'.esf_User::getActual(TRUE).'$~', $pid[count($pid)-1], $args)) {
           $group = $args[1];
           $group = str_replace('_', ' ', $group);
           $pids[$pid[0]] = $group;
@@ -972,16 +976,18 @@ abstract class esf_Auctions {
   public static function writeEsniperCfg( $short=FALSE ) {
     if (!$user = esf_User::getActual(TRUE)) return;
 
-    $conf = 'batch = yes' . "\n"
-          . 'username = ' . $user . "\n"
-          . 'password = ' . esf_User::getPass() . "\n";
+    $conf = array();
+    $conf[] = 'batch = yes';
+    $conf[] = 'username = ' . $user;
+    $conf[] = 'password = ' . esf_User::getPass();
 
-    if (!$short)
+    if (!$short) {
       foreach (Esniper::getAll() as $key => $val)
-        if (!empty($val))
-          $conf .= sprintf('%s = %s', $key, $val) . "\n";
+        if (!empty($val)) $conf[] = sprintf('%s = %s', $key, $val);
+    }
 
-    File::write(esf_User::UserDir().'/.es-f', $conf);
+    File::write(esf_User::UserDir() . DIRECTORY_SEPARATOR . self::CONFIGFILE,
+                implode("\n", $conf));
   }
 
   /**
@@ -993,9 +999,7 @@ abstract class esf_Auctions {
   public static function removeEsniperCfg( $delay=5 ) {
     if (!Registry::get('Module.Auction.HoldEsniperConfig')) {
       $cmd = array('CORE::SLEEP_RM', $delay, esf_User::UserDir());
-      if (Exec::getInstance()->ExecuteCmd($cmd, $res)) {
-        Messages::Error($res);
-      }
+      if (Exec::getInstance()->ExecuteCmd($cmd, $res)) Messages::Error($res);
     }
   }
 
