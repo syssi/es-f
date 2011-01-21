@@ -23,16 +23,26 @@ ini_set('display_startup_errors', 0);
 ini_set('display_errors', 0);
 error_reporting(0);
 
-#ini_set('display_startup_errors', 1);
-#ini_set('display_errors', 1);
-#error_reporting(-1);
+///*
+ini_set('display_startup_errors', 1);
+ini_set('display_errors', 1);
+error_reporting(-1);
+//*/
 
 $time = time();
 
 $jppath = 'jpgraph';
 
 /**
- * @ignore
+ * Needs to patch JpGraph to de-TTF
+ *
+ * - gd_image.inc.php
+ *   comment from line 91 ALL defs EXCEPT those for FF_FONT1
+ *
+ * - jpgraph_ttf.inc.php from line 147
+ *   // Default font family
+ *   //define('FF_DEFAULT', FF_DV_SANSSERIF);
+ *   define('FF_DEFAULT', FF_FONT1);
  */
 require_once $jppath.'/jpgraph.php';
 
@@ -122,30 +132,24 @@ $graph = new Graph($xsize, $ysize, 'auto');
 
 $graph->SetScale('datlin', $Grace[0], $Grace[1], $Grace[2], $Grace[3]);
 
-if ($xsize < 500) {
-  $graph->SetMargin(55, 15, 25, 40);
-  $graph->xaxis->SetFont(FF_FONT0);
-  $graph->yaxis->SetFont(FF_FONT0);
-} else {
-  $graph->SetMargin(65, 15, 25, 50);
-}
+if ($xsize < 500) $graph->SetMargin(55, 15, 25, 40);
+else              $graph->SetMargin(65, 15, 25, 50);
 
 // Setup graph colors
 $graph->SetFrame(FALSE);
 $graph->SetMarginColor('white');
-// X-axis
+
+// X
 $graph->xaxis->SetPos('min');
 $graph->xaxis->scale->SetDateFormat('H:i');
 $graph->xaxis->SetLabelAngle(90);
 $graph->xaxis->HideTicks(TRUE, FALSE);
-
-// Y-axis
-$graph->yaxis->SetLabelFormat('%0.2f');
-$graph->yaxis->HideTicks(TRUE, FALSE);
-
-// Grid
 $graph->xgrid->Show();
 $graph->xgrid->SetColor('gray@0.8');
+
+// Y
+$graph->yaxis->SetLabelFormat('%0.2f');
+$graph->yaxis->HideTicks(TRUE, FALSE);
 $graph->ygrid->SetColor('gray@0.8');
 
 // Legend
@@ -153,7 +157,6 @@ $graph->legend->SetColor('black', 'white');
 #$graph->legend->SetFillColor('#E0E0E0');
 #$graph->legend->SetShadow(TRUE);
 $graph->legend->SetPos(0.015, 0.01);
-#$graph->legend->SetLayout(LEGEND_HOR);
 
 $flegend = '%1$.2f : %2$s';
 
