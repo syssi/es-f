@@ -1,11 +1,11 @@
 <?php
 /**
- * Scritp to refresh auctions in background via cron job
+ * Script to refresh auctions in background via cron job
  *
  * @ingroup    Plugin-Refreshbackground
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2009-2011 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
  * @version    $Id: v2.4.1-29-gacb4bc2 - Fri Jan 7 21:24:31 2011 +0100 $
  */
 
@@ -55,6 +55,10 @@ unset($cfg['esniper']);
 
 // Set all other into registry
 Registry::set($cfg);
+
+// Cache mockup
+Core::$Cache = Cache::factory('Mock');
+Exec::InitInstance(ESF_OS, Core::$Cache, Registry::get('bin_sh'));
 
 esf_Extensions::Init();
 esf_Extensions::setState('plugin', 'refreshbackground', 0);

@@ -7,16 +7,13 @@
       Change to user working dir. and start esniper
 
       %1$s = User working directory
-      %2$s = esniper binary
+      %2$s = esniper binary INCL. config file
       %3$s = esniper auction file
       %4$s = Log file
-
-      LONG:
-      %2$s -c "%1$s/.es-f" "%1$s/%3$s" & >>"%4$s" 2>&1
     -->
-    <cmd name="START_AUCTION">
+    <cmd name="STARTAUCTION">
     <![CDATA[
-      cd "%1$s"; %2$s -c .c "%3$s" & >>"%4$s" 2>&1
+      cd "%1$s"; %2$s "%3$s" & >>"%4$s" 2>&1
     ]]>
     </cmd>
 
@@ -29,7 +26,7 @@
       %4$s = Bid amount
       %5$s = Log file
     -->
-    <cmd name="BID_NOW">
+    <cmd name="BIDNOW">
     <![CDATA[
       %1$s -c %2$s/.c -s now %3$s %4$s >>"%5$s" 2>&1
     ]]>

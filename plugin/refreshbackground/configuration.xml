@@ -1,5 +1,11 @@
 <configuration>
 
+  <definition name="Plugin.RefreshBackground.PHP">
+    <![CDATA[
+      PHP binary. Set this, if the plugin can't find it automatic.
+    ]]>
+  </definition>
+
   <definition name="Plugin.RefreshBackground.MaxAge" type="int">
     <![CDATA[
       Maximal age of auction status [min]

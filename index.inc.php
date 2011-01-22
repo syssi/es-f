@@ -65,6 +65,8 @@ unset($aConfiguration['esniper']);
 Registry::set($aConfiguration);
 unset($oXML, $aConfiguration, $aUser, $key, $value);
 
+Registry::set('cfg_esniper', Registry::get('bin_esniper').' -c .c');
+
 if (Registry::get('CfgVersion') < ESF_CONFIG_VERSION) {
   $oCache->flush();
   Header('Location: setup/index.php?msg='
@@ -585,12 +587,12 @@ foreach ($steps as $step) {
   if (!DEVELOP) ob_start();
 
   if ($step == 'content') {
-    // if actual module is only a display module, try to render $step.Registry::get('esf.Action') ...
+    // if actual module is only a display module,
+    // try to render 'content'.Registry::get('esf.Action') ...
     if (TplData::isEmpty('Content')) {
       $content = $oTemplate->Render('content.'.Registry::get('esf.Action'), FALSE, $RootDir);
       TplData::set('Content', $content);
     }
-
     // Render general template 'content', if exists
     $content = $oTemplate->Render('content', FALSE, $RootDir);
     if ($content) TplData::set('Content', $content);

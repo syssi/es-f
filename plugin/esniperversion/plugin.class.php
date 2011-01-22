@@ -25,7 +25,7 @@ class esf_Plugin_esniperVersion extends esf_Plugin {
     if (!Session::get('esniperVersion') OR                 /* once per session */
         $_SERVER['REQUEST_TIME'] > File::MTime($file)+60*60*6 /* every 6 hours */) {
       // read esniper version
-      $cmd = array('ESNIPERVERSION::VERSION', Registry::get('bin_esniper'));
+      $cmd = array('EsniperVersion::Version', Registry::get('bin_esniper'));
       // alarm in case of new version
       if (Exec::getInstance()->ExecuteCmd($cmd, $res) OR count($res) > 1)
         Messages::Error($res);

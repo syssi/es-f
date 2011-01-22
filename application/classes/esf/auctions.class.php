@@ -492,7 +492,7 @@ abstract class esf_Auctions {
 
     // esniper config. file will be only as long as required on file system
     self::writeEsniperCfg();
-    $cmd = array('CORE::BID_NOW', Registry::get('bin_esniper'),
+    $cmd = array('Core::BidNow', Registry::get('bin_esniper'),
                  esf_User::UserDir(), $item, $bid, $log);
     if (Exec::getInstance()->ExecuteCmd($cmd, $res, Registry::get('SuDo'))) {
       Messages::Error($res);
@@ -524,8 +524,8 @@ abstract class esf_Auctions {
     $groupname = self::getGroupName($group);
 
     File::append($LogFile, sprintf(
-      'es-f: # cd "%s"; %s -c .es-f "%s"'."\n\n",
-      esf_User::UserDir(), Registry::get('bin_esniper'), self::AuctionFile($group, FALSE)
+      'es-f:$ cd "%s"; %s "%s"'."\n\n",
+      esf_User::UserDir(), Registry::get('cfg_esniper'), self::AuctionFile($group, FALSE)
     ));
 
     if (self::$Groups[$group]['b'] == 0 AND @self::$Groups[$group]['a'] == 1) {
@@ -603,8 +603,8 @@ abstract class esf_Auctions {
       File::append($afile, $lines);
       self::writeEsniperCfg();
 
-      $cmd = array('CORE::START_AUCTION',
-                   esf_User::UserDir(), Registry::get('bin_esniper'),
+      $cmd = array('Core::StartAuction',
+                   esf_User::UserDir(), Registry::get('cfg_esniper'),
                    self::AuctionFile($group, FALSE), $LogFile);
       $rc = Exec::getInstance()->ExecuteCmd($cmd, $res, Registry::get('SuDo'));
       self::removeEsniperCfg();
@@ -969,7 +969,7 @@ abstract class esf_Auctions {
   }
 
   /**
-   * Write esniper config file <USERDIR>/.es-f
+   * Write esniper config file <USERDIR>/.c
    *
    * @param bool $short Only user & password
    */
@@ -991,7 +991,7 @@ abstract class esf_Auctions {
   }
 
   /**
-   * Remove esniper config file <USERDIR>/.es-f
+   * Remove esniper config file <USERDIR>/.c
    *
    * @param int $delay Sleep in sec.
    * @return void

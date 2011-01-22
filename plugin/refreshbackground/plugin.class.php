@@ -52,14 +52,27 @@ class esf_Plugin_RefreshBackground extends esf_Plugin {
     if (!$this->Refresh) return;
 
     $Exec = Exec::getInstance();
-    $Exec->ExecuteCmd('REFRESHBACKGROUND::WHICH_PHP', $res);
-    $PHP = array_shift($res);
+    if (!$PHP = $this->PHP) {
+      $Exec->ExecuteCmd('RefreshBackground::WhichPHP', $PHP);
+      $PHP = array_shift($PHP);
+    }
 
-    $cmd = array('REFRESHBACKGROUND::REFRESH',
+    if (empty($PHP)) {
+      Messages::Error('Plugin::RefreshBackground - Can\'t find PHP cli binary!');
+      $url = Core::URL(array('module'=>'configuration','action'=>'edit',
+                             'params'=>array('ext'=>'plugin-refreshbackground')));
+      Messages::Error('Please install OR <a href="'.$url.'">configure</a> the complete path!', TRUE);
+      return;
+    }
+
+    $cmd = array('RefreshBackground::Refresh',
                  $PHP, dirname(__FILE__), TEMPDIR, esf_User::getActual());
     $Exec->ExecuteCmd($cmd, $res);
-    if ($res)
-      trigger_error('Messages from background refresh: '.implode('<br>', $res));
+    if ($res) {
+      Messages::Error('Messages from background refresh');
+      Messages::Error($Exec->LastCmd);
+      Messages::Error(implode('<br>', $res), TRUE);
+    }
 
     Messages::Info(Translation::get('Refresh_Bg.Refreshed'));
   }

@@ -16,7 +16,6 @@ class esf_Module_Logfiles extends esf_Module {
    */
   public function __construct() {
     parent::__construct();
-
     $this->Id = $this->Request('id');
     $this->Bug = @base64_decode($this->Request('bug'));
   }
@@ -61,19 +60,21 @@ class esf_Module_Logfiles extends esf_Module {
    *
    */
   public function ShowAction() {
-    if (isset($this->LogFile[$this->Id])) {
-      $log = $this->LogFile[$this->Id];
+    $files = $this->LogFile;
+    if (isset($files[$this->Id])) {
+      $log = $files[$this->Id];
       if (file_exists($log))
         $log = str_replace($_SERVER['DOCUMENT_ROOT'].'/', '', realpath($log));
       TplData::set('NAME', $log);
       TplData::set('FILESIZE', File::Size($log));
-      $log = @file_get_contents($log);
+      $log = file_get_contents($log);
       TplData::set('LOG', (!empty($log) ? htmlspecialchars($log) : '&lt;empty&gt;'));
       TplData::set('DELETEURL', Core::URL(array('action'=>'delete', 'params'=>array('id'=>$this->Id))));
     } else {
       $this->forward();
     }
   }
+
   /**
    *
    */
@@ -93,8 +94,9 @@ class esf_Module_Logfiles extends esf_Module {
    *
    */
   public function DeleteAction() {
-    if (!empty($this->LogFile[$this->Id])) {
-      $log = $this->LogFile[$this->Id];
+    $files = $this->LogFile;
+    if (isset($files[$this->Id])) {
+      $log = $files[$this->Id];
       if (File::Delete($log)) {
         Messages::Success(Translation::get('Logfiles.Deleted', $log));
       } else {
@@ -118,11 +120,6 @@ class esf_Module_Logfiles extends esf_Module {
   //--------------------------------------------------------------------------
   // PRIVATE
   //--------------------------------------------------------------------------
-
-  /**
-   *
-   */
-  private $LogFiles;
 
   /**
    *

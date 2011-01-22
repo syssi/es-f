@@ -3,7 +3,7 @@
 
   <section name="RefreshBackground">
 
-    <cmd name="Which_PHP">
+    <cmd name="WhichPHP">
     <![CDATA[
       which php
     ]]>

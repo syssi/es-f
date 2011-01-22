@@ -23,9 +23,10 @@ class esf_Module_Watching extends esf_Module {
   public function IndexAction() {
 
     esf_Auctions::writeEsniperCfg(TRUE);
-    $cmd = array('WATCHING::WATCHEDITEMS',
-                 Registry::get('bin_esniper'), esf_User::UserDir());
+    $cmd = array('Watching::WatchedItems',
+                 esf_User::UserDir(), Registry::get('cfg_esniper'));
     $rc = Exec::getInstance()->ExecuteCmd($cmd, $res);
+    $cmd = Exec::getInstance()->LastCmd;
     esf_Auctions::removeEsniperCfg();
 
     $myitems = array();
@@ -64,7 +65,7 @@ class esf_Module_Watching extends esf_Module {
                         'body'    => ESF_FULL_TITLE.', Module Version: '
                                     .$this->Version);
         TplData::set('EMAIL', Core::Email($this->Email, $this->Author, TRUE, $header));
-        TplData::set('RESULT', array_merge(array('# '.$cmd, ''), $res));
+        TplData::set('RESULT', array_merge(array('$ '.$cmd, ''), $res));
       }
       $this->forward('empty');
     } else {

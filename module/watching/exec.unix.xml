@@ -6,12 +6,12 @@
     <!--
       Get watched items from ebay
 
-      %1$s = esniper binary
-      %2$s = User working directory
+      %1$s = User working directory
+      %2$s = esniper binary INCL. config file
     -->
     <cmd name="WatchedItems">
     <![CDATA[
-      %1$s -m -c "%2$s/.es-f"
+      cd %1$s; %2$s -m
     ]]>
     </cmd>
 

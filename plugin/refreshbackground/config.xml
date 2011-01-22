@@ -5,6 +5,11 @@
     <section name="RefreshBackground">
 
       <!--
+        PHP binary
+      -->
+      <config name="PHP"></config>
+
+      <!--
         Refresh auctions automatic every x minutes
       -->
       <config name="MaxAge" type="int">120</config>
