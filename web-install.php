@@ -19,11 +19,15 @@ define( 'DOWNLOADFILE',
   #shell{font-family:monospace;font-size:0.9em;height:27em;overflow:scroll}
   input[type=submit]{width:8em;font-size:1.1em}
 </style>
-</head><body><div id="c1"><div id="c2"><form><h1><tt style="font-size:1.1em">|es|f|</tt> Installer</h1>
+</head><body><div id="c1"><div id="c2"><form>
 <?php
 set_time_limit(0);
 session_start();
 // ---------------------------------------------------------------------------
+if (empty($_SESSION['version']))
+  list($_SESSION['version'], $_SESSION['date']) = file(VERSIONFILE, FILE_IGNORE_NEW_LINES);
+h1('<tt style="font-size:1.1em">|es|f|</tt> Installer '
+  .$_SESSION['version'].' ('.$_SESSION['date'].')');
 $last = isset($_SESSION['step']) ? $_SESSION['step'] : 0;
 $s = isset($_GET['s']) ? (int)$_GET['s'] : 1;
 if ($s > $last+1) $s = $last;
@@ -67,8 +71,7 @@ function s1() {
 function s2() {
   h2('2. Download archive');
   $f = !empty($_GET['f']) ? $_GET['f'] : 'tgz';
-  list($v) = file(VERSIONFILE, FILE_IGNORE_NEW_LINES);
-  $a = sprintf(DOWNLOADFILE, $v, $f);
+  $a = sprintf(DOWNLOADFILE, $_SESSION['version'], $f);
   $_SESSION['format'] = $f;
   $_SESSION['archive'] = 'archive.'.$f;
   $cmd = sprintf('%s "%s" -O archive.%s', $_SESSION['bins']['wget'], $a, $f);
@@ -78,14 +81,15 @@ function s2() {
 }
 function s3() {
   h2('3. Extract archive');
-  if ($_SESSION['format'] == 'zip') $cmd = $_SESSION['bins']['unzip'].' -o archive.zip';
-  else                              $cmd = $_SESSION['bins']['tar'].' xvzf archive.tgz';
-  run($cmd);
-  unlink($_SESSION['archive']);
+  $cmd = ($_SESSION['format'] == 'zip')
+       ? $_SESSION['bins']['unzip'].' -o archive.zip'
+       : $_SESSION['bins']['tar'].' xvzf archive.tgz';
+  run($cmd); unlink($_SESSION['archive']);
   h3('Done, you are now ready to start your <a href="index.php">|es|f| esniper frontend</a>!');
   h3('<em>Happy sniping!</em>');
   session_destroy();
 }
+function h1($h){echo '<h1>'.$h.'</h1>';}
 function h2($h){echo '<h2>'.$h.'</h2>';}
 function h3($h){echo '<h3>'.$h.'</h3>';}
 function b($next) {
@@ -93,11 +97,12 @@ function b($next) {
    .'<input type="submit" value="Next">');
 }
 function p($t,$f=0){e('<p>'.$t.'</p>',$f);}
-function e($t,$f=0){echo $t; if($f){echo str_repeat(' ',4096);flush();}}
+function e($t,$f=0){echo $t; if($f){echo str_repeat(' ',4096); flush();}}
 function br($c=1){for($i=0; $i<$c; $i++) echo '<br>';}
 function run($cmd) {
-  e('<div id="shell">',1); e('$ '.$cmd); br();
+  e('<div id="shell">',1); # e('$ '.$cmd); br();
   $fp = popen($cmd.' 2>&1', 'r');
-  while (!feof($fp)) e(str_replace("\n",br(),str_replace('  ',' &nbsp;',fgets($fp))), 1);
+  while (!feof($fp))
+    e(str_replace("\n",br(),str_replace('  ',' &nbsp;',fgets($fp))), 1);
   pclose($fp); e('</div>');
 }
