@@ -371,9 +371,9 @@ class esf_Module_Backend extends esf_Module {
     }
 
     if ($config AND $enabled AND ModuleEnabled('Configuration')) {
-      $urlparams['returnto'] = encodeReturnTo(array('module' => 'backend', 'action' => 'info'));
+      $urlparams['returnto'] = encodeReturnTo(array('module' => 'backend', 'action' => 'info', 'params'=>$urlparams));
       $actions[1] = array('URL'   => Core::URL(array('module'=>'configuration', 'action'=>'edit', 'params'=>$urlparams)),
-                          'TITLE' => Translation::get('BACKEND.EDITCONFIGURATION'));
+                          'TITLE' => Translation::get('Backend.EditConfiguration'));
     }
 
     ksort($actions);

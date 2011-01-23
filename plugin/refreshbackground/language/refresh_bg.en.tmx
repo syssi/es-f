@@ -38,5 +38,37 @@
       </tuv>
     </tu>
 
+    <tu tuid="Info">
+      <prop type="x-Format">html</prop>
+      <note>%$1s - PHP binary, %$2S - path to refresh.php</note>
+      <tuv xml:lang="DE">
+        <seg>
+        <![CDATA[
+        <p>This module can refresh the auction status complete in background.</p>
+        <p>Therefore must the cli version of PHP be installed.</p>
+
+        <p>To refresh your auctions via cron job, add e.g. the following (as one) line to your crontab (<tt>crontab -e</tt>):</p>
+
+        <p class="code">0 8-18/2 * * * sudo -u ... %1$s -f %2$s/refresh.php</p>
+
+        <p>to refresh <strong>all</strong> auctions of <strong>all</strong> users each 2 hours from 8am to 6pm</p>
+
+        <p>Use for the <tt>sudo -u ...</tt> the user, under which is <strong>your</strong> web server running!</p>
+
+        <p style="color:red">Auctions of users submited like this,
+        will <strong><em>not refreshed</em></strong> automatic:</p>
+
+        <p class="code">... refresh.php -- USER1 [USER2]</p>
+
+        <p>To refresh only auctions of a specific user, use this syntax:</p>
+
+        <p class="code">... refresh.php -- -force USER1</p>
+
+        <p>The refreshing command must run via sudo as the user which also runs the web server!</p>
+        ]]>
+        </seg>
+      </tuv>
+    </tu>
+
   </body>
 </tmx>
