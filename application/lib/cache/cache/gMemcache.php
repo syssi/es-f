@@ -1,6 +1,14 @@
 <?php
 /**
+ * A purely implementation of a MemCache client in PHP
+ *
  * http://www.phpclasses.org/package/4094-PHP-memcache-client-in-pure-PHP.html
+ *
+ * @ingroup    Cache
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2010-2011 Knut Kohl
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    $Id$
  */
 
 /*

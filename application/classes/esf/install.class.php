@@ -1,21 +1,30 @@
 <?php
-/**
- *
- */
+/** @defgroup Install Extension installation
+
+
+*/
 
 /**
  * Abstract class for Extension installation
+ *
+ * @ingroup    Install
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2007-2011 Knut Kohl
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
+ * @version    $Id$
  */
 abstract class esf_Install {
 
   /**
-   * @var array
+   * @var array $Messages
    */
   public $Messages = array();
 
   /**
-   * force the redirect to Info page after activation
-   * @var bool
+   * Force the redirect to Info page after activation
+   *
+   * @var bool $ForceInfo
    */
   public $ForceInfo = FALSE;
 
@@ -52,7 +61,7 @@ abstract class esf_Install {
   }
 
   /**
-   *
+   * Runs after an extension installation was successful finished
    */
   public function InstallFinished() {}
 
@@ -66,7 +75,7 @@ abstract class esf_Install {
   }
 
   /**
-   *
+   * Runs after an extension deinstallation was successful finished
    */
   public function DeinstallFinished() {}
 
@@ -80,7 +89,7 @@ abstract class esf_Install {
   }
 
   /**
-   *
+   * Runs after an extension was enabled successful
    */
   public function EnableFinished() {}
 
@@ -94,7 +103,7 @@ abstract class esf_Install {
   }
 
   /**
-   *
+   * Runs after an extension was disabled successful
    */
   public function DisableFinished() {}
 
@@ -103,7 +112,10 @@ abstract class esf_Install {
   //--------------------------------------------------------------------------
 
   /**
-   * Create directory
+   * Create a directory
+   *
+   * @param string $dir Directory name
+   * @param int $chmod Directory access mode
    */
   protected function CreateDirectory( $dir, $chmod=0755 ) {
     $this->DeterminePath($dir);
@@ -119,7 +131,12 @@ abstract class esf_Install {
   }
 
   /**
-   * InstallCreateFile
+   * Create a file
+   *
+   * @param string $file File name with absolute or relative from local working
+   *                     directory .../local/...
+   * @param string $content File content
+   * @param int $chmod File access mode
    */
   protected function CreateFile( $file, $content='', $chmod=0644 ) {
     $this->DeterminePath($file);
@@ -145,7 +162,7 @@ abstract class esf_Install {
   }
 
   /**
-   * InstallExtractArchive
+   * Extract an ZIP archive
    */
   protected function ExtractArchive( $file, $dest='' ) {
     $wd = $this->getWorkDir();
@@ -183,7 +200,7 @@ abstract class esf_Install {
   }
 
   /**
-   * InstallRemoveDirectory
+   * Remove a directory on deinstallation
    */
   protected function RemoveDirectory( $dir='' ) {
     $this->DeterminePath($dir);
@@ -193,7 +210,7 @@ abstract class esf_Install {
   }
 
   /**
-   * InstallRemoveFile
+   * Remove a file on deinstallation
    */
   protected function RemoveFile( $file ) {
     $this->DeterminePath($file);
@@ -212,7 +229,7 @@ abstract class esf_Install {
   }
 
   /**
-   *
+   * Collect the installation messages
    */
   protected function Message( $msg, $type=Messages::INFO, $formated=FALSE ) {
     $this->Messages[] = array($msg, $type, $formated);

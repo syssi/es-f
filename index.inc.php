@@ -1,9 +1,9 @@
 <?php
 /**
- * @ingroup    es-f
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2007-2010 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
+ * @copyright  2007-2011 Knut Kohl
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
  * @version    $Id: v2.4.1-47-g938fb93 - Sat Jan 15 14:26:18 2011 +0100 $
  */
 

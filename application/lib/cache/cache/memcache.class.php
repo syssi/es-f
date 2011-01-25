@@ -3,24 +3,35 @@
  * Cache class using MemCache server
  *
  * The following settings are supported:
- * - token    : used to build unique cache ids (optional)
- * - host     : <host>[:<port>] (optional)
- *              default: localhost:11211
+ * - @c token : used to build unique cache ids (optional)
+ * - @c host  : @c @<host>[:@<port>] (optional) default: @c localhost:11211
  *
- * @ingroup  Cache
- * @version  1.0.0
+ * @ingroup    Cache
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2010-2011 Knut Kohl
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
+ * @version    $Id$
  */
 class Cache_MemCache extends Cache {
 
+  /**
+   * @name Default server parameters
+   * @{
+   */
   const HOST = 'localhost';
   const PORT = 11211;
+  /** @} */
 
   // -------------------------------------------------------------------------
   // PUBLIC
   // -------------------------------------------------------------------------
 
   /**
+   * Class constructor
    *
+   * @throws CacheException
+   * @param array $settings
    */
   public function __construct( $settings=array() ) {
     if (!self::available()) {
@@ -36,7 +47,7 @@ class Cache_MemCache extends Cache {
     if (!isset($port)) $port = self::PORT;
 
     if (!$this->memcache->connect($host, $port))
-      throw new Cache_Exception(__CLASS__.'Can\'t connect to MemCache host '.$host.':'.$port, 4);
+      throw new CacheException(__CLASS__.'Can\'t connect to MemCache host '.$host.':'.$port, 4);
   }
 
   /**
@@ -59,9 +70,9 @@ class Cache_MemCache extends Cache {
    * @param string $id
    * @param mixed $data
    * @param $ttl int Time to live or timestamp
-   *                 0  - expire never
-   *                 >0 - Time to live
-   *                 <0 - Timestamp of expiration
+   *                 - @c 0 - expire never
+   *                 - @c >0 - Time to live
+   *                 - @c <0 - Timestamp of expiration
    * @return void
    */
   public function set( $id, $data, $ttl=0 ) {
@@ -152,7 +163,9 @@ class Cache_MemCache extends Cache {
   // -------------------------------------------------------------------------
 
   /**
-   * @var ressource
+   * MemCache instance
+   *
+   * @var MemCache $memcache
    */
   private $memcache;
 

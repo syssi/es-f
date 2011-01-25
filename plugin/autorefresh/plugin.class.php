@@ -1,13 +1,20 @@
 <?php
+/** @defgroup Plugin-AutoRefresh Plugin AutoRefresh
+
+Add input to page footer to perform automatic page refresh.
+
+*/
+
 /**
- * Automatic page refresh
+ * Plugin AutoRefresh
  *
- * @category   Plugin
- * @package    Plugin-AutoRefresh
+ * @ingroup    Plugin
+ * @ingroup    Plugin-AutoRefresh
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    0.1.0
+ * @copyright  2009-2011 Knut Kohl
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
+ * @version    $Id$
  */
 class esf_Plugin_AutoRefresh extends esf_Plugin {
 

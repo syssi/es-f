@@ -1,11 +1,17 @@
 <?php
+/** @defgroup Plugin-AutoUpdate Plugin AutoUpdate
+
+*/
+
 /**
- * Add some infos to seller data
+ * Plugin AutoUpdate
  *
- * @package    Plugin-AutoUpdate
+ * @ingroup    Plugin
+ * @ingroup    Plugin-AutoUpdate
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2009-2010 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
  * @version    $Id: v2.4.1-42-g440d05f - Sun Jan 9 21:40:58 2011 +0100 $
  */
 class esf_Plugin_AutoUpdate extends esf_Plugin {

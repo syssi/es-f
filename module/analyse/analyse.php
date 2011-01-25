@@ -6,8 +6,9 @@
  *
  * @ingroup    Module-Analyse
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009-2010 Knut Kohl
+ * @copyright  2009-2011 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
+ * @version    1.0.0
  * @version    $Id: v2.4.1-48-g52d1631 - Sat Jan 15 16:45:56 2011 +0100 $
  */
 
@@ -23,11 +24,11 @@ ini_set('display_startup_errors', 0);
 ini_set('display_errors', 0);
 error_reporting(0);
 
-///*
+/*
 ini_set('display_startup_errors', 1);
 ini_set('display_errors', 1);
 error_reporting(-1);
-//*/
+*/
 
 $time = time();
 

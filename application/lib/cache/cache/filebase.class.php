@@ -9,8 +9,12 @@
  * - token    : used to build unique cache ids (optional)
  * - cachedir : Where to store the file with the cached data (optional)
  *
- * @ingroup  Cache
- * @version  1.0.0
+ * @ingroup    Cache
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2010-2011 Knut Kohl
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
+ * @version    $Id$
  */
 abstract class Cache_FileBase extends Cache {
 
@@ -23,16 +27,17 @@ abstract class Cache_FileBase extends Cache {
   // -------------------------------------------------------------------------
 
   /**
+   * Caching directory
    *
-   * @var string
+   * @var string $cachedir
    */
   protected $cachedir;
 
   /**
    * Class constructor
    *
-   * @public
-   * @param array $options
+   * @throws CacheException
+   * @param array $settings
    * @return CacheI
    */
   protected function __construct( $settings=array() ) {
@@ -50,7 +55,7 @@ abstract class Cache_FileBase extends Cache {
       $this->cachedir = sys_get_temp_dir();
     // If still not found or not writeable...
     if (empty($this->cachedir) OR !is_writable($this->cachedir))
-      throw new Cache_Exception(__CLASS__.': No writeable directory found.', 9);
+      throw new CacheException(__CLASS__.': No writeable directory found.', 9);
   }
 
   /**
@@ -90,7 +95,7 @@ abstract class Cache_FileBase extends Cache {
    *
    * @param string $file
    * @param string $data
-   * @return string
+   * @return bool
    */
   protected function WriteFile( $file, $data ) {
     if (empty($data) AND $this->RemoveFile($file)) return TRUE;
@@ -117,8 +122,7 @@ abstract class Cache_FileBase extends Cache {
    * Function RemoveFile...
    *
    * @param string $file
-   * @param string $data
-   * @return string
+   * @return bool
    */
   protected function RemoveFile( $file ) {
     return (file_exists($file) AND unlink($file));
@@ -126,20 +130,17 @@ abstract class Cache_FileBase extends Cache {
 
 }
 
-/**
- * PHP < 5.2.1
- */
+// prior PHP 5.2.1
 if (!function_exists('sys_get_temp_dir')) {
-
-  function sys_get_temp_dir() {
-    if ($temp = getenv('TMP'))     return $temp;
-    if ($temp = getenv('TEMP'))    return $temp;
-    if ($temp = getenv('TMPDIR'))  return $temp;
-    $temp = tempnam(__FILE__, '');
-    if (file_exists($temp)) {
-      unlink($temp);
-      return dirname($temp);
-    }
-    return null;
+function sys_get_temp_dir() {
+  if ($temp = getenv('TMP'))     return $temp;
+  if ($temp = getenv('TEMP'))    return $temp;
+  if ($temp = getenv('TMPDIR'))  return $temp;
+  $temp = tempnam(__FILE__, '');
+  if (file_exists($temp)) {
+    unlink($temp);
+    return dirname($temp);
   }
+  return null;
+}
 }

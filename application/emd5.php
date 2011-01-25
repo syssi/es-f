@@ -1,15 +1,18 @@
 <?php
 /** @defgroup hash Several additional hashing functions
- *
- * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009-2011 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    $Id: v2.4.1-43-g9eb0fbd - Tue Jan 11 21:51:29 2011 +0100 $
- */
+
+Several hashing functions based on md5 and sha1 algorithms.
+
+@author     Knut Kohl <knutkohl@users.sourceforge.net>
+@copyright  2010-2011 Knut Kohl
+@license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
+@version    1.0.0
+@version    $Id: v2.4.1-43-g9eb0fbd - Tue Jan 11 21:51:29 2011 +0100 $
+*/
 
 /**
+ * @name Multible and extended MD5 hashing
  * @{
- * Multible MD5 hashing
  */
 
 /**
@@ -36,66 +39,7 @@ function md53( $data ) { return md5(md52($data)); }
  */
 function md54( $data ) { return md5(md53($data)); }
 
-/** @} */
-
 /**
- * @{
- * Combinations of MD5 & SHA1
- */
-
-/**
- * MD5 & SHA1
- *
- * @ingroup hash
- * @param string $data Data to calculate hash for
- */
-function md5sha1( $data ) { return sha1(md5($data)); }
-
-/**
- * SHA1 & MD5
- *
- * @ingroup hash
- * @param string $data Data to calculate hash for
- */
-function sha1md5( $data ) { return md5(sha1($data)); }
-
-/** @} */
-
-/**
- * @{
- * Multible SHA1 hashing
- */
-
-/**
- * SHA1 2 times
- *
- * @ingroup hash
- * @param string $data Data to calculate hash for
- */
-function sha12( $data ) { return sha1(sha1($data)); }
-
-/**
- * SHA1 3 times
- *
- * @ingroup hash
- * @param string $data Data to calculate hash for
- */
-function sha13( $data ) { return sha1(sha12($data)); }
-
-/**
- * SHA1 4 times
- *
- * @ingroup hash
- * @param string $data Data to calculate hash for
- */
-function sha14( $data ) { return sha1(sha13($data)); }
-
-/** @} */
-
-/**
- * @defgroup emd5 Extended MD5
- * @{
- *
  * Server unique key code
  */
 define( 'EMD5_CODE', md5(__FILE__) );
@@ -121,5 +65,56 @@ function emd5( $data ) {
   // hash the combined binary string
   return md5($bin3);
 }
+/** @} */
 
+/**
+ * @name Combinations of MD5 & SHA1
+ * @{
+ */
+
+/**
+ * MD5 & SHA1
+ *
+ * @ingroup hash
+ * @param string $data Data to calculate hash for
+ */
+function md5sha1( $data ) { return sha1(md5($data)); }
+
+/**
+ * SHA1 & MD5
+ *
+ * @ingroup hash
+ * @param string $data Data to calculate hash for
+ */
+function sha1md5( $data ) { return md5(sha1($data)); }
+/** @} */
+
+/**
+ * @name Multible SHA1 hashing
+ * @{
+ */
+
+/**
+ * SHA1 2 times
+ *
+ * @ingroup hash
+ * @param string $data Data to calculate hash for
+ */
+function sha12( $data ) { return sha1(sha1($data)); }
+
+/**
+ * SHA1 3 times
+ *
+ * @ingroup hash
+ * @param string $data Data to calculate hash for
+ */
+function sha13( $data ) { return sha1(sha12($data)); }
+
+/**
+ * SHA1 4 times
+ *
+ * @ingroup hash
+ * @param string $data Data to calculate hash for
+ */
+function sha14( $data ) { return sha1(sha13($data)); }
 /** @} */

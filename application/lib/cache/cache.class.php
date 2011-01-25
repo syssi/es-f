@@ -11,9 +11,13 @@
  *
  * @ingroup    Cache
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2007-2010 Knut Kohl
- * @license
+ * @copyright  2010-2011 Knut Kohl
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.1.0
  * @version    $Id: v2.4.1-46-gfa6b976 - Sat Jan 15 13:42:37 2011 +0100 $
+ *
+ * @changelog  - v1.1.0
+ *               - Add test to find supported caches
  */
 abstract class Cache {
 
@@ -37,9 +41,9 @@ abstract class Cache {
    * @param string $id
    * @param mixed $data
    * @param $ttl int Time to live or timestamp
-   *                 0  - expire never
-   *                 >0 - Time to live
-   *                 <0 - Timestamp of expiration
+   *                 - 0   - expire never
+   *                 - > 0 - Time to live
+   *                 - < 0 - Timestamp of expiration
    * @return bool
    */
   abstract public function set( $id, $data, $ttl=0 );
@@ -47,11 +51,11 @@ abstract class Cache {
   /**
    * Function get...
    *
-   * @param $id string
-   * @param $expire int Time to live or timestamp
-   *                    0  - expire never
-   *                    >0 - Time to live
-   *                    <0 - Timestamp of expiration
+   * @param string $id
+   * @param int $expire Time to live or timestamp
+   *                    - 0   - expire never
+   *                    - > 0 - Time to live
+   *                    - < 0 - Timestamp of expiration
    * @return mixed
    */
   abstract public function get( $id, $expire=0 );
@@ -83,9 +87,9 @@ abstract class Cache {
   }
 
   /**
-   * Function factory...
+   * Function test...
    *
-   * @param $caches array Caches to test for availability
+   * @param array $caches Caches to test for availability.
    *                      If empty, the follwing caches are tested (in this order):
    *                      - APC
    *                      - EAccelerator
@@ -95,6 +99,7 @@ abstract class Cache {
    *                      - Files (always available)
    *                      - Session (always available)
    *                      - Mock (always available)
+   * @param bool $all Return all found?
    * @return string|array If $all is FALSE, the first possible cache from
    *                      $caches is returned, if $all is TRUE, an array of
    *                      all available caches will be returned
@@ -156,15 +161,17 @@ abstract class Cache {
   /**
    * Function save...
    *
-   * <code>
+   * @usage
+   * @code
    * $cache = Cache::factory('...');
    * while ($cache->save($id, $data[, $ttl])) {
    *   ...
    *   $data = ...;
    * }
    * echo $data;
-   * </code>
+   * @endcode
    *
+   * @throws CacheException
    * @param $id string
    * @param &$data mixed
    * @param $ttl int Time to live, if set to 0, expire never
@@ -178,7 +185,7 @@ abstract class Cache {
       return FALSE;
     } elseif (in_array($id, $this->stack)) {
       // $id is in stack, but NOT on top
-      throw new Cache_Exception(__CLASS__.': Stack problem - '.end($this->stack).' not properly finished!', 99);
+      throw new CacheException(__CLASS__.': Stack problem - '.end($this->stack).' not properly finished!', 99);
     } else {
       $data = $this->get($id, $ttl);
       if ($data !== NULL) {
@@ -200,8 +207,8 @@ abstract class Cache {
    * increment() does not create an item if it doesn't already exist.
    *
    * @param string $id
-   * @param mixed $value
-   * @return num New items value on success or FALSE on failure.
+   * @param numeric $value
+   * @return numeric New items value on success or FALSE on failure.
    */
   public function inc( $id, $value=1 ) {
     return $this->modify($id, $value);
@@ -218,8 +225,8 @@ abstract class Cache {
    * numerical and after that value is substracted.
    *
    * @param string $id
-   * @param mixed $value
-   * @return num New items value on success or FALSE on failure.
+   * @param numeric $value
+   * @return numeric New items value on success or FALSE on failure.
    */
   public function dec( $id, $value=1 ) {
     return $this->modify($id, -$value);
@@ -273,21 +280,23 @@ abstract class Cache {
   // -------------------------------------------------------------------------
 
   /**
+   * Unique cache token
    *
-   * @var string
+   * @var string $token
    */
   protected $token;
 
   /**
    * Master timestamp
    *
-   * @var int
+   * @var int $ts
    */
   protected $ts;
 
   /**
    * Class constructor
    *
+   * @throws CacheException
    * @param array $settings
    * @return void
    */
@@ -297,7 +306,7 @@ abstract class Cache {
     if (isset($settings['packer'])) {
       $this->packer = $settings['packer'];
       if (!is_object($this->packer) OR !($this->packer instanceof Cache_PackerI))
-        throw new Cache_Exception(__CLASS__.': $settings[\'packer\'] is no valid packler instance.', 3);
+        throw new CacheException(__CLASS__.': $settings[\'packer\'] is no valid packler instance.', 3);
     }
     $this->stack = array();
   } // function __construct()
@@ -348,12 +357,14 @@ abstract class Cache {
   // -------------------------------------------------------------------------
 
   /**
-   * @var ressource
+   * @var Cache_PackerI $packer
    */
   protected $packer;
 
   /**
-   * @var bool
+   * Serialize data
+   *
+   * @var bool $serialize
    */
   protected $serialize = TRUE;
 
@@ -362,15 +373,16 @@ abstract class Cache {
   // -------------------------------------------------------------------------
 
   /**
-   * @var array
+   * Stack of save() calls
+   * @var array $stack
    */
   private $stack;
 
   /**
    * Function factory...
    *
-   * @param array $settings
-   * @return void
+   * @throws CacheException
+   * @param string $class Class definition to load
    */
   private static final function load( $class ) {
     $file = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR
@@ -378,7 +390,7 @@ abstract class Cache {
     $class = 'Cache_'.ucwords(strtolower($class));
 
     if (!file_exists($file))
-      throw new Cache_Exception(__CLASS__.': Missing file ['.$file.'] for class '.$class, 1);
+      throw new CacheException(__CLASS__.': Missing file ['.$file.'] for class '.$class, 1);
 
     require_once $file;
   }
@@ -404,11 +416,8 @@ abstract class Cache {
 }
 
 /**
- * Class Cache_Exception
+ * Class CacheException
  *
- * description ...
- *
- * @package    Cache
- * @version
+ * @ingroup Cache
  */
-class Cache_Exception extends Exception {}
+class CacheException extends Exception {}

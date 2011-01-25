@@ -1,47 +1,58 @@
 <?php
-
 /**
  * Extended parse ini file function
  *
  * Handles multiple line values
  *
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2007-2011 Knut Kohl
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
+ * @version    $Id$
  */
 abstract class IniFile {
 
   /**
-   *
+   * @var string $File
    */
   public static $File;
 
   /**
    *
+   * @var string $Data
    */
   public static $Data;
 
   /**
    *
+   * @var string $Error
    */
   public static $Error;
 
   /**
    *
+   * @var string $SectionsUppercase
    */
-  public static $Sections2Upper = TRUE;
+  public static $SectionsUppercase = TRUE;
 
   /**
    *
+   * @var string $CommentLine
    */
   public static $CommentLine = ';';
 
   /**
    *
+   * @var string $debug
    */
   public static $debug = 0;
 
   /**
-   *
+   * @param string $file
+   * @param bool $sections
+   * @return bool
    */
-  public static function Parse( $file=FALSE, $sections=FALSE ) {
+  public static function Parse( $file='', $sections=FALSE ) {
     if (!$file) $file = self::$File;
     $file = str_replace('/', DIRECTORY_SEPARATOR, $file);
 
@@ -165,7 +176,9 @@ abstract class IniFile {
   //-------------------------------------------------------------------------
 
   /**
+   * Transform value in correct format, trim also " or ' from strings
    *
+   * @param string &$var
    */
   private static function checkVar( &$var ) {
     $uval = strtoupper($var);
@@ -188,7 +201,6 @@ abstract class IniFile {
   /**
    * Find out from value type the correct "write out" value
    *
-   * @access private
    * @param mixed $value Value to analyse
    */
   private static function getValue( $value ) {
@@ -205,13 +217,17 @@ abstract class IniFile {
 
   /**
    *
+   * @param string $section
    */
   private static function map( $section ) {
-    return self::$Sections2Upper ? strtoupper($section) : strtolower($section);
+    return self::$SectionsUppercase ? strtoupper($section) : strtolower($section);
   }
   
   /**
    *
+   * @param string $level
+   * @param string $data
+   * @param string $remove0
    */
   private static function debug( $level, $data, $remove0=FALSE ) {
     if (self::$debug < $level) return;

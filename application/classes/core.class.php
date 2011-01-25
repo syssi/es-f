@@ -4,10 +4,11 @@
  *
  * Core application functions
  *
- * @package    es-f
+ * @ingroup    es-f
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2007-2010 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
+ * @copyright  2007-2011 Knut Kohl
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
  * @version    $Id: v2.4.1-49-g0f62a5c - Sat Jan 15 23:05:05 2011 +0100 $
  */
 abstract class Core {
@@ -17,7 +18,9 @@ abstract class Core {
   // -------------------------------------------------------------------------
 
   /**
+   * Core cache instance
    *
+   * @var Cache $Cache
    */
   public static $Cache;
 
@@ -106,10 +109,10 @@ abstract class Core {
   /**
    * ISO 8859-1 to UTF-8 conversion
    *
-   * Found on http://php.net/manual/function.iconv.php
-   * UCN by ng4rrjanbiah at rediffmail dot com, 22-Jun-2004 05:10
+   * Source: http://www.php.net/manual/en/function.iconv.php#43463
    *
    * @param string $text Text to convert
+   * @param string $charset Convert from charset
    * @return string Converted text
    */
   public static function toUTF8( $text, $charset='ISO-8859-1' ) {
@@ -148,7 +151,6 @@ abstract class Core {
    * Own session handling
    *
    * @param boolean $forceRestart Force restart of session, e.g. in case of logout
-   * @return void
    */
   public static function StartSession( $forceRestart=FALSE ) {
     /// Session::$Debug = TRUE;
@@ -325,7 +327,7 @@ abstract class Core {
   /**
    * Read configurations from config.xml
    *
-   * $param string $scope module|plugin or other defined path
+   * @param string $scope module|plugin or other defined path
    * @return void
    */
   public static function ReadConfigs( $scope ) {
@@ -384,7 +386,6 @@ abstract class Core {
    * @param string $part Event name
    * @param array &$Err Error messages
    * @return boolean
-   * @global array
    */
   public static function CheckRequired( $scope, $part, &$Err ) {
     $Err = array();
@@ -419,7 +420,7 @@ abstract class Core {
   /**
    * Definition of Event requirements
    *
-   * @var array
+   * @var array $Required
    */
   private static $Required = array();
 

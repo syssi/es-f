@@ -2,43 +2,32 @@
 /**
  * Template data system, mostly a TplData
  *
- * @package    TplData
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2008-2009 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
+ * @copyright  2008-2011 Knut Kohl
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
  * @version    1.0.0
- */
-
-/**
- * TplData class to pass global variables between classes.
- *
- * It is possible to save/restore the values
- *
- * @package    TplData
+ * @version    $Id$
  */
 abstract class TplData {
 
   /**
    * Separator to split key into array
    *
-   * @access public
-   * @static
+   * @var string $NameSpaceSeparator
    */
   public static $NameSpaceSeparator = '::';
 
   /**
    * Force array keys uppercase
    *
-   * @access public
-   * @static
+   * @var bool $KeysUppercase
    */
   public static $KeysUppercase = FALSE;
 
   /**
    * Default return value, if requested variable is not set
    *
-   * @access public
-   * @static
+   * @var mixed $NVL
    */
   public static $NVL = NULL;
 
@@ -46,16 +35,14 @@ abstract class TplData {
    * Set a new variable in TplData.
    *
    * Example:
-   * <code>
+   * @code
    *   Key.SubKey.SubSubKey
-   * </code>
+   * @endcode
    * will result in
-   * <code>
+   * @code
    *   &self::$Data[Key][SubKey][SubSubKey]
-   * </code>
+   * @endcode
    *
-   * @access public
-   * @static
    * @param string|array $keys Name of the variable
    * @param mixed $value Value of the variable
    * @return void
@@ -81,8 +68,6 @@ abstract class TplData {
    * Adds additional data to a TplData variable
    *
    * @see set()
-   * @access public
-   * @static
    * @param string $keys Name of the variable
    * @param mixed $value Value of the variable
    * @return void
@@ -113,8 +98,6 @@ abstract class TplData {
    * Merge additional data to a TplData variable array
    *
    * @see set()
-   * @access public
-   * @static
    * @param string $keys Name of the variable
    * @param array $value Value of the variable
    * @return void
@@ -146,8 +129,6 @@ abstract class TplData {
    *
    * If $keys is empty, return all data, but better use {@link getAll()}
    *
-   * @access public
-   * @static
    * @param string $keys Name of the variable
    * @param mixed $default Value if $keys is not set
    * @return mixed Value of the specified $key
@@ -174,8 +155,6 @@ abstract class TplData {
   /**
    * Test if a key is empty
    *
-   * @access public
-   * @static
    * @param string $keys Name of the variable
    * @return bool
    */
@@ -187,8 +166,6 @@ abstract class TplData {
   /**
    * Returns the whole TplData as an array.
    *
-   * @access public
-   * @static
    * @return array Whole TplData
    */
   public static function getAll() {
@@ -198,8 +175,6 @@ abstract class TplData {
   /**
    * Removes a variable from the TplData.
    *
-   * @access public
-   * @static
    * @param string $keys Name of the variable
    * @return void
    */
@@ -215,8 +190,6 @@ abstract class TplData {
   /**
    * Removes all variables from the TplData.
    *
-   * @access public
-   * @static
    * @return void
    */
   public static function clear() {
@@ -227,16 +200,14 @@ abstract class TplData {
    * Set a new variable in TplData.
    *
    * Example:
-   * <code>
+   * @code
    *   Key.SubKey.SubSubKey
-   * </code>
+   * @endcode
    * will result in
-   * <code>
+   * @code
    *   &self::$Constans[Key][SubKey][SubSubKey]
-   * </code>
+   * @endcode
    *
-   * @access public
-   * @static
    * @param string $keys Name of the constant
    * @param mixed $value Value of the constant
    * @return void
@@ -254,8 +225,6 @@ abstract class TplData {
    *
    * If $keys is empty, return all data, but better use {@link getAllConstants()}
    *
-   * @access public
-   * @static
    * @param string $keys Name of the constant
    * @param mixed $default Value if $keys is not set
    * @return mixed Value of the constant $key
@@ -278,8 +247,6 @@ abstract class TplData {
   /**
    * Returns the whole constants as an array.
    *
-   * @access public
-   * @static
    * @return array All constants
    */
   public static function getAllConstants() {
@@ -291,24 +258,20 @@ abstract class TplData {
   //---------------------------------------------------------------------------
 
   /**
-   * @access private
-   * @static
-   * @var array Internal data container
+   * Internal data container
+   * @var array $Data
    */
   private static $Data = array();
 
   /**
-   * @access private
-   * @static
-   * @var array Internal constants container
+   * Internal constants container
+   * @var array $Constants
    */
   private static $Constants = array();
 
   /**
    * Clear key and split into array
    *
-   * @access private
-   * @static
    * @param string $key
    * @return array
    */

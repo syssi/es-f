@@ -1,14 +1,17 @@
 <?php
-/**
- *
- * @package XMLParser
- *
- */
+/** @defgroup XMLParser XML Parser classes
+
+*/
 
 /**
+ * XML Object
  *
- * @package XMLParser
- *
+ * @ingroup    XMLParser
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2009-2011 Knut Kohl
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
+ * @version    $Id$
  */
 class XML_Object {
 
@@ -119,9 +122,14 @@ class XML_Object {
 }
 
 /**
+ * XML Element
  *
- * @package XMLParser
- *
+ * @ingroup    XMLParser
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2009-2011 Knut Kohl
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
+ * @version    $Id$
  */
 class XML_Element {
 
@@ -156,9 +164,14 @@ class XML_Element {
 }
 
 /**
+ * XML Attributes
  *
- * @package XMLParser
- *
+ * @ingroup    XMLParser
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2009-2011 Knut Kohl
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
+ * @version    $Id$
  */
 class XML_Attributes {
 

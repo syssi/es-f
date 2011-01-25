@@ -1,9 +1,11 @@
 <?php
 /**
- * @ingroup    es-f
+ * Translation / I18N handling
+ *
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2007-2011 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
  * @version    $Id: v2.4.1-45-g3faf669 - Wed Jan 12 21:35:21 2011 +0100 $
  */
 abstract class Translation {
@@ -11,8 +13,7 @@ abstract class Translation {
   /**
    * Separator to split key into array
    *
-   * @access public
-   * @static
+   * @var string $NameSpaceSeparator
    */
   public static $NameSpaceSeparator = '::';
 
@@ -21,6 +22,7 @@ abstract class Translation {
    *
    * @param string $file TMX file to load
    * @param array $language Language to use from TMX file
+   * @param Cache $cache Cache instance
    */
   public static function LoadTMXFile( $file, $language, Cache $cache ) {
     try {
@@ -64,7 +66,7 @@ abstract class Translation {
    * @param array $translations Translations
    */
   public static function Define( $Namespace, $translations ) {
-    if (DEVELOP) self::writeTMX($Namespace, $translations, 1);
+    #if (DEVELOP) self::writeTMX($Namespace, $translations, 1);
     /// Yryie::StartTimer(__METHOD__, __METHOD__, __METHOD__);
     foreach ($translations as $key=>$str) {
       if (is_array($str)) {
@@ -84,8 +86,11 @@ abstract class Translation {
   }
 
   /**
+   * Set single translation definition
+   *
    * @param string $Namespace
-   * @param array $translation Translation
+   * @param string $key Translation
+   * @param string $translation Translation
    */
   public static function set( $Namespace, $key, $translation ) {
     self::$Translation[strtoupper($Namespace)][strtoupper($key)] = $translation;
@@ -97,10 +102,8 @@ abstract class Translation {
    *
    * Uses all paramters after $id for sprintf()
    *
-   * @param int $n Number to check for singular/plural
-   * @param string $id
+   * @see getf
    * @return string
-   * @uses getf
    */
   public static function get() {
     if (!func_num_args()) return;
@@ -147,8 +150,8 @@ abstract class Translation {
    *
    * EXCEPT: If ONLY one paramter given, default value will be '' (empty string)!
    *
+   * @see getf
    * @return string
-   * @uses getf
    */
   public static function getNvl() {
     // last paramter HAVE TO BE the default value!!
@@ -178,12 +181,14 @@ abstract class Translation {
   //---------------------------------------------------------------------------
 
   /**
-   * @var array
+   * Internal data buffer
+   * @var array $Translation
    */
   protected static $Translation = array();
 
   /**
-   * @var array
+   * Masks for HTML transformation
+   * @var array $Masks
    */
   protected static $Masks = array(
     array( '<',    '>'    ),
@@ -191,7 +196,9 @@ abstract class Translation {
   );
 
   /**
+   * Extract format from definition
    *
+   * @param str &$str
    */
   protected static function getFormat( &$str ) {
     // test for eventual filter functions
@@ -208,7 +215,10 @@ abstract class Translation {
   }
 
   /**
+   * Convert into destination format, e.g. escape if required
    *
+   * @param string $str
+   * @param string $format
    */
   protected static function applyFormat( $str, $format ) {
 
@@ -292,7 +302,7 @@ abstract class Translation {
 
   /**
    *
-   */
+   * /
   private static function writeTMX( $Namespace, $translations, $force=FALSE ) {
     $dbg = debug_backtrace();
     while (!strstr($dbg[0]['file'], 'language')) array_shift($dbg);
@@ -370,7 +380,7 @@ abstract class Translation {
 
   /**
    *
-   */
+   * /
   private static function tu( $key, $lang, $type, $txt, $nl=1 ) {
     if (preg_match('~[<>&"\']~', $txt)) $txt = '<![CDATA['.$txt.']]>';
     $s  = self::nl('    <tu tuid="'.$key.'">');
@@ -387,7 +397,7 @@ abstract class Translation {
 
   /**
    *
-   */
+   * /
   private static function nl( $text='', $count=1 ) {
     for ($i=0; $i<$count; $i++) $text .= "\n";
     return $text;

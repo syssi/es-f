@@ -1,20 +1,25 @@
 <?php
 /**
+ * eBay increments for different currencies
+ *
  * @ingroup    es-f
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2007-2010 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
+ * @copyright  2007-2011 Knut Kohl
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
  * @version    $Id: v2.4.1-19-gc734aa2 - Sat Dec 25 22:49:29 2010 +0100 $
  */
 abstract class eBayIncrements {
 
   /*
-   * http://esniper.cvs.sourceforge.net/viewvc/esniper/esniper/auctioninfo.c?view=log
-   *
    * Bidding increments
    *
-   * first number is threshold for next increment range, second is increment.
-   * For example, 1.00, 0.05 means that under $1.00 the increment is $0.05.
+   * http://esniper.cvs.sourceforge.net/viewvc/esniper/esniper/auctioninfo.c?view=log
+   *
+   * First number is threshold for next increment range, second is increment.
+   *
+   * For example, 1.00, 0.05 means that under $1.00 the increment is $0.05,
+   * fallback is 0.01, the save side.
    *
    * Increments obtained from:
    * http://pages.ebay.com/help/buy/bid-increments.html
@@ -22,9 +27,10 @@ abstract class eBayIncrements {
    */
 
   /**
+   * Get next bid amiunt according to a given value and currency
    *
    * @param numeric $bid
-   * qparam string $currency
+   * @param string $currency
    */
   public static function getNext( $bid, $currency ) {
     $currency = strtoupper($currency);
@@ -46,7 +52,7 @@ abstract class eBayIncrements {
   /**
    * Increments used by eBay to calculate next possible auction bid
    *
-   * @var array
+   * @var array $Increments
    */
   private static $Increments = array(
 

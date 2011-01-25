@@ -56,8 +56,9 @@ class esf_Plugin_SellerInfo extends esf_Plugin {
   //--------------------------------------------------------------------------
 
   /**
+   * Key to store data into auctions extra data
    *
-   * @var string
+   * @var string $ExtraKey
    */
   private $ExtraKey;
 
@@ -65,6 +66,8 @@ class esf_Plugin_SellerInfo extends esf_Plugin {
    * Buffer seller info to avoid multiple read, e.g. on refreshing all auctions
    *
    * For the case, no seller could be found...
+   *
+   * @var array $Sellers
    */
   private $Sellers = array( '' => '' );
 

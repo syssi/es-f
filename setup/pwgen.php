@@ -1,6 +1,15 @@
 <?php
 /**
+ * Password generation
+ *
  * http://www.anyexample.com/programming/php/php__password_generation.xml
+ *
+ * @ingroup    setup
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2007-2011 Knut Kohl
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
+ * @version    $Id$
  */
 
 // This function returns random array element

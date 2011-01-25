@@ -2,16 +2,22 @@
 /**
  * Writes errors to a log file
  *
- * @ingroup    Messages
+ * @ingroup    ErrorHandler
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2009-2011 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
+ * @version    1.0.0
  * @version    $Id: v2.4.1-42-g440d05f - Sun Jan 9 21:40:58 2011 +0100 $
  */
 class ErrorHandler_Default extends ErrorHandler {
 
   /**
    * Handle error and write/append to file
+   *
+   * @param int $errno
+   * @param string $errstr
+   * @param string $errfile
+   * @param int $errline
    */
   public static function HandleError( $errno, $errstr, $errfile, $errline ) {
     $errfile = str_replace($_SERVER['DOCUMENT_ROOT'], '', $errfile);

@@ -3,8 +3,9 @@
  * Session handling class
  *
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2007-2009 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
+ * @copyright  2007-2011 Knut Kohl
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
  * @version    $Id: v2.4.1-49-g0f62a5c - Sat Jan 15 23:05:05 2011 +0100 $
  */
 abstract class Session {
@@ -16,18 +17,19 @@ abstract class Session {
 
   /**
    *
-   * @var bool
+   * @var bool $Debug
    */
   public static $Debug = FALSE;
 
   /**
    *
-   * @var array
+   * @var array $Messages
    */
   public static $Messages = array();
 
   /**
    *
+   * @var mixed $NVL
    */
   public static $NVL = NULL;
 
@@ -167,7 +169,6 @@ abstract class Session {
    * Write the session data
    *
    * @see removeCookies()
-   * @param bool $removeCookies Remove also all session cookies
    * @return void
    */
   public static function close() {
@@ -235,7 +236,7 @@ abstract class Session {
    *
    * Deletes variable from session if value is NULL
    *
-   * @uses set()
+   * @see set()
    * @param array $array Array of Variable => Value
    * @return void
    */
@@ -386,21 +387,21 @@ abstract class Session {
   /**
    * Data container
    *
-   * @access private
-   * @static
+   * @var array $Buffer
    */
   private static $Buffer = array();
 
   /**
    * Data container
    *
-   * @access private
-   * @static
+   * @var array $Protected
    */
   private static $Protected = array();
 
   /**
+   * Transform $key for common use
    *
+   * @param string $key
    */
   private static function mapKey( $key ) {
     return strtolower($key);
@@ -420,7 +421,7 @@ abstract class Session {
   }
 
   /**
-   * Some statements to fix bugs in IE and PHP < 4.3.3
+   * Collect debug infos
    */
   private static function dbg() {
     if (!self::$Debug) return;

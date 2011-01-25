@@ -5,8 +5,11 @@
  * The following settings are supported:
  * - token    : used to build unique cache ids (optional)
  *
- * @ingroup  Cache
- * @version  1.0.0
+ * @ingroup    Cache
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2007-2011 Knut Kohl
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    $Id$
  */
 class Cache_APC extends Cache {
 
@@ -15,11 +18,14 @@ class Cache_APC extends Cache {
   // -------------------------------------------------------------------------
 
   /**
+   * Class constructor
    *
+   * @throws CacheException
+   * @param array $settings
    */
   public function __construct( $settings=array() ) {
     if (!self::available())
-      throw new Cache_Exception(__CLASS__.': Extension APC not loaded.', 9);
+      throw new CacheException(__CLASS__.': Extension APC not loaded.', 9);
     parent::__construct($settings);
   }
 

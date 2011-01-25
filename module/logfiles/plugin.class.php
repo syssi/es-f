@@ -1,22 +1,14 @@
 <?php
 /**
- * @category   Plugin
- * @package    Plugin-LogFiles
- * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    0.1.0
- */
-
-/**
- * Rewrite urls
+ * Module Logfiles plugin
  *
- * @category   Plugin
- * @package    Plugin-LogFiles
+ * @ingroup    Plugin
+ * @ingroup    Module-Logfiles
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    Release: @package_version@
+ * @copyright  2009-2011 Knut Kohl
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
+ * @version    $Id$
  */
 class esf_Plugin_Module_LogFiles extends esf_Plugin {
 

@@ -1,22 +1,20 @@
 <?php
-/**
- * @category   Plugin
- * @package    Plugin-SimilarItems
- * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    0.1.0
- */
+/** @defgroup Plugin-SimilarItems Plugin SimilarItems
+
+Add a link to search similar items on ebay
+
+*/
 
 /**
- * Add a link to "More seller items" to seller name
+ * Plugin SimilarItems
  *
- * @category   Plugin
- * @package    Plugin-SimilarItems
+ * @ingroup    Plugin
+ * @ingroup    Plugin-SimilarItems
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    Release: @package_version@
+ * @copyright  2009-2011 Knut Kohl
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
+ * @version    $Id$
  */
 class esf_Plugin_SimilarItems extends esf_Plugin {
 
@@ -74,8 +72,9 @@ class esf_Plugin_SimilarItems extends esf_Plugin {
   //--------------------------------------------------------------------------
 
   /**
+   * Key to store data into auctions extra data
    *
-   * @var string
+   * @var string $ExtraKey
    */
   private $ExtraKey;
 

@@ -1,8 +1,9 @@
 <?php
 /**
- * Processes plugin
+ * Module esniper processes plugin
  *
- * @package    Plugin-Process
+ * @ingroup    Plugin
+ * @ingroup    Module-Process
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2009-2011 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License

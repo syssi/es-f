@@ -1,10 +1,17 @@
 <?php
-/**
- *
- */
+/** @defgroup ErrorHandler Error handling
+
+*/
 
 /**
+ * Abstract error handler
  *
+ * @ingroup    ErrorHandler
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2007-2011 Knut Kohl
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
+ * @version    $Id$
  */
 abstract class ErrorHandler implements ErrorHandlerI {
 

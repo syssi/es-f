@@ -1,14 +1,19 @@
 <?php
 /**
+ * Transform a PHP value into JSON string format for javascript
  *
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2007-2011 Knut Kohl
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
+ * @version    $Id$
  */
 
 abstract class JSON {
   /**
    * Transform a PHP value into JSON string format for javascript
    *
-   * idea from http://php.net/manual/function.json-encode.php,
-   * UCN by jjoss, 24-Oct-2007 09:07
+   * Idea from http://www.php.net/manual/function.json-encode.php#78719
    *
    * @param mixed $val Value
    * @return string JSON
@@ -57,11 +62,12 @@ abstract class JSON {
   }
 
   /**
-   * idea from http://www.php.net/manual/en/function.json-decode.php
-   * UCN by www at walidator dot info, 30-May-2009 02:16
+   * Decode JSON to array
+   *
+   * Idea from http://www.php.net/manual/function.json-decode.php#91216
    *
    * @param string $json JSON data
-   * @return mixed
+   * @return array
    */
   public static function decode( $json ) {
     $comment = FALSE;

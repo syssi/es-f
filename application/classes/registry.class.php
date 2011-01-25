@@ -1,53 +1,44 @@
 <?php
 /**
- * Registry system
- *
- * @package    Registry
- * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2008-2009 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    1.0.0
- */
-
-/**
  * Registry class to pass global variables between classes.
  *
- * It is possible to save/restore the values
+ * It is possible to save/restore the values onto a internal stack.
  *
- * @package    Registry
+ * @ingroup    Registry
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2008-2011 Knut Kohl
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
+ * @version    $Id$
  */
 class Registry {
 
   /**
    * Separator to split key into array
    *
-   * @access public
-   * @static
+   * @var string $NameSpaceSeparator
    */
   public static $NameSpaceSeparator = '::';
 
   /**
    * Default return value, if requested variable is not set
    *
-   * @access public
-   * @static
+   * @var string $NVL
    */
   public static $NVL = NULL;
 
   /**
    * Adds a new variable to the Registry.
    *
-   * Example:
-   * <code>
+   * @usage
+   * @code
    *   Key.SubKey.SubSubKey
-   * </code>
+   * @endcode
    * will result in
-   * <code>
+   * @code
    *   &self::$Data[0][Key][SubKey][SubSubKey]
-   * </code>
+   * @endcode
    *
-   * @access public
-   * @static
    * @param string|array $keys Name of the variable | Array of key => value pairs to merge
    * @param mixed $value Value of the variable
    * @return void
@@ -71,8 +62,6 @@ class Registry {
    * Adds additional data to a registry variable
    *
    * @see set()
-   * @access public
-   * @static
    * @param string $keys Name of the variable
    * @param mixed $value Value of the variable
    * @return void
@@ -101,8 +90,6 @@ class Registry {
    *
    * If $keys is empty, return all data, but better use {@link getAll()}
    *
-   * @access public
-   * @static
    * @param string $keys Name of the variable
    * @param mixed $default Value if $keys is not set
    * @return mixed Value of the specified $key
@@ -129,8 +116,6 @@ class Registry {
   /**
    * Returns the whole Registry as an array.
    *
-   * @access public
-   * @static
    * @return array Whole Registry
    */
   public static function getAll() {
@@ -140,8 +125,6 @@ class Registry {
   /**
    * Removes a variable from the Registry.
    *
-   * @access public
-   * @static
    * @param string $keys Name of the variable
    * @return void
    */
@@ -157,8 +140,6 @@ class Registry {
   /**
    * Removes all variables from the Registry.
    *
-   * @access public
-   * @static
    * @return void
    */
   public static function clear() {
@@ -168,8 +149,6 @@ class Registry {
   /**
    * Save actual data
    *
-   * @access public
-   * @static
    * @return int Id of data set, can be used for restoring specific id
    */
   public static function save() {
@@ -190,8 +169,6 @@ class Registry {
    * not only the last one. Normal sequences of save() & restore() work
    * like push & pop to a kind of data stack!
    *
-   * @access public
-   * @static
    * @param int $id Restore id saved before
    * @return void
    * @throws RegistryException
@@ -220,17 +197,15 @@ class Registry {
   //---------------------------------------------------------------------------
 
   /**
-   * @access private
-   * @static
-   * @var $Data Internal data container
+   * Internal data container
+   *
+   * @var array $Data
    */
   private static $Data = array( array() );
 
   /**
    * Clear key and split into array
    *
-   * @access private
-   * @static
    * @param string $key
    * @return void
    */
@@ -245,7 +220,7 @@ class Registry {
  * Exception class used by Registry class
  *
  * Handle this Exception like this:
- * <code>
+ * @code
  * try {
  *   Registry::restore();
  *   // more code...
@@ -254,8 +229,8 @@ class Registry {
  * catch (RegistryException $e) {
  *   echo 'Message: ' .$e->getMessage();
  * }
- * </code>
+ * @endcode
  *
- * @package    Registry
+ * @ingroup    Registry
  */
 class RegistryException extends Exception {}

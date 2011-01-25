@@ -1,10 +1,8 @@
 <?php
-/** --------------------------------------------------------------------------
-@file httplanguage.class.php File description
-*/
+/**
+@defgroup HTTPlanguage Detect browser language
 
-/** --------------------------------------------------------------------------
-@mainpage HTTPlanguage Page title
+Detect the prefered / supported languages of the browser fetching the content.
 
 Idea from http://techpatterns.com/downloads/php_language_detection.php
 
@@ -17,15 +15,15 @@ The syntax and registry of HTTP language tags is the same as that defined by
 RFC 1766 [1]. In summary, a language tag is composed of 1 or more parts:
 A primary language tag and a possibly empty series of subtags:
 
-        language-tag  = primary-tag *( "-" subtag )
-        primary-tag   = 1*8ALPHA
-        subtag        = 1*8ALPHA
+- @c language-tag  = primary-tag *( "-" subtag )
+- @c primary-tag   = 1*8ALPHA
+- @c subtag        = 1*8ALPHA
 
 White space is not allowed within the tag and all tags are case-insensitive.
 The name space of language tags is administered by the IANA. Example tags
 include:
 
-       en, en-US, en-cockney, i-cherokee, x-pig-latin
+<tt>en, en-US, en-cockney, i-cherokee, x-pig-latin</tt>
 
 where any two-letter primary-tag is an ISO-639 language abbreviation and any
 two-letter initial subtag is an ISO-3166 country code. (The last three tags
@@ -36,24 +34,14 @@ Source: http://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.10
 
 */
 
-/** --------------------------------------------------------------------------
-@defgroup HTTPlanguage Group description
-
-Brief description goes here
-
-Long description goes here
-*/
-
-/** --------------------------------------------------------------------------
- * Brief description goes here
- *
- * Long description goes here
+/**
+ * Detect browser language
  *
  * @ingroup    HTTPlanguage
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2011 Knut Kohl
- * @par Licence:
- * <a href="http://www.gnu.org/licenses/gpl.txt">GNU General Public License</a>
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
  * @version    $Id: v2.4.1-34-gd7da3b4 - Sun Jan 9 12:51:52 2011 +0100 $
  */
 abstract class HTTPlanguage {
@@ -65,7 +53,7 @@ abstract class HTTPlanguage {
   /**
    * Error messages on unknown languages/counties
    *
-   * @var array
+   * @var array $Error
    */
   public static $Error;
 
@@ -74,7 +62,7 @@ abstract class HTTPlanguage {
    *
    * Long description goes here
    *
-   * <strong>Usage example:</strong>
+   * @usage
    * @code
    * ...
    * @endcode
@@ -109,7 +97,7 @@ abstract class HTTPlanguage {
    *
    * Long description goes here
    *
-   * <strong>Usage example:</strong>
+   * @usage
    * @code
    * ...
    * @endcode
@@ -126,7 +114,7 @@ abstract class HTTPlanguage {
    *
    * Long description goes here
    *
-   * <strong>Usage example:</strong>
+   * @usage
    * @code
    * // Assume: $_SERVER['HTTP_ACCEPT_LANGUAGE'] is
    * //         'fr-ch;q=0.3, da, de-de;q=0.7, de, en-us;q=0.8, en;q=0.5, fr;q=0.3'
@@ -137,8 +125,7 @@ abstract class HTTPlanguage {
    * // Will output: en
    *
    * echo HTTPlanguage::getMatch( array('de-CH', 'en'), TRUE );
-   * // Will output: de because of the check for primary language,
-   * //              because de is before en
+   * // Will output: de because of the check for primary language, de is before en
    * @endcode
    *
    * @param array $languages Array of languages to check against.
@@ -161,10 +148,6 @@ abstract class HTTPlanguage {
   } // function getMatch()
 
   // -------------------------------------------------------------------------
-  // PROTECTED
-  // -------------------------------------------------------------------------
-
-  // -------------------------------------------------------------------------
   // PRIVATE
   // -------------------------------------------------------------------------
 
@@ -173,7 +156,7 @@ abstract class HTTPlanguage {
    *
    * Long description goes here
    *
-   * <strong>Usage example:</strong>
+   * @usage
    * @code
    * ...
    * @endcode
@@ -207,7 +190,7 @@ abstract class HTTPlanguage {
    *
    * http://ftp.ics.uci.edu/pub/ietf/http/related/iso639.txt
    *
-   * @var array
+   * @var array $languages
    */
   private static $languages = array(
     'aa' => 'Afar',
@@ -381,7 +364,7 @@ abstract class HTTPlanguage {
    *
    * http://ftp.ics.uci.edu/pub/ietf/http/related/iso3166.txt
    *
-   * @var array
+   * @var array $countries
    */
   private static $countries = array(
     '*'  => 'all',

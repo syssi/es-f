@@ -1,10 +1,13 @@
 <?php
 /**
+ * XML object to ebayparser array
  *
- */
-
-/**
- *
+ * @ingroup    XMLArray
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2009-2011 Knut Kohl
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
+ * @version    $Id$
  */
 class XML_Array_Parser extends XML_Array {
 

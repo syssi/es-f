@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Cache_Files extends Cache_FileBase
+ */
 require_once dirname(__FILE__).'/filebase.class.php';
 
 /**
@@ -18,7 +20,11 @@ require_once dirname(__FILE__).'/filebase.class.php';
  * - added locking
  *
  * @ingroup    Cache
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2010-2011 Knut Kohl
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
  * @version    1.1.0
+ * @version    $Id$
  */
 class Cache_Files extends Cache_FileBase {
 

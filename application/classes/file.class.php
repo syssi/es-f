@@ -1,10 +1,12 @@
 <?php
 /**
+ * Wrapper for some file functions
  *
- */
-
-/**
- *
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2009-2011 Knut Kohl
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
+ * @version    $Id$
  */
 abstract class File {
 
@@ -30,10 +32,9 @@ abstract class File {
   /**
    * Append data to a file
    *
-   * @uses self::write()
+   * @see write()
    * @param string $file File name
    * @param mixed $content Data
-   * @param string $mode Same as PHPs fopen()
    * @param string $implode If $content is an array, implode with this
    * @return Bytes written|FALSE on error
    */

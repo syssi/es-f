@@ -13,7 +13,6 @@ js/prototype/1.7RC2
 jsDebugger
 *.org.php
 .save*
-*de.php
 custom
 *.dev.php
 *~

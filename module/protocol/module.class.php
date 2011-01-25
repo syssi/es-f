@@ -1,11 +1,17 @@
 <?php
+/** @defgroup Module-Protocol Module Protocol
+
+*/
+
 /**
- * esniper protocols module
+ * Module esniper protocols
  *
+ * @ingroup    Module
  * @ingroup    Module-Protocol
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2009-2011 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
  * @version    $Id: v2.4.1-51-gfeddc24 - Sun Jan 16 21:09:59 2011 +0100 $
  */
 class esf_Module_Protocol extends esf_Module {

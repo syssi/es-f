@@ -1,10 +1,16 @@
 <?php
 /**
+ * Brief description
  *
- */
- 
-/**
+ * Long description ...
  *
+ * @ingroup    Module
+ * @ingroup    Module-<ModuleName>
+ * @author     ... <...@example.com>
+ * @copyright  ...
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
+ * @version    $Id$
  */
 class esf_Module_??? extends esf_Module {
 

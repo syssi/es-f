@@ -1,13 +1,20 @@
 <?php
 /**
+ * $_REQUEST wrapper
  *
- */
-
-/**
- *
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2009-2011 Knut Kohl
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
+ * @version    $Id$
  */
 class Request {
 
+  /**
+   * Default values for not defined request parameters
+   *
+   * @var array $Defaults
+   */
   public static $Defaults = array ( 'action' => 'index' );
 
   /**
@@ -15,7 +22,6 @@ class Request {
    *
    * @param string $key Name of the variable
    * @return mixed Value of the specified $key
-   * @access public
    */
   public static function get( $key ) {
     self::Init();
@@ -27,7 +33,6 @@ class Request {
    *
    * @param string $key Name of the variable
    * @return bool Is key set
-   * @access public
    */
   public static function is_set( $key ) {
     self::Init();
@@ -39,7 +44,6 @@ class Request {
    *
    * @param string $key Name of the variable
    * @return bool
-   * @access public
    */
   public static function delete( $key ) {
     self::Init();
@@ -51,7 +55,10 @@ class Request {
   }
 
   /**
+   * Check if a module (and action) are requested
    *
+   * @param string $module Module name to check
+   * @param string $action Action name to check
    */
   public static function check( $module, $action=NULL ) {
     return ( ( self::get('module') === $module ) AND
@@ -66,13 +73,12 @@ class Request {
   /**
    * $_REQUEST
    *
-   * @var array
-   * @access private
+   * @var array $_REQUEST
    */
   private static $_REQUEST = NULL;
 
   /**
-   *
+   * Initialize slef::$_REQUEST buffer
    */
   private static function Init() {
     if (is_null(self::$_REQUEST))

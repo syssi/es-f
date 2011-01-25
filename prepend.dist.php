@@ -1,10 +1,11 @@
 <?php
 /**
- * @package    es-f
+ * @ingroup    es-f
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2007-2010 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    $Id: v2.3.1-5-g706ccfb$
+ * @version    1.0.0
+ * @version    $Id$
  */
 
 ini_set('display_startup_errors', 1);

@@ -2,16 +2,22 @@
 /**
  * Error handler adds messages
  *
- * @ingroup    Messages
+ * @ingroup    ErrorHandler
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2007-2011 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
  * @version    $Id: v2.4.1-42-g440d05f - Sun Jan 9 21:40:58 2011 +0100 $
  */
 class ErrorHandler_Debug extends ErrorHandler {
 
   /**
+   * Error handler adds messages
    *
+   * @param int $errno
+   * @param string $errstr
+   * @param string $errfile
+   * @param int $errline
    */
   public static function HandleError( $errno, $errstr, $errfile, $errline ) {
     $errfile = str_replace($_SERVER['DOCUMENT_ROOT'], '', $errfile);

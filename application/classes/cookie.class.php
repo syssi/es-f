@@ -1,21 +1,18 @@
 <?php
-/**
-@defgroup Cookie Cookie wrapper
+/** @defgroup Cookie Cookie wrapper
 
-Brief description goes here
+Wrapper class to handle cookies
 
-Long description goes here
 */
 
 /**
- * Brief description goes here
- *
- * Long description goes here
+ * Cookie handling class
  *
  * @ingroup    Cookie
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @coyright   2011 Knut Kohl
- * @licence    <a href="http://www.gnu.org/licenses/gpl.txt">GNU General Public License</a>
+ * @copyright  2011 Knut Kohl
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
  * @version    $Id: v2.4.1-49-g0f62a5c - Sat Jan 15 23:05:05 2011 +0100 $
  */
 class Cookie {
@@ -29,7 +26,7 @@ class Cookie {
    *
    * Long description goes here
    *
-   * <strong>Usage example:</strong>
+   * @usage
    * @code
    * ...
    * @endcode
@@ -75,13 +72,13 @@ class Cookie {
    *
    * Long description goes here
    *
-   * <strong>Usage example:</strong>
+   * @usage
    * @code
    * ...
    * @endcode
    *
    * @param string $name
-   * @param mixed $default=NULL
+   * @param mixed $default
    * @return void
    */
   public static function get( $name, $default=NULL ) {

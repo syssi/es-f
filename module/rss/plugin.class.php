@@ -1,13 +1,14 @@
 <?php
 /**
- * Rewrite urls
+ * Module RSS plugin
  *
- * @category   Plugin
- * @package    Plugin-ModuleRSS
+ * @ingroup    Plugin
+ * @ingroup    Module-RSS
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2009 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
  * @version    0.1.0
+ * @version    $Id$
  */
 class esf_Plugin_Module_RSS extends esf_Plugin {
 

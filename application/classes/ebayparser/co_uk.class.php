@@ -1,26 +1,13 @@
 <?php
 /**
- * Copyright (c) 2006-2009 Knut Kohl <knutkohl@users.sourceforge.net>
+ * Parser for ebay.co.uk
  *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * GPL: http://www.gnu.org/licenses/gpl.txt
- *
- * @package es-f
- * @subpackage Core
- * @desc Regular expressions for HTML parser of eBay pages
- */
-
-/**
- * Parameters for HTML parser of eBay pages
+ * @ingroup    ebayParser
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2007-2011 Knut Kohl
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
+ * @version    $Id$
  */
 class ebayParser_co_uk extends ebayParser {
 
@@ -32,9 +19,9 @@ class ebayParser_co_uk extends ebayParser {
   }
 
   /**
-   * individually convert end time string to a timestamp
+   * Individually convert end time string to a timestamp
    *
-   * @param string $expr found string by reg. expression
+   * @param string $dt Found string by reg. expression
    */
   public function getDetailEND( $dt ) {
 

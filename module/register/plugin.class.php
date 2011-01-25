@@ -1,11 +1,13 @@
 <?php
 /**
- * Register plugin
+ * Module Register plugin
  *
+ * @ingroup    Plugin
  * @ingroup    Module-Register
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2009-2011 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
+ * @version    1.0.0
  * @version    $Id: v2.4.1-42-g440d05f - Sun Jan 9 21:40:58 2011 +0100 $
  */
 class esf_Plugin_Module_Register extends esf_Plugin {

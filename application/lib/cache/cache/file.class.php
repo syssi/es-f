@@ -16,8 +16,9 @@ require_once dirname(__FILE__).'/filebase.class.php';
  *
  * @ingroup    Cache
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2007-2010 Knut Kohl
- * @license
+ * @copyright  2007-2011 Knut Kohl
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
  * @version    $Id: v2.4.1-45-g3faf669 - Wed Jan 12 21:35:21 2011 +0100 $
  */
 class Cache_File extends Cache_FileBase {
@@ -142,15 +143,16 @@ class Cache_File extends Cache_FileBase {
   // -------------------------------------------------------------------------
 
   /**
+   * Data storage
    *
-   * @var array
+   * @var array $data
    */
   private $data;
 
   /**
    * Save whole cache file only if at least one id was changed/deleted
    *
-   * @var bool
+   * @var bool $modified
    */
   private $modified;
 

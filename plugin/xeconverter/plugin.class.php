@@ -1,22 +1,18 @@
 <?php
-/**
- * @category   Plugin
- * @package    Plugin-XEConverter
- * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    0.1.0
- */
+/** @defgroup Plugin-XEConverter Plugin XEConverter
+
+*/
 
 /**
- * Rewrite urls
+ * Plugin XEConverter
  *
- * @category   Plugin
- * @package    Plugin-XEConverter
+ * @ingroup    Plugin
+ * @ingroup    Plugin-XEConverter
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    Release: @package_version@
+ * @copyright  2009-2011 Knut Kohl
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
+ * @version    $Id$
  */
 class esf_Plugin_XEConverter extends esf_Plugin {
 

@@ -214,12 +214,16 @@ class esf_Module_Backend extends esf_Module {
   // -------------------------------------------------------------------------
 
   /**
-   * @var array
+   * Collection of messages during installer run
+   *
+   * @var array $InstallMsgs
    */
   private $InstallMsgs = array();
 
   /**
+   * Force action @c info after installation / activation
    *
+   * @var bool $ForceInfo
    */
   private $ForceInfo = FALSE;
 

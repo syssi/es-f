@@ -1,10 +1,14 @@
 <?php
 /**
+ * Plugin API installer
  *
- */
-
-/**
- * Class for Extension installation
+ * @ingroup    Install
+ * @ingroup    Plugin-API
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2009-2011 Knut Kohl
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
+ * @version    $Id$
  */
 class esf_Install_Plugin_API extends esf_Install {
 

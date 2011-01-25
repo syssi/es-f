@@ -1,9 +1,12 @@
 <?php
 /**
- * @name TMX-Reader
- * @package tmx
- * @author Knut Kohl <knutkohl@users.sourceforge.net>
- * @version 1.0.20101120
+ * TMX Reader
+ *
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2011 Knut Kohl
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
+ * @version    $Id$
  */
 class TMX {
 
@@ -183,47 +186,56 @@ class TMX {
   // -------------------------------------------------------------------------
 
   /**
-   * @var array TMX Header attributes
+   * TMX Header attributes
+   * @var array $Header
    */
   private $Header = array();
 
   /**
-   * @var array Key-Translation couples
+   * Key-Translation couples
+   * @var array $Data
    */
   private $Data = array();
 
   /**
-   * @var string Current tu -> tuid value
+   * Current tu -> tuid value
+   * @var string $tuid
    */
   private $tuid = FALSE;
 
   /**
-   * @var string Current tuv -> xml:lang value.
+   * Current tuv -> xml:lang value.
+   * @var string $xml_lang
    */
   private $xml_lang = FALSE;
 
   /**
-   * @var string
+   * Current property type
+   * @var string $propType
    */
   private $propType = FALSE;
 
   /**
-   * @var string Current data value.
+   * Current data value.
+   * @var string $curData
    */
   private $curData = FALSE;
 
   /**
-   * @var boolean Is TRUE when we are inside a note element
+   * Is TRUE when we are inside a note element
+   * @var boolean $isNote
    */
   private $isNote = FALSE;
 
   /**
-   * @var boolean Is TRUE when we are inside a seg element
+   * Is TRUE when we are inside a seg element
+   * @var boolean $isSeg
    */
   private $isSeg = FALSE;
 
   /**
-   * @var string ISO language identifier
+   * ISO language identifier
+   * @var string $Language
    */
   private $Language = FALSE;
 

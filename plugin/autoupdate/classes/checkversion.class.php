@@ -2,10 +2,11 @@
 /**
  * Check application version against remote version file
  *
- * @package    CheckVersion
+ * @ingroup    CheckVersion
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2010 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
+ * @copyright  2010-2011 Knut Kohl
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
  * @version    $Id: v2.4.0-15-g82a2021 - Sun Dec 19 20:39:56 2010 +0100 $
  */
 class CheckVersion {
@@ -116,35 +117,31 @@ class CheckVersion {
   /**
    * cURL instance
    *
-   * @var cURL
+   * @var cURL $curl
    */
   protected $curl;
 
   /**
    * URL to fetch from
    *
-   * @var string
+   * @var string $url
    */
   protected $url;
 
   /**
    * Time to life for fetched data
    *
-   * 0 expires never
+   * @c 0 expires never
    *
-   * @var string
+   * @var int $ttl
    */
   protected $ttl = 0;
 
 }
 
 /**
- * Check version exception
+ * Exception for CheckVersion
  *
- * @package    CheckVersion
- * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2010 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    $Id: v2.4.0-15-g82a2021 - Sun Dec 19 20:39:56 2010 +0100 $
+ * @ingroup CheckVersion
  */
 class CheckVersionException extends Exception {}

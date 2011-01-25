@@ -9,7 +9,8 @@
  * @ingroup    exec
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2007-2011 Knut Kohl
- * @license
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
  * @version    $Id: v2.4.1-46-gfa6b976 - Sat Jan 15 13:42:37 2011 +0100 $
  */
 abstract class Exec {
@@ -91,7 +92,9 @@ abstract class Exec {
   //---------------------------------------------------------------------------
 
   /**
-   * @var string
+   * Last executed command as forked to the shell
+   *
+   * @var string $LastCmd
    */
   public $LastCmd;
 
@@ -213,14 +216,14 @@ abstract class Exec {
   /**
    * Cache
    *
-   * @var instance
+   * @var Cache $Cache
    */
   protected $Cache;
 
   /**
-   * Shell binary / EXE
+   * Shell binary / EXE, full path
    *
-   * @var string
+   * @var string $Shell
    */
   protected $Shell;
 
@@ -306,6 +309,8 @@ abstract class Exec {
 }
 
 /**
+ * Exception for Exec
  *
+ * @ingroup exec
  */
 class ExecException extends Exception {}

@@ -1,5 +1,7 @@
 <?php
 /**
+ * Auctions handling
+ *
  * @ingroup    es-f
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2007-2010 Knut Kohl
@@ -19,17 +21,17 @@ abstract class esf_Auctions {
   const CONFIGFILE = '.c';
 
   /**
-   * @var array
+   * @var array $Auctions
    */
   public static $Auctions = array();
 
   /**
-   * @var array
+   * @var array $Groups
    */
   public static $Groups = array();
 
   /**
-   * @var array
+   * @var array $Sellers
    */
   public static $Sellers = array();
 
@@ -162,7 +164,8 @@ abstract class esf_Auctions {
    * Read auction info from eBay
    *
    * @param mixed $item Action ID or whole auction array
-   * @param boolean $all
+   * @param boolean $all Fetch all details
+   * @param boolean $talk Generate messages
    * @return array Auction
    */
   public static function fetchAuction( $item, $all=TRUE, $talk=TRUE ) {
@@ -880,7 +883,6 @@ abstract class esf_Auctions {
    *
    * @param integer $time Remaing seconds
    * @return string Formated time
-   * @global array
    */
   public static function Timef( $time ) {
     $t   = abs($time);
@@ -969,7 +971,7 @@ abstract class esf_Auctions {
   }
 
   /**
-   * Write esniper config file <USERDIR>/.c
+   * Write esniper config file USERDIR/.c
    *
    * @param bool $short Only user & password
    */
@@ -991,7 +993,7 @@ abstract class esf_Auctions {
   }
 
   /**
-   * Remove esniper config file <USERDIR>/.c
+   * Remove esniper config file USERDIR/.c
    *
    * @param int $delay Sleep in sec.
    * @return void
@@ -1008,12 +1010,16 @@ abstract class esf_Auctions {
   //---------------------------------------------------------------------------
 
   /**
-   * @var array
+   * Buffer display attributes
+   *
+   * @var array $Display
    */
   private static $Display = array();
 
   /**
-   * @var array
+   * Default values for a new auction
+   *
+   * @var array $NewAuction
    */
   private static $NewAuction = array (
     'version'  => ESF_VERSION,   // detect here uprades
@@ -1040,9 +1046,11 @@ abstract class esf_Auctions {
   );
 
   /**
-   * @var array
+   * Default values for a new group
+   *
+   * @var array $NewGroup
    */
-  private static $NewGroup= array (
+  private static $NewGroup = array (
     'q'   => 1,                  // quantity
     'b'   => 0,                  // bid
     't'   => FALSE,              // is bid the total price incl. shipping?
@@ -1053,9 +1061,10 @@ abstract class esf_Auctions {
   );
 
   /**
-   * Get the item id, if id given just return, if auction, return the auction item
+   * Find a possible parser for an auction
    *
-   * @param string|array $auction
+   * @param array $auction
+   * @param bool &$invalid Set on invalid auctions
    */
   private static function getParser( $auction, &$invalid ) {
     $invalid = FALSE;
@@ -1084,7 +1093,7 @@ abstract class esf_Auctions {
   /**
    * Get the item id, if id given just return, if auction, return the auction item
    *
-   * @param string|array $auction
+   * @param string|array $item
    */
   private static function _item( $item ) {
     return !is_array($item)

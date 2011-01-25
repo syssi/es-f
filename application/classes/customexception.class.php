@@ -1,8 +1,24 @@
 <?php
-/**
- * idea from http://www.php.net/manual/en/language.exceptions.php
- * UCN by ask at nilpo dot com, 27-May-2009 07:19
+/** @defgroup CustomException Custom exception template
+ *
+ * Idea from http://www.php.net/manual/language.exceptions.php#91159
+ *
+ * If you intend on creating a lot of custom exceptions, you may find this code
+ * useful. I've created an interface and an abstract exception class that
+ * ensures that all parts of the built-in Exception class are preserved in child
+ * classes. It also properly pushes all information back to the parent
+ * constructor ensuring that nothing is lost. This allows you to quickly create
+ * new exceptions on the fly. It also overrides the default __toString method
+ * with a more thorough one.
+ *
+ * @version $Id$
  */
+
+/**
+ * Custom exception template interface
+ *
+ * @ingroup CustomException
+*/
 interface CustomExceptionI {
 
   /* Protected methods inherited from Exception class */
@@ -19,7 +35,9 @@ interface CustomExceptionI {
 }
 
 /**
+ * Custom exception template
  *
+ * @ingroup CustomException
  */
 abstract class CustomException extends Exception implements CustomExceptionI {
 
@@ -40,4 +58,5 @@ abstract class CustomException extends Exception implements CustomExceptionI {
 
   private   $string;                            // Unknown
   private   $trace;                             // Unknown
+
 }

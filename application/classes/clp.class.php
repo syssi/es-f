@@ -1,34 +1,46 @@
 <?php
 /**
+ * Command line parameters
  *
- */
-
-/**
- * Command line params
+ * @ingroup    clp
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2009-2011 Knut Kohl
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
+ * @version    $Id$
  */
 abstract class CLP {
 
   /**
+   * Set an single option
    *
-   */
-  public static $Error;
-
-  /**
+   * @usage
+   * @code
+   * // a verbose parameter
+   * CLP::setOption('verbose', array('short'=>'v', 'long'=>'verbose',
+   *                                 'opt'=>1, 'help'=>'...'));
+   * @endcode
    *
+   * @param string $name Parameter name
+   * @param array  $opt Array of settings, can contain the following parts
+   *                    - 'short'
+   *                    - 'long' at least one of short or long must be defined
+   *                    - 'opt' parameter is optional (0/1)
+   *                    - 'help' help text
    */
   public static function setOption( $name, $opt ) {
     $option = array_merge( array(
       'short' => '',
       'long'  => '',
-      'opt'   => 'n',
+      'opt'   => 1,
       'help'  => '',
     ), $opt);
 
     if (!$option['short'] AND !$option['long'])
-      throw new Exception(__CLASS__.': Missing "short" or "long" value for "'.$name.'"');
+      throw new CLPException(__CLASS__.': Missing "short" or "long" value for "'.$name.'"');
 
-    if (strpos('yno', $option['opt']) === FALSE)
-      throw new Exception(__CLASS__.': Wrong "opt" value for "'.$name.'" (y|n|o)');
+    if (strpos('01', $option['opt']) === FALSE)
+      throw new CLPException(__CLASS__.': Wrong "opt" value for "'.$name.'" (0|1)');
 
     self::$options[$name] = $option;
   }
@@ -58,8 +70,8 @@ abstract class CLP {
         if ($lastArg = self::getParam($args[$i]))
           $return[$lastArg['name']] = '';
         elseif (!$ignoreUnknown)
-          throw new Exception(__CLASS__.': Unknown parameter: '.$args[$i]);
-      } elseif ($lastArg AND $lastArg['opt'] != 'n') {
+          throw new CLPException(__CLASS__.': Unknown parameter: '.$args[$i]);
+      } elseif ($lastArg AND $lastArg['opt'] != 1) {
         $return[$lastArg['name']] = $args[$i];
         $lastArg = NULL;
       } else {
@@ -117,7 +129,9 @@ abstract class CLP {
   //--------------------------------------------------------------------------
 
   /**
-   * @var array
+   * Defined parameters
+   *
+   * @var array $options
    */
   protected static $options = array();
 
@@ -142,3 +156,10 @@ abstract class CLP {
     }
   }
 }
+
+/**
+ * Exception for CLP
+ *
+ * @ingroup clp
+ */
+class CLPException extends Exception {}

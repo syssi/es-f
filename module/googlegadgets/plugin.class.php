@@ -1,13 +1,14 @@
 <?php
 /**
- * Rewrite urls
+ * Module GoogleGadget plugin
  *
- * @category   Plugin
- * @package    Plugin-GoogleGadgets
+ * @ingroup    Plugin
+ * @ingroup    Module-GoogleGadgets
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    0.1.0
+ * @copyright  2009-2011 Knut Kohl
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
+ * @version    $Id$
  */
 class esf_Plugin_Module_GoogleGadgets extends esf_Plugin {
 

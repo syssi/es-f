@@ -1,13 +1,21 @@
 <?php
 /** @defgroup Event Event handling
 
+Event handling is implemented like the observer / observed patterns.
+
+This class processes the events and delegates them to the handlers registered
+before.
+
 */
 
 /**
+ * Event handler
+ *
  * @ingroup    Event
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2007-2010 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
+ * @copyright  2007-2011 Knut Kohl
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
  * @version    $Id: v2.4.1-29-gacb4bc2 - Fri Jan 7 21:24:31 2011 +0100 $
  */
 abstract class Event implements EventI {
@@ -16,7 +24,7 @@ abstract class Event implements EventI {
   /**
    * Shorten debugging parameter to this length
    *
-   * @var int
+   * @var int $DBGLEN
    */
   public static $DBGLEN = 100;
   // << Debug
@@ -105,12 +113,10 @@ abstract class Event implements EventI {
    * Mostly used for event 'Debug'
    *
    * @param $event string Event name
+   * @param $params array Parameters for event notification
    * @return void
    */
-  public static function ProcessInform() {
-    $params = func_get_args();
-    // shift out Event name
-    $event = array_shift($params);
+  public static function ProcessInform( $event, $params=NULL ) {
     self::Process($event, $params);
   }
 
@@ -130,21 +136,23 @@ abstract class Event implements EventI {
   // -------------------------------------------------------------------------
 
   /**
-   * Array of handlers
+   * Event handler instances
    *
-   * @var array
+   * @var array $EventHandlers
    */
   private static $EventHandlers = array();
 
   /**
-   * Array of handler methods
+   * Handler methods
    *
-   * @var array
+   * @var array $HandlerMethods
    */
   private static $HandlerMethods = array();
 
   /**
-   * @var array
+   * Blocked events
+   *
+   * @var array $BlockedEvents
    */
   private static $BlockedEvents = array();
 

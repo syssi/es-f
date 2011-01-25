@@ -2,8 +2,11 @@
 /**
  * Mockup class with no functionality
  *
- * @ingroup  Cache
- * @version  1.0.0
+ * @ingroup    Cache
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2010-2011 Knut Kohl
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    $Id$
  */
 class Cache_Mock extends Cache {
 

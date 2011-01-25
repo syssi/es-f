@@ -1,13 +1,14 @@
 <?php
 /**
- * Rewrite urls
+ * Module ExchangeRates plugin
  *
- * @category   Plugin
- * @package    Plugin-ExchangeRates
+ * @ingroup    Plugin
+ * @ingroup    Module-ExchangeRates
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    0.1.0
+ * @copyright  2009-2011 Knut Kohl
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
+ * @version    $Id$
  */
 class esf_Plugin_Module_ExchangeRates extends esf_Plugin {
 

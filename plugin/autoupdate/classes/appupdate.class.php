@@ -2,11 +2,12 @@
 /**
  * Updates files of an application
  *
- * @package    AppUpdate
+ * @ingroup    AppUpdate
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2006-2009 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
+ * @copyright  2006-2011 Knut Kohl
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
  * @version    1.0.0
+ * @version    $Id$
  */
 class AppUpdate {
 
@@ -45,21 +46,21 @@ class AppUpdate {
    * To perform additional checks, provide a callback function following
    * this definition:
    *
-   * <code>
-   * /**
-   *  * @param bool &$update Update given file
-   *  * @param string $file File to update
-   *  * @param string $version Available version
-   *  * /
-   * function CheckUpdateCallback( &$update, $file, $version ) {
-   *   // modify the update flag as you need
-   *   // e.g. check against result of last update, saved by the callback
-   *   // during $this->Update()
-   * }
-   * </code>
+   * @verbatim
+     /**
+      * @param bool &$update Update given file
+      * @param string $file File to update
+      * @param string $version Available version
+      * /
+     function CheckUpdateCallback( &$update, $file, $version ) {
+       // modify the update flag as you need
+       // e.g. check against result of last update, saved by the callback
+       // during $this->Update()
+     }
+     @endverbatim
    *
-   * @param string $callback Callback function for additional tests
    * @throws AppUpdateException In case of error during getting update informations
+   * @param string $callback Callback function for additional tests
    * @return void
    */
   public function CheckUpdates( $callback='' ) {
@@ -190,18 +191,17 @@ class AppUpdate {
    * To perform additional actions, provide a callback function following
    * this definition:
    *
-   * <code>
-   *   /**
-   *    * @param string $file Updated file
-   *    * @param string $version New version
-   *    * /
-   *   function AfterUpdateCallback( $file, $version ) {
-   *     // e.g. save the new version and use it during the next update run
-   *     // via the callback in $this->CheckForUpdates() to skip up-to-date files
-   *   }
-   * </code>
+   * @verbatim
+     /**
+      * @param string $file Updated file
+      * @param string $version New version
+      * /
+     function AfterUpdateCallback( $file, $version ) {
+       // e.g. save the new version and use it during the next update run
+       // via the callback in $this->CheckForUpdates() to skip up-to-date files
+     }
+     @endverbatim
    *
-   * @param bool $progress
    * @param string $callback Callback function after update
    * @return bool
    */
@@ -269,16 +269,22 @@ class AppUpdate {
 
   /**
    * Count of updatable files
+   *
+   * @var int $UpdatableFiles
    */
   protected $UpdatableFiles;
 
   /**
    * Whole file list
+   *
+   * @var array $Files
    */
   protected $Files;
 
   /**
+   * Get a config value
    *
+   * @param string $key
    */
   protected function get( $key ) {
     return isset($this->Config[$key]) ? $this->Config[$key] : NULL;
@@ -288,13 +294,18 @@ class AppUpdate {
   // PRIVATE
   // -------------------------------------------------------------------------
 
+  /**
+   * cURL instance
+   *
+   * @var cURL $curl
+   */
   private $curl;
 
 }
 
 /**
- * @package AppUpdate
- * @author  Knut Kohl <knutkohl@users.sourceforge.net>
- * @version 1.0.0
+ * Exception for AppUpdate
+ *
+ * @ingroup AppUpdate
  */
 class AppUpdateException extends Exception {}

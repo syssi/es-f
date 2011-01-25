@@ -1,10 +1,14 @@
 <?php
 /**
+ * Module Configuration installer
  *
- */
-
-/**
- * Class for Extension installation
+ * @ingroup    Module
+ * @ingroup    Module-Configuration
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2009 Knut Kohl
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
+ * @version    $Id$
  */
 class esf_Install_Module_Configuration extends esf_Install {
 

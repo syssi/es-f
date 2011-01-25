@@ -1,9 +1,10 @@
 <?php
 /**
- * @ingroup    es-f
+ * @ingroup    setup
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2007-2011 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
  * @version    $Id: v2.4.1-42-g440d05f - Sun Jan 9 21:40:58 2011 +0100 $
  */
 
@@ -130,7 +131,7 @@ switch ($step) {
 
   // ------------
   case 'test':
-    include 'step.test.php';
+    include 'step.test.inc.php';
     break;
 
   // ------------
@@ -146,7 +147,7 @@ switch ($step) {
 
   // ------------
   case 'save':
-    include 'step.save.php';
+    include 'step.save.inc.php';
     break;
 }
 

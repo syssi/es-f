@@ -1,24 +1,41 @@
 <?php
-
 /**
  * XML parser
  *
- * Idea from http://php.net/function.xml_parse
- * UCN from james @at@ mercstudio dot Com dot nospam at 02-Apr-2006 09:10
+ * Idea from http://www.php.net/manual/function.xml-parse.php#63871
  *
- * @version   $Id: v2.4.1-51-gfeddc24 - Sun Jan 16 21:09:59 2011 +0100 $
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2009-2011 Knut Kohl
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
+ * @version    $Id: v2.4.1-51-gfeddc24 - Sun Jan 16 21:09:59 2011 +0100 $
  */
 class XMLParser {
 
+  /**
+   * Parsed data
+   *
+   * @var array $data
+   */
   public $data = array();
 
+  /**
+   * Load data from file / URL etc.
+   *
+   * @param string $file
+   */
   public function loadFile( $file ) {
     $xmldata = file_get_contents($file);
     return $this->parse($xmldata);
   }
 
-  public function parse($XML) {
-    $parser = xml_parser_create ();
+  /**
+   * Parse XML string
+   *
+   * @param string $XML
+   */
+  public function parse( $XML ) {
+    $parser = xml_parser_create();
     xml_set_object($parser, $this);
     xml_set_element_handler($parser, 'tagOpen', 'tagClosed');
     xml_set_character_data_handler($parser, 'tagData');
@@ -36,53 +53,67 @@ class XMLParser {
     return $this->data;
    }
 
-  // called on each xml tree
-  function tagOpen($parser, $name, $attrs) {
+  /**
+   * Called on each xml tree
+   *
+   * @param resource $parser
+   * @param string $name
+   * @param array $attrs
+   */
+  private function tagOpen( $parser, $name, $attrs ) {
     $tag = array( 'node' => $name, 'attr' => $attrs );
     array_push($this->data, $tag);
   }
 
-  // called on data for xml
-  function tagData($parser, $tagData) {
-    if(trim($tagData)) {
+  /**
+   * Called on data for xml
+   *
+   * @param resource $parser
+   * @param string $data
+   */
+  private function tagData($parser, $data) {
+    if (trim($data)) {
       if(isset($this->data[count($this->data)-1]['value'])) {
-        $this->data[count($this->data)-1]['value'] .= $this->parseXMLValue($tagData);
+        $this->data[count($this->data)-1]['value'] .= $this->parseXMLValue($data);
       } else {
-        $this->data[count($this->data)-1]['value'] = $this->parseXMLValue($tagData);
+        $this->data[count($this->data)-1]['value'] = $this->parseXMLValue($data);
       }
     }
   }
 
-  // called when finished parsing
+  //
+  /**
+   * Called when finished parsing
+   *
+   * @param resource $parser
+   * @param string $name
+   */
   function tagClosed($parser, $name) {
     $this->data[count($this->data)-2]['childs'][] = $this->data[count($this->data)-1];
-/*
-    if(count ($this->data[count($this->data)-2]['childs'] ) == 1) {
-     $this->data[count($this->data)-2]['firstchild'] =& $this->data[count($this->data)-2]['childs'][0];
-    }
-*/
     array_pop($this->data);
   }
 
-  function toArray() {
-    //not used, we can call loadString or loadFile instead...
-  }
-
+  /**
+   *
+   * @param string $value
+   */
   private function parseXMLValue( $value ) {
     return htmlentities($value);
   }
 
+  /**
+   *
+   * @param array $tob
+   */
   private function toXML( $tob=NULL ) {
     // return xml
     $result = '';
 
-    if ($tob == NULL) {
-      $tob = $this->data;
-    }
+    if (!isset($tob)) $tob = $this->data;
 
     if (!isset($tob)) {
       echo 'XML Array empty...';
-      return null;
+      return NULL;
     }
 
     $cnt = count($tob);
@@ -111,7 +142,11 @@ class XMLParser {
     return $result;
   }
 
-  public function getXML( $tob = null ) {
+  /**
+   *
+   * @param array $tob
+   */
+  public function getXML( $tob=NULL ) {
     return '<?xml version="1.0" ?'.'>' . "\r\n" . $this->toXML($tob);
   }
 

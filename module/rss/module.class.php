@@ -1,11 +1,16 @@
 <?php
+/** @defgroup Module-RSS Module RSS
+
+*/
+
 /**
- * RSS module
+ * Module RSS
  *
  * @ingroup    Module-RSS
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
+ * @copyright  2009-2011 Knut Kohl
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
  * @version    $Id: v2.4.1-51-gfeddc24 - Sun Jan 16 21:09:59 2011 +0100 $
  */
 class esf_Module_RSS extends esf_Module {
