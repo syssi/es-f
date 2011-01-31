@@ -174,11 +174,10 @@ foreach ($users as $user) {
 
   $ts2 = microtime(TRUE);
   $dur = $ts2 - $ts1;
-  $cnt = esf_Auctions::count();
-
+  if ($cnt = esf_Auctions::count()) $avg = $dur/$cnt;
   echo date('Y-m-d H:i:s : ', $ts2),
        sprintf('Needed %.3fs for %d auctions - %.3fs per auction',
-               $dur, $cnt, $dur/$cnt), "\n",
+               $dur, $cnt, $avg), "\n",
        LINE2, "\n";
 
   $content = ob_get_clean();

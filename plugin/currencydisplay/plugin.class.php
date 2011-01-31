@@ -17,11 +17,10 @@
 class esf_Plugin_CurrencyDisplay extends esf_Plugin {
 
   /**
-   *
+   * Class constructor
    */
   public function __construct() {
     parent::__construct();
-
     foreach (explode('|', $this->Mapping) as $value) {
       @list($c1, $c2) = explode('=', $value);
       $this->Mappings[$c1] = $c2;

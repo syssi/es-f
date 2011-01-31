@@ -98,10 +98,14 @@ Loader::Load(APPDIR.'/ebay.php');
 // include additional configuration, mostly for development
 Core::ReadConfigs('local');
 
-#ErrorHandler::register(Registry::get('ErrorHandler', 'default'));
-// >> Debug
-Yryie::Register();
-// << Debug
+if (!_DEBUG) {
+  ErrorHandler::register();
+#  ErrorHandler::attach(new ErrorHandler_Debug());
+#  ErrorHandler::attach(new ErrorHandler_Echo());
+  ErrorHandler::attach(new ErrorHandler_File('local/tmp/error.{TS}.log'));
+} else {
+  Yryie::Register();
+}
 
 // since PHP 5.1.0
 if (function_exists('date_default_timezone_set'))

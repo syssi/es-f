@@ -4,11 +4,15 @@
  * Idea from http://www.php.net/manual/language.exceptions.php#91159
  *
  * If you intend on creating a lot of custom exceptions, you may find this code
- * useful. I've created an interface and an abstract exception class that
+ * useful.
+ *
+ * I've created an interface and an abstract exception class that
  * ensures that all parts of the built-in Exception class are preserved in child
  * classes. It also properly pushes all information back to the parent
  * constructor ensuring that nothing is lost. This allows you to quickly create
- * new exceptions on the fly. It also overrides the default __toString method
+ * new exceptions on the fly.
+ *
+ * It also overrides the default __toString method
  * with a more thorough one.
  *
  * @version $Id$

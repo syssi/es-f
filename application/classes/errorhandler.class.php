@@ -13,24 +13,65 @@
  * @version    1.0.0
  * @version    $Id$
  */
-abstract class ErrorHandler implements ErrorHandlerI {
+abstract class ErrorHandler {
 
   /**
-   * Return with HTML tags
+   * Last error handler before registration of own handler
+   *
+   * @var string $LastErrorHandler
    */
-  public static $HTML = TRUE;
+  public static $LastErrorHandler;
 
   /**
-   * @param string $class Errorhandler class to register
+   * Register the error handler
    */
-  public static final function Register( $class ) {
-    $file = dirname(__FILE__).'/errorhandler/'.$class.'.class.php';
-    if (file_exists($file)) {
-      require_once $file;
-      set_error_handler(array('ErrorHandler_'.$class, 'HandleError'));
-    } else {
-      throw new Exception('Error: Missing file: '.$file);
-    }
+  public static function register() {
+    self::$LastErrorHandler = set_error_handler(array(__CLASS__, 'HandleError'));
+  }
+
+  /**
+   * Attach an error handler instance
+   *
+   * @param ErrorHandlerI $handler
+   */
+  public static function attach( ErrorHandlerI $handler ) {
+    self::$Handlers[] = $handler;
+  }
+
+  /**
+   * Detach an error handler
+   *
+   * @param ErrorHandlerI $handler
+   */
+  public static function detach( ErrorHandlerI $handler ) {
+    $id = array_search($handler, self::$Handlers, TRUE);
+    // $id can be 0 (zero)!
+    if ($id !== FALSE) unset(self::$Handlers[$id]);
+  }
+
+  /**
+   *
+   * @param int    $errno      Contains the level of the error raised
+   * @param string $errstr     Contains the error message
+   * @param string $errfile    Contains the filename that the error was raised in
+   * @param int    $errline    Contains the line number the error was raised at
+   * @param int    $errcontext An array that points to the active symbol table at
+   *                           the point the error occurred. So will contain an
+   *                           array of every variable that existed in the scope
+   *                           the error was triggered in.
+   *                           User error handler must not modify error context.
+   */
+  public static function HandleError( $errno, $errstr, $errfile='', $errline=0, $errcontext=array() ) {
+    // make $errfile path relative
+    $errfile = str_replace(@$_SERVER['DOCUMENT_ROOT'], '', $errfile);
+    // $trace[0] holds the error, the additional is the backtrace to this
+    $trace = self::analyseError($errno, $errstr, $errfile, $errline);
+
+    foreach (self::$Handlers as $handler)
+      $handler->HandleError($errno, $errstr, $errfile, $errline, $errcontext, $trace);
+
+    if (ini_get('log_errors'))
+        error_log(sprintf("PHP %s: %s in %s on line %d", $errno, $errstr, $errfile, $errline));
   }
 
   // -------------------------------------------------------------------------
@@ -38,66 +79,56 @@ abstract class ErrorHandler implements ErrorHandlerI {
   // -------------------------------------------------------------------------
 
   /**
+   * String repesentaion of known and unknown error codes
+   *
+   * @var array $Error2Str
+   */
+  protected static $Error2Str = array(
+    NULL                => 'Unknown error',
+    E_ERROR             => 'Error',
+    E_WARNING           => 'Warning',
+    E_PARSE             => 'Parse Error',
+    E_NOTICE            => 'Notice',
+    E_CORE_ERROR        => 'Core Error',
+    E_CORE_WARNING      => 'Core Warning',
+    E_COMPILE_ERROR     => 'Compile Error',
+    E_COMPILE_WARNING   => 'Compile Warning',
+    E_USER_ERROR        => 'User Error',
+    E_USER_WARNING      => 'User Warning',
+    E_USER_NOTICE       => 'User Notice',
+    E_STRICT            => 'Strict Notice',
+    E_RECOVERABLE_ERROR => 'Recoverable Error',
+  );
+
+  /**
    * Analyse error message from php and build readable error message.
    *
    * idea from http://de3.php.net/manual/de/function.set-error-handler.php,
    * UCN by silkensedai at online dot fr, 02-May-2007 09:37
    *
-   * @param string $errno Error number
-   * @param string $errstr Error message
-   * @param string $errfile File where the error occoured
-   * @param integer $errline Line where the error occoured
-   * @return string
+   * @param int    $errno      Contains the level of the error raised
+   * @param string $errstr     Contains the error message
+   * @param string $errfile    Contains the filename that the error was raised in
+   * @param int    $errline    Contains the line number the error was raised at
+   * @return array
    */
   protected static function analyseError( $errno, $errstr, $errfile, $errline ) {
+
+    // Handle this error?!
     if (!$errno = $errno & error_reporting()) return;
 
-    defined('E_STRICT') || define('E_STRICT', 2048);
-    defined('E_RECOVERABLE_ERROR') || define('E_RECOVERABLE_ERROR', 4096);
+    $err = isset(self::$Error2Str[$errno])
+         ? self::$Error2Str[$errno]
+         : self::$Error2Str[NULL];
 
-    $err_str = array(
-      E_ERROR             => 'Error',
-      E_WARNING           => 'Warning',
-      E_PARSE             => 'Parse Error',
-      E_NOTICE            => 'Notice',
-      E_CORE_ERROR        => 'Core Error',
-      E_CORE_WARNING      => 'Core Warning',
-      E_COMPILE_ERROR     => 'Compile Error',
-      E_COMPILE_WARNING   => 'Compile Warning',
-      E_USER_ERROR        => 'User Error',
-      E_USER_WARNING      => 'User Warning',
-      E_USER_NOTICE       => 'User Notice',
-      E_STRICT            => 'Strict Notice',
-      E_RECOVERABLE_ERROR => 'Recoverable Error'
-    );
+    $trace = array(sprintf('%s (%d): %s in %s on line %d', $err, $errno, $errstr, $errfile, $errline));
 
-    $err = isset($err_str[$errno]) ? $err_str[$errno] : 'Unknown error ('.$errno.')';
-    $err .= self::$HTML
-          ? sprintf(': <b>%s</b> in <b>%s</b> on line <b>%d</b></tt>'."\n", $errstr, $errfile, $errline)
-          : sprintf(': %s in %s on line %d'."\n", $errstr, $errfile, $errline);;
-    $err .= self::backtrace(3);
-    if (self::$HTML) $err = '<tt>'.$err.'</tt>';
-    return $err;
-  }
-
-  /**
-   * Format output of debug_backtrace() into some readable.
-   *
-   * Idea from http://php.net/manual/function.debug-backtrace.php
-   * UCN by http://synergy8.com, 14-Dec-2005 07:37,
-   * diz at ysagoon dot com, 23-Nov-2004 11:40
-   *
-   * @param integer $skip Skip last x trace steps
-   * @return string
-   */
-  protected static function backtrace( $skip=1 ) {
-    $output = '';
     $backtrace = debug_backtrace();
-
-    for ($i=0; $i<$skip; $i++) array_shift($backtrace);
+    for ($i=0; $i<2; $i++) array_shift($backtrace);
 
     foreach ($backtrace as $bt) {
       $args = '';
+
       if (isset($bt['args'])) {
         foreach ((array)$bt['args'] as $a) {
           if (!empty($args)) $args .= ', ';
@@ -108,7 +139,6 @@ abstract class ErrorHandler implements ErrorHandlerI {
               break;
             case 'string':
               $a = substr($a, 0, 64);
-              if (self::$HTML) $a = htmlspecialchars($a);
               // string was trimed
               if (strlen($a) > 64) $a .= '...';
               $args .= '"'.$a.'"';
@@ -129,7 +159,7 @@ abstract class ErrorHandler implements ErrorHandlerI {
               $args .= 'NULL';
               break;
             default:
-              $args .= 'Unknown';
+              $args .= 'other';
           }
         }
       }
@@ -137,26 +167,23 @@ abstract class ErrorHandler implements ErrorHandlerI {
       if (!isset($bt['file']))  $bt['file'] = '[PHP Kernel]';
       if (!isset($bt['line']))  $bt['line'] = '';
 
-      $output .= self::$HTML ? '<b>call:</b> ' : 'call: ';
+      $err = 'call: ';
 
       if (isset($bt['function'])) {
         if (in_array($bt['function'],array('include','require','include_once','require_once'))) {
-          $output .= $bt['function'].self::NL();
+          $err .= $bt['function'];
         } else {
-          if (isset($bt['class'],$bt['type'])) $output .= $bt['class'].$bt['type'];
-          $output .= $bt['function'].'('.$args.')'.self::NL();
+          if (isset($bt['class'],$bt['type'])) $err .= $bt['class'].$bt['type'];
+          $err .= $bt['function'].'('.$args.')';
         }
       } else {
-        $output .= print_r($bt, TRUE);
+        $err .= print_r($bt, TRUE);
       }
-      $output .= self::$HTML
-               ? '<b>file:</b> '.$bt['file'].' ['.$bt['line'].']'
-               : 'file: '.$bt['file'].' ['.$bt['line'].']';
-      $output .= self::NL();
+      $err .= ' in file: '.$bt['file'].' ['.$bt['line'].']';
+      $trace[] = $err;
     }
-    if (self::$HTML)
-      $output = '<div class="error_handler" style="font-family:monospace">'.$output.'</div>';
-    return $output;
+
+    return $trace;
   }
 
   // -------------------------------------------------------------------------
@@ -164,9 +191,8 @@ abstract class ErrorHandler implements ErrorHandlerI {
   // -------------------------------------------------------------------------
 
   /**
-   *
+   * @var array $Handlers
    */
-  private static function NL() {
-    return ( self::$HTML ? '<br>' : '' ) . "\n";
-  }
+  private static $Handlers = array();
+
 }

@@ -9,20 +9,26 @@
  * @version    1.0.0
  * @version    $Id$
  */
-class ErrorHandler_Echo extends ErrorHandler {
+class ErrorHandler_Echo implements ErrorHandlerI {
 
   /**
-   * Echo errors (debug only!)
-   *
-   * @param int $errno
-   * @param string $errstr
-   * @param string $errfile
-   * @param int $errline
+   * @param int    $errno      Contains the level of the error raised
+   * @param string $errstr     Contains the error message
+   * @param string $errfile    Contains the filename that the error was raised in
+   * @param int    $errline    Contains the line number the error was raised at
+   * @param int    $errcontext An array that points to the active symbol table at
+   *                           the point the error occurred. So will contain an
+   *                           array of every variable that existed in the scope
+   *                           the error was triggered in.
+   *                           User error handler must not modify error context.
+   * @param array  $trace      $trace[0] holds the error, the rest is the backtrace to this
    */
-  public static function HandleError( $errno, $errstr, $errfile, $errline ) {
-    $errfile = str_replace(@$_SERVER['DOCUMENT_ROOT'], '', $errfile);
-    self::$HTML = FALSE;
-    echo self::analyseError($errno, $errstr, $errfile, $errline);
+  public function HandleError( $errno, $errstr, $errfile, $errline, $errcontext, $trace ) {
+    if (empty($trace)) return;
+
+    echo '<div style="padding: 5px; color: black; background-color: #FF713F">',
+         implode('<br>', $trace),
+         '</div>';
   }
 
 }
