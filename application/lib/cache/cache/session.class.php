@@ -18,12 +18,8 @@ class Cache_Session extends Cache {
   // -------------------------------------------------------------------------
 
   /**
-   * Function set...
-   *
-   * @param string $id
-   * @param mixed $data
-   * @param int $expire Timestamp for expiration, if set to 0, expire never
-   * @return mixed
+   * @name Implemented abstract functions
+   * @{
    */
   public function set( $id, $data, $expire=0 ) {
     // optimized for probability Set -> Delete -> Clear
@@ -37,13 +33,7 @@ class Cache_Session extends Cache {
     }
   } // function set()
 
-  /**
-   * Function get...
-   *
-   * @param string $id
-   * @return mixed
-   */
-  public function get( $id ) {
+  public function get( $id, $expire=0 ) {
     $id = $this->id($id);
     if (!isset($_SESSION[$this->token][$id])) return;
 
@@ -56,25 +46,15 @@ class Cache_Session extends Cache {
     $this->delete($id);
   } // function get()
 
-  /**
-   * Function delete...
-   *
-   * @param string $id
-   * @return void
-   */
   public function delete( $id ) {
     $id = $this->id($id);
     if (isset($_SESSION[$this->token][$id])) unset($_SESSION[$this->token][$id]);
-  } // function remove()
+  } // function delete()
 
-  /**
-   * Function flush...
-   *
-   * @return void
-   */
   public function flush() {
     unset($_SESSION[$this->token]);
-  } // function clear()
+  } // function flush()
+  /** @} */
 
   // -------------------------------------------------------------------------
   // PROTECTED
@@ -83,9 +63,7 @@ class Cache_Session extends Cache {
   /**
    * Class constructor
    *
-   * @protected
    * @param array $settings
-   * @return void
    */
   protected function __construct( $settings=array() ) {
     parent::__construct($settings);

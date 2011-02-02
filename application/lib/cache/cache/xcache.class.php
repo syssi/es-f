@@ -1,6 +1,6 @@
 <?php
 /**
- * Cache class using APC opcode cache
+ * Cache class using XCache opcode cache
  *
  * The following settings are supported:
  * - token    : used to build unique cache ids (optional)
@@ -18,35 +18,13 @@ class Cache_XCache extends Cache {
   // -------------------------------------------------------------------------
 
   /**
-   * Class constructor
-   *
-   * @throws CacheException
-   * @param array $settings
-   */
-  public function __construct( $settings=array() ) {
-    if (!self::available())
-      throw new CacheException(__CLASS__.': Extension XCache not loaded.', 9);
-    parent::__construct($settings);
-  }
-
-  /**
-   *
+   * @name Implemented abstract functions
+   * @{
    */
   public static function available() {
     return extension_loaded('xcache');
   }
 
-  /**
-   * Function set...
-   *
-   * @param string $id
-   * @param mixed $data
-   * @param $ttl int Time to live or timestamp
-   *                 0  - expire never
-   *                 >0 - Time to live
-   *                 <0 - Timestamp of expiration
-   * @return bool
-   */
   public function set( $id, $data, $ttl=0 ) {
     // optimized for probability Set -> Delete -> Clear
     if ($data !== NULL) {
@@ -58,16 +36,6 @@ class Cache_XCache extends Cache {
     }
   }
 
-  /**
-   * Function get...
-   *
-   * @param string $id
-   * @param $expire int Time to live or timestamp
-   *                    0  - expire never
-   *                    >0 - Time to live
-   *                    <0 - Timestamp of expiration
-   * @return mixed
-   */
   public function get( $id, $expire=0 ) {
     if (!$cached = $this->unserialize(xcache_get($this->id($id)))) return;
     // split into store time, ttl, data
@@ -88,23 +56,29 @@ class Cache_XCache extends Cache {
     $this->delete($id);
   }
 
-  /**
-   * Function delete...
-   *
-   * @param string $id
-   * @return bool
-   */
   public function delete( $id ) {
     return xcache_unset($this->id($id));
   }
 
-  /**
-   * Function flush...
-   *
-   * @return bool
-   */
   public function flush() {
     return xcache_clear_cache();
+  }
+  /** @} */
+
+  //--------------------------------------------------------------------------
+  // PROTECTED
+  //--------------------------------------------------------------------------
+
+  /**
+   * Class constructor
+   *
+   * @throws CacheException
+   * @param array $settings
+   */
+  protected function __construct( $settings=array() ) {
+    if (!self::available())
+      throw new CacheException(__CLASS__.': Extension XCache not loaded.', 9);
+    parent::__construct($settings);
   }
 
 }

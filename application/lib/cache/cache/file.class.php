@@ -11,8 +11,8 @@ require_once dirname(__FILE__).'/filebase.class.php';
  * All data will be held in memeory during the script runs
  *
  * The following settings are supported:
- * - token    : used to build unique cache ids (optional)
- * - cachedir : Where to store the file with the cached data (optional)
+ * - @c token    : used to build unique cache ids (optional)
+ * - @c cachedir : Where to store the file with the cached data (optional)
  *
  * @ingroup    Cache
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
@@ -28,15 +28,8 @@ class Cache_File extends Cache_FileBase {
   // -------------------------------------------------------------------------
 
   /**
-   * Function set...
-   *
-   * @param $id string
-   * @param $ttl int Time to live or timestamp
-   *                 0  - expire never
-   *                 >0 - Time to live
-   *                 <0 - Timestamp of expiration
-   * @param mixed $data
-   * @return bool
+   * @name Implemented abstract functions
+   * @{
    */
   public function set( $id, $data, $ttl=0 ) {
     // optimized for probability Set -> Delete -> Clear
@@ -51,16 +44,6 @@ class Cache_File extends Cache_FileBase {
     }
   } // function set()
 
-  /**
-   * Function get...
-   *
-   * @param string $id
-   * @param $expire int Time to live or timestamp
-   *                     0 - expire never
-   *                    >0 - Time to live
-   *                    <0 - Timestamp of expiration
-   * @return mixed
-   */
   public function get( $id, $expire=0 ) {
     $id = $this->id($id);
     // Id set?
@@ -83,12 +66,6 @@ class Cache_File extends Cache_FileBase {
     $this->delete($id);
   } // function get()
 
-  /**
-   * Function remove...
-   *
-   * @param string $id
-   * @return bool
-   */
   public function delete( $id ) {
     $id = $this->id($id);
     if (isset($this->data[$id])) unset($this->data[$id]);
@@ -96,11 +73,6 @@ class Cache_File extends Cache_FileBase {
     return TRUE;
   } // function remove()
 
-  /**
-   * Function flush...
-   *
-   * @return bool
-   */
   public function flush() {
     $this->data = array();
     // Don't just RemoveFile, if this fails, cache will remain,
@@ -108,16 +80,12 @@ class Cache_File extends Cache_FileBase {
     return $this->WriteFile($this->FileName(), NULL);
   } // function clear()
 
-  /**
-   * Class destructor saves cached data to file
-   *
-   * @return void
-   */
   public function __destruct() {
     // Save only if data was modified
     if ($this->modified)
       $this->WriteFile($this->FileName(), $this->data);
   } // function __destruct()
+  /** @} */
 
   // -------------------------------------------------------------------------
   // PROTECTED

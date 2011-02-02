@@ -7,7 +7,7 @@
  * Abstract class Cache
  *
  * The following settings are supported:
- * - token    : used to build unique cache ids (general)
+ * - @c token : used to build unique cache ids (general)
  *
  * @ingroup    Cache
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
@@ -16,8 +16,9 @@
  * @version    1.1.0
  * @version    $Id: v2.4.1-46-gfa6b976 - Sat Jan 15 13:42:37 2011 +0100 $
  *
- * @changelog  - v1.1.0
- *               - Add test to find supported caches
+ * @changelog
+ * - v1.1.0
+ *   - Add test to find supported caches
  */
 abstract class Cache {
 
@@ -36,11 +37,16 @@ abstract class Cache {
   // -------------------------------------------------------------------------
 
   /**
-   * Function set...
+   * @name Abstract functions
+   * @{
+   */
+
+  /**
+   * Store data in cache
    *
    * @param string $id
    * @param mixed $data
-   * @param $ttl int Time to live or timestamp
+   * @param int $ttl Time to live or timestamp
    *                 - 0   - expire never
    *                 - > 0 - Time to live
    *                 - < 0 - Timestamp of expiration
@@ -49,7 +55,7 @@ abstract class Cache {
   abstract public function set( $id, $data, $ttl=0 );
 
   /**
-   * Function get...
+   * Retrieve data from cache
    *
    * @param string $id
    * @param int $expire Time to live or timestamp
@@ -61,7 +67,7 @@ abstract class Cache {
   abstract public function get( $id, $expire=0 );
 
   /**
-   * Function delete...
+   * Delete data from cache
    *
    * @param string $id
    * @return bool
@@ -69,25 +75,30 @@ abstract class Cache {
   abstract public function delete( $id );
 
   /**
-   * Function flush...
+   * Clear cache
    *
    * @return bool
    */
   abstract public function flush();
+  /** @} */
 
   // -------------------------------------------------------------------------
   // PUBLIC
   // -------------------------------------------------------------------------
 
   /**
-   * Cache availability, rewrite if required
+   * Cache availability
+   *
+   * Returns TRUE by default, reimplement if required
+   *
+   * @return bool
    */
   public static function available() {
     return TRUE;
   }
 
   /**
-   * Function test...
+   * Test avaibility of chaching methods
    *
    * @param array $caches Caches to test for availability.
    *                      If empty, the follwing caches are tested (in this order):
@@ -95,9 +106,9 @@ abstract class Cache {
    *                      - EAccelerator
    *                      - XCache
    *                      - MemCache
-   *                      - File (always available and prefered obverse Files)
+   *                      - %File (always available and prefered obverse Files)
    *                      - Files (always available)
-   *                      - Session (always available)
+   *                      - %Session (always available)
    *                      - Mock (always available)
    * @param bool $all Return all found?
    * @return string|array If $all is FALSE, the first possible cache from
@@ -106,41 +117,17 @@ abstract class Cache {
    */
   public static final function test( $caches=array(), $all=FALSE ) {
     if (empty($caches)) {
-      $caches = array('APC', 'EAccelerator', 'XCache', 'MemCache');
-      $testall = TRUE;
+      $caches = array('APC', 'EAccelerator', 'XCache', 'MemCache',
+                      // allways available caching methods
+                      'File', 'Files', 'Session', 'Mock', );
     } else {
       if (!is_array($caches)) $caches = array($caches);
-      $testall = FALSE;
     }
     $available = array();
     foreach ($caches as $cache) {
       self::load($cache);
-      switch (strtolower($cache)) {
-        case 'apc':
-          if (Cache_APC::available()) $available[] = $cache;
-          break;
-        case 'eaccelerator':
-          if (Cache_EAccelerator::available()) $available[] = $cache;
-          break;
-        case 'xcache':
-          if (Cache_XCache::available()) $available[] = $cache;
-          break;
-        case 'memcache':
-          if (Cache_MemCache::available()) $available[] = $cache;
-          break;
-        case 'file':
-        case 'files':
-        case 'session':
-        case 'mock':
-          $available[] = $cache;
-          break;
-      } // switch
-    }
-    if ($testall) {
-      $available[] = 'File';
-      $available[] = 'Files';
-      $available[] = 'Session';
-      $available[] = 'Mock';
+      $cacheClass = 'Cache_'.$cache;
+      if ($cacheClass::available()) $available[] = $cache;
     }
     return $all ? $available : (isset($available[0]) ? $available[0] : FALSE);
   }

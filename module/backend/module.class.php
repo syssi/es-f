@@ -427,7 +427,7 @@ class esf_Module_Backend extends esf_Module {
   /**
    *
    */
-  private function &getInstaller() {
+  private function getInstaller() {
     $file = $this->Scope.'/'.$this->Extension.'/install.class.php';
     if (Loader::Load($file, TRUE, FALSE)) {
       $class = 'esf_Install_'.$this->Scope.'_'.$this->Extension;

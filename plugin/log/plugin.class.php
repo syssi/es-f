@@ -38,7 +38,7 @@ class esf_Plugin_Log extends esf_Plugin {
         error_log($ts.': '.$val."\n", 3, $this->File);
       }
     } else {
-      error_log($ts.': '.$val."\n", 3, $this->File);
+      error_log($ts.': '.$log."\n", 3, $this->File);
     }
   }
 

@@ -1,29 +1,29 @@
 <?php
 /** @defgroup ImageViewer Image viewer
 
-Display images from the file system with scaling and rotating
+  Display images from the file system with scaling and rotating
 
-@usage
-@code
-image.php?i=...
-@endcode
+  @usage
+  @code
+  image.php?i=...
+  @endcode
 
-Minimum parameter is the file name "i=" as
-- absolute name in file system
-- relative name from DOCUMENT_ROOT
-- one of above BASE64 encoded: base64_encode($ImageFileName)
+  Minimum parameter is the file name "i=" as
+  - absolute name in file system
+  - relative name from DOCUMENT_ROOT
+  - one of above BASE64 encoded: base64_encode($ImageFileName)
 
-@author     Knut Kohl <knutkohl@users.sourceforge.net>
-@copyright  2007-2011 Knut Kohl
-@license    GNU General Public Licensehttp://www.gnu.org/licenses/gpl.txt
-@version    1.2.0
-@version    $Id$
+  @author     Knut Kohl <knutkohl@users.sourceforge.net>
+  @copyright  2007-2011 Knut Kohl
+  @license    GNU General Public Licensehttp://www.gnu.org/licenses/gpl.txt
+  @version    1.2.0
+  @version    $Id$
 
-@changelog
-- Version 1.2.0
-  - NEW: water marking
-- Version 1.1.0
-  - NEW: Shorten the hash
+  @changelog
+  - Version 1.2.0
+    - NEW: water marking
+  - Version 1.1.0
+    - NEW: Shorten the hash
 
 */
 

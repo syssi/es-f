@@ -6,6 +6,7 @@
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2010-2011 Knut Kohl
  * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
  * @version    $Id$
  */
 class Cache_Mock extends Cache {
@@ -15,43 +16,24 @@ class Cache_Mock extends Cache {
   // -------------------------------------------------------------------------
 
   /**
-   * Function set...
-   *
-   * @param string $id
-   * @param mixed $data
-   * @param $ttl int Time to live or timestamp
-   *                 0  - expire never
-   *                 >0 - Time to live
-   *                 <0 - Timestamp of expiration
-   * @return void
+   * @name Implemented abstract functions
+   * @{
    */
-  public function set( $id, $data, $ttl=0 ) {}
+  public function set( $id, $data, $ttl=0 ) {
+    return TRUE;
+  }
 
-  /**
-   * Function get...
-   *
-   * @param string $id
-   * @param $expire int Time to live or timestamp
-   *                    0  - expire never
-   *                    >0 - Time to live
-   *                    <0 - Timestamp of expiration
-   * @return mixed
-   */
-  public function get( $id, $expire=0 ) {}
+  public function get( $id, $expire=0 ) {
+    return '';
+  }
 
-  /**
-   * Function delete...
-   *
-   * @param string $id
-   * @return void
-   */
-  public function delete( $id ) {}
+  public function delete( $id ) {
+    return TRUE;
+  }
 
-  /**
-   * Function flush...
-   *
-   * @return void
-   */
-  public function flush() {}
+  public function flush() {
+    return TRUE;
+  }
+  /** @} */
 
 }

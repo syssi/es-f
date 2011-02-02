@@ -3,12 +3,13 @@
  * Cache class using APC opcode cache
  *
  * The following settings are supported:
- * - token    : used to build unique cache ids (optional)
+ * - @c token : used to build unique cache ids (optional)
  *
  * @ingroup    Cache
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2007-2011 Knut Kohl
  * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
  * @version    $Id$
  */
 class Cache_APC extends Cache {
@@ -18,35 +19,13 @@ class Cache_APC extends Cache {
   // -------------------------------------------------------------------------
 
   /**
-   * Class constructor
-   *
-   * @throws CacheException
-   * @param array $settings
-   */
-  public function __construct( $settings=array() ) {
-    if (!self::available())
-      throw new CacheException(__CLASS__.': Extension APC not loaded.', 9);
-    parent::__construct($settings);
-  }
-
-  /**
-   *
+   * @name Implemented abstract functions
+   * @{
    */
   public static function available() {
     return extension_loaded('apc');
   }
 
-  /**
-   * Function set...
-   *
-   * @param string $id
-   * @param mixed $data
-   * @param $ttl int Time to live or timestamp
-   *                 0  - expire never
-   *                 >0 - Time to live
-   *                 <0 - Timestamp of expiration
-   * @return bool
-   */
   public function set( $id, $data, $ttl=0 ) {
     // optimized for probability Set -> Delete -> Clear
     if ($data !== NULL) {
@@ -58,16 +37,6 @@ class Cache_APC extends Cache {
     }
   }
 
-  /**
-   * Function get...
-   *
-   * @param string $id
-   * @param $expire int Time to live or timestamp
-   *                    0  - expire never
-   *                    >0 - Time to live
-   *                    <0 - Timestamp of expiration
-   * @return mixed
-   */
   public function get( $id, $expire=0 ) {
     if (!$cached = $this->unserialize(apc_fetch($this->id($id)))) return;
     // split into store time, ttl, data
@@ -88,23 +57,29 @@ class Cache_APC extends Cache {
     $this->delete($id);
   }
 
-  /**
-   * Function delete...
-   *
-   * @param string $id
-   * @return bool
-   */
   public function delete( $id ) {
     return apc_delete($this->id($id));
   }
 
-  /**
-   * Function flush...
-   *
-   * @return bool
-   */
   public function flush() {
     return apc_clear_cache();
+  }
+  /** @} */
+
+  //--------------------------------------------------------------------------
+  // PROTECTED
+  //--------------------------------------------------------------------------
+
+  /**
+   * Class constructor
+   *
+   * @throws CacheException
+   * @param array $settings
+   */
+  protected function __construct( $settings=array() ) {
+    if (!self::available())
+      throw new CacheException(__CLASS__.': Extension APC not loaded.', 9);
+    parent::__construct($settings);
   }
 
 }

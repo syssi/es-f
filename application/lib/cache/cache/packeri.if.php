@@ -6,6 +6,7 @@
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2010-2011 Knut Kohl
  * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
  * @version    $Id$
 */
 interface Cache_PackerI {
@@ -13,7 +14,7 @@ interface Cache_PackerI {
   /**
    * Pack function
    *
-   * @param $data mixed
+   * @param mixed $data
    * @return string
    */
   public function pack( &$data );
@@ -21,7 +22,7 @@ interface Cache_PackerI {
   /**
    * Unpack function
    *
-   * @param $data string
+   * @param string $data
    * @return mixed
    */
   public function unpack( &$data );

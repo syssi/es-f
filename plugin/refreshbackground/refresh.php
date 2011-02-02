@@ -10,11 +10,11 @@
  */
 
 error_reporting(0);
-error_reporting(-1);
+#error_reporting(-1);
 
 Header('Content-type: text/plain');
 
-define( '_ESF_OK', TRUE );
+define('_ESF_OK', TRUE);
 
 define('BASEDIR', dirname(dirname(dirname(__FILE__))));
 
@@ -174,7 +174,7 @@ foreach ($users as $user) {
 
   $ts2 = microtime(TRUE);
   $dur = $ts2 - $ts1;
-  if ($cnt = esf_Auctions::count()) $avg = $dur/$cnt;
+  $avg = ($cnt = esf_Auctions::count()) ? $dur/$cnt : 0;
   echo date('Y-m-d H:i:s : ', $ts2),
        sprintf('Needed %.3fs for %d auctions - %.3fs per auction',
                $dur, $cnt, $avg), "\n",

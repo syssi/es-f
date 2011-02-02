@@ -6,21 +6,21 @@
  * All data will be held in memeory during the script runs
  *
  * The following settings are supported:
- * - token    : used to build unique cache ids (optional)
- * - cachedir : Where to store the file with the cached data (optional)
+ * - @c token    : used to build unique cache ids (optional)
+ * - @c cachedir : Where to store the file with the cached data (optional)
  *
  * @ingroup    Cache
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2010-2011 Knut Kohl
  * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
- * @version    1.0.0
+ * @version    1.1.0
  * @version    $Id$
+ *
+ * @changelog
+ * - v1.1.0
+ *   - NEW: Add locking
  */
 abstract class Cache_FileBase extends Cache {
-
-  // -------------------------------------------------------------------------
-  // PUBLIC
-  // -------------------------------------------------------------------------
 
   // -------------------------------------------------------------------------
   // PROTECTED
@@ -38,7 +38,6 @@ abstract class Cache_FileBase extends Cache {
    *
    * @throws CacheException
    * @param array $settings
-   * @return CacheI
    */
   protected function __construct( $settings=array() ) {
     parent::__construct($settings);
@@ -59,7 +58,7 @@ abstract class Cache_FileBase extends Cache {
   }
 
   /**
-   * Function FileName...
+   * Bulid cache file name
    *
    * @param $id string
    * @return string
@@ -70,7 +69,7 @@ abstract class Cache_FileBase extends Cache {
   } // function FileName()
 
   /**
-   * Function ReadFile...
+   * Read data from cache file
    *
    * @param string $file
    * @return string
@@ -91,7 +90,7 @@ abstract class Cache_FileBase extends Cache {
   } // function ReadFile()
 
   /**
-   * Function WriteFile...
+   * Write data to cache file
    *
    * @param string $file
    * @param string $data
@@ -119,7 +118,7 @@ abstract class Cache_FileBase extends Cache {
   } // function WriteFile()
 
   /**
-   * Function RemoveFile...
+   * Delete cache file
    *
    * @param string $file
    * @return bool

@@ -3,7 +3,7 @@
  * Cache class using EAccelerator opcode cache
  *
  * The following settings are supported:
- * - token    : used to build unique cache ids (optional)
+ * - @c token : used to build unique cache ids (optional)
  *
  * @ingroup    Cache
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
@@ -19,36 +19,13 @@ class Cache_EAccelerator extends Cache {
   // -------------------------------------------------------------------------
 
   /**
-   * Class constructor
-   *
-   * @throws CacheException
-   * @param array $settings
-   */
-  public function __construct( $settings=array() ) {
-    if (!self::available())
-      throw new CacheException(__CLASS__.': Extension EAccelerator not loaded.', 9);
-    parent::__construct($settings);
-    eaccelerator_caching(TRUE);
-  }
-
-  /**
-   *
+   * @name Implemented abstract functions
+   * @{
    */
   public static function available() {
     return (extension_loaded('eaccelerator') AND function_exists('eaccelerator_put'));
   }
 
-  /**
-   * Function set...
-   *
-   * @param string $id
-   * @param mixed $data
-   * @param $ttl int Time to live or timestamp
-   *                 0  - expire never
-   *                 >0 - Time to live
-   *                 <0 - Timestamp of expiration
-   * @return void
-   */
   public function set( $id, $data, $ttl=0 ) {
     // optimized for probability Set -> Delete -> Clear
     if ($data !== NULL) {
@@ -65,16 +42,6 @@ class Cache_EAccelerator extends Cache {
     }
   }
 
-  /**
-   * Function get...
-   *
-   * @param string $id
-   * @param $expire int Time to live or timestamp
-   *                    0  - expire never
-   *                    >0 - Time to live
-   *                    <0 - Timestamp of expiration
-   * @return mixed
-   */
   public function get( $id, $expire=0 ) {
     $id = $this->id($id);
     if (!eaccelerator_lock($id) OR
@@ -100,12 +67,6 @@ class Cache_EAccelerator extends Cache {
     $this->delete($id);
   }
 
-  /**
-   * Function delete...
-   *
-   * @param string $id
-   * @return void
-   */
   public function delete( $id ) {
 		$id = $this->id($id);
 		return (eaccelerator_lock($id) AND
@@ -113,13 +74,26 @@ class Cache_EAccelerator extends Cache {
             eaccelerator_unlock($id));
   }
 
-  /**
-   * Function flush...
-   *
-   * @return void
-   */
   public function flush() {
 		return (eaccelerator_clean() AND eaccelerator_clear());
+  }
+  /** @} */
+
+  // -------------------------------------------------------------------------
+  // PROTECTED
+  // -------------------------------------------------------------------------
+
+  /**
+   * Class constructor
+   *
+   * @throws CacheException
+   * @param array $settings
+   */
+  protected function __construct( $settings=array() ) {
+    if (!self::available())
+      throw new CacheException(__CLASS__.': Extension EAccelerator not loaded.', 9);
+    parent::__construct($settings);
+    eaccelerator_caching(TRUE);
   }
 
 }
