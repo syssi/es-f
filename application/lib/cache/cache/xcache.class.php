@@ -41,17 +41,7 @@ class Cache_XCache extends Cache {
     // split into store time, ttl, data
     list($ts, $ttl, $data) = $cached;
     // Data valid?
-    if (isset($expire)) {
-      // expiration timestamp set
-      if ($expire === 0 OR
-          $expire > 0 AND $this->ts+$expire >= $ts+$ttl OR
-          $expire < 0 AND $ts >= -$expire) return $data;
-    } else {
-      // expiration timestamp NOT set
-      if ($ttl === 0 OR
-          $ttl > 0 AND $ts+$ttl >= $this->ts OR
-          $ttl < 0 AND -$ttl >= $this->ts) return $data;
-    }
+    if ($this->valid($ts, $ttl, $expire)) return $data;
     // else drop data for this key
     $this->delete($id);
   }

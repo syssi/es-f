@@ -21,10 +21,10 @@ class Cache_Session extends Cache {
    * @name Implemented abstract functions
    * @{
    */
-  public function set( $id, $data, $expire=0 ) {
+  public function set( $id, $data, $ttl=0 ) {
     // optimized for probability Set -> Delete -> Clear
     if ($data !== NULL) {
-      $_SESSION[$this->token][$this->id($id)] = $this->serialize(array($expire, $data));
+      $_SESSION[$this->token][$this->id($id)] = $this->serialize(array($this->ts, $ttl, $data));
       return TRUE;
     } elseif ($id !== NULL) { // AND $data === NULL
       return $this->delete($id);
@@ -36,12 +36,10 @@ class Cache_Session extends Cache {
   public function get( $id, $expire=0 ) {
     $id = $this->id($id);
     if (!isset($_SESSION[$this->token][$id])) return;
-
-    $data = $this->unserialize($_SESSION[$this->token][$id]);
-
-    if ($data[0] === 0 OR // expire never
-        $data[0] >= $this->ts) return $data[1];
-
+    $cached = $this->unserialize($_SESSION[$this->token][$id]);
+    list($ts, $ttl, $data) = $cached;
+    // Data valid?
+    if ($this->valid($ts, $ttl, $expire)) return $data;
     // else drop data for this key
     $this->delete($id);
   } // function get()

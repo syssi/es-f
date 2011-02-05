@@ -2,8 +2,7 @@
 /**
  * Cache class using APC opcode cache
  *
- * The following settings are supported:
- * - @c token : used to build unique cache ids (optional)
+ * For more information see http://www.php.net/manual/book.apc.php
  *
  * @ingroup    Cache
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
@@ -42,17 +41,7 @@ class Cache_APC extends Cache {
     // split into store time, ttl, data
     list($ts, $ttl, $data) = $cached;
     // Data valid?
-    if (isset($expire)) {
-      // expiration timestamp set
-      if ($expire === 0 OR
-          $expire > 0 AND $this->ts+$expire >= $ts+$ttl OR
-          $expire < 0 AND $ts >= -$expire) return $data;
-    } else {
-      // expiration timestamp NOT set
-      if ($ttl === 0 OR
-          $ttl > 0 AND $ts+$ttl >= $this->ts OR
-          $ttl < 0 AND -$ttl >= $this->ts) return $data;
-    }
+    if ($this->valid($ts, $ttl, $expire)) return $data;
     // else drop data for this key
     $this->delete($id);
   }
@@ -66,16 +55,32 @@ class Cache_APC extends Cache {
   }
   /** @} */
 
+  /**
+   * @name Overloaded functions
+   * Use APC own functions
+   * @{
+   */
+  public function inc( $id, $step=1 ) {
+    return apc_inc($this->id($id), $step);
+  } // function inc()
+
+  public function dec( $id, $step=1 ) {
+    return apc_dec($this->id($id), $step);
+  } // function dec()
+  /** @} */
+
+  /**
+   *
+   * @return array
+   */
+  public function info() {
+    return apc_sma_info();
+  } // function info()
+
   //--------------------------------------------------------------------------
   // PROTECTED
   //--------------------------------------------------------------------------
 
-  /**
-   * Class constructor
-   *
-   * @throws CacheException
-   * @param array $settings
-   */
   protected function __construct( $settings=array() ) {
     if (!self::available())
       throw new CacheException(__CLASS__.': Extension APC not loaded.', 9);

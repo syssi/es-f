@@ -1,14 +1,7 @@
 <?php
-/** @defgroup Cookie Cookie wrapper
-
-Wrapper class to handle cookies
-
-*/
-
 /**
- * Cookie handling class
+ * Wrapper class to handle cookies
  *
- * @ingroup    Cookie
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2011 Knut Kohl
  * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
@@ -22,14 +15,7 @@ class Cookie {
   // -------------------------------------------------------------------------
 
   /**
-   * Brief description goes here
-   *
-   * Long description goes here
-   *
-   * @usage
-   * @code
-   * ...
-   * @endcode
+   * Set a cookie
    *
    * @param string $name     The name of the cookie.
    * @param string $value    The value of the cookie. This value is stored on
@@ -68,18 +54,11 @@ class Cookie {
   } // function set()
 
   /**
-   * Brief description goes here
+   * Get cookie data
    *
-   * Long description goes here
-   *
-   * @usage
-   * @code
-   * ...
-   * @endcode
-   *
-   * @param string $name
-   * @param mixed $default
-   * @return void
+   * @param string $name   The name of the cookie.
+   * @param mixed $default The dafuelt value to return, if cookie is not set.
+   * @return mixed
    */
   public static function get( $name, $default=NULL ) {
     return isset($_COOKIE[$name]) ? $_COOKIE[$name] : $default;

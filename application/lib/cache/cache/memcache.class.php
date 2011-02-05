@@ -55,17 +55,7 @@ class Cache_MemCache extends Cache {
     // split into store time, ttl, data
     list($ts, $ttl, $data) = $cached;
     // Data valid?
-    if (isset($expire)) {
-      // expiration timestamp set
-      if ($expire === 0 OR
-          $expire > 0 AND $this->ts+$expire >= $ts+$ttl OR
-          $expire < 0 AND $ts >= -$expire) return $data;
-    } else {
-      // expiration timestamp NOT set
-      if ($ttl === 0 OR
-          $ttl > 0 AND $ts+$ttl >= $this->ts OR
-          $ttl < 0 AND -$ttl >= $this->ts) return $data;
-    }
+    if ($this->valid($ts, $ttl, $expire)) return $data;
     // else drop data for this key
     $this->delete($id);
   }
@@ -84,13 +74,13 @@ class Cache_MemCache extends Cache {
    * Use MemCache own functions
    * @{
    */
-  public function inc( $id, $value=1 ) {
-    return $this->memcache->increment($this->id($id), $value);
-  }
+  public function inc( $id, $step=1 ) {
+    return $this->memcache->increment($this->id($id), $step);
+  } // function inc()
 
-  public function dec( $id, $value=1 ) {
-    return $this->memcache->decrement($this->id($id), $value);
-  }
+  public function dec( $id, $step=1 ) {
+    return $this->memcache->decrement($this->id($id), $step);
+  } // function dec()
   /** @} */
 
   /**
@@ -105,10 +95,10 @@ class Cache_MemCache extends Cache {
   // -------------------------------------------------------------------------
 
   /**
-   * Class constructor
+   * The following additional settings are supported:
+   * - @c host : MemCache host:port (optional)
    *
-   * @throws CacheException
-   * @param array $settings
+   * @copydoc Cache::__construct()
    */
   protected function __construct( $settings=array() ) {
     if (!self::available()) {

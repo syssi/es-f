@@ -34,10 +34,15 @@ abstract class Cache_FileBase extends Cache {
   protected $cachedir;
 
   /**
-   * Class constructor
+   * The following additional settings are supported:
+   * - @c cachedir : Store cache file here (optional)
    *
-   * @throws CacheException
-   * @param array $settings
+   * If no @c cachedir is provided the follwing directories are checked for
+   * avaibility:
+   * - upload_tmp_dir
+   * - system temp. dir
+   *
+   * @copydoc Cache::__construct()
    */
   protected function __construct( $settings=array() ) {
     parent::__construct($settings);
@@ -60,7 +65,7 @@ abstract class Cache_FileBase extends Cache {
   /**
    * Bulid cache file name
    *
-   * @param $id string
+   * @param string $id
    * @return string
    */
   protected function FileName( $id='' ) {
