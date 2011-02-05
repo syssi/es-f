@@ -33,7 +33,7 @@ class esf_Plugin_AutoUpdate extends esf_Plugin {
   public function __construct() {
     parent::__construct();
     $this->UpdateCount = 0;
-    $this->LocalPath = Registry::get('Plugin.AutoUpdate.Core.LocalPath').'/version';
+    $this->LocalPath = $this->Core['localpath'].'/version';
   }
 
   /**
@@ -104,8 +104,12 @@ class esf_Plugin_AutoUpdate extends esf_Plugin {
     try {
       $CheckVersion = new CheckVersion( $this->cURL, $this->VersionURL );
       $v = $CheckVersion->Version();
-      if (version_compare(ESF_VERSION, $v, '<'))
-        Messages::Info(Translation::get('AutoUpdate.LatestAppVersion', $v), TRUE);
+      if (version_compare(ESF_VERSION, $v, '<')) {
+        if (!file_exists('web-install.php'))
+          Messages::Info(Translation::get('AutoUpdate.LatestAppVersion', $v), TRUE);
+        else
+          Messages::Info(Translation::get('AutoUpdate.UpgradeDirect', $v), TRUE);
+      }
     } catch (CheckVersionException $e) {
       // ignore errors and try later
       /// Messages::Error($e->getMessage());
@@ -114,10 +118,6 @@ class esf_Plugin_AutoUpdate extends esf_Plugin {
     if (!$this->Updater OR $this->Update2) return;
 
     // check application version
-#    $a = $this->Updater->getApplicationVersion();
-#    if (version_compare(ESF_VERSION, $a['version'], '<'))
-#     Messages::Success(Translation::get('AutoUpdate.LatestAppRelease', $a['version'], $a['comment'], $a['url']), TRUE);
-
     if (!$this->UpdateCount) return;
 
     Messages::Success(Translation::get('AutoUpdate.FilesUpdatable', $this->UpdateCount), TRUE);

@@ -201,10 +201,13 @@
 
 <h4>For help about the following host settings, please refer to <a class="sourceforge" href="http://esniper.sourceforge.net/">esniper project</a>.</h4>
 
+<h5>ATTENTION: esniper works NOT correctly with non-english pages!</h5>
+
 <div class="cfg {cycle:"CLASS","tr1","tr2"}">
   <label class="td" for="historyHost">History host :</label>
   <div class="input">
     {ft:"data[esniper][historyHost]",esniper.historyHost,"input","id=\"historyHost\""}
+    default: offer.ebay.com
   </div>
 </div>
 
@@ -212,6 +215,7 @@
   <label class="td" for="prebidHost">Prebid host :</label>
   <div class="input">
     {ft:"data[esniper][prebidHost]",esniper.prebidHost,"input","id=\"prebidHost\""}
+    default: offer.ebay.com
   </div>
 </div>
 
@@ -219,6 +223,7 @@
   <label class="td" for="bidHost">Bid host :</label>
   <div class="input">
     {ft:"data[esniper][bidHost]",esniper.bidHost,"input","id=\"bidHost\""}
+    default: offer.ebay.com
   </div>
 </div>
 
@@ -226,6 +231,7 @@
   <label class="td" for="loginHost">Login host :</label>
   <div class="input">
     {ft:"data[esniper][loginHost]",esniper.loginHost,"input","id=\"loginHost\""}
+    default: signin.ebay.com
   </div>
 </div>
 
@@ -233,6 +239,7 @@
   <label class="td" for="myeBayHost">My eBay host :</label>
   <div class="input">
     {ft:"data[esniper][myeBayHost]",esniper.myeBayHost,"input","id=\"myeBayHost\""}
+    default: my.ebay.com
   </div>
 </div>
 

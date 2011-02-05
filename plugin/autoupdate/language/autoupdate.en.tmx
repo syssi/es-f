@@ -30,7 +30,21 @@
       <prop type="x-Format">html</prop>
       <note>%$1s - ...</note>
       <tuv xml:lang="EN">
-        <seg><![CDATA[The newest <tt>|es|f|</tt> version is &nbsp; <tt> %1$s</tt>, you can upgrade!]]></seg>
+        <seg><![CDATA[
+          The newest <tt>|es|f|</tt> version is <tt>%1$s</tt>,
+          you can upgrade!
+        ]]></seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="LatestAppVersion">
+      <prop type="x-Format">html</prop>
+      <note>%$1s - ...</note>
+      <tuv xml:lang="EN">
+        <seg><![CDATA[
+          The newest <tt>|es|f|</tt> version is <tt>%1$s</tt>,
+          you can <a href="?module=logout&amp;returnto=web-install.php">directly upgrade</a>!
+        ]]></seg>
       </tuv>
     </tu>
 

@@ -33,8 +33,12 @@ class esf_Module_Logout extends esf_Module {
     // logout user and restart session
     Core::StartSession(TRUE);
     Messages::Success(Translation::get('Logout.Success'));
-    // redirect to default start page/module
-    $this->redirect(STARTMODULE);
+    if (isset($_GET['returnto'])) {
+      Core::redirect($_GET['returnto']);
+    } else {
+      // redirect to default start page/module
+      $this->redirect(STARTMODULE);
+    }
   }
 
 }

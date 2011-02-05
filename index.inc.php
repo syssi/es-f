@@ -342,7 +342,7 @@ $sModule = Registry::get('esf.Module');
 TplData::add('HtmlHeader.raw', StylesAndScripts('.', Session::getP('Layout')));
 
 if (strtoupper($_SERVER['REQUEST_METHOD']) == 'GET' AND isset($_REQUEST['returnto']))
-  Session::set('returnto', $_REQUEST['returnto']);
+  Session::setP('returnto', $_REQUEST['returnto']);
 
 $sModuleLast = FALSE;
 
@@ -375,11 +375,12 @@ do {
   if (isset($oModule)) $oModule->handle(Registry::get('esf.Action'));
 
   // handle ReturnTo=...
-  $sReturnTo = decodeReturnTo(Session::get('returnto'));
+  $sReturnTo = decodeReturnTo(Session::getP('returnto'));
+
   if (!empty($sReturnTo) AND
       (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST' OR
        strpos($sReturnTo, 'force') !== FALSE )) {
-    ##_dbg($sReturnTo, 'ReturnTo');
+    Session::setP('returnto');
     Core::Redirect($sReturnTo);
   }
 
