@@ -13,8 +13,8 @@ class TMX {
   /**
    * Class constructor
    *
-   * @param $file string TMX (XML) file name
-   * @param $language string ISO language identifier
+   * @param string $file TMX (XML) file name
+   * @param string $language ISO language identifier
    */
   public function __construct( $file, $language ) {
     // reset array
@@ -45,9 +45,9 @@ class TMX {
   /**
    * Sets the start element handler function for the XML parser
    *
-   * @param $parser resource A reference to the XML parser calling the handler
-   * @param $name string Name of the element for which this handler is called
-   * @param $attribs array Array with the element's attributes (if any)
+   * @param resource $parser A reference to the XML parser calling the handler
+   * @param string $name Name of the element for which this handler is called
+   * @param array $attribs Array with the element's attributes (if any)
    */
   private function StartHandler( $parser, $name, $attribs ) {
     switch(strtolower($name)) {
@@ -93,8 +93,8 @@ class TMX {
   /**
    * Sets the end element handler function for the XML parser
    *
-   * @param $parser resource Reference to the XML parser calling the handler.
-   * @param $name string Name of the element for which this handler is called
+   * @param resource $parser Reference to the XML parser calling the handler.
+   * @param string $name Name of the element for which this handler is called
    */
   private function EndHandler( $parser, $name ) {
     switch(strtolower($name)) {
@@ -152,8 +152,8 @@ class TMX {
   /**
    * Sets the character data handler function for the XML parser
    *
-   * @param $parser resource A reference to the XML parser calling the handler
-   * @param $data string Contains the character data as a string
+   * @param resource $parser A reference to the XML parser calling the handler
+   * @param string $data Contains the character data as a string
    */
   private function CDataHandler( $parser, $data ) {
     if ($this->isSeg AND $this->tuid AND $this->xml_lang == $this->Language OR

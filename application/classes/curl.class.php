@@ -1,12 +1,7 @@
 <?php
-/** @defgroup cURL Client URL Library wrapper
-
-*/
-
 /**
  * cURL wrapper
  *
- * @ingroup    cURL
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2010-2011 Knut Kohl
  * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
