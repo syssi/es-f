@@ -26,13 +26,13 @@ class CheckVersion {
    * line 3: comment  (optional, e.g. Feature release)
    * line n: comment...
    *
+   * @throws CheckVersionException
    * @param $cUrl cURL cURL instance
    * @param $URL string URL of version file
    * @param $ttl int Time to live of fetched data in sec.
    *                 -1: expires never during a session
    *                  0: won't cache data at all, reread on each page load!
    *                     Use this ONLY for debugging purposes!
-   * @throws CheckVersionException In case of $Config error
    */
   public function __construct( cURL $cUrl, $URL, $ttl=-1 ) {
     $this->curl = $cUrl;
@@ -85,7 +85,7 @@ class CheckVersion {
    */
   public function Version( $line=1 ) {
     $data = $this->getAll();
-    return isset($data[$line-1]) ? isset($data[$line-1]) : '';
+    return isset($data[$line-1]) ? $data[$line-1] : '';
   }
 
   /**
@@ -96,7 +96,7 @@ class CheckVersion {
    */
   public function Date( $line=2 ) {
     $data = $this->getAll();
-    return isset($data[$line-1]) ? isset($data[$line-1]) : '';
+    return isset($data[$line-1]) ? $data[$line-1] : '';
   }
 
   /**
