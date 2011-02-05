@@ -24,7 +24,7 @@ class Cache_Mock extends Cache {
   }
 
   public function get( $id, $expire=0 ) {
-    return '';
+    return NULL;
   }
 
   public function delete( $id ) {

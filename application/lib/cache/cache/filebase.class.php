@@ -81,7 +81,7 @@ abstract class Cache_FileBase extends Cache {
    */
   protected function ReadFile( $file ) {
     // php.net suggested 'rb' to make it work under Windows
-    if (!$fh = @fopen($file, 'rb')) return;
+    if (!file_exists($file) OR !$fh = @fopen($file, 'rb')) return;
     // Get a shared lock
     @flock($fh, LOCK_SH);
     $data = '';
