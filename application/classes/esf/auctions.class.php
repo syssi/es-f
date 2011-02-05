@@ -280,7 +280,6 @@ abstract class esf_Auctions {
           $auction['image'] = self::fetchAuctionImage($item);
 
         $auction['shipping'] = toNum($parser->getDetail($item, 'SHIPPING'));
-        //  }
 
         Event::Process('AuctionReadedInitial', $auction);
       } else {
@@ -1063,15 +1062,18 @@ abstract class esf_Auctions {
   /**
    * Find a possible parser for an auction
    *
-   * @param array $auction
+   * @param array &$auction
    * @param bool &$invalid Set on invalid auctions
    */
-  private static function getParser( $auction, &$invalid ) {
+  private static function getParser( &$auction, &$invalid ) {
     $invalid = FALSE;
     if (!$parser = Registry::get('ebayParser')) {
       $item = $auction['item'];
-      if (!is_array(Registry::get('ParseOrder')))
-        Registry::set('ParseOrder', explode(',', Registry::get('ParseOrder')));
+      $po = Registry::get('ParseOrder');
+      if (!is_array($po)) {
+        $po = explode(',', Registry::get('ParseOrder'));
+        Registry::set('ParseOrder', $po);
+      }
       foreach (Registry::get('ParseOrder') as $tld) {
         $parser = ebayParser::factory(trim($tld));
         if ($parser->getDetail($item, 'DISPATCH')) {

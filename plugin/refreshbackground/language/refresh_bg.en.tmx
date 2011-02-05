@@ -58,11 +58,11 @@
         <p style="color:red">Auctions of users submited like this,
         will <strong><em>not refreshed</em></strong> automatic:</p>
 
-        <p class="code">... refresh.php -- USER1 [USER2]</p>
+        <p class="code">... refresh.php -- -s USER1 [-s USER2]</p>
 
         <p>To refresh only auctions of a specific user, use this syntax:</p>
 
-        <p class="code">... refresh.php -- -force USER1</p>
+        <p class="code">... refresh.php -- -f USER1 [-f USER2]</p>
 
         <p>The refreshing command must run via sudo as the user which also runs the web server!</p>
         ]]>

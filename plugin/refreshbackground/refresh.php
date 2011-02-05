@@ -33,16 +33,16 @@ ErrorHandler::register('echo');
 
 require_once APPDIR.'/init.php';
 require_once APPDIR.'/functions.php';
+require_once LIBDIR.'/cache/cache.class.php';
 
 session_start();
 
-require_once LIBDIR.'/cache/cache.class.php';
-$oCache = Cache::Factory('Mock');
-Registry::set('Cache', $oCache);
+// Cache mockup
+Core::$Cache = Cache::factory('Mock');
 
 HTMLPage::$Debug = FALSE;
 
-$xml = new XML_Array_Configuration($oCache);
+$xml = new XML_Array_Configuration(Core::$Cache);
 $cfg = $xml->ParseXMLFile(BASEDIR.'/local/config/config.xml');
 if (!$cfg) die($xml->Error);
 
@@ -56,8 +56,6 @@ unset($cfg['esniper']);
 // Set all other into registry
 Registry::set($cfg);
 
-// Cache mockup
-Core::$Cache = Cache::factory('Mock');
 Exec::InitInstance(ESF_OS, Core::$Cache, Registry::get('bin_sh'));
 
 esf_Extensions::Init();
@@ -104,12 +102,8 @@ Core::ReadConfigs(esf_Extensions::MODULE);
 Core::ReadConfigs(BASEDIR.'/local/*/*');
 Core::IncludeSpecial(esf_Extensions::PLUGIN, 'plugin.class');
 
-/**#@+
- * @ignore
- */
 define('LINE1', str_repeat('-',78) . "\n");
 define('LINE2', str_repeat('*',78) . "\n");
-/**#@-*/
 
 foreach ($users as $user) {
 

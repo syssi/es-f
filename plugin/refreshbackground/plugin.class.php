@@ -70,11 +70,11 @@ class esf_Plugin_RefreshBackground extends esf_Plugin {
     $Exec->ExecuteCmd($cmd, $res);
     if ($res) {
       Messages::Error('Messages from background refresh');
-      Messages::Error($Exec->LastCmd);
       Messages::Error(implode('<br>', $res), TRUE);
     }
 
     Messages::Info(Translation::get('Refresh_Bg.Refreshed'));
+    Yryie::Debug($Exec->LastCmd);
   }
 }
 

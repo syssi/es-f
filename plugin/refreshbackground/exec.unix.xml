@@ -17,7 +17,7 @@
     -->
     <cmd name="Refresh">
     <![CDATA[
-      %1$s -f %2$s/refresh.php -- -tmp %3$s -force %4$s &
+      %1$s -f %2$s/refresh.php -- -tmp %3$s -f %4$s &
     ]]>
     </cmd>
 
