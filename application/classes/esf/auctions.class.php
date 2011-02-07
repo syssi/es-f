@@ -526,7 +526,7 @@ abstract class esf_Auctions {
     $groupname = self::getGroupName($group);
 
     File::append($LogFile, sprintf(
-      'es-f:$ cd "%s"; %s "%s"'."\n\n",
+      'es-f:$ cd "%s"; %s "%s"' . "\n\n",
       esf_User::UserDir(), Registry::get('cfg_esniper'), self::AuctionFile($group, FALSE)
     ));
 
@@ -575,20 +575,7 @@ abstract class esf_Auctions {
       }
     }
 
-/**
- * @todo Clearify relevance for Module.Auction.HoldAuctionLog
- */
-/*
-    if (Registry::get('Module.Auction.HoldAuctionLog')) {
-      $l = "\n" . str_repeat('-', 78) . "\n";
-      File::append($LogFile, $l. date(Registry::get('Format.DateTime')) . $l . "\n");
-    } else {
-      File::delete($LogFile);
-    }
     File::append($LogFile, $skip);
-*/
-
-    File::write($LogFile, $skip);
     File::append($LogFile);  // a empty line ;-)
 
     $pid = 0;
@@ -646,7 +633,7 @@ abstract class esf_Auctions {
       File::append(self::GroupLogFile($group),
         '#----------------------#' . "\n" .
         '### Manually stopped ###' . "\n" .
-        '#----------------------#'
+        '#----------------------#' . "\n\n"
       );
       $talk && Messages::Success(Translation::get('Auction.GroupStopped', $group));
     }
