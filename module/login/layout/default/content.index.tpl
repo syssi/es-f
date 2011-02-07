@@ -53,7 +53,7 @@
   </td></tr>
 
   <!-- IF CONST.MODULE.COOKIE > "0" -->
-  <tr><td class="value">
+  <tr><td class="cookie">
     {fcb:"cookie",,,,"style=\"width:0\""}
     <label for="cookie">[[Login.Cookie]]</label> {help:"LoginHelp.Cookie"}
     <p class="alert">[[Login.CookieHint]]</p>

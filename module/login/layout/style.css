@@ -3,8 +3,9 @@
  *
  */
 
-body#login {
+#login, td, th, label, input, select, p {
   background: white;
+  font-size: 12px;
 }
 
 /* for IE surrounding div */
@@ -20,12 +21,13 @@ table#login {
 }
 
 table#login td {
-  padding: 7px 10px;
+  padding: 5px 10px;
 }
 
 table#login input,
 table#login select {
   width: 100%;
+  padding: 0 !important;
 }
 
 table#login #button {
@@ -39,6 +41,7 @@ table#login td.menu {
   background-color: #4D4D4D;
   color: white;
 	text-align: left;
+	font-size: bigger;
   font-weight: bold;
 }
 
@@ -53,8 +56,12 @@ table#login td.error {
 
 table#login td.value {
 	text-align: left;
-  background-color: #FFFFFF;
   border-top: 1px solid #4D4D4D;
+}
+
+table#login td.cookie {
+	text-align: left;
+  padding: 0 10px;
 }
 
 #copyright {
