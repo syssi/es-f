@@ -21,7 +21,7 @@ table#login {
 }
 
 table#login td {
-  padding: 5px 10px;
+  padding: 7px 10px;
 }
 
 table#login input,
@@ -33,7 +33,7 @@ table#login select {
 table#login #button {
   width: 100%;
   padding: 2px;
-  background-color: white;
+  background-color: #EFEFEF;
   border: 1px outset black;
 }
 
@@ -56,7 +56,7 @@ table#login td.error {
 
 table#login td.value {
 	text-align: left;
-  border-top: 1px solid #4D4D4D;
+  border-top: 1px solid #A0A0A0;
 }
 
 table#login td.cookie {

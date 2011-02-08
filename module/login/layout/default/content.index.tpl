@@ -20,7 +20,7 @@
 <div id="content">
 
   <form id="loginform" name="Login" action="{FORMACTION}" method="post"
-        accept-charset="ISO-8859-1" onsubmit="$('button').disable().value='...'">
+        accept-charset="ISO-8859-1" onsubmit="$('button').disable().value='• • •'">
   {fh:"module","login"}
 
   <table id="login">
@@ -53,7 +53,7 @@
   </td></tr>
 
   <!-- IF CONST.MODULE.COOKIE > "0" -->
-  <tr><td class="cookie">
+  <tr><td class="value cookie">
     {fcb:"cookie",,,,"style=\"width:0\""}
     <label for="cookie">[[Login.Cookie]]</label> {help:"LoginHelp.Cookie"}
     <p class="alert">[[Login.CookieHint]]</p>
