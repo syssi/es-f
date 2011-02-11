@@ -1,11 +1,13 @@
 {__LASTUPDATE,ITEM > GUID}
 <item>
   <title>
+    <![CDATA[
     {NAME}: {currency:BID,,CURRENCY}
     <!-- IF ENDTS -->
       ({BIDS}) - {if:REMAIN,">","0",REMAIN,[[RSS.Ended]]}
       <!-- IF BIDS --> - {RAW.BIDDER}<!-- ENDIF -->
     <!-- ENDIF -->
+    ]]>
   </title>
   <guid>{GUID|hash}</guid>
   <description>

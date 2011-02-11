@@ -22,11 +22,12 @@ class esf_Module_RSS extends esf_Module {
     parent::__construct();
 
     $feedpath = dirname(__FILE__).'/feed';
+    $xml = '';
 
-    $tpldata['XMLHEADER'] = '<?xml version="1.0" encoding="utf-8"?'.'>'."\n";
-    $tpldata['TITLE'] = ESF_TITLE;
-    $tpldata['LASTBUILD'] = time();
-    $tpldata['BASEHTML'] = BASEHTML;
+    $TplData['XMLHEADER'] = '<?xml version="1.0" encoding="utf-8"?'.'>'."\n";
+    $TplData['TITLE'] = ESF_TITLE;
+    $TplData['LASTBUILD'] = time();
+    $TplData['BASEHTML'] = BASEHTML;
 
     // Get template instance
     $Tpl = esf_Template::getInstance();
@@ -37,15 +38,15 @@ class esf_Module_RSS extends esf_Module {
     $Tpl->Adapter->TemplateExt = '';
 
     if (!isset($_GET[APPID]) OR !$user = $_GET[APPID] OR !$user = MD5Encryptor::decrypt($user)) {
-      $feed = $Tpl->Render($feedpath.'/error.xml', FALSE, '', '');
+      $xml = $Tpl->Render($feedpath.'/error.xml', FALSE, '', '');
     } else {
       // define user data
       esf_User::InitUser($user);
 
-    //  $tpldata['FEEDURL'] = BASEHTML.'index.php?module=rss&'.APPID.'='.urlencode($_GET[APPID]);
-      $tpldata['LASTUPDATE'] = Event::ProcessReturn('getLastUpdate');
-      $tpldata['USER'] = $user;
-      $tpldata['ITEMS'] = array();
+    //  $TplData['FEEDURL'] = BASEHTML.'index.php?module=rss&'.APPID.'='.urlencode($_GET[APPID]);
+      $TplData['LASTUPDATE'] = Event::ProcessReturn('getLastUpdate');
+      $TplData['USER'] = $user;
+      $TplData['ITEMS'] = array();
 
       // force load of auction files
       Registry::set(esf_Extensions::PLUGIN.'.FileSystem.UseSession', FALSE);
@@ -54,63 +55,71 @@ class esf_Module_RSS extends esf_Module {
       // sort without category, begining from group...
       uasort(esf_Auctions::$Auctions, array('esf_Auctions', 'SortAuctions_2_Group'));
 
+      // show ended auctions?
+      $ended = (!isset($this->Request['ended']) OR $this->Request['ended']);
+
       foreach (esf_Auctions::$Auctions as $item => $auction) {
+
+        if ($auction['ended'] AND !$ended) continue;
 
         // Event::Process('DisplayAuction', $auction);
 
-        $_tpldata = array();
+        $tData = array();
 
         $skip = array('version', 'image', '_extra', '_display');
         foreach ($auction as $var => $aval) {
           if (!in_array($var, $skip)) {
             $var = strtoupper($var);
-            $_tpldata['RAW'][$var] = $_tpldata[$var] = $aval;
+            $tData['RAW'][$var] = $tData[$var] = $aval;
           }
         }
 
         // overwrite org. values by display variants (e.g. from plugins)
         if (isset($auction['_display'])) {
           foreach ($auction['_display'] as $var => $aval) {
-            $_tpldata[strtoupper($var)] = $aval;
+            $tData[strtoupper($var)] = $aval;
           }
         }
 
         // in inculed template we can't access __BASEHTML... (yet)
-        $_tpldata['BASEHTML'] = BASEHTML;
+        $tData['BASEHTML'] = BASEHTML;
 
         $imgurl = sprintf('%s/%s.%s', esf_User::UserDir(), $auction['item'], $auction['image']);
         // try to shorten the image url
         $imgurl = RelativePath($imgurl);
-        $_tpldata['IMGURL'] = urlencode(trim(base64_encode($imgurl), '='));
+        $tData['IMGURL'] = urlencode(trim(base64_encode($imgurl), '='));
 
-        $_tpldata['END'] = strftime(Registry::get('Format.DateTimeS'), $auction['endts']);
-        $_tpldata['ITEMURL'] = htmlspecialchars(sprintf(Registry::get('ebay.ShowUrl'), $item));
-        $_tpldata['REMAIN_TS'] = $auction['endts'] - $_SERVER['REQUEST_TIME'];
-        $_tpldata['REMAIN'] = esf_Auctions::Timef($_tpldata['REMAIN_TS']);
+        $tData['END'] = strftime(Registry::get('Format.DateTimeS'), $auction['endts']);
+        $tData['ITEMURL'] = htmlspecialchars(sprintf(Registry::get('ebay.ShowUrl'), $item));
+        $tData['REMAIN_TS'] = $auction['endts'] - $_SERVER['REQUEST_TIME'];
+        $tData['REMAIN'] = esf_Auctions::Timef($tData['REMAIN_TS']);
 
-        $tpldata['ITEMS'][] = $_tpldata;
+        $TplData['ITEMS'][] = $tData;
       }
 
-      $feed = isset($this->Request['feed']) ? $this->Request['feed'] : $this->Feed;
+      $feed = $this->Request('feed') ? $this->Request['feed'] : $this->Feed;
 
       // check for valid feed id
       if (!is_dir($feedpath.'/'.$feed)) $feed = 'default';
 
-      // load feed specific code
-      if (file_exists($feedpath.$feed.'.php')) include $feedpath.'/'.$feed.'.php';
+      include $feedpath.'/compress.php';
 
-      $feedpath .= '/'.$feed;
-      $feed = $Tpl->Render('rss.xml', TRUE, dirname($feedpath), $tpldata);
+      // load feed specific code
+      if (file_exists($feedpath.'/'.$feed.'.php')) include $feedpath.'/'.$feed.'.php';
+
+      Yuelo::set('Layout', $feed);
+      $xml = $Tpl->Render('rss.xml', TRUE, $feedpath, $TplData);
     }
+    Event::Process('OutputFilter', $xml);
 
     if (!isset($_GET['pretty'])) {
       Header('Content-type: application/xhtml+xml');
-      Header('Content-Length: '.strlen($feed));
+      Header('Content-Length: '.strlen($xml));
     } else {
-      $feed = '<pre>' . htmlspecialchars($feed) . '</pre>';
+      $xml = '<pre>' . htmlspecialchars($xml) . '</pre>';
     }
 
-    die($feed);
+    die($xml);
   }
 
   /**

@@ -1,6 +1,6 @@
 <?php
 /**
- * Set some layout specific data
+ * Compress RSS before delivery
  *
  * @ingroup    Plugin
  * @ingroup    Module-RSS
@@ -10,7 +10,7 @@
  * @version    1.0.0
  * @version    $Id$
  */
-class esf_Plugin_ModuleRSS_Feed_DBoxTickerShort extends esf_Plugin {
+class esf_Plugin_ModuleRSS_Compress extends esf_Plugin {
 
   /**
    *
@@ -23,10 +23,10 @@ class esf_Plugin_ModuleRSS_Feed_DBoxTickerShort extends esf_Plugin {
    *
    */
   function OutputFilter( &$content ) {
-    Header('Content-Type: text/html; charset=ISO8859-1');
-    $content = Core::fromUTF8($content);
+    $content = preg_replace('~ +~', ' ', $content);
+    $content = preg_replace('~> +<~', '><', $content);
   }
 
 }
 
-Event::attach(new esf_Plugin_ModuleRSS_Feed_DBoxTickerShort);
+Event::attach(new esf_Plugin_ModuleRSS_Compress, 99);

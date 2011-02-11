@@ -15,6 +15,13 @@ class esf_Plugin_ModuleRSS_Feed_DBoxTicker extends esf_Plugin {
   /**
    *
    */
+  function handles() {
+    return array('OutputFilter');
+  }
+
+  /**
+   *
+   */
   function OutputFilter( &$content ) {
     Header('Content-Type: text/html; charset=ISO8859-1');
     $content = Core::fromUTF8($content);
