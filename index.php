@@ -1,5 +1,6 @@
 <?php
-/** @mainpage
+/**
+@mainpage
 
 @image html logo.gif
 
