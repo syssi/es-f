@@ -26,12 +26,12 @@ class esf_Module_Help extends esf_Module {
     if (isset($this->Request['ext'])) {
       $ext = @explode('-', @$this->Request['ext']);
       $this->Scope = @$ext[0];
-      $this->Name  = strtolower(@$ext[1]);
+      $this->Extension = strtolower(@$ext[1]);
     } else {
       $this->Scope = sprintf('{%s,%s}', esf_Extensions::MODULE, esf_Extensions::PLUGIN);
-      $this->Name  = '*';
+      $this->Extension  = '*';
     }
-    $path = $this->Scope . '/' . $this->Name;
+    $path = $this->Scope . '/' . $this->Extension;
 
     if (Registry::get('EnglishAsDefault'))
       foreach (glob($path.'/language/en.php') as $file)
@@ -71,28 +71,30 @@ class esf_Module_Help extends esf_Module {
    *
    */
   public function ShowAction() {
-    TplData::set('SubTitle2', Translation::getNVL($this->Name.'.TITLE', ucwords($this->Name)));
-    // >> Debug
+    TplData::set('SubTitle2', Translation::getNVL($this->Extension.'.TITLE', ucwords($this->Extension)));
+    /* ///
     if (file_exists(BASEDIR.'/DEVELOP/fckeditor/fckeditor.js')) {
       is_dir($this->Dir) || @mkdir($this->Dir);
       if (is_writable($this->Dir) OR is_writable($this->File)) {
-        TplData::set('EditUrl', Core::URL(array('action'=>'edit', 'params'=>array('ext'=>$this->Scope.'-'.$this->Name))));
+        TplData::set('EditUrl', Core::URL(array('action'=>'edit', 'params'=>array('ext'=>$this->Scope.'-'.$this->Extension))));
         TplData::set('HelpFile', $this->File);
       } else {
         Messages::Error('['.$this->File.'] is not writable');
       }
     }
-    // << Debug
+    /// */
     if (!file_exists($this->File)) $this->File = $this->Dir.'/en.htm';
     TplData::set('HELPTEXT', @file_get_contents($this->File));
- 
+    $file = $this->Scope.'/'.$this->Extension.'/CHANGELOG';
+    TplData::set('CHANGELOG', Core::ChangeLog2TplData($file));
+
     TplData::set('SCOPE', ucwords($this->Scope));
     TplData::set('EXTENSION', TplData::get('SubTitle2'));
-    TplData::set('CATEGORY', Registry::get($this->Scope.'.'.$this->Name.'.Category'));
-    TplData::set('DESCRIPTION', Registry::get($this->Scope.'.'.$this->Name.'.Name'));
-    TplData::set('AUTHOR', Core::Email(Registry::get($this->Scope.'.'.$this->Name.'.Email'),
-                                       Registry::get($this->Scope.'.'.$this->Name.'.Author')));
-    TplData::set('VERSION', Registry::get($this->Scope.'.'.$this->Name.'.Version', 0));
+    TplData::set('CATEGORY', Registry::get($this->Scope.'.'.$this->Extension.'.Category'));
+    TplData::set('DESCRIPTION', Registry::get($this->Scope.'.'.$this->Extension.'.Name'));
+    TplData::set('AUTHOR', Core::Email(Registry::get($this->Scope.'.'.$this->Extension.'.Email'),
+                                       Registry::get($this->Scope.'.'.$this->Extension.'.Author')));
+    TplData::set('VERSION', Registry::get($this->Scope.'.'.$this->Extension.'.Version', 0));
   }
 
   /**
@@ -108,14 +110,14 @@ class esf_Module_Help extends esf_Module {
         Messages::Error('Saving '.$this->File);
       }
       $this->Scope = $this->Request('scope');
-      $this->Name = $this->Request('name');
+      $this->Extension = $this->Request('name');
       $this->forward('show');
     } else {
-      TplData::set('SubTitle2', Translation::getNVL($this->Name.'.TITLE', ucwords($this->Name)));
+      TplData::set('SubTitle2', Translation::getNVL($this->Extension.'.TITLE', ucwords($this->Extension)));
       TplData::add('HtmlHeader.JS', 'DEVELOP/fckeditor/fckeditor.js');
 
       TplData::set('Scope', $this->Scope);
-      TplData::set('Name', $this->Name);
+      TplData::set('Name', $this->Extension);
 
       TplData::set('EditLanguage', Registry::get('Language'));
 

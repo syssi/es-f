@@ -14,3 +14,9 @@ table.list td {
 div#HelpTopic {
 	padding: 15px 20px;
 }
+
+.tabberlive .tabbertab {
+	border-left: dotted gray 1px;
+	border-right: dotted gray 1px;
+	border-bottom: dotted gray 1px;
+}

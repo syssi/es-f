@@ -10,7 +10,8 @@ body {
   background: url(images/money.gif);
 }
 
-p.code {
+p.code,
+div.code {
 	background-color: #F8F8F8;
 }
 

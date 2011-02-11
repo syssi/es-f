@@ -254,6 +254,51 @@ abstract class Core {
   }
 
   /**
+   * Transform extension CHANGELOG file to HTML code
+   *
+   * @param string $file If not exists, return empty string
+   * @return string
+   */
+  public static function ChangeLog2TplData( $file ) {
+    if (!file_exists($file)) return '';
+
+    $ChangeLog = $changes = '';
+    $ul = FALSE;
+
+    foreach ((array)file($file) as $line) {
+      $line = trim($line);
+      if (empty($line)) continue;
+
+      switch (TRUE) {
+        case preg_match('~^\s*Version\s+([\d.]+)\s*$~i', $line, $args):
+          $ChangeLog[$args[1]]['VERSION'] = $line;
+          // get pointer to actual changes entry
+          $changes =& $ChangeLog[$args[1]]['CHANGES'];
+          $ul = FALSE;
+          break;
+        case preg_match('~^--+$~', $line, $args):
+          // do nothing
+          break;
+        case preg_match('~^-(.*?)$~', $line, $args):
+          if (!$ul) {
+            $changes .= '<ul>';
+            $ul = TRUE;
+          }
+          $changes .= '<li>'.trim($args[1]).'</li>';
+          break;
+        default:
+          if ($ul) {
+            $changes .= '</ul>'."\n";
+            $ul = FALSE;
+          }
+          $changes .= '<strong>'.$line.'</strong><br>'."\n";
+          break;
+      }
+    }
+    return $ChangeLog;
+  }
+
+  /**
    * Include files according to scope and pattern
    *
    * @param string|array $scopes Module,Plugin

@@ -24,4 +24,17 @@
 
 <address>{html:AUTHOR}</address>
 
+<!-- IF CHANGELOG -->
+<h3>Changelog</h3>
+
+<div class="tabber">
+  <!-- BEGIN CHANGELOG -->
+  <div class="tabbertab">
+    <h4 class="info">{VERSION}</h4>
+    {CHANGES}
+  </div>
+  <!-- END CHANGELOG -->
+</div>
+<!-- ENDIF -->
+
 </div>

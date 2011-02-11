@@ -93,43 +93,8 @@ class esf_Module_Backend extends esf_Module {
     $tpldata['AUTHOR']       = Core::Email(Registry::get($SE.'.Email'),
                                            Registry::get($SE.'.Author'));
 
-    $tpldata['CHANGELOG'] = '';
     $file = $this->Scope.'/'.$this->Extension.'/CHANGELOG';
-    if (file_exists($file)) {
-
-      $changes = '';
-      $ul = FALSE;
-
-      foreach ((array)file($file) as $line) {
-        $line = trim($line);
-        if (empty($line)) continue;
-        switch (TRUE) {
-          case preg_match('~^\s*Version\s+([\d.]+)\s*$~i', $line, $args):
-            $tpldata['CHANGELOG'][$args[1]]['VERSION'] = $line;
-            // get pointer to actual changes entry
-            $changes =& $tpldata['CHANGELOG'][$args[1]]['CHANGES'];
-            $ul = FALSE;
-            break;
-          case preg_match('~^--+$~', $line, $args):
-            // do nothing
-            break;
-          case preg_match('~^-(.*?)$~', $line, $args):
-            if (!$ul) {
-              $changes .= '<ul>';
-              $ul = TRUE;
-            }
-            $changes .= '<li>'.trim($args[1]).'</li>';
-            break;
-          default:
-            if ($ul) {
-              $changes .= '</ul>'."\n";
-              $ul = FALSE;
-            }
-            $changes .= '<strong>'.$line.'</strong><br>'."\n";
-            break;
-        }
-      }
-    }
+    $tpldata['CHANGELOG'] = Core::ChangeLog2TplData($file);
 
     $urlparams = array('ext' => $this->Scope.'-'.$this->Extension);
     $tpldata['HELPURL'] = Core::URL(array('module'=>'help', 'action'=>'show', 'params'=>$urlparams));

@@ -51,7 +51,7 @@ abstract class Event implements EventI {
     /* ///
     foreach (self::$HandlerMethods[$position] as $key=>$value)
       if (!method_exists($handler, $key))
-        Message::Error('Missing: '.get_class($handler).'->'.$key.'()');
+        Messages::Error('Missing: '.get_class($handler).'->'.$key.'()');
     Yryie::Info('Attached event handlers: '.count(self::$EventHandlers));
     Yryie::StopTimer(__METHOD__);
     /// */

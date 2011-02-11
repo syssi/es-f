@@ -14,7 +14,8 @@ input {
   color: white;
 }
 
-p.code {
+p.code,
+div.code {
   background-color: #080808;
 }
 
