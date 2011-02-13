@@ -452,13 +452,6 @@ TplData::set('FormAction', Core::URL(array('module'=>$sModule)));
 TplData::set('NoJS', Registry::get('NoJS'));
 TplData::set('GetCategoryFromGroup', FROMGROUP);
 
-if (_DEBUG) {
-  TplData::add('HtmlHeader.CSS', '/application/lib/Yryie/style.css');
-  TplData::add('HtmlHeader.JS',  '/application/lib/Yryie/script.js');
-}
-
-$bc = Translation::getNVL($sModule.'.TitleIndex', TplData::get('Title'));
-
 // ----------------------------------------------------------------------------
 // post process / output
 // ----------------------------------------------------------------------------
