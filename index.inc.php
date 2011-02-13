@@ -49,7 +49,7 @@ unset($sDebugFile);
 Loader::Load(LIBDIR.'/cache/cache.class.php');
 
 $aCacheOptions = array('cachedir'=>TEMPDIR, 'token'=>'es-f');
-$oXML = new XML_Array_Configuration(Cache::factory('Files', $aCacheOptions));
+$oXML = new XML_Array_Configuration(Cache::create($aCacheOptions, 'Files'));
 $aConfiguration = $oXML->ParseXMLFile(LOCALDIR.'/config/config.xml');
 if (!$aConfiguration) die($oXML->Error);
 
@@ -67,29 +67,26 @@ unset($oXML, $aConfiguration, $aUser, $key, $value);
 
 Registry::set('cfg_esniper', Registry::get('bin_esniper').' -c .c');
 
-if (Registry::get('CfgVersion') < ESF_CONFIG_VERSION) {
-  $oCache->flush();
-  Header('Location: setup/index.php?msg='
-        .urlencode('Need reconfiguration because of configuration changes!'));
-}
-if (count(esf_User::getAll()) == 0) {
-  $oCache->flush();
-  Header('Location: setup/index.php?msg='
-        .urlencode('At least one user account have to be defined!'));
-}
-
-/// Yryie::Info('Used cache: '.Registry::get('CacheClass'));
 Loader::Load(LIBDIR.'/cache/cache/packer/gz.class.php');
 $aCacheOptions['packer'] = new Cache_Packer_GZ;
-$oCache = Cache::factory(Registry::get('CacheClass'), $aCacheOptions);
-if (Registry::get('ClearCache')) $oCache->flush();
+Core::$Cache = Cache::create($aCacheOptions, Registry::get('CacheClass'));
+if (Registry::get('ClearCache')) Core::$Cache->flush();
 unset($aCacheOptions);
+/// Yryie::Debug(Core::$Cache->info());
 
-Core::$Cache = $oCache;
+if (Registry::get('CfgVersion') < ESF_CONFIG_VERSION) {
+  Core::$Cache->flush();
+  Core::Redirect('setup/index.php?msg='
+                .urlencode('Need reconfiguration because of configuration changes!'));
+} elseif (count(esf_User::getAll()) == 0) {
+  Core::$Cache->flush();
+  Core::Redirect('setup/index.php?msg='
+                .urlencode('At least one user account have to be defined!'));
+}
 
 esf_Extensions::Init();
 
-Exec::InitInstance(ESF_OS, $oCache, Registry::get('bin_sh'));
+Exec::InitInstance(ESF_OS, Core::$Cache, Registry::get('bin_sh'));
 
 checkDir(TEMPDIR);
 
@@ -241,7 +238,7 @@ $sLanguage = Session::get('language');
 if (Registry::get('EnglishAsDefault') AND $sLanguage != 'en') {
   // load as default english texts and config
   foreach (glob(APPDIR.'/language/*en.tmx') as $file)
-    Translation::LoadTMXFile($file, 'en', $oCache);
+    Translation::LoadTMXFile($file, 'en', Core::$Cache);
   // Settings
   Loader::Load(APPDIR.'/language/en.php');
 }
@@ -249,7 +246,7 @@ if (Registry::get('EnglishAsDefault') AND $sLanguage != 'en') {
 // include translation
 if (file_exists(APPDIR.'/language/core.'.$sLanguage.'.tmx')) {
   foreach (glob(APPDIR.'/language/*'.$sLanguage.'.tmx') as $file)
-    Translation::LoadTMXFile($file, $sLanguage, $oCache);
+    Translation::LoadTMXFile($file, $sLanguage, Core::$Cache);
   // Settings
   Loader::Load(APPDIR.'/language/'.$sLanguage.'.php');
 } else {
@@ -303,12 +300,12 @@ foreach (esf_Extensions::$Types as $Scope) {
       if (Registry::get('EnglishAsDefault') AND $sLanguage != 'en') {
         // include as default all english texts
         foreach (glob($path.'language/*en.tmx') as $file) {
-          Translation::LoadTMXFile($file, 'en', $oCache);
+          Translation::LoadTMXFile($file, 'en', Core::$Cache);
         }
       }
       // include only for enabled modules and plugins
       foreach (glob($path.'language/*'.$sLanguage.'.tmx') as $file) {
-        Translation::LoadTMXFile($file, $sLanguage, $oCache);
+        Translation::LoadTMXFile($file, $sLanguage, Core::$Cache);
       }
     }
   }
@@ -427,7 +424,7 @@ TplData::setConstant('YUELO_VERSION', 'Yuelo - Template engine V. '.Yuelo::VERSI
 TplData::setConstant('PHP.VERSION', PHP_VERSION);
 
 // Store server into cache
-while ($oCache->save('Server', $server)) {
+while (Core::$Cache->save('Server', $server)) {
   reset($GLOBALS['Servers']);
   while ($s = current($GLOBALS['Servers']) AND empty($server)) {
     if (stristr($_SERVER['SERVER_SOFTWARE'], $s[0])) {
@@ -440,7 +437,7 @@ while ($oCache->save('Server', $server)) {
     preg_match('~^[\w\s]+~', $_SERVER['SERVER_SOFTWARE'], $args);
     $server = array('NAME' => strtoupper(trim($args[0])), 'URL' => NULL);
   }
-  $oCache->set('Server', $server);
+  Core::$Cache->set('Server', $server);
 }
 TplData::setConstant('SERVER', $server);
 unset($server, $s);

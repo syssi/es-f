@@ -21,14 +21,14 @@ class Cache_APC extends Cache {
    * @name Implemented abstract functions
    * @{
    */
-  public static function available() {
+  public function isAvailable() {
     return extension_loaded('apc');
   }
 
   public function set( $id, $data, $ttl=0 ) {
     // optimized for probability Set -> Delete -> Clear
     if ($data !== NULL) {
-      return apc_store($this->id($id), $this->serialize(array($this->ts, $ttl, $data)));
+      return apc_store($this->id($id), $this->serialize(array($this->ts, $ttl, $data)), 0);
     } elseif ($id !== NULL) { // AND $data === NULL
       return $this->delete($id);
     } else { // $id === NULL AND $data === NULL
@@ -69,22 +69,8 @@ class Cache_APC extends Cache {
   } // function dec()
   /** @} */
 
-  /**
-   *
-   * @return array
-   */
   public function info() {
-    return apc_sma_info();
+    return array_merge(parent::info(), apc_sma_info());
   } // function info()
-
-  //--------------------------------------------------------------------------
-  // PROTECTED
-  //--------------------------------------------------------------------------
-
-  protected function __construct( $settings=array() ) {
-    if (!self::available())
-      throw new CacheException(__CLASS__.': Extension APC not loaded.', 9);
-    parent::__construct($settings);
-  }
 
 }

@@ -22,8 +22,12 @@ class Cache_EAccelerator extends Cache {
    * @name Implemented abstract functions
    * @{
    */
-  public static function available() {
-    return (extension_loaded('eaccelerator') AND function_exists('eaccelerator_put'));
+  public function isAvailable() {
+    if (extension_loaded('eaccelerator') AND
+        function_exists('eaccelerator_put')) {
+      eaccelerator_caching(TRUE);
+      return TRUE;
+    }
   }
 
   public function set( $id, $data, $ttl=0 ) {
@@ -68,16 +72,5 @@ class Cache_EAccelerator extends Cache {
 		return (eaccelerator_clean() AND eaccelerator_clear());
   }
   /** @} */
-
-  // -------------------------------------------------------------------------
-  // PROTECTED
-  // -------------------------------------------------------------------------
-
-  protected function __construct( $settings=array() ) {
-    if (!self::available())
-      throw new CacheException(__CLASS__.': Extension EAccelerator not loaded.', 9);
-    parent::__construct($settings);
-    eaccelerator_caching(TRUE);
-  }
 
 }

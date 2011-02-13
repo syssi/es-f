@@ -21,6 +21,13 @@ class Cache_Session extends Cache {
    * @name Implemented abstract functions
    * @{
    */
+  public function isAvailable() {
+    if (function_exists('session_start')) {
+      session_start();
+      return TRUE;
+    }
+  }
+
   public function set( $id, $data, $ttl=0 ) {
     // optimized for probability Set -> Delete -> Clear
     if ($data !== NULL) {
@@ -53,19 +60,5 @@ class Cache_Session extends Cache {
     unset($_SESSION[$this->token]);
   } // function flush()
   /** @} */
-
-  // -------------------------------------------------------------------------
-  // PROTECTED
-  // -------------------------------------------------------------------------
-
-  /**
-   * Class constructor
-   *
-   * @param array $settings
-   */
-  protected function __construct( $settings=array() ) {
-    parent::__construct($settings);
-    session_start();
-  } // function __construct()
 
 }

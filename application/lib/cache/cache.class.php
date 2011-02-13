@@ -46,6 +46,15 @@ abstract class Cache {
    */
 
   /**
+   * Cache availability
+   *
+   * Returns TRUE by default, reimplement if required
+   *
+   * @return bool
+   */
+  abstract public function isAvailable();
+
+  /**
    * Store data in cache
    *
    * @param string $id Unique cache Id
@@ -91,69 +100,43 @@ abstract class Cache {
   // -------------------------------------------------------------------------
 
   /**
-   * Cache availability
+   * Some infos about the cache
    *
-   * Returns TRUE by default, reimplement if required
-   *
-   * @return bool
+   * @return array
    */
-  public static function available() {
-    return TRUE;
+  public function info() {
+    return array('class' => get_class($this));
   }
 
   /**
-   * Test avaibility of chaching methods
-   *
-   * @param array $caches
-   *   Caches to test for availability.
-   *   If empty, the follwing caches are tested (in this order):
-   *   - APC
-   *   - EAccelerator
-   *   - XCache
-   *   - MemCache
-   *   - %File (always available and prefered obverse Files)
-   *   - Files (always available)
-   *   - %Session (always available)
-   *   - Mock (always available)
-   * @param bool $all
-   *   Return all available caches?
-   * @return string|array
-   *   - @c !$all - 1st available cache (default)
-   *   - @c $all - An array of all available caches
-   */
-  public static final function test( $caches=array(), $all=FALSE ) {
-    if (empty($caches)) {
-      $caches = array('APC', 'EAccelerator', 'XCache', 'MemCache',
-                      // allways available caching methods
-                      'File', 'Files', 'Session', 'Mock');
-    } else {
-      if (!is_array($caches)) $caches = array($caches);
-    }
-    $available = array();
-    foreach ($caches as $cache) {
-      self::load($cache);
-      $cacheClass = 'Cache_'.$cache;
-      if ($cacheClass::available()) $available[] = $cache;
-    }
-    return $all ? $available : (isset($available[0]) ? $available[0] : FALSE);
-  }
-
-  /**
-   * Factory a cache instance
+   * Create/find a cache instance
    *
    * The following settings are supported:
    * - @c token : Used to build unique cache ids (general)
    * - @c packer : Instance of Cache_PackerI (general)
    *
-   * @param string $class Cache class to create
    * @param array $settings
+   * @param string $class Force cache class to create
    * @return Cache
    */
-  public static final function factory( $class, $settings=array() ) {
-    self::load($class);
-    $class = 'Cache_'.$class;
-    return new $class($settings);
-  }
+  public static final function create( $settings=array(), $class='' ) {
+    $caches = empty($class) ? self::$Caches : array($class);
+    foreach ($caches as $class) {
+      $file = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR
+            . strtolower($class) . '.class.php';
+      $class = 'Cache_'.ucwords(strtolower($class));
+
+      if (!file_exists($file))
+        throw new CacheException(__CLASS__.': Missing file ['.$file.'] for class '.$class, 1);
+
+      require_once $file;
+
+      $cache = new $class($settings);
+      if ($cache instanceof Cache AND $cache->isAvailable()) {
+        return $cache;
+      }
+    }
+  } // function create()
 
   /**
    * Get data from cache, if not yet exists, save to cache
@@ -170,7 +153,7 @@ abstract class Cache {
    *
    * @usage
    * @code
-   * $cache = Cache::factory('...');
+   * $cache = Cache::create('...');
    * while ($cache->save($id, $data[, $ttl])) {
    *   ...
    *   $data = ...;
@@ -248,7 +231,7 @@ abstract class Cache {
    *
    * @usage
    * @code
-   * $cache = Cache::factory('...');
+   * $cache = Cache::create('...');
    * // Set data
    * $cache->Key = '...';
    * // Retrieve data
@@ -270,7 +253,7 @@ abstract class Cache {
    *
    * @usage
    * @code
-   * $cache = Cache::factory('...');
+   * $cache = Cache::create('...');
    * // Set data
    * $cache->Key = '...';
    * // Retrieve data
@@ -289,7 +272,7 @@ abstract class Cache {
    *
    * @usage
    * @code
-   * $cache = Cache::factory('...');
+   * $cache = Cache::create('...');
    * if (!isset($cache->Key)) {
    *   $cache->Key = '...';
    * }
@@ -316,6 +299,25 @@ abstract class Cache {
   // -------------------------------------------------------------------------
   // PROTECTED
   // -------------------------------------------------------------------------
+
+  /**
+   * Available caching methods
+   *
+   * @todo Test 'EAccelerator', 'XCache', 'MemCache'
+   * @var array $Caches
+   */
+  protected static $Caches = array(
+    // Tested methods
+    'APC',
+    # not fully tested yet...
+    # 'EAccelerator', 'XCache', 'MemCache',
+    // Only avail. with a writeable directory
+    'File', 'Files',
+    // Only avail. if compiled in
+    'Session',
+    // Always avail.
+    'Mock'
+  );
 
   /**
    * Unique cache token
@@ -430,7 +432,7 @@ abstract class Cache {
   /**
    * Instance of Cache_PackerI to pack data before storing into cache
    *
-   * Set it during {@link factory() creation} of class by setting parameter
+   * Set it during {@link create() creation} of class by setting parameter
    * 'packer'.
    *
    * @var Cache_PackerI $packer
@@ -454,24 +456,6 @@ abstract class Cache {
    * @var array $stack
    */
   private $stack;
-
-  /**
-   * Load the required cache source code file to factor
-   *
-   * @throws CacheException
-   * @param string $class Class definition to load
-   * @return void
-   */
-  private static final function load( $class ) {
-    $file = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR
-          . strtolower($class) . '.class.php';
-    $class = 'Cache_'.ucwords(strtolower($class));
-
-    if (!file_exists($file))
-      throw new CacheException(__CLASS__.': Missing file ['.$file.'] for class '.$class, 1);
-
-    require_once $file;
-  }
 
   /**
    * Increments / decrements value of the item by value.

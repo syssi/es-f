@@ -31,6 +31,15 @@ class Cache_File extends Cache_FileBase {
    * @name Implemented abstract functions
    * @{
    */
+  public function isAvailable() {
+    if (parent::isAvailable()) {
+      // Load cached data
+      $this->data = $this->ReadFile($this->FileName());
+      if (!is_array($this->data)) $this->data = array();
+      return TRUE;
+    }
+  }
+
   public function set( $id, $data, $ttl=0 ) {
     // optimized for probability Set -> Delete -> Clear
     if ($data !== NULL) {
@@ -77,18 +86,18 @@ class Cache_File extends Cache_FileBase {
   } // function __destruct()
   /** @} */
 
-  // -------------------------------------------------------------------------
-  // PROTECTED
-  // -------------------------------------------------------------------------
-
-  protected function __construct( $settings=array() ) {
-    parent::__construct($settings);
-    // Load cached data
-    $this->data = $this->ReadFile($this->FileName());
-    if (!is_array($this->data)) $this->data = array();
-    // Data not yet modified
-    $this->modified = FALSE;
-  } // function __construct()
+  public function info() {
+    $info = parent::info();
+    $info['filename'] = $this->FileName();
+    $info['count'] = count($this->data);
+    if (function_exists('memory_get_usage')) {
+      $size = memory_get_usage();
+      $a = array_merge($this->data);
+      $info['size'] = memory_get_usage() - $size;
+      unset($a);
+    }
+    return $info;
+  }
 
   // -------------------------------------------------------------------------
   // PRIVATE
@@ -106,6 +115,6 @@ class Cache_File extends Cache_FileBase {
    *
    * @var bool $modified
    */
-  private $modified;
+  private $modified = FALSE;
 
 }

@@ -44,7 +44,7 @@ require_once 'functions.php';
 unregister_GLOBALS();
 
 Loader::Load(APPDIR.'/lib/cache/cache.class.php');
-$oCache = Cache::factory('Mock');
+$oCache = Cache::create(NULL, 'Mock');
 
 TplData::$NameSpaceSeparator = '.';
 
@@ -99,8 +99,6 @@ switch ($step) {
     $cfg = empty($cfg) ? Registry::getAll() : array_merge(Registry::getAll(), $cfg);
 
     foreach ($cfg as $key => $val) TplData::set('cfg.'.$key, $val);
-
-    TplData::set('CACHECLASS', Cache::test(array('File', 'APC'), TRUE));
 
     $parsers = array();
     foreach (glob(APPDIR.'/classes/ebayparser/*.class.php') as $file)

@@ -19,6 +19,10 @@ class Cache_Mock extends Cache {
    * @name Implemented abstract functions
    * @{
    */
+  public function isAvailable() {
+    return TRUE;
+  }
+
   public function set( $id, $data, $ttl=0 ) {
     return TRUE;
   }

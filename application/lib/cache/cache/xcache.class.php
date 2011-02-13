@@ -21,7 +21,7 @@ class Cache_XCache extends Cache {
    * @name Implemented abstract functions
    * @{
    */
-  public static function available() {
+  public function isAvailable() {
     return extension_loaded('xcache');
   }
 
@@ -54,21 +54,5 @@ class Cache_XCache extends Cache {
     return xcache_clear_cache();
   }
   /** @} */
-
-  //--------------------------------------------------------------------------
-  // PROTECTED
-  //--------------------------------------------------------------------------
-
-  /**
-   * Class constructor
-   *
-   * @throws CacheException
-   * @param array $settings
-   */
-  protected function __construct( $settings=array() ) {
-    if (!self::available())
-      throw new CacheException(__CLASS__.': Extension XCache not loaded.', 9);
-    parent::__construct($settings);
-  }
 
 }

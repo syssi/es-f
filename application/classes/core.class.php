@@ -382,7 +382,7 @@ abstract class Core {
     if (in_array($scope, esf_Extensions::$Types))
       $scope .= DIRECTORY_SEPARATOR.'*';
 
-    if (!isset(self::$Cache)) self::$Cache = Cache::factory('Mock');
+    if (!isset(self::$Cache)) self::$Cache = Cache::create(NULL, 'Mock');
     $xml = new XML_Array_Configuration(self::$Cache);
 
     $files = glob(BASEDIR.DIRECTORY_SEPARATOR.$scope.DIRECTORY_SEPARATOR.'config.xml');

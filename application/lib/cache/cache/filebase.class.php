@@ -23,6 +23,20 @@
 abstract class Cache_FileBase extends Cache {
 
   // -------------------------------------------------------------------------
+  // PUBLIC
+  // -------------------------------------------------------------------------
+
+  public function isAvailable() {
+    return is_writable($this->cachedir);
+  }
+
+  public function info() {
+    $info = parent::info();
+    $info['cachedir'] = $this->cachedir;
+    return $info;
+  }
+
+  // -------------------------------------------------------------------------
   // PROTECTED
   // -------------------------------------------------------------------------
 
@@ -57,9 +71,6 @@ abstract class Cache_FileBase extends Cache {
     // 3rd use system temp. directory
     if (empty($this->cachedir) OR !is_writable($this->cachedir))
       $this->cachedir = sys_get_temp_dir();
-    // If still not found or not writeable...
-    if (empty($this->cachedir) OR !is_writable($this->cachedir))
-      throw new CacheException(__CLASS__.': No writeable directory found.', 9);
   }
 
   /**

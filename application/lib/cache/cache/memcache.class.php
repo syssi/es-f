@@ -34,8 +34,8 @@ class Cache_MemCache extends Cache {
    * @name Implemented abstract functions
    * @{
    */
-  public static function available() {
-    return extension_loaded('memcache');
+  public function isAvailable() {
+    return $this->memcache->connect($this->host, $this->port);
   }
 
   public function set( $id, $data, $ttl=0 ) {
@@ -101,25 +101,37 @@ class Cache_MemCache extends Cache {
    * @copydoc Cache::__construct()
    */
   protected function __construct( $settings=array() ) {
-    if (!self::available()) {
+    parent::__construct($settings);
+
+    @list($this->host, $this->port) = explode(':', isset($settings['host']) ? $settings['host'] : self::HOST);
+    if (!isset($this->port)) $this->port = self::PORT;
+
+    if (extension_loaded('memcache')) {
       $this->memcache = new MemCache;
     } else {
       // use gMemCache
       require_once dirname(__FILE__).'/gMemCache.php';
       $this->memcache = new gMemCache;
     }
-    parent::__construct($settings);
-
-    @list($host, $port) = explode(':', isset($settings['host']) ? $settings['host'] : self::HOST);
-    if (!isset($port)) $port = self::PORT;
-
-    if (!$this->memcache->connect($host, $port))
-      throw new CacheException(__CLASS__.'Can\'t connect to MemCache host '.$host.':'.$port, 4);
   }
 
   // -------------------------------------------------------------------------
   // PRIVATE
   // -------------------------------------------------------------------------
+
+  /**
+   * MemCache instance
+   *
+   * @var string $host
+   */
+  private $host;
+
+  /**
+   * MemCache instance
+   *
+   * @var int $port
+   */
+  private $port;
 
   /**
    * MemCache instance

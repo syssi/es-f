@@ -38,7 +38,7 @@ require_once LIBDIR.'/cache/cache.class.php';
 session_start();
 
 // Cache mockup
-Core::$Cache = Cache::factory('Mock');
+Core::$Cache = Cache::create(NULL, 'Mock');
 
 HTMLPage::$Debug = FALSE;
 
