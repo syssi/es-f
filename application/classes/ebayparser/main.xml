@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<patterns>
+
+  <section name="Patterns">
+
+    <!-- Reg. expressions that matches current item price -->
+    <pattern name="bid">
+      <![CDATA[
+      ~<font size="-1" color="#666666">(.+?)</span>~i => 1
+      ~<div .*id="v4-31"[^>]*>(.+?)</~i => 1
+      ]]>
+    </pattern>
+
+    <!-- Reg. expressions that matches current bidder
+         <span id="DetailsHighBidder"><a class="findresulttitle" href="http://myworld.ebay.com/tom77777/">tom77777</a><img src="http://pics.ebaystatic.com/aw/pics/s.gif" border="0" width="4">( <a href="http://feedback.ebay.com/ws/eBayISAPI.dll?ViewFeedback&amp;userid=tom77777&amp;iid=270158358815&amp;ftab=FeedbackAsBuyer">394</a><img alt="Feedback score is 100 to 499" title="Feedback score is 100 to 499" src="http://pics.ebaystatic.com/aw/pics/icon/iconTealStar_25x25.gif" align="absmiddle" border="0" height="25" width="25">)<span> -->
+    <pattern name="Bidder">
+      <![CDATA[
+      ~<span[^>]+?id=["\']DetailsHighBidder["\'][^>]*><a[^>]+?>(.*?)</a>~i => 1
+      ]]>
+    </pattern>
+
+    <!-- Reg. expressions that matches BuyItNow auctions
+         <img src="http://pics.ebaystatic.com/aw/pics/bin_15x54.gif" alt="Buy It Now" align="middle">
+         <img src="http://pics.ebaystatic.com/aw/pics/de/nn.gif" alt="Sofort &amp; Neu: Neue Artikel mit festgelegten Versandkosten und zum Sofort-Kaufen."> -->
+    <pattern name="bin">
+      <![CDATA[
+      ~<img[^>]+src="http://pics\.ebaystatic\.com/.*/(bin_15x54|nn)\.gif"[^>]*>~i => 1
+      ]]>
+    </pattern>
+
+    <!-- Reg. expressions that matches item shipping costs
+         parse user defined prefered ebay home page -->
+    <pattern name="Shipping">
+      <![CDATA[
+      ~<span[^>]+id="fshippingCost"[^>]*>(.+?)</span>~im => 1
+      ~<div[^>]+id=["\']ship_1["\'][^>]*><b>(.+?)</b>~i => 1
+      ~id=["\']ship_1["\'][^>]*><b>(.+?)</b>~i => 1
+      ~"ship_1"[^>]*><b>(.+?)</b>~i => 1
+      ~"ship_1"><b>(.+?)</b>~i => 1
+      ~"ship_1">\s*<b>(.+?)</b>~i => 1
+      ~<td[^>]+class=["\']ViShipSecTdLeftBorder["\'][^>]*>\s*(.+?)\s*</td>~im => 1
+      ]]>
+    </pattern>
+
+    <!-- Reg. expressions that matches the seller name -->
+    <pattern name="Seller">
+      <![CDATA[
+      ~<a[^>]+http://myworld.ebay[^/]*?/(.+?)/~i => 1
+      ]]>
+    </pattern>
+
+    <!-- Reg. expressions that matches item images
+         <img src="http://i14.ebayimg.com/05/i/08/ca/de/83_1.JPG" name="eBayBig" border="0">
+         <img title="" src="http://i16.ebayimg.com/05/i/08/b7/6e/e4_2.JPG" name="ss0Viewport" border="0">
+         <img src="http://www.images.telefonfirma.de/ebay/g_files/trend_c_140_1.jpg" name="SelfHostedImage" onload="hostedImageLoaded(this);" align="middle" border="0" height="150" width="200">
+         <img src="http://i16.ebayimg.com/04/c/04/d6/e1/75_8.JPG" name="stockphoto" alt="Stock photo" title="" border="0"> -->
+    <pattern name="Image">
+      <![CDATA[
+      ~<img[^>]+src="([^>"]+)"[^>]*id="i_vv4-\d+"~i => 1
+      ~<img[^>]+src="([^>"]+)"[^>]*name="(?:eBayBig|ss0Viewport|SelfHostedImage|stockphoto)"[^>]*>~i => 1
+      ]]>
+    </pattern>
+
+  </section>
+
+</patterns>

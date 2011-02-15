@@ -40,6 +40,9 @@ class esf_Plugin_CurrencyDisplay extends esf_Plugin {
    *
    */
   public function DisplayAuction( &$auction ) {
+    // Don't replace default currency!
+    if ($auction['currency'] == Registry::get('Currency')) return;
+
     if (isset($this->Mappings[$auction['currency']]))
       esf_Auctions::setDisplay($auction, 'currency', $this->Mappings[$auction['currency']]);
   }

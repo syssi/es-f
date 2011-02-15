@@ -215,7 +215,7 @@ abstract class esf_Auctions {
     }
 
     if (!$invalid) {
-      $name = $parser->getDetail($item, 'TITLE');
+      $name = $parser->getDetail($item, 'Title');
       // translate all [´`"] to simple '
       $name = str_replace(array('"', chr(96), chr(180)), '\'', $name);
 
@@ -224,7 +224,7 @@ abstract class esf_Auctions {
       } else {
         $auction['name'] = $name;
         
-        $bid = $parser->getDetail($item, 'BID');
+        $bid = $parser->getDetail($item, 'Bid');
         $auction['bid'] = toNum($bid);
 
         $curr = preg_match('~&#\d+;~', $bid, $args)
@@ -232,7 +232,7 @@ abstract class esf_Auctions {
               : trim(preg_replace('~[\d,.]+~', '', $bid));
         $auction['currency'] = !empty($curr) ? $curr : '?';
 
-        $auction['bidder'] = $parser->getDetail($item, 'BIDDER');
+        $auction['bidder'] = $parser->getDetail($item, 'Bidder');
         // find out auction win by parsing esniper log file
         // real names are only visible for logged in users (esniper)
         $user = esf_User::getActual();
@@ -250,7 +250,7 @@ abstract class esf_Auctions {
           }
         }
 
-        $auction['bids']    = $parser->getDetail($item, 'NO_OF_BIDS');
+        $auction['bids']    = $parser->getDetail($item, 'NoOfBids');
         $auction['_ts']     = $_SERVER['REQUEST_TIME'];
         if ($auction['endts'] AND ($auction['endts'] < $auction['_ts'])) $auction['ended']++;
         $auction['invalid'] = FALSE;
@@ -270,16 +270,16 @@ abstract class esf_Auctions {
     } else {
       if ($all) {
 
-        $auction['seller'] = $parser->getDetail($item, 'SELLER');
-        $auction['bin']    = $parser->getDetail($item, 'BIN');
-        $auction['dutch']  = $parser->getDetail($item, 'DUTCH');
-        $auction['endts']  = $parser->getDetail($item, 'END');
+        $auction['seller'] = $parser->getDetail($item, 'Seller');
+        $auction['bin']    = $parser->getDetail($item, 'bin');
+        $auction['dutch']  = $parser->getDetail($item, 'dutch');
+        $auction['endts']  = $parser->getDetail($item, 'End');
 
         if (empty($auction['image']))
           // keep auction image on upgrade, may put manual
           $auction['image'] = self::fetchAuctionImage($item);
 
-        $auction['shipping'] = toNum($parser->getDetail($item, 'SHIPPING'));
+        $auction['shipping'] = toNum($parser->getDetail($item, 'Shipping'));
 
         Event::Process('AuctionReadedInitial', $auction);
       } else {
@@ -308,7 +308,7 @@ abstract class esf_Auctions {
       if (empty($url) AND
           ($parser = Registry::get('ebayParser') OR
            $parser = self::getParser(self::$Auctions[$item], $invalid)))
-        $url = $parser->getDetail($item, 'IMAGE');
+        $url = $parser->getDetail($item, 'Image');
       // no-image image
       if (empty($url))
         $url = Registry::get('Module.Auction.NoImage');
@@ -1063,11 +1063,11 @@ abstract class esf_Auctions {
       }
       foreach (Registry::get('ParseOrder') as $tld) {
         $parser = ebayParser::factory(trim($tld));
-        if ($parser->getDetail($item, 'DISPATCH')) {
+        if ($parser->getDetail($item, 'dispatch')) {
           Registry::set('ebayParser', $parser);
           $auction['parser'] = $tld;
           break;
-        } elseif ($parser->getDetail($item, 'INVALID')) {
+        } elseif ($parser->getDetail($item, 'Invalid')) {
           $parser = FALSE;
           $invalid = TRUE;
           break;

@@ -185,4 +185,15 @@ function _dump() {
     Messages::Info('<pre>'.ob_get_clean().'</pre>', TRUE);
   }
 }
+
+/**
+ * @ignore
+ */
+function __dump() {
+  foreach (func_get_args() as $arg) {
+    echo '<pre>';
+    echo htmlspecialchars(print_r($arg, TRUE));
+    echo '</pre>';
+  }
+}
 // << Debug

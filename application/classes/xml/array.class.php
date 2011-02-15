@@ -51,10 +51,8 @@ abstract class XML_Array extends XML_Object implements XML_ArrayI {
     /// $cached = TRUE;
     /// Yryie::StartTimer($id, $id, 'parse XML file');
     while ($this->Cache->save($XMLURI, $array, -File::MTime($XMLURI))) {
-      /* ///
-      Yryie::Info('Parse: '.$XMLURI);
-      $cached = FALSE;
-      /// */
+      /// Yryie::Info('Parse: '.$XMLURI);
+      /// $cached = FALSE;
       $data = parent::ParseXMLFile($XMLURI);
       $array = is_array($data) ? $this->XML2Array($data[0]->Childs) : '';
     }
