@@ -904,7 +904,7 @@ abstract class esf_Auctions {
 
     $auctions = array();
     foreach (self::$Auctions as $item => $auction)
-      if (version_compare(@$auction['version'], ESF_VERSION, '<') OR
+      if (version_compare(@$auction['version'], ESF_AUCTION_VERSION, '<') OR
           isset($_GET[self::FORCEUPGRADE])) $auctions[] = $item;
 
     if (!count($auctions)) return;

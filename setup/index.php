@@ -123,8 +123,14 @@ switch ($step) {
 
   // ------------
   case 'cfgchk':
+    if ($_POST['data']['cfg']['currency'] == '?')
+      $_POST['data']['cfg']['currency'] = $_POST['data']['cfg']['currency1'];
+    // remove always
+    unset($_POST['data']['cfg']['currency1']);
     savePosted('cfg');
-    $_SESSION['CHECKED']['cfg'] = TRUE;
+    $Error = empty($_POST['data']['cfg']['currency']);
+    if ($Error) Messages::Error('Missing currency definition!');
+    $_SESSION['CHECKED']['cfg'] = !$Error;
     break;
 
   // ------------

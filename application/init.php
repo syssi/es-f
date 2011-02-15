@@ -88,6 +88,7 @@ Registry::set('CacheClass', 'File');
 // Version 9:
 // get language during login from $_SERVER['HTTP_ACCEPT_LANGUAGE']
 // set Layout during login
+Registry::set('Currency', 'EUR');
 
 /**
  * esniper configuration

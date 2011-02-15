@@ -90,7 +90,7 @@ div.cfg {
 	padding: 5px;
 }
 
-div.cfg label.td {
+div.cfg .td {
 	float: left;
 	width: 15em;
 	padding: 4px 0 0 0;

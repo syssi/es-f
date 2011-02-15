@@ -96,8 +96,16 @@ define('ESF_FULL_TITLE', ESF_LONG_TITLE . ', ' . ESF_FULL_VERSION);
  * - search more binaries
  * Version 8:
  * - Auto probe caches
+ * Version 9:
+ * - Remove cache probing
+ * - Make currency global
  */
-define('ESF_CONFIG_VERSION', 8);
+define('ESF_CONFIG_VERSION', 9);
+
+/**
+ * Auction data structure version, start using above ESF_VERSION > 2.5.0
+ */
+define('ESF_AUCTION_VERSION', '2.5.0');
 
 /**
  * Required PHP version

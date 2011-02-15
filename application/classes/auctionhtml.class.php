@@ -85,6 +85,10 @@ abstract class AuctionHTML {
         $html = preg_replace('~\{\w.*?\}~s', '', $html);
         // empty tag delimiters
         $html = preg_replace('~</?(table|tbody|tr|td|div|p|span|font)>~s', '', $html);
+        // replace some special chars
+        $html = str_replace(array('&#163;', '&#165;'),
+                            array('GBP',    'Yen'),
+                            $html);
 
         /* ///
           $l2 = strlen($html);

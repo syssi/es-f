@@ -30,7 +30,7 @@ class esf_Module_Auction extends esf_Module {
       ));
     }
 
-    Yuelo::set('SuppressCurrency', $this->Currency);
+    Yuelo::set('SuppressCurrency', Registry::get('Currency'));
 
     $this->Item     = checkR('item');
     $this->Group    = checkR('group');
@@ -220,7 +220,7 @@ class esf_Module_Auction extends esf_Module {
 
         if (!$this->Request('currency')) $this->Request['currency'] = $auction['currency'];
         $auction['currency'] = $this->Request('currencydef')
-                             ? Registry::get('Module.Auction.Currency')
+                             ? Registry::get('Currency')
                              : $this->Request('currency');
 
         if ($this->Request('categorynew')) $this->Request['category'] = $this->Request('categorynew');

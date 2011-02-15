@@ -56,13 +56,24 @@
 {cycle:"CLASS"}
 
 <div class="cfg {cycle:"CLASS","tr1","tr2"}">
+  <div class="td">Prefered currency :</div>
+  <div class="input">
+    <tt>{frb:"data[cfg][currency]","EUR",cfg.currency}EUR
+        {frb:"data[cfg][currency]","GBP",cfg.currency}£ (GBP)
+        {frb:"data[cfg][currency]","US $",cfg.currency}US $ </tt>
+    {frb:"data[cfg][currency]","?"}{ft:"data[cfg][currency1]",,"input","size=\"5\""}
+    Must be <strong>exactly</strong> as on eBay auction page!
+  </div>
+</div>
+
+<div class="cfg {cycle:"CLASS","tr1","tr2"}">
   <label class="td" for="SUDO">SUDO user :</label>
   <div class="input">
     {ft:"data[cfg][sudo]",cfg.sudo,"input","id=\"SUDO\""}
-    <br />
+    <br>
     Run system calls as separate user than your frontend runs as
-    (mostly the web server user) To learn how to setup such a constellation,
-    please take a look at this
+    (mostly the web server user).
+    <br> To learn how to setup such a constellation, please take a look at this
     <a class="extern" href="http://www.es-f.com/sudo.41.html">HowTo</a>.
   </div>
 </div>
@@ -79,7 +90,10 @@
 <div class="cfg {cycle:"CLASS","tr1","tr2"}">
   <label class="td" for="EBAYTLD">Your prefered eBay homepage :</label>
   <div class="input">
-    <tt>ebay.</tt>{ft:"data[cfg][ebaytld]",cfg.ebaytld,"input","id=\"EBAYTLD\" size=\"5\""}
+    ebay.
+    <select id="EBAYTLD" class="input" name="data[cfg][ebaytld]">
+      {options:"de,com,co.uk",cfg.ebaytld}
+    </select>
     <div class="li">Used for auction detail view link and</div>
     <div class="li">find out the correct shipping costs</div>
   </div>
@@ -93,7 +107,7 @@
     <br>
     Installed parser: <tt>{EBAYPARSERS}</tt>
     <br>
-    <strong style="color:red">It is strongly recommended to place your "home top level domain" first!</strong>
+    <strong style="color:red">It is strongly recommended to place your "prefered top level domain" first!</strong>
   </div>
 </div>
 
@@ -110,17 +124,16 @@
   <label class="td" for="NETMASK">Netmask to protect session hijacking :</label>
   <div class="input">
     {ft:"data[cfg][netmask]",cfg.netmask,"input","id=\"NETMASK\""}
-    <div class="li"><tt style="font-weight:bold">255.255.255.255</tt> :
+    <div class="li"><tt>255.255.255.255</tt> :
     Allow connect only from one address during a session, e.g. in an intranet.</div>
-    <div class="li"><tt style="font-weight:bold">255.255.255.0</tt> :
+    <div class="li"><tt>255.255.255.0</tt> :
     Allow connect from x.x.x.1 ... x.x.x.254, may be required if you connect
     from a client behind a firewall with load balancer with changing
     external addresses.</div>
-    <div class="li"><tt style="font-weight:bold">255.255.0.0</tt> :
+    <div class="li"><tt>255.255.0.0</tt> :
     Allow connect from x.x.1.1 ... x.x.254.254, may be required if you connect
     via a dial-in connection with changing external addresses.</div>
-    <div class="li"><tt style="font-weight:bold">0.0.0.0</tt> :
-    Allow connect from every address.</div>
+    <div class="li"><tt>0.0.0.0</tt> : Allow connect from every address.</div>
   </div>
 </div>
 
