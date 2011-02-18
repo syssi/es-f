@@ -11,6 +11,12 @@
     ]]>
   </url>
 
+  <url name="default">
+    <![CDATA[
+    http://search.ebay.co.uk/%s
+    ]]>
+  </url>
+
   <section name="Patterns">
 
     <!-- Invalid item -->

@@ -11,6 +11,12 @@
     ]]>
   </url>
 
+  <url name="default">
+    <![CDATA[
+    http://search.ebay.com/%s
+    ]]>
+  </url>
+
   <section name="Patterns">
 
     <!-- Invalid item -->
@@ -26,6 +32,7 @@
       ~Dispatches to.*?class="TableRow">~i => 0
       ~Dispatches to:~i => 0
       ~Post to:~i => 0
+      ~United States~ => 0
       ]]>
     </pattern>
 

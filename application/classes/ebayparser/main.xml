@@ -8,6 +8,7 @@
       <![CDATA[
       ~<font size="-1" color="#666666">(.+?)</span>~i => 1
       ~<div .*id="v4-31"[^>]*>(.+?)</~i => 1
+      ~<span .*id="v4-26"[^>]*>(.+?)</~i => 1
       ]]>
     </pattern>
 
@@ -45,7 +46,8 @@
     <!-- Reg. expressions that matches the seller name -->
     <pattern name="Seller">
       <![CDATA[
-      ~<a[^>]+http://myworld.ebay[^/]*?/(.+?)/~i => 1
+      ~<a[^>]+http://myworld\.ebay\.[^/]+/ebaymotors/(.+?)/~i => 1
+      ~<a[^>]+http://myworld\.ebay\.[^/]+/(.+?)/~i => 1
       ]]>
     </pattern>
 

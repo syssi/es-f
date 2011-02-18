@@ -1063,13 +1063,13 @@ abstract class esf_Auctions {
       }
       foreach (Registry::get('ParseOrder') as $tld) {
         $parser = ebayParser::factory(trim($tld));
-        if ($parser->getDetail($item, 'dispatch')) {
-          Registry::set('ebayParser', $parser);
-          $auction['parser'] = $tld;
-          break;
-        } elseif ($parser->getDetail($item, 'Invalid')) {
+        if ($parser->getDetail($item, 'Invalid')) {
           $parser = FALSE;
           $invalid = TRUE;
+          break;
+        } elseif ($parser->getDetail($item, 'dispatch')) {
+          Registry::set('ebayParser', $parser);
+          $auction['parser'] = $tld;
           break;
         } else {
           $parser = FALSE;
