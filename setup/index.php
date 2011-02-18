@@ -93,7 +93,6 @@ switch ($step) {
   // ------------
   case 'cfg':
     LoadConfig();
-
     $_SESSION['USERS'] = Registry::get('Users');
     // test for configuration versions below 5
     $cfg = empty($cfg) ? Registry::getAll() : array_merge(Registry::getAll(), $cfg);
@@ -110,9 +109,9 @@ switch ($step) {
     TplData::set('LOCALES', $locales);
     unset($locales);
 
-    if ($h = exec('which sh')) TplData::set('cfg.bin_sh', $h);
-    if ($h = exec('which grep')) TplData::set('cfg.bin_grep', $h);
-    if ($h = exec('which kill')) TplData::set('cfg.bin_kill', $h);
+    if ($h = exec('which sh'))      TplData::set('cfg.bin_sh', $h);
+    if ($h = exec('which grep'))    TplData::set('cfg.bin_grep', $h);
+    if ($h = exec('which kill'))    TplData::set('cfg.bin_kill', $h);
     if ($h = exec('which esniper')) TplData::set('cfg.bin_esniper', $h);
 
     foreach (Esniper::getAll() as $key => $val)
