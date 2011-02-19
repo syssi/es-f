@@ -7,7 +7,7 @@
  * @copyright  2010-2011 Knut Kohl
  * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
  * @version    1.0.0
- * @version    $Id: v2.4.0-15-g82a2021 - Sun Dec 19 20:39:56 2010 +0100 $
+ * @version    $Id: v2.4.1-69-gb8f3585 2011-02-05 20:48:49 +0100 $
  */
 class CheckVersion {
 

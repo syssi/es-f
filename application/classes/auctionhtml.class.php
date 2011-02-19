@@ -6,7 +6,7 @@
  * @copyright  2007-2011 Knut Kohl
  * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
  * @version    1.0.0
- * @version    $Id: v2.4.1-42-g440d05f - Sun Jan 9 21:40:58 2011 +0100 $
+ * @version    $Id: v2.4.1-79-g85bf9fc 2011-02-15 18:24:07 +0100 $
  */
 abstract class AuctionHTML {
 

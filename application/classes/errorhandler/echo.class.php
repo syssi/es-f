@@ -7,7 +7,7 @@
  * @copyright  2009-2011 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
  * @version    1.0.0
- * @version    $Id$
+ * @version    $Id: v2.4.1-63-g132e01c 2011-01-31 21:47:31 +0100 $
  */
 class ErrorHandler_Echo implements ErrorHandlerI {
 

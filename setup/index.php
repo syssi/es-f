@@ -5,7 +5,7 @@
  * @copyright  2007-2011 Knut Kohl
  * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
  * @version    1.0.0
- * @version    $Id: v2.4.1-42-g440d05f - Sun Jan 9 21:40:58 2011 +0100 $
+ * @version    $Id: v2.4.1-84-g4cb6710 2011-02-19 14:07:42 +0100 $
  */
 
 ini_set('display_startup_errors', 0);

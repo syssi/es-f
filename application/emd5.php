@@ -7,7 +7,7 @@ Several hashing functions based on md5 and sha1 algorithms.
 @copyright  2010-2011 Knut Kohl
 @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
 @version    1.0.0
-@version    $Id: v2.4.1-43-g9eb0fbd - Tue Jan 11 21:51:29 2011 +0100 $
+@version    $Id: v2.4.1-62-gb38404e 2011-01-30 22:35:34 +0100 $
 */
 
 /**

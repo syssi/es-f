@@ -16,7 +16,7 @@ before.
  * @copyright  2007-2011 Knut Kohl
  * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
  * @version    1.0.0
- * @version    $Id: v2.4.1-29-gacb4bc2 - Fri Jan 7 21:24:31 2011 +0100 $
+ * @version    $Id: v2.4.1-75-g5ea615c 2011-02-11 21:42:26 +0100 $
  */
 abstract class Event implements EventI {
 

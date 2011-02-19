@@ -12,7 +12,7 @@
  * @copyright  2009-2010 Knut Kohl
  * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
  * @version    1.0.0
- * @version    $Id: v2.4.1-42-g440d05f - Sun Jan 9 21:40:58 2011 +0100 $
+ * @version    $Id: v2.4.1-70-g8bb353a 2011-02-07 20:54:16 +0100 $
  */
 class esf_Plugin_AutoUpdate extends esf_Plugin {
 

@@ -36,7 +36,7 @@ If not, see http://www.gnu.org/licenses/gpl.txt
  * @copyright  2007-2011 Knut Kohl
  * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
  * @version    1.0.0
- * @version    $Id: v2.4.1-45-g3faf669 - Wed Jan 12 21:35:21 2011 +0100 $
+ * @version    $Id: v2.4.1-76-g3ee4c22 2011-02-11 21:42:58 +0100 $
  */
 
 ini_set('display_startup_errors', 0);

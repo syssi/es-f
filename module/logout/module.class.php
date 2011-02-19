@@ -13,7 +13,7 @@
  * @copyright  2009-2011 Knut Kohl
  * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
  * @version    1.0.0
- * @version    $Id: v2.4.1-51-gfeddc24 - Sun Jan 16 21:09:59 2011 +0100 $
+ * @version    $Id: v2.4.1-70-g8bb353a 2011-02-07 20:54:16 +0100 $
  */
 class esf_Module_Logout extends esf_Module {
 

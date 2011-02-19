@@ -42,7 +42,7 @@ Source: http://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.10
  * @copyright  2011 Knut Kohl
  * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
  * @version    1.0.0
- * @version    $Id: v2.4.1-34-gd7da3b4 - Sun Jan 9 12:51:52 2011 +0100 $
+ * @version    $Id: v2.4.1-62-gb38404e 2011-01-30 22:35:34 +0100 $
  */
 abstract class HTTPlanguage {
 

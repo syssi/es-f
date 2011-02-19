@@ -12,7 +12,7 @@
  * @copyright  2009-2011 Knut Kohl
  * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
  * @version    1.0.0
- * @version    $Id$
+ * @version    $Id: v2.4.1-80-g4acbac1 2011-02-15 22:22:16 +0100 $
  */
 class esf_Plugin_Paypal extends esf_Plugin {
 

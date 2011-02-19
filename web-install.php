@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Id$
+ * @version $Id: v2.4.1-60-g77e648b 2011-01-23 13:18:25 +0100 $
  */
 define( 'VERSIONFILE',
         'http://es-f.git.sourceforge.net/git/gitweb.cgi?'
