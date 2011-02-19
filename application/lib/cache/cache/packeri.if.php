@@ -7,7 +7,7 @@
  * @copyright  2010-2011 Knut Kohl
  * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
  * @version    1.0.0
- * @version    $Id$
+ * @version    $Id: v2.4.1-64-gee8a889 2011-02-03 23:16:23 +0100 $
 */
 interface Cache_PackerI {
 

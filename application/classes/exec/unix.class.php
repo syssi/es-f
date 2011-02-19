@@ -7,7 +7,7 @@
  * @copyright  2007-2011 Knut Kohl
  * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
  * @version    1.0.0
- * @version    $Id: v2.4.1-3-gd6df604 - Tue Dec 21 21:12:15 2010 +0100 $
+ * @version    $Id: v2.4.1-62-gb38404e 2011-01-30 22:35:34 +0100 $
  */
 
 /**

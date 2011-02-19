@@ -19,7 +19,7 @@ require_once dirname(__FILE__).'/filebase.class.php';
  * @copyright  2010-2011 Knut Kohl
  * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
  * @version    1.0.0
- * @version    $Id$
+ * @version    $Id: v2.4.1-65-ge312679 2011-02-05 13:26:34 +0100 $
  */
 class Cache_Files extends Cache_FileBase {
 

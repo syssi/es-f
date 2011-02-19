@@ -6,7 +6,7 @@
  * @copyright  2011 Knut Kohl
  * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
  * @version    1.0.0
- * @version    $Id$
+ * @version    $Id: v2.4.1-68-gc26c4d6 2011-02-05 17:19:57 +0100 $
  */
 class TMX {
 

@@ -15,7 +15,7 @@
  * It also overrides the default __toString method
  * with a more thorough one.
  *
- * @version $Id$
+ * @version $Id: v2.4.1-63-g132e01c 2011-01-31 21:47:31 +0100 $
  */
 
 /**

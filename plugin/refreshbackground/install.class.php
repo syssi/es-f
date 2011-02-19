@@ -6,7 +6,7 @@
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2009-2011 Knut Kohl
  * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
- * @version    $Id$
+ * @version    $Id: v2.4.1-61-ga611518 2011-01-23 13:19:14 +0100 $
  */
 class esf_Install_Plugin_RefreshBackground extends esf_Install {
 

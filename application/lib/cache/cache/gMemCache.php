@@ -21,7 +21,7 @@
  * @author     Cesar D. Rodas (saddor@cesarodas.com)
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
- * @version    $Id$
+ * @version    $Id: v2.4.1-64-gee8a889 2011-02-03 23:16:23 +0100 $
  */
 
 /* *************************************************************************

@@ -6,7 +6,7 @@
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2009-2011 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    $Id: v2.4.1-42-g440d05f - Sun Jan 9 21:40:58 2011 +0100 $
+ * @version    $Id: v2.4.1-54-g83ea36d 2011-01-17 20:17:17 +0100 $
  */
 class esf_Plugin_NextAuction extends esf_Plugin {
 

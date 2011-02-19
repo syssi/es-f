@@ -4,7 +4,7 @@
  * @copyright  2007-2011 Knut Kohl
  * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
  * @version    1.0.0
- * @version    $Id: v2.4.1-47-g938fb93 - Sat Jan 15 14:26:18 2011 +0100 $
+ * @version    $Id: v2.4.1-78-ge1f29df 2011-02-13 22:21:43 +0100 $
  */
 
 // include functions
