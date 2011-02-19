@@ -1,14 +1,13 @@
 <?php
 /**
- * Package Loader
+ * Class / file Loader
  *
- * description ...
- *
- * @ingroup    es-f
+ * @ingroup    Loader
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2009-2011 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    $Id: v2.4.1-29-gacb4bc2 - Fri Jan 7 21:24:31 2011 +0100 $
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
+ * @version    $Id: v2.4.1-62-gb38404e 2011-01-30 22:35:34 +0100 $
  */
 abstract class Loader {
 
@@ -17,14 +16,15 @@ abstract class Loader {
   // -------------------------------------------------------------------------
 
   /**
-   * @var array
+   * Paths to scan for class definition files
+   *
+   * @var array $AutoLoadPath
    */
   public static $AutoLoadPath = array();
 
   /**
    * Function setPreload...
    *
-   * @public
    * @param string $function Callback function pre load with one parameter: $file
    * @return boolean
    */
@@ -35,7 +35,6 @@ abstract class Loader {
   /**
    * Function setPostload...
    *
-   * @public
    * @param string $function Callback function after load with one parameter: $file
    * @return boolean
    */
@@ -46,8 +45,10 @@ abstract class Loader {
   /**
    * Function Load...
    *
-   * @public
+   * @throws LoaderException
    * @param string $file
+   * @param string $once Load only once
+   * @param string $throw Throw exception on missing files
    * @return boolean
    */
   public static function Load( $file, $once=TRUE, $throw=TRUE ) {
@@ -69,7 +70,6 @@ abstract class Loader {
   /**
    * Function Autoload...
    *
-   * @public
    * @param string $class
    * @return void
    */
@@ -93,7 +93,6 @@ abstract class Loader {
   /**
    * Function Register...
    *
-   * @public
    * @return boolean
    */
   public static function Register( $throw=TRUE ) {
@@ -104,20 +103,21 @@ abstract class Loader {
   } // function Register()
 
   // -------------------------------------------------------------------------
-  // PROTECTED
-  // -------------------------------------------------------------------------
-
-  // -------------------------------------------------------------------------
   // PRIVATE
   // -------------------------------------------------------------------------
 
   /**
+   * Callback function definitions
    *
+   * @var array $Callbacks
    */
   private static $Callbacks = array();
 
   /**
    *
+   * @throws LoaderException
+   * @param string $step Pre|Post
+   * @param string $function
    */
   private static function setCallback( $step, $function ) {
     if ($function AND !function_exists($function))
@@ -127,6 +127,8 @@ abstract class Loader {
 
   /**
    *
+   * @param string $step Pre|Post
+   * @param string &$file
    */
   private static function callback( $step, &$file ) {
     if (empty(self::$Callbacks[$step])) return;
@@ -138,5 +140,7 @@ abstract class Loader {
 
 /**
  * Loader exception class
+ *
+ * @ingroup Loader
  */
 class LoaderException extends Exception {}

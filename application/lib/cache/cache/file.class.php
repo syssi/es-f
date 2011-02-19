@@ -11,14 +11,15 @@ require_once dirname(__FILE__).'/filebase.class.php';
  * All data will be held in memeory during the script runs
  *
  * The following settings are supported:
- * - token    : used to build unique cache ids (optional)
- * - cachedir : Where to store the file with the cached data (optional)
+ * - @c token    : used to build unique cache ids (optional)
+ * - @c cachedir : Where to store the file with the cached data (optional)
  *
  * @ingroup    Cache
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2007-2010 Knut Kohl
- * @license
- * @version    $Id: v2.4.1-45-g3faf669 - Wed Jan 12 21:35:21 2011 +0100 $
+ * @copyright  2007-2011 Knut Kohl
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
+ * @version    $Id: v2.4.1-77-gc4bf735 2011-02-13 21:51:53 +0100 $
  */
 class Cache_File extends Cache_FileBase {
 
@@ -27,16 +28,18 @@ class Cache_File extends Cache_FileBase {
   // -------------------------------------------------------------------------
 
   /**
-   * Function set...
-   *
-   * @param $id string
-   * @param $ttl int Time to live or timestamp
-   *                 0  - expire never
-   *                 >0 - Time to live
-   *                 <0 - Timestamp of expiration
-   * @param mixed $data
-   * @return bool
+   * @name Implemented abstract functions
+   * @{
    */
+  public function isAvailable() {
+    if (parent::isAvailable()) {
+      // Load cached data
+      $this->data = $this->ReadFile($this->FileName());
+      if (!is_array($this->data)) $this->data = array();
+      return TRUE;
+    }
+  }
+
   public function set( $id, $data, $ttl=0 ) {
     // optimized for probability Set -> Delete -> Clear
     if ($data !== NULL) {
@@ -50,16 +53,6 @@ class Cache_File extends Cache_FileBase {
     }
   } // function set()
 
-  /**
-   * Function get...
-   *
-   * @param string $id
-   * @param $expire int Time to live or timestamp
-   *                     0 - expire never
-   *                    >0 - Time to live
-   *                    <0 - Timestamp of expiration
-   * @return mixed
-   */
   public function get( $id, $expire=0 ) {
     $id = $this->id($id);
     // Id set?
@@ -67,27 +60,11 @@ class Cache_File extends Cache_FileBase {
     // split into store time, ttl, data
     list($ts, $ttl, $data) = $this->data[$id];
     // Data valid?
-    if (isset($expire)) {
-      // expiration timestamp set
-      if ($expire === 0 OR
-          $expire > 0 AND $this->ts+$expire >= $ts+$ttl OR
-          $expire < 0 AND $ts >= -$expire) return $data;
-    } else {
-      // expiration timestamp NOT set
-      if ($ttl === 0 OR
-          $ttl > 0 AND $ts+$ttl >= $this->ts OR
-          $ttl < 0 AND -$ttl >= $this->ts) return $data;
-    }
+    if ($this->valid($ts, $ttl, $expire)) return $data;
     // else drop data for this key
     $this->delete($id);
   } // function get()
 
-  /**
-   * Function remove...
-   *
-   * @param string $id
-   * @return bool
-   */
   public function delete( $id ) {
     $id = $this->id($id);
     if (isset($this->data[$id])) unset($this->data[$id]);
@@ -95,11 +72,6 @@ class Cache_File extends Cache_FileBase {
     return TRUE;
   } // function remove()
 
-  /**
-   * Function flush...
-   *
-   * @return bool
-   */
   public function flush() {
     $this->data = array();
     // Don't just RemoveFile, if this fails, cache will remain,
@@ -107,51 +79,42 @@ class Cache_File extends Cache_FileBase {
     return $this->WriteFile($this->FileName(), NULL);
   } // function clear()
 
-  /**
-   * Class destructor saves cached data to file
-   *
-   * @return void
-   */
   public function __destruct() {
     // Save only if data was modified
     if ($this->modified)
       $this->WriteFile($this->FileName(), $this->data);
   } // function __destruct()
+  /** @} */
 
-  // -------------------------------------------------------------------------
-  // PROTECTED
-  // -------------------------------------------------------------------------
-
-  /**
-   * Class constructor
-   *
-   * @param array $settings
-   * @return void
-   */
-  protected function __construct( $settings=array() ) {
-    parent::__construct($settings);
-    // Load cached data
-    $this->data = $this->ReadFile($this->FileName());
-    if (!is_array($this->data)) $this->data = array();
-    // Data not yet modified
-    $this->modified = FALSE;
-  } // function __construct()
+  public function info() {
+    $info = parent::info();
+    $info['filename'] = $this->FileName();
+    $info['count'] = count($this->data);
+    if (function_exists('memory_get_usage')) {
+      $size = memory_get_usage();
+      $a = array_merge($this->data);
+      $info['size'] = memory_get_usage() - $size;
+      unset($a);
+    }
+    return $info;
+  }
 
   // -------------------------------------------------------------------------
   // PRIVATE
   // -------------------------------------------------------------------------
 
   /**
+   * Data storage
    *
-   * @var array
+   * @var array $data
    */
   private $data;
 
   /**
    * Save whole cache file only if at least one id was changed/deleted
    *
-   * @var bool
+   * @var bool $modified
    */
-  private $modified;
+  private $modified = FALSE;
 
 }

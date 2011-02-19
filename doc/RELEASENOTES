@@ -1,13 +1,10 @@
-VERSION: 2.4.0
+VERSION: 2.6.0
 --------------------
 Feature release
 
-NEW install is recommended due to multiple file system changes.
-
-FIXED:
-- Autoloading of classes
-CHANGED:
-- Introduction of TMX based translations incl. caching
 NEW:
-- Compatible with 5.3.3
-- New caches for configuration settings and translations, e.g. APC
+- Documentation
+- Web installer for installation and upgrade
+BUGFIXES:
+- [plugin/prefreshbackground] Fix error when PHP cli can't be detected
+- [plugin/prefreshbackground] Fix error on cache handling

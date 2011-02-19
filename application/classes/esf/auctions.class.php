@@ -1,10 +1,12 @@
 <?php
 /**
+ * Auctions handling
+ *
  * @ingroup    es-f
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2007-2010 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    $Id: v2.4.1-47-g938fb93 - Sat Jan 15 14:26:18 2011 +0100 $
+ * @version    $Id: v2.4.1-81-g966abf9 2011-02-18 21:49:18 +0100 $
  */
 abstract class esf_Auctions {
 
@@ -14,17 +16,22 @@ abstract class esf_Auctions {
   const FORCEUPGRADE = 'ForceUpgradeAuctions';
 
   /**
-   * @var array
+   *
+   */
+  const CONFIGFILE = '.c';
+
+  /**
+   * @var array $Auctions
    */
   public static $Auctions = array();
 
   /**
-   * @var array
+   * @var array $Groups
    */
   public static $Groups = array();
 
   /**
-   * @var array
+   * @var array $Sellers
    */
   public static $Sellers = array();
 
@@ -157,7 +164,8 @@ abstract class esf_Auctions {
    * Read auction info from eBay
    *
    * @param mixed $item Action ID or whole auction array
-   * @param boolean $all
+   * @param boolean $all Fetch all details
+   * @param boolean $talk Generate messages
    * @return array Auction
    */
   public static function fetchAuction( $item, $all=TRUE, $talk=TRUE ) {
@@ -207,7 +215,7 @@ abstract class esf_Auctions {
     }
 
     if (!$invalid) {
-      $name = $parser->getDetail($item, 'TITLE');
+      $name = $parser->getDetail($item, 'Title');
       // translate all [´`"] to simple '
       $name = str_replace(array('"', chr(96), chr(180)), '\'', $name);
 
@@ -216,7 +224,7 @@ abstract class esf_Auctions {
       } else {
         $auction['name'] = $name;
         
-        $bid = $parser->getDetail($item, 'BID');
+        $bid = $parser->getDetail($item, 'Bid');
         $auction['bid'] = toNum($bid);
 
         $curr = preg_match('~&#\d+;~', $bid, $args)
@@ -224,7 +232,7 @@ abstract class esf_Auctions {
               : trim(preg_replace('~[\d,.]+~', '', $bid));
         $auction['currency'] = !empty($curr) ? $curr : '?';
 
-        $auction['bidder'] = $parser->getDetail($item, 'BIDDER');
+        $auction['bidder'] = $parser->getDetail($item, 'Bidder');
         // find out auction win by parsing esniper log file
         // real names are only visible for logged in users (esniper)
         $user = esf_User::getActual();
@@ -242,7 +250,7 @@ abstract class esf_Auctions {
           }
         }
 
-        $auction['bids']    = $parser->getDetail($item, 'NO_OF_BIDS');
+        $auction['bids']    = $parser->getDetail($item, 'NoOfBids');
         $auction['_ts']     = $_SERVER['REQUEST_TIME'];
         if ($auction['endts'] AND ($auction['endts'] < $auction['_ts'])) $auction['ended']++;
         $auction['invalid'] = FALSE;
@@ -262,17 +270,16 @@ abstract class esf_Auctions {
     } else {
       if ($all) {
 
-        $auction['seller'] = $parser->getDetail($item, 'SELLER');
-        $auction['bin']    = $parser->getDetail($item, 'BIN');
-        $auction['dutch']  = $parser->getDetail($item, 'DUTCH');
-        $auction['endts']  = $parser->getDetail($item, 'END');
+        $auction['seller'] = $parser->getDetail($item, 'Seller');
+        $auction['bin']    = $parser->getDetail($item, 'bin');
+        $auction['dutch']  = $parser->getDetail($item, 'dutch');
+        $auction['endts']  = $parser->getDetail($item, 'End');
 
         if (empty($auction['image']))
           // keep auction image on upgrade, may put manual
           $auction['image'] = self::fetchAuctionImage($item);
 
-        $auction['shipping'] = toNum($parser->getDetail($item, 'SHIPPING'));
-        //  }
+        $auction['shipping'] = toNum($parser->getDetail($item, 'Shipping'));
 
         Event::Process('AuctionReadedInitial', $auction);
       } else {
@@ -301,7 +308,7 @@ abstract class esf_Auctions {
       if (empty($url) AND
           ($parser = Registry::get('ebayParser') OR
            $parser = self::getParser(self::$Auctions[$item], $invalid)))
-        $url = $parser->getDetail($item, 'IMAGE');
+        $url = $parser->getDetail($item, 'Image');
       // no-image image
       if (empty($url))
         $url = Registry::get('Module.Auction.NoImage');
@@ -459,9 +466,8 @@ abstract class esf_Auctions {
     $pids = array();
     foreach ((array)$res as $pid) {
       $pid = preg_split('~\s+~', trim($pid));
-
       if (is_numeric($pid[0])) {
-        if (preg_match('~/([^/]+)\.'.esf_User::getActual(TRUE).'$~', $pid[count($pid)-1], $args)) {
+        if (preg_match('~(.+)\.'.esf_User::getActual(TRUE).'$~', $pid[count($pid)-1], $args)) {
           $group = $args[1];
           $group = str_replace('_', ' ', $group);
           $pids[$pid[0]] = $group;
@@ -488,7 +494,7 @@ abstract class esf_Auctions {
 
     // esniper config. file will be only as long as required on file system
     self::writeEsniperCfg();
-    $cmd = array('CORE::BID_NOW', Registry::get('bin_esniper'),
+    $cmd = array('Core::BidNow', Registry::get('bin_esniper'),
                  esf_User::UserDir(), $item, $bid, $log);
     if (Exec::getInstance()->ExecuteCmd($cmd, $res, Registry::get('SuDo'))) {
       Messages::Error($res);
@@ -520,8 +526,8 @@ abstract class esf_Auctions {
     $groupname = self::getGroupName($group);
 
     File::append($LogFile, sprintf(
-      'es-f: # cd "%s"; %s -c .es-f "%s"'."\n\n",
-      esf_User::UserDir(), Registry::get('bin_esniper'), self::AuctionFile($group, FALSE)
+      'es-f:$ cd "%s"; %s "%s"' . "\n\n",
+      esf_User::UserDir(), Registry::get('cfg_esniper'), self::AuctionFile($group, FALSE)
     ));
 
     if (self::$Groups[$group]['b'] == 0 AND @self::$Groups[$group]['a'] == 1) {
@@ -569,20 +575,7 @@ abstract class esf_Auctions {
       }
     }
 
-/**
- * @todo Clearify relevance for Module.Auction.HoldAuctionLog
- */
-/*
-    if (Registry::get('Module.Auction.HoldAuctionLog')) {
-      $l = "\n" . str_repeat('-', 78) . "\n";
-      File::append($LogFile, $l. date(Registry::get('Format.DateTime')) . $l . "\n");
-    } else {
-      File::delete($LogFile);
-    }
     File::append($LogFile, $skip);
-*/
-
-    File::write($LogFile, $skip);
     File::append($LogFile);  // a empty line ;-)
 
     $pid = 0;
@@ -599,8 +592,8 @@ abstract class esf_Auctions {
       File::append($afile, $lines);
       self::writeEsniperCfg();
 
-      $cmd = array('CORE::START_AUCTION',
-                   esf_User::UserDir(), Registry::get('bin_esniper'),
+      $cmd = array('Core::StartAuction',
+                   esf_User::UserDir(), Registry::get('cfg_esniper'),
                    self::AuctionFile($group, FALSE), $LogFile);
       $rc = Exec::getInstance()->ExecuteCmd($cmd, $res, Registry::get('SuDo'));
       self::removeEsniperCfg();
@@ -640,7 +633,7 @@ abstract class esf_Auctions {
       File::append(self::GroupLogFile($group),
         '#----------------------#' . "\n" .
         '### Manually stopped ###' . "\n" .
-        '#----------------------#'
+        '#----------------------#' . "\n\n"
       );
       $talk && Messages::Success(Translation::get('Auction.GroupStopped', $group));
     }
@@ -876,7 +869,6 @@ abstract class esf_Auctions {
    *
    * @param integer $time Remaing seconds
    * @return string Formated time
-   * @global array
    */
   public static function Timef( $time ) {
     $t   = abs($time);
@@ -912,7 +904,7 @@ abstract class esf_Auctions {
 
     $auctions = array();
     foreach (self::$Auctions as $item => $auction)
-      if (version_compare(@$auction['version'], ESF_VERSION, '<') OR
+      if (version_compare(@$auction['version'], ESF_AUCTION_VERSION, '<') OR
           isset($_GET[self::FORCEUPGRADE])) $auctions[] = $item;
 
     if (!count($auctions)) return;
@@ -965,27 +957,29 @@ abstract class esf_Auctions {
   }
 
   /**
-   * Write esniper config file <USERDIR>/.es-f
+   * Write esniper config file USERDIR/.c
    *
    * @param bool $short Only user & password
    */
   public static function writeEsniperCfg( $short=FALSE ) {
     if (!$user = esf_User::getActual(TRUE)) return;
 
-    $conf = 'batch = yes' . "\n"
-          . 'username = ' . $user . "\n"
-          . 'password = ' . esf_User::getPass() . "\n";
+    $conf = array();
+    $conf[] = 'batch = yes';
+    $conf[] = 'username = ' . $user;
+    $conf[] = 'password = ' . esf_User::getPass();
 
-    if (!$short)
+    if (!$short) {
       foreach (Esniper::getAll() as $key => $val)
-        if (!empty($val))
-          $conf .= sprintf('%s = %s', $key, $val) . "\n";
+        if (!empty($val)) $conf[] = sprintf('%s = %s', $key, $val);
+    }
 
-    File::write(esf_User::UserDir().'/.es-f', $conf);
+    File::write(esf_User::UserDir() . DIRECTORY_SEPARATOR . self::CONFIGFILE,
+                implode("\n", $conf));
   }
 
   /**
-   * Remove esniper config file <USERDIR>/.es-f
+   * Remove esniper config file USERDIR/.c
    *
    * @param int $delay Sleep in sec.
    * @return void
@@ -993,9 +987,7 @@ abstract class esf_Auctions {
   public static function removeEsniperCfg( $delay=5 ) {
     if (!Registry::get('Module.Auction.HoldEsniperConfig')) {
       $cmd = array('CORE::SLEEP_RM', $delay, esf_User::UserDir());
-      if (Exec::getInstance()->ExecuteCmd($cmd, $res)) {
-        Messages::Error($res);
-      }
+      if (Exec::getInstance()->ExecuteCmd($cmd, $res)) Messages::Error($res);
     }
   }
 
@@ -1004,12 +996,16 @@ abstract class esf_Auctions {
   //---------------------------------------------------------------------------
 
   /**
-   * @var array
+   * Buffer display attributes
+   *
+   * @var array $Display
    */
   private static $Display = array();
 
   /**
-   * @var array
+   * Default values for a new auction
+   *
+   * @var array $NewAuction
    */
   private static $NewAuction = array (
     'version'  => ESF_VERSION,   // detect here uprades
@@ -1036,9 +1032,11 @@ abstract class esf_Auctions {
   );
 
   /**
-   * @var array
+   * Default values for a new group
+   *
+   * @var array $NewGroup
    */
-  private static $NewGroup= array (
+  private static $NewGroup = array (
     'q'   => 1,                  // quantity
     'b'   => 0,                  // bid
     't'   => FALSE,              // is bid the total price incl. shipping?
@@ -1049,25 +1047,29 @@ abstract class esf_Auctions {
   );
 
   /**
-   * Get the item id, if id given just return, if auction, return the auction item
+   * Find a possible parser for an auction
    *
-   * @param string|array $auction
+   * @param array &$auction
+   * @param bool &$invalid Set on invalid auctions
    */
-  private static function getParser( $auction, &$invalid ) {
+  private static function getParser( &$auction, &$invalid ) {
     $invalid = FALSE;
     if (!$parser = Registry::get('ebayParser')) {
       $item = $auction['item'];
-      if (!is_array(Registry::get('ParseOrder')))
-        Registry::set('ParseOrder', explode(',', Registry::get('ParseOrder')));
+      $po = Registry::get('ParseOrder');
+      if (!is_array($po)) {
+        $po = explode(',', Registry::get('ParseOrder'));
+        Registry::set('ParseOrder', $po);
+      }
       foreach (Registry::get('ParseOrder') as $tld) {
         $parser = ebayParser::factory(trim($tld));
-        if ($parser->getDetail($item, 'DISPATCH')) {
-          Registry::set('ebayParser', $parser);
-          $auction['parser'] = $tld;
-          break;
-        } elseif ($parser->getDetail($item, 'INVALID')) {
+        if ($parser->getDetail($item, 'Invalid')) {
           $parser = FALSE;
           $invalid = TRUE;
+          break;
+        } elseif ($parser->getDetail($item, 'dispatch')) {
+          Registry::set('ebayParser', $parser);
+          $auction['parser'] = $tld;
           break;
         } else {
           $parser = FALSE;
@@ -1080,7 +1082,7 @@ abstract class esf_Auctions {
   /**
    * Get the item id, if id given just return, if auction, return the auction item
    *
-   * @param string|array $auction
+   * @param string|array $item
    */
   private static function _item( $item ) {
     return !is_array($item)

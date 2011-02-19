@@ -1,83 +1,88 @@
 <?php
 /**
+ * Extensions handling
  *
- */
-
-/**
- *
+ * @ingroup    es-f
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2009-2011 Knut Kohl
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
+ * @version    $Id: v2.4.1-62-gb38404e 2011-01-30 22:35:34 +0100 $
  */
 class esf_Extensions {
 
   /**
-   *
+   * @name Shortcuts
+   * @{
    */
   const MODULE = 'module';
+  const PLUGIN = 'plugin';
+  /** @} */
 
   /**
-   *
-   */
-  const PLUGIN = 'plugin';
-
-  /**#@+
-   * An state bit for extensions
+   * @name State bit for extensions
+   * @{
    */
   /**
    * extension is installed
    */
-  const BIT_INSTALLED = 1;
+  const BIT_INSTALLED  = 1;
 
   /**
    * extension is enabled
    */
-  const BIT_ENABLED = 2;
+  const BIT_ENABLED    = 2;
 
   /**
    * extension is a protected core function and can't disabled
    */
-  const BIT_PROTECTED = 4;
+  const BIT_PROTECTED  = 4;
 
   /**
-   * extension is a hidden core function and isn't visible in backend module.
+   * extension is a hidden core function and isn't visible in {@link esf_Module_Backend backend module}
    */
   const BIT_HIDDENCORE = 8;
-  /**#@-*/
+  /** @} */
 
-  /**#@+
-   * An extension state
+  /**
+   * @name Extension states
+   * @{
    */
   /**
    * extension is not installed yet
    */
-  const STATE_NOTHING = 0;
+  const STATE_NOTHING    = 0;
 
   /**
    * extension is installed
    */
-  const STATE_INSTALLED = 1;
+  const STATE_INSTALLED  = 1;
 
   /**
    * extension is enabled
    */
-  const STATE_ENABLED = 3;
+  const STATE_ENABLED    = 3;
 
   /**
    * extension is a protected core function and can't disabled
    */
-  const STATE_PROTECTED = 5;
+  const STATE_PROTECTED  = 5;
 
   /**
-   * extension is a hidden core function and isn't visible in {@link Module-Backend backend module}
+   * extension is a hidden core function and isn't visible in {@link esf_Module_Backend backend module}
    */
   const STATE_HIDDENCORE = 11;
-  /**#@-*/
+  /** @} */
 
   /**
-   *
+   * Shortcut for both handled extension types
    */
-  public static $Types = array( 'module', 'plugin' );
+  public static $Types = array( self::MODULE, self::PLUGIN );
 
   /**
-   * @param string $scope module|plugin
+   * Initialize extensions system
+   *
+   * @param  string $scope module|plugin
    * @return void
    */
   public static function Init( $scope='' ) {
@@ -117,25 +122,28 @@ class esf_Extensions {
   }
 
   /**
+   * Get all extensions
    *
+   * @param  string $scope
+   * @return array
    */
   public static function getExtensions( $scope='' ) {
-    return $scope
-         ? self::$Extensions[$scope]
-         : self::$Extensions;
+    return $scope ? self::$Extensions[$scope] : self::$Extensions;
   }
 
   /**
+   * Set an extension state
    *
    * @param string $scope
    * @param string $extension
-   * @param int    $value
+   * @param int    $state
    */
   public static function setState( $scope, $extension, $state ) {
     self::$States[$scope][strtolower($extension)] = $state;
   }
 
   /**
+   * Get an extension state
    *
    * @param string $scope
    * @param string $extension
@@ -149,15 +157,17 @@ class esf_Extensions {
   }
 
   /**
+   * Check an extension state
    *
    * @param string $scope
    * @param string $extension
-   * @return int
+   * @param string $state
+   * @return bool
    */
   public static function checkState( $scope, $extension, $state ) {
     $extension = strtolower($extension);
-    return isset(self::$States[$scope][$extension]) AND
-           ((self::$States[$scope][$extension] & $state) == $state);
+    return (isset(self::$States[$scope][$extension]) AND
+            ((self::$States[$scope][$extension] & $state) == $state));
   }
 
   /**
@@ -200,6 +210,7 @@ class esf_Extensions {
   }
 
   /**
+   * Check if an extesion is configurable
    *
    * @param string $scope
    * @param string $extension
@@ -213,8 +224,18 @@ class esf_Extensions {
   // PRIVATE
   // -------------------------------------------------------------------------
 
+  /**
+   * Store installed extensions
+   *
+   * @var array $Extensions
+   */
   private static $Extensions = array();
 
+  /**
+   * Store extensions states
+   *
+   * @var array $States
+   */
   private static $States = array();
 
 }

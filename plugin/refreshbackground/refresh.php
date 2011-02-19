@@ -1,20 +1,20 @@
 <?php
 /**
- * Scritp to refresh auctions in background via cron job
+ * Script to refresh auctions in background via cron job
  *
  * @ingroup    Plugin-Refreshbackground
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2009-2011 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    $Id: v2.4.1-29-gacb4bc2 - Fri Jan 7 21:24:31 2011 +0100 $
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    $Id: v2.4.1-77-gc4bf735 2011-02-13 21:51:53 +0100 $
  */
 
 error_reporting(0);
-error_reporting(-1);
+#error_reporting(-1);
 
 Header('Content-type: text/plain');
 
-define( '_ESF_OK', TRUE );
+define('_ESF_OK', TRUE);
 
 define('BASEDIR', dirname(dirname(dirname(__FILE__))));
 
@@ -33,16 +33,16 @@ ErrorHandler::register('echo');
 
 require_once APPDIR.'/init.php';
 require_once APPDIR.'/functions.php';
+require_once LIBDIR.'/cache/cache.class.php';
 
 session_start();
 
-require_once LIBDIR.'/cache/cache.class.php';
-$oCache = Cache::Factory('Mock');
-Registry::set('Cache', $oCache);
+// Cache mockup
+Core::$Cache = Cache::create(NULL, 'Mock');
 
 HTMLPage::$Debug = FALSE;
 
-$xml = new XML_Array_Configuration($oCache);
+$xml = new XML_Array_Configuration(Core::$Cache);
 $cfg = $xml->ParseXMLFile(BASEDIR.'/local/config/config.xml');
 if (!$cfg) die($xml->Error);
 
@@ -55,6 +55,8 @@ unset($cfg['esniper']);
 
 // Set all other into registry
 Registry::set($cfg);
+
+Exec::InitInstance(ESF_OS, Core::$Cache, Registry::get('bin_sh'));
 
 esf_Extensions::Init();
 esf_Extensions::setState('plugin', 'refreshbackground', 0);
@@ -100,12 +102,8 @@ Core::ReadConfigs(esf_Extensions::MODULE);
 Core::ReadConfigs(BASEDIR.'/local/*/*');
 Core::IncludeSpecial(esf_Extensions::PLUGIN, 'plugin.class');
 
-/**#@+
- * @ignore
- */
 define('LINE1', str_repeat('-',78) . "\n");
 define('LINE2', str_repeat('*',78) . "\n");
-/**#@-*/
 
 foreach ($users as $user) {
 
@@ -170,11 +168,10 @@ foreach ($users as $user) {
 
   $ts2 = microtime(TRUE);
   $dur = $ts2 - $ts1;
-  $cnt = esf_Auctions::count();
-
+  $avg = ($cnt = esf_Auctions::count()) ? $dur/$cnt : 0;
   echo date('Y-m-d H:i:s : ', $ts2),
        sprintf('Needed %.3fs for %d auctions - %.3fs per auction',
-               $dur, $cnt, $dur/$cnt), "\n",
+               $dur, $cnt, $avg), "\n",
        LINE2, "\n";
 
   $content = ob_get_clean();

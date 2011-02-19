@@ -1,0 +1,37 @@
+<?php
+/**
+ * Brief description
+ *
+ * Long description ...
+ *
+ * @ingroup    Plugin
+ * @ingroup    Plugin-<PluginName>
+ * @author     ... <...@example.com>
+ * @copyright  ...
+ * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
+ * @version    1.0.0
+ * @version    $Id$
+ */
+class esf_Plugin_<PluginName> extends esf_Plugin {
+
+  /**
+   * Event implementation
+   */
+/*
+  public function <Event>( ... ) {
+
+     your code here ...
+
+  }
+*/
+
+  //--------------------------------------------------------------------------
+  // PRIVATE
+  //--------------------------------------------------------------------------
+  /**
+   * Private variables / definitions / helper functions goes here...
+   */
+
+}
+
+Event::attach(new esf_Plugin_<PluginName>);

@@ -6,7 +6,7 @@
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2009-2011 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    $Id: v2.4.1-51-gfeddc24 - Sun Jan 16 21:09:59 2011 +0100 $
+ * @version    $Id: v2.4.1-75-g5ea615c 2011-02-11 21:42:26 +0100 $
  */
 class esf_Module_Backend extends esf_Module {
 
@@ -93,43 +93,8 @@ class esf_Module_Backend extends esf_Module {
     $tpldata['AUTHOR']       = Core::Email(Registry::get($SE.'.Email'),
                                            Registry::get($SE.'.Author'));
 
-    $tpldata['CHANGELOG'] = '';
     $file = $this->Scope.'/'.$this->Extension.'/CHANGELOG';
-    if (file_exists($file)) {
-
-      $changes = '';
-      $ul = FALSE;
-
-      foreach ((array)file($file) as $line) {
-        $line = trim($line);
-        if (empty($line)) continue;
-        switch (TRUE) {
-          case preg_match('~^\s*Version\s+([\d.]+)\s*$~i', $line, $args):
-            $tpldata['CHANGELOG'][$args[1]]['VERSION'] = $line;
-            // get pointer to actual changes entry
-            $changes =& $tpldata['CHANGELOG'][$args[1]]['CHANGES'];
-            $ul = FALSE;
-            break;
-          case preg_match('~^--+$~', $line, $args):
-            // do nothing
-            break;
-          case preg_match('~^-(.*?)$~', $line, $args):
-            if (!$ul) {
-              $changes .= '<ul>';
-              $ul = TRUE;
-            }
-            $changes .= '<li>'.trim($args[1]).'</li>';
-            break;
-          default:
-            if ($ul) {
-              $changes .= '</ul>'."\n";
-              $ul = FALSE;
-            }
-            $changes .= '<strong>'.$line.'</strong><br>'."\n";
-            break;
-        }
-      }
-    }
+    $tpldata['CHANGELOG'] = Core::ChangeLog2TplData($file);
 
     $urlparams = array('ext' => $this->Scope.'-'.$this->Extension);
     $tpldata['HELPURL'] = Core::URL(array('module'=>'help', 'action'=>'show', 'params'=>$urlparams));
@@ -214,12 +179,16 @@ class esf_Module_Backend extends esf_Module {
   // -------------------------------------------------------------------------
 
   /**
-   * @var array
+   * Collection of messages during installer run
+   *
+   * @var array $InstallMsgs
    */
   private $InstallMsgs = array();
 
   /**
+   * Force action @c info after installation / activation
    *
+   * @var bool $ForceInfo
    */
   private $ForceInfo = FALSE;
 
@@ -371,9 +340,9 @@ class esf_Module_Backend extends esf_Module {
     }
 
     if ($config AND $enabled AND ModuleEnabled('Configuration')) {
-      $urlparams['returnto'] = encodeReturnTo(array('module' => 'backend', 'action' => 'info'));
+      $urlparams['returnto'] = encodeReturnTo(array('module' => 'backend', 'action' => 'info', 'params'=>$urlparams));
       $actions[1] = array('URL'   => Core::URL(array('module'=>'configuration', 'action'=>'edit', 'params'=>$urlparams)),
-                          'TITLE' => Translation::get('BACKEND.EDITCONFIGURATION'));
+                          'TITLE' => Translation::get('Backend.EditConfiguration'));
     }
 
     ksort($actions);
@@ -423,7 +392,7 @@ class esf_Module_Backend extends esf_Module {
   /**
    *
    */
-  private function &getInstaller() {
+  private function getInstaller() {
     $file = $this->Scope.'/'.$this->Extension.'/install.class.php';
     if (Loader::Load($file, TRUE, FALSE)) {
       $class = 'esf_Install_'.$this->Scope.'_'.$this->Extension;

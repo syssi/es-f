@@ -6,7 +6,7 @@
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2009-2010 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    $Id: v2.4.1-51-gfeddc24 - Sun Jan 16 21:09:59 2011 +0100 $
+ * @version    $Id: v2.4.1-79-g85bf9fc 2011-02-15 18:24:07 +0100 $
  */
 class esf_Module_Auction extends esf_Module {
 
@@ -30,7 +30,7 @@ class esf_Module_Auction extends esf_Module {
       ));
     }
 
-    Yuelo::set('SuppressCurrency', $this->Currency);
+    Yuelo::set('SuppressCurrency', Registry::get('Currency'));
 
     $this->Item     = checkR('item');
     $this->Group    = checkR('group');
@@ -220,7 +220,7 @@ class esf_Module_Auction extends esf_Module {
 
         if (!$this->Request('currency')) $this->Request['currency'] = $auction['currency'];
         $auction['currency'] = $this->Request('currencydef')
-                             ? Registry::get('Module.Auction.Currency')
+                             ? Registry::get('Currency')
                              : $this->Request('currency');
 
         if ($this->Request('categorynew')) $this->Request['category'] = $this->Request('categorynew');

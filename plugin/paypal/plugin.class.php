@@ -1,22 +1,18 @@
 <?php
-/**
- * @category   Plugin
- * @package    Plugin-Paypal
- * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    0.1.0
- */
+/** @defgroup Plugin-PayPal Plugin PayPal
+
+*/
 
 /**
- * Check for paypal allowed
+ * Plugin PayPal
  *
- * @category   Plugin
- * @package    Plugin-Paypal
+ * @ingroup    Plugin
+ * @ingroup    Plugin-PayPal
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    Release: @package_version@
+ * @copyright  2009-2011 Knut Kohl
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
+ * @version    $Id: v2.4.1-80-g4acbac1 2011-02-15 22:22:16 +0100 $
  */
 class esf_Plugin_Paypal extends esf_Plugin {
 
@@ -26,13 +22,7 @@ class esf_Plugin_Paypal extends esf_Plugin {
   public function __construct() {
     parent::__construct();
     $this->ExtraKey = md5(__CLASS__);
-    // transform config. data into parser data
-    $regex = array();
-    foreach ($this->Regex as $id => $expr) {
-      $regex[$expr['expression']] =
-        isset($expr['position']) ? $expr['position'] : 0;
-    }
-    $this->Regex = $regex;
+    $this->Pattern = explode("\n", $this->Pattern);
   }
 
   /**
@@ -47,8 +37,9 @@ class esf_Plugin_Paypal extends esf_Plugin {
    */
   public function AuctionReadedInitial( &$auction ) {
     $parser = Registry::get('ebayParser');
-    $parser->setExpression('PAYPAL', $this->Regex);
-    if ($parser->getDetail($auction['item'], 'PAYPAL'))
+    foreach ($this->Pattern as $pattern) $parser->setExpression('PayPal', $pattern);
+
+    if ($parser->getDetail($auction['item'], 'PayPal'))
       esf_Auctions::setExtra($auction, $this->ExtraKey, $this->Render());
   }
 
@@ -68,8 +59,9 @@ class esf_Plugin_Paypal extends esf_Plugin {
   //--------------------------------------------------------------------------
 
   /**
+   * Key to store data into auctions extra data
    *
-   * @var string
+   * @var string $ExtraKey
    */
   private $ExtraKey;
 

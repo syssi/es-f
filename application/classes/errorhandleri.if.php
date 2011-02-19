@@ -1,12 +1,30 @@
 <?php
 /**
+ * Error handler interface
  *
+ * @ingroup    ErrorHandler
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2009-2011 Knut Kohl
+ * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
+ * @version    1.0.0
+ * @version    $Id: v2.4.1-63-g132e01c 2011-01-31 21:47:31 +0100 $
  */
 interface ErrorHandlerI {
 
   /**
-   * Have to be implemented
+   * Handles the errors
+   *
+   * @param int    $errno      Contains the level of the error raised
+   * @param string $errstr     Contains the error message
+   * @param string $errfile    Contains the filename that the error was raised in
+   * @param int    $errline    Contains the line number the error was raised at
+   * @param int    $errcontext An array that points to the active symbol table at
+   *                           the point the error occurred. So will contain an
+   *                           array of every variable that existed in the scope
+   *                           the error was triggered in.
+   *                           User error handler must not modify error context.
+   * @param array  $trace      $trace[0] holds the error, the rest is the backtrace to this
    */
-  public static function HandleError( $errno, $errstr, $errfile, $errline );
+  public function HandleError( $errno, $errstr, $errfile, $errline, $errcontext, $trace );
 
 }

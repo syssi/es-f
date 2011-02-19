@@ -1,15 +1,20 @@
 <?php
 /**
- * @ingroup    es-f
+ * @ingroup    setup
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2007-2011 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    $Id: v2.4.1-42-g440d05f - Sun Jan 9 21:40:58 2011 +0100 $
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
+ * @version    $Id: v2.4.1-84-g4cb6710 2011-02-19 14:07:42 +0100 $
  */
 
 ini_set('display_startup_errors', 0);
 ini_set('display_errors', 0);
 error_reporting(0);
+
+// Clear possible caches
+if (function_exists('apc_clear_cache')) apc_clear_cache();
+if (function_exists('eaccelerator_clear')) eaccelerator_clear();
 
 if (file_exists('../prepend.php')) require '../prepend.php';
 
@@ -43,7 +48,7 @@ require_once 'functions.php';
 unregister_GLOBALS();
 
 Loader::Load(APPDIR.'/lib/cache/cache.class.php');
-$oCache = Cache::factory('Mock');
+$oCache = Cache::create(NULL, 'Mock');
 
 TplData::$NameSpaceSeparator = '.';
 
@@ -92,14 +97,11 @@ switch ($step) {
   // ------------
   case 'cfg':
     LoadConfig();
-
     $_SESSION['USERS'] = Registry::get('Users');
     // test for configuration versions below 5
     $cfg = empty($cfg) ? Registry::getAll() : array_merge(Registry::getAll(), $cfg);
 
     foreach ($cfg as $key => $val) TplData::set('cfg.'.$key, $val);
-
-    TplData::set('CACHECLASS', Cache::test(array('File', 'APC'), TRUE));
 
     $parsers = array();
     foreach (glob(APPDIR.'/classes/ebayparser/*.class.php') as $file)
@@ -111,9 +113,9 @@ switch ($step) {
     TplData::set('LOCALES', $locales);
     unset($locales);
 
-    if ($h = exec('which sh')) TplData::set('cfg.bin_sh', $h);
-    if ($h = exec('which grep')) TplData::set('cfg.bin_grep', $h);
-    if ($h = exec('which kill')) TplData::set('cfg.bin_kill', $h);
+    if ($h = exec('which sh'))      TplData::set('cfg.bin_sh', $h);
+    if ($h = exec('which grep'))    TplData::set('cfg.bin_grep', $h);
+    if ($h = exec('which kill'))    TplData::set('cfg.bin_kill', $h);
     if ($h = exec('which esniper')) TplData::set('cfg.bin_esniper', $h);
 
     foreach (Esniper::getAll() as $key => $val)
@@ -124,13 +126,19 @@ switch ($step) {
 
   // ------------
   case 'cfgchk':
+    if ($_POST['data']['cfg']['currency'] == '?')
+      $_POST['data']['cfg']['currency'] = $_POST['data']['cfg']['currency1'];
+    // remove always
+    unset($_POST['data']['cfg']['currency1']);
     savePosted('cfg');
-    $_SESSION['CHECKED']['cfg'] = TRUE;
+    $Error = empty($_POST['data']['cfg']['currency']);
+    if ($Error) Messages::Error('Missing currency definition!');
+    $_SESSION['CHECKED']['cfg'] = !$Error;
     break;
 
   // ------------
   case 'test':
-    include 'step.test.php';
+    include 'step.test.inc.php';
     break;
 
   // ------------
@@ -146,7 +154,7 @@ switch ($step) {
 
   // ------------
   case 'save':
-    include 'step.save.php';
+    include 'step.save.inc.php';
     break;
 }
 

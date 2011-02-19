@@ -6,7 +6,7 @@
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2009-2011 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    $Id: v2.4.1-42-g440d05f - Sun Jan 9 21:40:58 2011 +0100 $
+ * @version    $Id: v2.4.1-62-gb38404e 2011-01-30 22:35:34 +0100 $
  */
 class esf_Plugin_SellerInfo extends esf_Plugin {
 
@@ -56,8 +56,9 @@ class esf_Plugin_SellerInfo extends esf_Plugin {
   //--------------------------------------------------------------------------
 
   /**
+   * Key to store data into auctions extra data
    *
-   * @var string
+   * @var string $ExtraKey
    */
   private $ExtraKey;
 
@@ -65,6 +66,8 @@ class esf_Plugin_SellerInfo extends esf_Plugin {
    * Buffer seller info to avoid multiple read, e.g. on refreshing all auctions
    *
    * For the case, no seller could be found...
+   *
+   * @var array $Sellers
    */
   private $Sellers = array( '' => '' );
 

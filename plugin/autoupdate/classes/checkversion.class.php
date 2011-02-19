@@ -2,11 +2,12 @@
 /**
  * Check application version against remote version file
  *
- * @package    CheckVersion
+ * @ingroup    CheckVersion
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2010 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    $Id: v2.4.0-15-g82a2021 - Sun Dec 19 20:39:56 2010 +0100 $
+ * @copyright  2010-2011 Knut Kohl
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
+ * @version    $Id: v2.4.1-69-gb8f3585 2011-02-05 20:48:49 +0100 $
  */
 class CheckVersion {
 
@@ -25,13 +26,13 @@ class CheckVersion {
    * line 3: comment  (optional, e.g. Feature release)
    * line n: comment...
    *
+   * @throws CheckVersionException
    * @param $cUrl cURL cURL instance
    * @param $URL string URL of version file
    * @param $ttl int Time to live of fetched data in sec.
    *                 -1: expires never during a session
    *                  0: won't cache data at all, reread on each page load!
    *                     Use this ONLY for debugging purposes!
-   * @throws CheckVersionException In case of $Config error
    */
   public function __construct( cURL $cUrl, $URL, $ttl=-1 ) {
     $this->curl = $cUrl;
@@ -84,7 +85,7 @@ class CheckVersion {
    */
   public function Version( $line=1 ) {
     $data = $this->getAll();
-    return isset($data[$line-1]) ? isset($data[$line-1]) : '';
+    return isset($data[$line-1]) ? $data[$line-1] : '';
   }
 
   /**
@@ -95,7 +96,7 @@ class CheckVersion {
    */
   public function Date( $line=2 ) {
     $data = $this->getAll();
-    return isset($data[$line-1]) ? isset($data[$line-1]) : '';
+    return isset($data[$line-1]) ? $data[$line-1] : '';
   }
 
   /**
@@ -116,35 +117,31 @@ class CheckVersion {
   /**
    * cURL instance
    *
-   * @var cURL
+   * @var cURL $curl
    */
   protected $curl;
 
   /**
    * URL to fetch from
    *
-   * @var string
+   * @var string $url
    */
   protected $url;
 
   /**
    * Time to life for fetched data
    *
-   * 0 expires never
+   * @c 0 expires never
    *
-   * @var string
+   * @var int $ttl
    */
   protected $ttl = 0;
 
 }
 
 /**
- * Check version exception
+ * Exception for CheckVersion
  *
- * @package    CheckVersion
- * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2010 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    $Id: v2.4.0-15-g82a2021 - Sun Dec 19 20:39:56 2010 +0100 $
+ * @ingroup CheckVersion
  */
 class CheckVersionException extends Exception {}

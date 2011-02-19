@@ -1,12 +1,20 @@
 <?php
+/** @defgroup Plugin-AddFromEbayUrl Plugin AddFromEbayUrl
+
+Add auctions from ebay URL
+
+*/
+
 /**
- * Add auctions from ebay URL
+ * Plugin AddFromEbayUrl
  *
+ * @ingroup    Plugin
  * @ingroup    Plugin-AddFromEbayUrl
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2009-2011 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    $Id: v2.4.1-29-gacb4bc2 - Fri Jan 7 21:24:31 2011 +0100 $
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
+ * @version    $Id: v2.4.1-62-gb38404e 2011-01-30 22:35:34 +0100 $
  */
 class esf_Plugin_AddFromEbayUrl extends esf_Plugin {
 

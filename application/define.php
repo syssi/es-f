@@ -4,7 +4,7 @@
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2007-2010 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    $Id: v2.4.1-35-gde219e1 - Sun Jan 9 13:07:24 2011 +0100 $
+ * @version    $Id: v2.4.1-79-g85bf9fc 2011-02-15 18:24:07 +0100 $
  */
 
 defined('_ESF_OK') || die('No direct call allowed.');
@@ -96,8 +96,16 @@ define('ESF_FULL_TITLE', ESF_LONG_TITLE . ', ' . ESF_FULL_VERSION);
  * - search more binaries
  * Version 8:
  * - Auto probe caches
+ * Version 9:
+ * - Remove cache probing
+ * - Make currency global
  */
-define('ESF_CONFIG_VERSION', 8);
+define('ESF_CONFIG_VERSION', 9);
+
+/**
+ * Auction data structure version, start using above ESF_VERSION > 2.5.0
+ */
+define('ESF_AUCTION_VERSION', '2.5.0');
 
 /**
  * Required PHP version

@@ -1,12 +1,13 @@
 <?php
 /**
+ * Parser for ebay.de
  *
- * @package es-f
- * @subpackage ebayParser
- */
-
-/**
- *
+ * @ingroup    ebayParser
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2007-2011 Knut Kohl
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
+ * @version    $Id: v2.4.1-62-gb38404e 2011-01-30 22:35:34 +0100 $
  */
 class ebayParser_de extends ebayParser {
 
@@ -20,7 +21,7 @@ class ebayParser_de extends ebayParser {
   /**
    * Individually convert end time string to a timestamp
    *
-   * @param string $dt found date & time string by reg. expression
+   * @param string $dt Found string by reg. expression
    */
   public function getDetailEND( $dt ) {
 

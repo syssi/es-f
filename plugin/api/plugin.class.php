@@ -1,13 +1,18 @@
 <?php
+/** @defgroup Plugin-API Plugin API
+
+*/
+
 /**
  * Ajax API
  *
- * @category   Plugin
- * @package    Plugin-API
+ * @ingroup    Plugin
+ * @ingroup    Plugin-API
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    Release: @package_version@
+ * @copyright  2009-2011 Knut Kohl
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
+ * @version    $Id: v2.4.1-62-gb38404e 2011-01-30 22:35:34 +0100 $
  */
 class esf_Plugin_API extends esf_Plugin {
 
@@ -35,6 +40,8 @@ class esf_Plugin_API extends esf_Plugin {
   /**
    * Process requestet API function and die with the function result converted
    * to JSON
+   *
+   * @return string JSON formated
    */
   public function AuctionsLoaded() {
     if ($request = $this->Request AND $action = @$request['api']) {

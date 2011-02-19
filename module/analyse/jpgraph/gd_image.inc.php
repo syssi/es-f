@@ -88,11 +88,11 @@ class Image {
         $this->ttf = new TTF();
         $this->langconv = new LanguageConv();
 
-        $this->ff_font0 =  imageloadfont(dirname(__FILE__) . "/fonts/FF_FONT0.gdf");
+#        $this->ff_font0 =  imageloadfont(dirname(__FILE__) . "/fonts/FF_FONT0.gdf");
         $this->ff_font1 =  imageloadfont(dirname(__FILE__) . "/fonts/FF_FONT1.gdf");
-        $this->ff_font2 =  imageloadfont(dirname(__FILE__) . "/fonts/FF_FONT2.gdf");
+#        $this->ff_font2 =  imageloadfont(dirname(__FILE__) . "/fonts/FF_FONT2.gdf");
         $this->ff_font1_bold =  imageloadfont(dirname(__FILE__) . "/fonts/FF_FONT1-Bold.gdf");
-        $this->ff_font2_bold =  imageloadfont(dirname(__FILE__) . "/fonts/FF_FONT2-Bold.gdf");
+#        $this->ff_font2_bold =  imageloadfont(dirname(__FILE__) . "/fonts/FF_FONT2-Bold.gdf");
     }
 
     // Enable interlacing in images

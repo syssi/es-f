@@ -7,7 +7,7 @@
  * @copyright  2009-2011 Knut Kohl
  * @par License:
  * <a href="http://www.gnu.org/licenses/gpl.txt">GNU General Public License</a>
- * @version    $Id: v2.4.1-49-g0f62a5c - Sat Jan 15 23:05:05 2011 +0100 $
+ * @version    $Id: v2.4.1-54-g83ea36d 2011-01-17 20:17:17 +0100 $
  */
 class esf_Plugin_Module_Login extends esf_Plugin {
 

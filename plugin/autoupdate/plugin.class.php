@@ -1,12 +1,18 @@
 <?php
+/** @defgroup Plugin-AutoUpdate Plugin AutoUpdate
+
+*/
+
 /**
- * Add some infos to seller data
+ * Plugin AutoUpdate
  *
- * @package    Plugin-AutoUpdate
+ * @ingroup    Plugin
+ * @ingroup    Plugin-AutoUpdate
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2009-2010 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    $Id: v2.4.1-42-g440d05f - Sun Jan 9 21:40:58 2011 +0100 $
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
+ * @version    $Id: v2.4.1-70-g8bb353a 2011-02-07 20:54:16 +0100 $
  */
 class esf_Plugin_AutoUpdate extends esf_Plugin {
 
@@ -27,7 +33,7 @@ class esf_Plugin_AutoUpdate extends esf_Plugin {
   public function __construct() {
     parent::__construct();
     $this->UpdateCount = 0;
-    $this->LocalPath = Registry::get('Plugin.AutoUpdate.Core.LocalPath').'/version';
+    $this->LocalPath = $this->Core['localpath'].'/version';
   }
 
   /**
@@ -98,8 +104,12 @@ class esf_Plugin_AutoUpdate extends esf_Plugin {
     try {
       $CheckVersion = new CheckVersion( $this->cURL, $this->VersionURL );
       $v = $CheckVersion->Version();
-      if (version_compare(ESF_VERSION, $v, '<'))
-        Messages::Info(Translation::get('AutoUpdate.LatestAppVersion', $v), TRUE);
+      if (version_compare(ESF_VERSION, $v, '<')) {
+        if (!file_exists('web-install.php'))
+          Messages::Info(Translation::get('AutoUpdate.LatestAppVersion', $v), TRUE);
+        else
+          Messages::Info(Translation::get('AutoUpdate.UpgradeDirect', $v), TRUE);
+      }
     } catch (CheckVersionException $e) {
       // ignore errors and try later
       /// Messages::Error($e->getMessage());
@@ -108,10 +118,6 @@ class esf_Plugin_AutoUpdate extends esf_Plugin {
     if (!$this->Updater OR $this->Update2) return;
 
     // check application version
-#    $a = $this->Updater->getApplicationVersion();
-#    if (version_compare(ESF_VERSION, $a['version'], '<'))
-#     Messages::Success(Translation::get('AutoUpdate.LatestAppRelease', $a['version'], $a['comment'], $a['url']), TRUE);
-
     if (!$this->UpdateCount) return;
 
     Messages::Success(Translation::get('AutoUpdate.FilesUpdatable', $this->UpdateCount), TRUE);

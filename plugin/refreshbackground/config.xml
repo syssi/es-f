@@ -5,6 +5,11 @@
     <section name="RefreshBackground">
 
       <!--
+        PHP binary
+      -->
+      <config name="PHP"></config>
+
+      <!--
         Refresh auctions automatic every x minutes
       -->
       <config name="MaxAge" type="int">120</config>
@@ -28,12 +33,12 @@
 
       <config name="Name">Perform the automatic refresh of auctions in background</config>
 
-      <config name="Category">Interface</config>
+      <config name="Category">Auction</config>
 
       <config name="Author">Knut Kohl</config>
       <config name="Email">knutkohl@users.sourceforge.net</config>
 
-      <config name="Version">0.2.1</config>
+      <config name="Version">0.2.2</config>
     </section>
 
   </section>

@@ -1,12 +1,18 @@
 <?php
+/** @defgroup Module-Analyse Module Analyse
+
+*/
+
 /**
- * Watching module
+ * Module Watching
  *
+ * @ingroup    Module
  * @ingroup    Module-Watching
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2009-2011 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    $Id: v2.4.1-51-gfeddc24 - Sun Jan 16 21:09:59 2011 +0100 $
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
+ * @version    $Id: v2.4.1-62-gb38404e 2011-01-30 22:35:34 +0100 $
  */
 class esf_Module_Watching extends esf_Module {
 
@@ -23,9 +29,10 @@ class esf_Module_Watching extends esf_Module {
   public function IndexAction() {
 
     esf_Auctions::writeEsniperCfg(TRUE);
-    $cmd = array('WATCHING::WATCHEDITEMS',
-                 Registry::get('bin_esniper'), esf_User::UserDir());
+    $cmd = array('Watching::WatchedItems',
+                 esf_User::UserDir(), Registry::get('cfg_esniper'));
     $rc = Exec::getInstance()->ExecuteCmd($cmd, $res);
+    $cmd = Exec::getInstance()->LastCmd;
     esf_Auctions::removeEsniperCfg();
 
     $myitems = array();
@@ -64,7 +71,7 @@ class esf_Module_Watching extends esf_Module {
                         'body'    => ESF_FULL_TITLE.', Module Version: '
                                     .$this->Version);
         TplData::set('EMAIL', Core::Email($this->Email, $this->Author, TRUE, $header));
-        TplData::set('RESULT', array_merge(array('# '.$cmd, ''), $res));
+        TplData::set('RESULT', array_merge(array('$ '.$cmd, ''), $res));
       }
       $this->forward('empty');
     } else {

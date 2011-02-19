@@ -1,12 +1,13 @@
 <?php
 /**
- * Core functions
+ * Core helper functions
  *
- * @package    es-f
+ * @ingroup    es-f
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2007-2010 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    $Id: v2.4.1-42-g440d05f - Sun Jan 9 21:40:58 2011 +0100 $
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
+ * @version    $Id: v2.4.1-62-gb38404e 2011-01-30 22:35:34 +0100 $
  */
 
 defined('_ESF_OK') || die('No direct call allowed.');
@@ -18,9 +19,6 @@ defined('_ESF_OK') || die('No direct call allowed.');
  * @param string $value Value
  */
 function _Define( $define, $value ) {
-  /**
-   * @ignore
-   */
   defined($define) || define($define, $value);
 }
 
@@ -29,7 +27,6 @@ function _Define( $define, $value ) {
  */
 function encodeReturnTo( $params ) {
   return urlencode(Core::URL($params));
-#  return trim(base64_encode(serialize($params)), '=');
 }
 
 /**
@@ -37,7 +34,6 @@ function encodeReturnTo( $params ) {
  */
 function decodeReturnTo( $params='' ) {
   return urldecode($params);
-#  return unserialize(base64_decode($params));
 }
 
 /**
@@ -45,7 +41,7 @@ function decodeReturnTo( $params='' ) {
  *
  * Replace all / with DIRECTORY_SEPARATOR
  *
- * @param $path (string)
+ * @param string $path
  * @return string
  */
 function np() {

@@ -3,8 +3,9 @@
  *
  */
 
-body#login {
+#login, label, input, select, p, div {
   background: white;
+  font-size: 12px;
 }
 
 /* for IE surrounding div */
@@ -12,49 +13,56 @@ body#login {
 	text-align: center;
 }
 
-table#login {
+#logintable {
   width: 310px;
   margin: 50px auto 0.5em;
   border: 1px solid #4D4D4D;
 	text-align: center;
+  font-size: 12px;
 }
 
-table#login td {
+#logintable td {
   padding: 7px 10px;
 }
 
-table#login input,
-table#login select {
+#logintable input,
+#logintable select {
   width: 100%;
+  padding: 0 !important;
 }
 
-table#login #button {
+#logintable #button {
   width: 100%;
   padding: 2px;
-  background-color: white;
+  background-color: #EFEFEF;
   border: 1px outset black;
 }
 
-table#login td.menu {
+#logintable td.menu {
   background-color: #4D4D4D;
   color: white;
 	text-align: left;
+	font-size: bigger;
   font-weight: bold;
 }
 
-table#login td.label {
+#logintable td.label {
   background-color: #EFEFEF;
 }
 
-table#login td.error {
+#logintable td.error {
   background-color: #EFEFEF;
   font-style: italic;
 }
 
-table#login td.value {
+#logintable td.value {
 	text-align: left;
-  background-color: #FFFFFF;
-  border-top: 1px solid #4D4D4D;
+  border-top: 1px solid #A0A0A0;
+}
+
+#logintable td.cookie {
+	text-align: left;
+  padding: 0 10px;
 }
 
 #copyright {

@@ -113,7 +113,7 @@
         <td>&nbsp;&nbsp;</td>
 
         <td style="vertical-align:top">
-          <a href="{BASEHTML}html/image.php?i={IMGURL}" target="_blank"><img style="border:0" src="{BASEHTML}layout/image.php?i={IMGURL}&amp;m=100"></a>
+          <a href="{BASEHTML}html/image.php?i={IMGURL}" target="_blank"><img style="border:0" src="{BASEHTML}html/image.php?i={IMGURL}&amp;m=100"></a>
         </td>
 
       </tr>

@@ -1,32 +1,36 @@
 <?php
 /**
+ * XML object to array class
  *
- * @ingroup    XMLParser
+ * @ingroup    XMLArray
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2009-2011 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    $Id: v2.4.1-29-gacb4bc2 - Fri Jan 7 21:24:31 2011 +0100 $
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
+ * @version    $Id: v2.4.1-80-g4acbac1 2011-02-15 22:22:16 +0100 $
  */
 abstract class XML_Array extends XML_Object implements XML_ArrayI {
 
   /**
+   * Keys to lowercase
    *
-   * @var bool
+   * @var bool $Key2Lower
    */
   public $Key2Lower = TRUE;
 
   /**
+   * Class constructor
    *
-   * qparam $cache Cache
+   * @param Cache $cache Cache instance
    */
-  public function __construct( Cache $Cache ) {
-    $this->Cache = $Cache;
+  public function __construct( Cache $cache ) {
+    $this->Cache = $cache;
   }
 
   /**
    * Parses XML files into an array of arrays
    *
-   * @param string XML file name mask
+   * @param string $XMLURIs file name mask
    * @return array
    */
   public function ParseXMLFiles( $XMLURIs ) {
@@ -39,27 +43,21 @@ abstract class XML_Array extends XML_Object implements XML_ArrayI {
   /**
    * Parses a XML file into an array
    *
-   * @param string XML file name
+   * @param string $XMLURI XML file name
    * @return array
    */
   public function ParseXMLFile( $XMLURI ) {
-    /* ///
-    $id = str_replace($_SERVER['DOCUMENT_ROOT'].'/', '', $XMLURI);
-    $cached = TRUE;
-    Yryie::StartTimer($id, $id, 'parse XML file');
-    /// */
+    /// $id = str_replace($_SERVER['DOCUMENT_ROOT'].'/', '', $XMLURI);
+    /// $cached = TRUE;
+    /// Yryie::StartTimer($id, $id, 'parse XML file');
     while ($this->Cache->save($XMLURI, $array, -File::MTime($XMLURI))) {
-      /* ///
-      Yryie::Info('Parse: '.$XMLURI);
-      $cached = FALSE;
-      /// */
+      /// Yryie::Info('Parse: '.$XMLURI);
+      /// $cached = FALSE;
       $data = parent::ParseXMLFile($XMLURI);
       $array = is_array($data) ? $this->XML2Array($data[0]->Childs) : '';
     }
-    /* ///
-    if ($cached) Yryie::Info('Cached: '.$XMLURI);
-    Yryie::StopTimer($id);
-    /// */
+    /// if ($cached) Yryie::Info('Cached: '.$XMLURI);
+    /// Yryie::StopTimer($id);
     return $array;
   } // function ParseXMLFile()
 
@@ -68,7 +66,10 @@ abstract class XML_Array extends XML_Object implements XML_ArrayI {
   //--------------------------------------------------------------------------
 
   /**
+   * Map key name to common name
    *
+   * @param string $name
+   * @return string Uppercase or lowercase $name
    */
   protected function map( $name ) {
     return $this->Key2Lower ? strtolower($name) : strtoupper($name);
@@ -123,7 +124,8 @@ abstract class XML_Array extends XML_Object implements XML_ArrayI {
   //--------------------------------------------------------------------------
 
   /**
-   *
+   * Cache instance
+   * @var Cache $Cache
    */
   private $Cache;
 

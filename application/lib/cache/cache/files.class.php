@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Cache_Files extends Cache_FileBase
+ */
 require_once dirname(__FILE__).'/filebase.class.php';
 
 /**
@@ -9,16 +11,15 @@ require_once dirname(__FILE__).'/filebase.class.php';
  * The data are not in memory, they will read each time they are required.
  *
  * The following settings are supported:
- * - token    : used to build unique cache ids (optional)
- * - cachedir : Where to store the file with the cached data (optional)
- *
- * CHANGELOG
- * ---------
- * Version 1.1.0
- * - added locking
+ * - @c token    : used to build unique cache ids (optional)
+ * - @c cachedir : Where to store the file with the cached data (optional)
  *
  * @ingroup    Cache
- * @version    1.1.0
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2010-2011 Knut Kohl
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
+ * @version    $Id: v2.4.1-65-ge312679 2011-02-05 13:26:34 +0100 $
  */
 class Cache_Files extends Cache_FileBase {
 
@@ -27,15 +28,8 @@ class Cache_Files extends Cache_FileBase {
   // -------------------------------------------------------------------------
 
   /**
-   * Function set...
-   *
-   * @param string $id
-   * @param mixed $data
-   * @param $ttl int Time to live or timestamp
-   *                 0  - expire never
-   *                 >0 - Time to live
-   *                 <0 - Timestamp of expiration
-   * @return mixed
+   * @name Implemented abstract functions
+   * @{
    */
   public function set( $id, $data, $ttl=0 ) {
     // optimized for probability Set -> Delete -> Clear
@@ -48,16 +42,6 @@ class Cache_Files extends Cache_FileBase {
     }
   } // function set()
 
-  /**
-   * Function get...
-   *
-   * @param $id string
-   * @param $expire int Time to live or timestamp
-   *                    0  - expire never
-   *                    >0 - Time to live
-   *                    <0 - Timestamp of expiration
-   * @return mixed
-   */
   public function get( $id, $expire=0 ) {
     // File exists?
     $file = $this->FileName($id);
@@ -65,36 +49,16 @@ class Cache_Files extends Cache_FileBase {
     // split into ttl and data
     list($ttl, $data) = $cached;
     $ts = filemtime($file);
-    if (isset($expire)) {
-      // expiration timestamp set
-      if ($expire === 0 OR
-          $expire > 0 AND $this->ts+$expire >= $ts+$ttl OR
-          $expire < 0 AND $ts >= -$expire) return $data;
-    } else {
-      // expiration timestamp NOT set
-      if ($ttl === 0 OR
-          $ttl > 0 AND $ts+$ttl >= $this->ts OR
-          $ttl < 0 AND -$ttl >= $this->ts) return $data;
-    }
+    // Data valid?
+    if ($this->valid($ts, $ttl, $expire)) return $data;
     // else drop data for this key
     $this->delete($id);
   } // function get()
 
-  /**
-   * Function delete...
-   *
-   * @param string $id
-   * @return void
-   */
   public function delete( $id ) {
     return $this->RemoveFile($this->FileName($id));
   } // function delete()
 
-  /**
-   * Function flush...
-   *
-   * @return void
-   */
   public function flush() {
     $ok = TRUE;
     // DOTs are required in file name to not delete cache file from Cache_File
@@ -103,5 +67,6 @@ class Cache_Files extends Cache_FileBase {
     foreach ($files as $file) $ok = ($this->RemoveFile($file) AND $ok);
     return $ok;
   } // function flush()
+  /** @} */
 
 }

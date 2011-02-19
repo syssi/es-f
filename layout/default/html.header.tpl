@@ -31,7 +31,7 @@
   <div id="header_title" style="text-align:center">
 
     <div id="esf_title" style="float:left;text-align:left;margin-bottom:5px">
-      <strong style="font-size:18px"><tt>{CONST.ESF.TITLE}</tt> {CONST.ESF.SLOGAN}</strong><br>
+      <strong style="font-size:120%"><tt>{CONST.ESF.TITLE}</tt> {CONST.ESF.SLOGAN}</strong><br>
       {CONST.ESF.FULL_VERSION}
       <!-- IF CONST.DEVELOP -->
       <br>

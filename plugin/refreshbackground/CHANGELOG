@@ -1,3 +1,10 @@
+Version 0.2.2
+-------------
+BUGFIX:
+- check for PHP cli
+NEW:
+- configuration option for PHP cli if es-f can't detetct it automatic
+
 Version 0.2.1
 -------------
 BUGFIX:

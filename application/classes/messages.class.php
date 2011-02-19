@@ -2,28 +2,29 @@
 /**
  * Handle application messages
  *
- * @ingroup    Messages
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2007-2011 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    $Id: v2.4.1-42-g440d05f - Sun Jan 9 21:40:58 2011 +0100 $
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
+ * @version    $Id: v2.4.1-62-gb38404e 2011-01-30 22:35:34 +0100 $
  */
 
 abstract class Messages {
 
-  /**#@+
-   * Message type
+  /**
+   * @name Message type
+   * @{
    */
   const INFO    = 'info';
   const SUCCESS = 'success';
   const ERROR   = 'error';
   const CODE    = 'code';
-  /**#@-*/
+  /** @} */
 
   /**
    * Variable name to store messages into session
    *
-   * @var string
+   * @var string $SessionVar
    */
   public static $SessionVar = '__MESSAGES__';
 
@@ -33,7 +34,7 @@ abstract class Messages {
    * string param 1: message type: info|error|success
    * string param 2: message text
    *
-   * @var string
+   * @var string $OutHTML
    */
   public static $OutHTML = '<div class="msg%1$s">%2$s</div>';
 
@@ -133,16 +134,16 @@ abstract class Messages {
   }
 
   /**
-   * Get messages from buffer an clear buffer if requested
+   * Get message count from buffer according to type
    *
-   * @param boolean $clear Clear buffer
-   * @return array
+   * @param boolean $type If not set return count of all messages
+   * @return int
    */
   public static function count( $type=NULL ) {
-    $msgs = (array) Session::getP(self::$SessionVar);
     if (!isset($type)) {
-      $cnt = count($msgs);
+      $cnt = count((array) Session::getP(self::$SessionVar));
     } else {
+      $msgs = (array) Session::getP(self::$SessionVar);
       $cnt = 0;
       foreach ($msgs as $msg) if ($msg[1] == $type) $cnt++;
     }

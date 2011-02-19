@@ -8,9 +8,10 @@
  *
  * @ingroup    ebayParser
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2007-2010 Knut Kohl
- * @license
- * @version    $Id: v2.4.1-46-gfa6b976 - Sat Jan 15 13:42:37 2011 +0100 $
+ * @copyright  2007-2011 Knut Kohl
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
+ * @version    $Id: v2.4.1-80-g4acbac1 2011-02-15 22:22:16 +0100 $
  * @throws     ebayParserException
  */
 abstract class ebayParser {
@@ -35,9 +36,7 @@ abstract class ebayParser {
     $file = dirname(__FILE__).'/ebayparser/'.$tld.'.class.php';
     if (Loader::Load($file)) {
       $class = 'ebayParser_'.$tld;
-      // >> Debug
       Yryie::Info($class.' ('.$file.')');
-      // << Debug
       return new $class;
     }
     throw new ebayParserException('Missing file parser class: '.$file);
@@ -53,7 +52,9 @@ abstract class ebayParser {
    * @return string
    */
   public final function getDetail( $item, $name, $stripTags=TRUE, $url=NULL ) {
-    if (!isset($this->RegEx[$name])) {
+    $name = strtolower($name);
+
+    if (!isset($this->Pattern[$name])) {
       Messages::Info('Missing reg. expression for detail "'.$name.'"');
       return FALSE;
     }
@@ -68,7 +69,7 @@ abstract class ebayParser {
       $msgs = array();
       // << Debug
 
-      foreach ($this->RegEx[$name] as $regex => $id) {
+      foreach ($this->Pattern[$name] as $regex => $id) {
         if (preg_match($regex, $html, $args)) {
           if ($id == 0) {
             // if $id == 0 only find out, if HTML contains the whole regex
@@ -122,10 +123,12 @@ abstract class ebayParser {
    * Add another expression (e.g. from plugin)
    *
    * @param $name string Detail name
-   * @param $expression string reg. expression matching the detail
+   * @param $expr string reg. expression matching the detail => position
    */
-  public final function setExpression( $name, $expression ) {
-    $this->RegEx[strtoupper($name)] = $expression;
+  public final function setExpression( $name, $expr ) {
+    list($key, $val) = preg_split('~\s+=>\s+~', trim($expr), 2);
+    // set name => expr
+    $this->Pattern[strtolower($name)][$key] = $val;
   }
 
   //--------------------------------------------------------------------------
@@ -134,18 +137,23 @@ abstract class ebayParser {
 
   /**
    * reg. expressions, load from config files
+   *
+   * @var array $Pattern
    */
-  protected $RegEx = array();
+  protected $Pattern = array();
 
   /**
    * local time zone
+   *
+   * @var string $Timezone
    */
   protected $Timezone;
 
   /**
    * Time zone definitions
    *
-   * Source: http://www.timegenie.com/timezones.php
+   * @source http://www.timegenie.com/timezones.php
+   * @var array $TimeZones
    */
   protected $TimeZones = array(
     'BIT'     => -12,          // Baker Island Time
@@ -371,55 +379,26 @@ abstract class ebayParser {
    */
   protected function __construct( $tld ) {
     $this->Timezone = date('T');
-    $iniDir = dirname(__FILE__).'/ebayparser/';
+    $dir = dirname(__FILE__).'/ebayparser/';
 
-    if (!IniFile::Parse($iniDir.$tld.'.ini', TRUE))
-      throw new ebayParserException(IniFile::$Error);
+    $xml = new XML_Array_Parser(Core::$Cache);
 
-    $this->Version = IniFile::$Data['Version'];
-    $this->URL     = IniFile::$Data['URL'];
-    $this->Transform(IniFile::$Data['EXPRESSIONS']);
-
-    // add common definitions
-    if (IniFile::Parse($iniDir.'common.ini', TRUE))
-      $this->Transform(IniFile::$Data['EXPRESSIONS']);
-
-/*
-    $xml = new XML_Array_Parser(Registry::get('Cache'));
-    $xml->Key2Lower = FALSE;
-
-    $data = $xml->ParseXMLFile($iniDir.$tld.'.xml');
+    // Common patterns
+    $data = $xml->ParseXMLFile($dir.'main.xml');
     if (!$data) throw new ebayParserException($xml->Error);
 
-    $this->Version = $data['VERSION'];
-    $this->URL     = $data['URL'];
+    $this->TransformXML($data['patterns']);
 
-    $this->TransformXML($data['EXPRESSIONS']);
+    // Special patterns per domain
+    $data = $xml->ParseXMLFile($dir.$tld.'.xml');
+    if (!$data) throw new ebayParserException($xml->Error);
 
-    // add common definitions
-    $data = $xml->ParseXMLFile($iniDir.'common.xml');
-    if ($data) $this->TransformXML($data['EXPRESSIONS']);
-*/
+    $this->TransformXML($data['patterns']);
 
-    // >> Debug
-    Yryie::Debug($this->RegEx);
-    // << Debug
-  }
+    Yryie::Debug($this->Pattern);
 
-  /**
-   * Transform expresions into key => val relations
-   *
-   * @param array $regex Expressions from ini file
-   */
-  private function Transform( $regex ) {
-    foreach ($regex as $name => $data) {
-      if (!is_array($data)) $regex[$name] = array($data);
-      foreach ($regex[$name] as $id => $expr) {
-        list($key, $val) = preg_split('~\s+=>\s+~', $expr, 2);
-        // set name => expr
-        $this->RegEx[$name][$key] = $val;
-      }
-    }
+    $this->Version = $data['version'];
+    $this->URL = $data['url'];
   }
 
   /**
@@ -427,11 +406,10 @@ abstract class ebayParser {
    *
    * @param array $array Expressions from xml file
    */
-  private function TransformXML( $array ) {
-    foreach ($array as $name => $data) {
-      foreach ($data as $expression) {
-        $this->RegEx1[$name][$expression['EXPRESSION']] =
-          (isset($expression['HIT']) ? $expression['HIT'] : 0);
+  private function TransformXML( $patterns ) {
+    foreach ($patterns as $name => $data) {
+      foreach ($data as $id => $expr) {
+        $this->setExpression($name, $expr);
       }
     }
   }

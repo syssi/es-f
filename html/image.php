@@ -1,38 +1,31 @@
 <?php
-/**
- * Display images from the file system with scaling and rotating
- *
- * Usage:
- * <code>
- * image.php?i=...
- * </code>
- *
- * minimum parameter is the file name "i=" as
- * <ul>
- * <li>absolute name in file system
- * <li>relative name from DOCUMENT_ROOT
- * <li>one of above BASE64 encoded: base64_encode($ImageFileName)
- * </ul>
- *
- * CHANGELOG
- *
- * <code>
- * Version 1.2.0
- * NEW:
- * - water marking
- *
- * Version 1.1.0
- * NEW:
- * - Shorten the hash
- * </code>
- *
- * @package    ImageViewer
- * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2007-2010 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    1.2.0
- * @version    : 'v2.3.1-5-g726118d'$
- */
+/** @defgroup ImageViewer Image viewer
+
+  Display images from the file system with scaling and rotating
+
+  @usage
+  @code
+  image.php?i=...
+  @endcode
+
+  Minimum parameter is the file name "i=" as
+  - absolute name in file system
+  - relative name from DOCUMENT_ROOT
+  - one of above BASE64 encoded: base64_encode($ImageFileName)
+
+  @author     Knut Kohl <knutkohl@users.sourceforge.net>
+  @copyright  2007-2011 Knut Kohl
+  @license    GNU General Public Licensehttp://www.gnu.org/licenses/gpl.txt
+  @version    1.2.0
+  @version    $Id: v2.4.1-64-gee8a889 2011-02-03 23:16:23 +0100 $
+
+  @changelog
+  - Version 1.2.0
+    - NEW: water marking
+  - Version 1.1.0
+    - NEW: Shorten the hash
+
+*/
 
 /**
  * Use better (true color) GD functions if exists

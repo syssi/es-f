@@ -28,9 +28,23 @@
   <body>
     <tu tuid="LatestAppVersion">
       <prop type="x-Format">html</prop>
-      <note>%$1s - ...</note>
+      <note>%$1s - neue Version</note>
       <tuv xml:lang="DE">
-        <seg><![CDATA[Die neueste <tt>|es|f|</tt> Version ist &nbsp; <tt>%1$s</tt>, du kannst upgraden!]]></seg>
+        <seg><![CDATA[
+          Die neueste <tt>|es|f|</tt> Version ist <tt>%1$s</tt>,
+          du kannst upgraden!
+        ]]></seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="UpgradeDirect">
+      <prop type="x-Format">html</prop>
+      <note>%$1s - neue Version</note>
+      <tuv xml:lang="DE">
+        <seg><![CDATA[
+          Die neueste <tt>|es|f|</tt> Version ist <tt>%1$s</tt>,
+          du kannst <a href="?module=logout&amp;returnto=web-install.php">direkt upgraden</a>!
+        ]]></seg>
       </tuv>
     </tu>
 

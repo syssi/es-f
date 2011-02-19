@@ -2,11 +2,14 @@
 /**
  * Cache class using APC opcode cache
  *
- * The following settings are supported:
- * - token    : used to build unique cache ids (optional)
+ * For more information see http://www.php.net/manual/book.apc.php
  *
- * @ingroup  Cache
- * @version  1.0.0
+ * @ingroup    Cache
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2007-2011 Knut Kohl
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
+ * @version    $Id: v2.4.1-77-gc4bf735 2011-02-13 21:51:53 +0100 $
  */
 class Cache_APC extends Cache {
 
@@ -15,36 +18,17 @@ class Cache_APC extends Cache {
   // -------------------------------------------------------------------------
 
   /**
-   *
+   * @name Implemented abstract functions
+   * @{
    */
-  public function __construct( $settings=array() ) {
-    if (!self::available())
-      throw new Cache_Exception(__CLASS__.': Extension APC not loaded.', 9);
-    parent::__construct($settings);
-  }
-
-  /**
-   *
-   */
-  public static function available() {
+  public function isAvailable() {
     return extension_loaded('apc');
   }
 
-  /**
-   * Function set...
-   *
-   * @param string $id
-   * @param mixed $data
-   * @param $ttl int Time to live or timestamp
-   *                 0  - expire never
-   *                 >0 - Time to live
-   *                 <0 - Timestamp of expiration
-   * @return bool
-   */
   public function set( $id, $data, $ttl=0 ) {
     // optimized for probability Set -> Delete -> Clear
     if ($data !== NULL) {
-      return apc_store($this->id($id), $this->serialize(array($this->ts, $ttl, $data)));
+      return apc_store($this->id($id), $this->serialize(array($this->ts, $ttl, $data)), 0);
     } elseif ($id !== NULL) { // AND $data === NULL
       return $this->delete($id);
     } else { // $id === NULL AND $data === NULL
@@ -52,53 +36,41 @@ class Cache_APC extends Cache {
     }
   }
 
-  /**
-   * Function get...
-   *
-   * @param string $id
-   * @param $expire int Time to live or timestamp
-   *                    0  - expire never
-   *                    >0 - Time to live
-   *                    <0 - Timestamp of expiration
-   * @return mixed
-   */
   public function get( $id, $expire=0 ) {
     if (!$cached = $this->unserialize(apc_fetch($this->id($id)))) return;
     // split into store time, ttl, data
     list($ts, $ttl, $data) = $cached;
     // Data valid?
-    if (isset($expire)) {
-      // expiration timestamp set
-      if ($expire === 0 OR
-          $expire > 0 AND $this->ts+$expire >= $ts+$ttl OR
-          $expire < 0 AND $ts >= -$expire) return $data;
-    } else {
-      // expiration timestamp NOT set
-      if ($ttl === 0 OR
-          $ttl > 0 AND $ts+$ttl >= $this->ts OR
-          $ttl < 0 AND -$ttl >= $this->ts) return $data;
-    }
+    if ($this->valid($ts, $ttl, $expire)) return $data;
     // else drop data for this key
     $this->delete($id);
   }
 
-  /**
-   * Function delete...
-   *
-   * @param string $id
-   * @return bool
-   */
   public function delete( $id ) {
     return apc_delete($this->id($id));
   }
 
-  /**
-   * Function flush...
-   *
-   * @return bool
-   */
   public function flush() {
     return apc_clear_cache();
   }
+  /** @} */
+
+  /**
+   * @name Overloaded functions
+   * Use APC own functions
+   * @{
+   */
+  public function inc( $id, $step=1 ) {
+    return apc_inc($this->id($id), $step);
+  } // function inc()
+
+  public function dec( $id, $step=1 ) {
+    return apc_dec($this->id($id), $step);
+  } // function dec()
+  /** @} */
+
+  public function info() {
+    return array_merge(parent::info(), apc_sma_info());
+  } // function info()
 
 }

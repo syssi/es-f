@@ -4,19 +4,10 @@
 
     <section name="Paypal">
 
-      <config name="Regex" type="array">
-
-        <config type="array">
-          <config name="expression">
-            <![CDATA[
-            ~pics/logos/logoPayPal_51x14\.gif~i
-            ]]>
-          </config>
-          <!-- optional, default: 0
-          <config name="position" type="int">0</config>
-          -->
-        </config>
-
+      <config name="Pattern">
+        <![CDATA[
+        ~pics/logos/logoPayPal_51x14\.gif~i => 0
+        ]]>
       </config>
 
       <!-- *******************************************************************

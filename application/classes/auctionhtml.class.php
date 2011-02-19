@@ -1,17 +1,20 @@
 <?php
 /**
- * Read ebay auction page html code for an auction
+ * Read ebay auction page HTML code for an auction
  *
- * @package    AuctionHTML
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2007-2011 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    $Id: v2.4.1-42-g440d05f - Sun Jan 9 21:40:58 2011 +0100 $
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
+ * @version    $Id: v2.4.1-79-g85bf9fc 2011-02-15 18:24:07 +0100 $
  */
 abstract class AuctionHTML {
 
   /**
+   * Clear file buffer
    *
+   * @param string $item
+   * @param string $urlId
    */
   public static function clearBuffer( $item='*', $urlId='*' ) {
     $files = np('"%s/"%s.%s".html"', TEMPDIR, $item, $urlId);
@@ -19,7 +22,12 @@ abstract class AuctionHTML {
   }
 
   /**
+   * Get HTML code for an item according to provided URLs
    *
+   * @param string $item
+   * @param array $urls
+   * @param array &$err
+   * @param array $urlId
    */
   public static function &getHTML( $item, $urls, &$err, $urlId='default' ) {
     if (self::$FirstCall) {
@@ -77,6 +85,10 @@ abstract class AuctionHTML {
         $html = preg_replace('~\{\w.*?\}~s', '', $html);
         // empty tag delimiters
         $html = preg_replace('~</?(table|tbody|tr|td|div|p|span|font)>~s', '', $html);
+        // replace some special chars
+        $html = str_replace(array('&#163;', '&#165;'),
+                            array('GBP',    'Yen'),
+                            $html);
 
         /* ///
           $l2 = strlen($html);
@@ -100,12 +112,14 @@ abstract class AuctionHTML {
   // -------------------------------------------------------------------------
 
   /**
+   * Clear buffer on 1st call
    *
+   * @var bool $FirstCall
    */
   private static $FirstCall = TRUE;
 
   /**
-   *
+   * Don't initiate the class
    */
   private final function __construct() {}
 

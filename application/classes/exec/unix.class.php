@@ -2,11 +2,12 @@
 /**
  * Exec for *nix platforms
  *
- * @package    exec
+ * @ingroup    exec
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2007-2010 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    $Id: v2.4.1-3-gd6df604 - Tue Dec 21 21:12:15 2010 +0100 $
+ * @copyright  2007-2011 Knut Kohl
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
+ * @version    $Id: v2.4.1-62-gb38404e 2011-01-30 22:35:34 +0100 $
  */
 
 /**
@@ -33,6 +34,7 @@ class Exec_Unix extends Exec {
    *
    * @param string $filemask *nix file mask string
    * @param integer $mode File mode, also octal
+   * @param array $rec Change recursive
    * @param array $result Command output
    * @param string $sudo Run command as other user
    * @return integer Return code of system command

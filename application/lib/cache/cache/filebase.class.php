@@ -6,11 +6,19 @@
  * All data will be held in memeory during the script runs
  *
  * The following settings are supported:
- * - token    : used to build unique cache ids (optional)
- * - cachedir : Where to store the file with the cached data (optional)
+ * - @c token    : used to build unique cache ids (optional)
+ * - @c cachedir : Where to store the file with the cached data (optional)
  *
- * @ingroup  Cache
- * @version  1.0.0
+ * @ingroup    Cache
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2010-2011 Knut Kohl
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.1.0
+ * @version    $Id: v2.4.1-77-gc4bf735 2011-02-13 21:51:53 +0100 $
+ *
+ * @changelog
+ * - v1.1.0
+ *   - NEW: Add locking
  */
 abstract class Cache_FileBase extends Cache {
 
@@ -18,22 +26,37 @@ abstract class Cache_FileBase extends Cache {
   // PUBLIC
   // -------------------------------------------------------------------------
 
+  public function isAvailable() {
+    return is_writable($this->cachedir);
+  }
+
+  public function info() {
+    $info = parent::info();
+    $info['cachedir'] = $this->cachedir;
+    return $info;
+  }
+
   // -------------------------------------------------------------------------
   // PROTECTED
   // -------------------------------------------------------------------------
 
   /**
+   * Caching directory
    *
-   * @var string
+   * @var string $cachedir
    */
   protected $cachedir;
 
   /**
-   * Class constructor
+   * The following additional settings are supported:
+   * - @c cachedir : Store cache file here (optional)
    *
-   * @public
-   * @param array $options
-   * @return CacheI
+   * If no @c cachedir is provided the follwing directories are checked for
+   * avaibility:
+   * - upload_tmp_dir
+   * - system temp. dir
+   *
+   * @copydoc Cache::__construct()
    */
   protected function __construct( $settings=array() ) {
     parent::__construct($settings);
@@ -48,15 +71,12 @@ abstract class Cache_FileBase extends Cache {
     // 3rd use system temp. directory
     if (empty($this->cachedir) OR !is_writable($this->cachedir))
       $this->cachedir = sys_get_temp_dir();
-    // If still not found or not writeable...
-    if (empty($this->cachedir) OR !is_writable($this->cachedir))
-      throw new Cache_Exception(__CLASS__.': No writeable directory found.', 9);
   }
 
   /**
-   * Function FileName...
+   * Bulid cache file name
    *
-   * @param $id string
+   * @param string $id
    * @return string
    */
   protected function FileName( $id='' ) {
@@ -65,14 +85,14 @@ abstract class Cache_FileBase extends Cache {
   } // function FileName()
 
   /**
-   * Function ReadFile...
+   * Read data from cache file
    *
    * @param string $file
    * @return string
    */
   protected function ReadFile( $file ) {
     // php.net suggested 'rb' to make it work under Windows
-    if (!$fh = @fopen($file, 'rb')) return;
+    if (!file_exists($file) OR !$fh = @fopen($file, 'rb')) return;
     // Get a shared lock
     @flock($fh, LOCK_SH);
     $data = '';
@@ -86,11 +106,11 @@ abstract class Cache_FileBase extends Cache {
   } // function ReadFile()
 
   /**
-   * Function WriteFile...
+   * Write data to cache file
    *
    * @param string $file
    * @param string $data
-   * @return string
+   * @return bool
    */
   protected function WriteFile( $file, $data ) {
     if (empty($data) AND $this->RemoveFile($file)) return TRUE;
@@ -114,11 +134,10 @@ abstract class Cache_FileBase extends Cache {
   } // function WriteFile()
 
   /**
-   * Function RemoveFile...
+   * Delete cache file
    *
    * @param string $file
-   * @param string $data
-   * @return string
+   * @return bool
    */
   protected function RemoveFile( $file ) {
     return (file_exists($file) AND unlink($file));
@@ -126,20 +145,17 @@ abstract class Cache_FileBase extends Cache {
 
 }
 
-/**
- * PHP < 5.2.1
- */
+// prior PHP 5.2.1
 if (!function_exists('sys_get_temp_dir')) {
-
-  function sys_get_temp_dir() {
-    if ($temp = getenv('TMP'))     return $temp;
-    if ($temp = getenv('TEMP'))    return $temp;
-    if ($temp = getenv('TMPDIR'))  return $temp;
-    $temp = tempnam(__FILE__, '');
-    if (file_exists($temp)) {
-      unlink($temp);
-      return dirname($temp);
-    }
-    return null;
+function sys_get_temp_dir() {
+  if ($temp = getenv('TMP'))     return $temp;
+  if ($temp = getenv('TEMP'))    return $temp;
+  if ($temp = getenv('TMPDIR'))  return $temp;
+  $temp = tempnam(__FILE__, '');
+  if (file_exists($temp)) {
+    unlink($temp);
+    return dirname($temp);
   }
+  return null;
+}
 }

@@ -145,7 +145,8 @@ define('ASSUME_EUCJP_ENCODING',false);
 
 
 // Default font family
-define('FF_DEFAULT', FF_DV_SANSSERIF);
+//define('FF_DEFAULT', FF_DV_SANSSERIF);
+define('FF_DEFAULT', FF_FONT1);
 
 
 

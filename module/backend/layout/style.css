@@ -71,9 +71,8 @@ div#infolinks {
   padding: 7px;
 }
 
-.tabberlive  .tabbertab {
+.tabberlive .tabbertab {
 	border-left: dotted gray 1px;
 	border-right: dotted gray 1px;
 	border-bottom: dotted gray 1px;
 }
-

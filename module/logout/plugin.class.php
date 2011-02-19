@@ -1,22 +1,14 @@
 <?php
 /**
- * @category   Plugin
- * @package    Plugin-Logout
- * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    0.1.0
- */
-
-/**
- * Rewrite urls
+ * Module Logout plugin
  *
- * @category   Plugin
- * @package    Plugin-Logout
+ * @ingroup    Plugin
+ * @ingroup    Module-Logout
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2009 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    Release: @package_version@
+ * @copyright  2009-2011 Knut Kohl
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
+ * @version    $Id: v2.4.1-62-gb38404e 2011-01-30 22:35:34 +0100 $
  */
 class esf_Plugin_Module_Logout extends esf_Plugin {
 

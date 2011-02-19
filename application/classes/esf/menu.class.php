@@ -1,25 +1,30 @@
 <?php
 /**
+ * Menu builder
  *
- */
-
-/**
- *
+ * @ingroup    es-f
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2009-2010 Knut Kohl
+ * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
+ * @version    1.0.0
+ * @version    $Id: v2.4.1-62-gb38404e 2011-01-30 22:35:34 +0100 $
  */
 abstract class esf_Menu {
 
   /**
    * Look for icons for menu entries following this expression:
-   * module/<module>/images/menu$IconSet.gif
+   * module/$module/images/menu$IconSet.gif
    *
    * Plugins have to provide a full path to their menu icons!
-   * <image path>/menu$IconSet.gif
+   * $ImagePath/menu$IconSet.gif
    *
-   * @var string
+   * @var string $IconSet
    */
   public static $IconSet = 'menu.gif';
 
-  /**#@+
+  /**
+   * @name Adding menu entries
+   * @{
    * Add menu entry to defined menu
    *
    * For modules: Image name is relative from module specific layout dir, so
@@ -33,11 +38,7 @@ abstract class esf_Menu {
   /**
    * Add to application main menu
    *
-   * @param string|array $module <Module>|array('module' => '...', 'action' => '...'), ...)
-   * @param string $title Menu title
-   * @param string $image Menu icon
-   * @param string $hint Longer hint text
-   * @param integer $id Position in menu
+   * @param string|array $params $Module|array('module' => '...', 'action' => '...'), ...)
    */
   public static function addMain( $params ) {
     return self::add(0, $params);
@@ -46,11 +47,7 @@ abstract class esf_Menu {
   /**
    * Add to module specific sub menu
    *
-   * @param string|array $module <Module>|array('module' => '...', 'action' => '...'), ...)
-   * @param string $title Menu title
-   * @param string $image Menu icon
-   * @param string $hint Longer hint text
-   * @param integer $id Position in menu
+   * @param string|array $params $Module|array('module' => '...', 'action' => '...'), ...)
    */
   public static function addModule( $params ) {
     return self::add(1, $params);
@@ -59,27 +56,26 @@ abstract class esf_Menu {
   /**
    * Add to application system menu
    *
-   * If $module is false, $title MUST contain a full <a ...></a> link!
-   *
-   * @param string|array $module <Module>|array('module' => '...', 'action' => '...'), ...)
-   * @param string $title Menu title
-   * @param string $image Menu icon
-   * @param string $hint Longer hint text
-   * @param integer $id Position in menu
+   * @param string|array $params $Module|array('module' => '...', 'action' => '...'), ...)
    */
   public static function addSystem( $params ) {
     return self::add(2, $params);
   }
-  /**#@-*/
+  /** @} */
 
   /**
    * Get application main menu data
+   *
+   * @param string $style Full|Image|Text
    */
   public static function getMain( $style ) {
     return self::get(0, $style);
   }
+
   /**
    * Get module specific sub menu
+   *
+   * @param string $style Full|Image|Text
    */
   public static function getModule( $style ) {
     return self::get(1, $style);
@@ -87,6 +83,8 @@ abstract class esf_Menu {
 
   /**
    * Get module specific sub menu
+   *
+   * @param string $style Full|Image|Text
    */
   public static function getSystem( $style ) {
     return self::get(2, $style);
@@ -96,6 +94,11 @@ abstract class esf_Menu {
   // PROTECTED
   //-----------------------------------------------------------------------------
 
+  /**
+   * Menu definitions
+   *
+   * @var array $Menu
+   */
   protected static $Menu = array(
     0 => array(), // Main
     1 => array(), // Module
@@ -105,7 +108,6 @@ abstract class esf_Menu {
   /**
    * Internal menu handling function
    *
-   * @internal
    * @param integer $MenuId Internal menu ID
    * @param array $params
    */
@@ -144,42 +146,46 @@ abstract class esf_Menu {
   }
 
   /**
-   * @internal
+   * Get menu data
+   *
+   * @param integer $MenuId Internal menu ID
+   * @param string $style Full|Image|Text
+   * @return array
    */
   protected static function get( $MenuId, $style ) {
     $menu = self::$Menu[$MenuId];
     ksort($menu);
-    $tpldata = array();
+    $TplData = array();
 
     foreach ($menu as $id=>$menuitem) {
-      $_tpldata['ID']    = $id;
-      $_tpldata['Style'] = !empty($menuitem['style']) ? $menuitem['style'] : $style;
-      $_tpldata['Image'] = $menuitem['img'];
-      $_tpldata['alt']   = $menuitem['alt'];
-      $_tpldata['Extra'] = $menuitem['extra'];
+      $Entry['ID']    = $id;
+      $Entry['Style'] = !empty($menuitem['style']) ? $menuitem['style'] : $style;
+      $Entry['Image'] = $menuitem['img'];
+      $Entry['alt']   = $menuitem['alt'];
+      $Entry['Extra'] = $menuitem['extra'];
 
       if ($menuitem['module']) {
-        $_tpldata['Title']  = $menuitem['title']
-                            ? $menuitem['title']
-                            : Translation::get($menuitem['module'].'.Menu');
-        $_tpldata['Hint']   = $menuitem['hint']
-                            ? $menuitem['hint']
-                            : Translation::get($menuitem['module'].'.MenuHint');
-        $_tpldata['URL']    = Core::URL(array('module' => $menuitem['module'],
-                                              'action' => $menuitem['action'],
-                                              'params' => $menuitem['params'],
-                                              'url'    => $menuitem['url']));
+        $Entry['Title']  = $menuitem['title']
+                         ? $menuitem['title']
+                         : Translation::get($menuitem['module'].'.Menu');
+        $Entry['Hint']   = $menuitem['hint']
+                         ? $menuitem['hint']
+                         : Translation::get($menuitem['module'].'.MenuHint');
+        $Entry['URL']    = Core::URL(array('module' => $menuitem['module'],
+                                           'action' => $menuitem['action'],
+                                           'params' => $menuitem['params'],
+                                           'url'    => $menuitem['url']));
       } else {
-        $_tpldata['Title']  = $menuitem['title'];
-        $_tpldata['Hint']   = $menuitem['hint'];
-        $_tpldata['URL']    = $menuitem['url'];
+        $Entry['Title']  = $menuitem['title'];
+        $Entry['Hint']   = $menuitem['hint'];
+        $Entry['URL']    = $menuitem['url'];
       }
 
-      $_tpldata['URL'] = str_replace('&', '&amp;', $_tpldata['URL']);
+      $Entry['URL'] = str_replace('&', '&amp;', $Entry['URL']);
 
-      $tpldata[] = $_tpldata;
+      $TplData[] = $Entry;
     }
 
-    return $tpldata;
+    return $TplData;
   }
 }

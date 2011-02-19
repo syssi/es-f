@@ -4,11 +4,12 @@
  *
  * Core application functions
  *
- * @package    es-f
+ * @ingroup    es-f
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2007-2010 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    $Id: v2.4.1-49-g0f62a5c - Sat Jan 15 23:05:05 2011 +0100 $
+ * @copyright  2007-2011 Knut Kohl
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
+ * @version    $Id: v2.4.1-77-gc4bf735 2011-02-13 21:51:53 +0100 $
  */
 abstract class Core {
 
@@ -17,7 +18,9 @@ abstract class Core {
   // -------------------------------------------------------------------------
 
   /**
+   * Core cache instance
    *
+   * @var Cache $Cache
    */
   public static $Cache;
 
@@ -106,10 +109,10 @@ abstract class Core {
   /**
    * ISO 8859-1 to UTF-8 conversion
    *
-   * Found on http://php.net/manual/function.iconv.php
-   * UCN by ng4rrjanbiah at rediffmail dot com, 22-Jun-2004 05:10
+   * @source http://www.php.net/manual/en/function.iconv.php#43463
    *
    * @param string $text Text to convert
+   * @param string $charset Convert from charset
    * @return string Converted text
    */
   public static function toUTF8( $text, $charset='ISO-8859-1' ) {
@@ -127,8 +130,7 @@ abstract class Core {
   /**
    * UTF-8 to ISO 8859-1 conversion
    *
-   * Found on http://php.net/manual/function.iconv.php
-   * UCN by ng4rrjanbiah at rediffmail dot com, 22-Jun-2004 05:10
+   * @source http://www.php.net/manual/function.iconv.php#43463
    *
    * @param string $text Text to convert from UTF-8 to ISO-8859-1
    */
@@ -148,7 +150,6 @@ abstract class Core {
    * Own session handling
    *
    * @param boolean $forceRestart Force restart of session, e.g. in case of logout
-   * @return void
    */
   public static function StartSession( $forceRestart=FALSE ) {
     /// Session::$Debug = TRUE;
@@ -171,29 +172,28 @@ abstract class Core {
   }
 
   /**
-   * Forward to another module and/or action without page relaod,
-   * used in prepare.php
+   * Forward to another module and/or action without page relaod
    *
-   * @param string $ud_module Module
-   * @param string $ud_action Module action
-   * @param string $ua_params Additional parameters
+   * @param string $module Module
+   * @param string $action Module action
+   * @param string $params Additional parameters
    */
-  public static function Forward( $ud_module=NULL, $ud_action=NULL, $ua_params=array() ) {
-    if (isset($ua_params['module'])) {
-      $ud_module = $ua_params['module'];
-      unset($ua_params['module']);
+  public static function Forward( $module=NULL, $action=NULL, $params=array() ) {
+    if (isset($params['module'])) {
+      $module = $params['module'];
+      unset($params['module']);
     }
-    if (isset($ua_params['action'])) {
-      $ud_action = $ua_params['action'];
-      unset($ua_params['action']);
+    if (isset($params['action'])) {
+      $action = $params['action'];
+      unset($params['action']);
     }
-    $do['module'] = $ud_module;
-    $do['action'] = $ud_action;
+    $do['module'] = $module;
+    $do['action'] = $action;
 
     Registry::set('esf.module', ($do['module'] ? $do['module'] : STARTMODULE));
     Registry::set('esf.action', ($do['action'] ? $do['action'] : 'index'));
 
-    $do = array_merge($ua_params, $do);
+    $do = array_merge($params, $do);
     unset($do['module'], $do['action']);
     foreach ($do as $key => $val) $_REQUEST[$key] = $val;
   }
@@ -254,37 +254,86 @@ abstract class Core {
   }
 
   /**
+   * Transform extension CHANGELOG file to HTML code
    *
+   * @param string $file If not exists, return empty string
+   * @return string
    */
-  public static function IncludeSpecial( $Scopes, $Patterns, $force=FALSE ) {
-    if (!is_array($Scopes)) $Scopes = array($Scopes);
-    if (!is_array($Patterns)) $Patterns = array($Patterns);
+  public static function ChangeLog2TplData( $file ) {
+    if (!file_exists($file)) return '';
+
+    $ChangeLog = $changes = '';
+    $ul = FALSE;
+
+    foreach ((array)file($file) as $line) {
+      $line = trim($line);
+      if (empty($line)) continue;
+
+      switch (TRUE) {
+        case preg_match('~^\s*Version\s+([\d.]+)\s*$~i', $line, $args):
+          $ChangeLog[$args[1]]['VERSION'] = $line;
+          // get pointer to actual changes entry
+          $changes =& $ChangeLog[$args[1]]['CHANGES'];
+          $ul = FALSE;
+          break;
+        case preg_match('~^--+$~', $line, $args):
+          // do nothing
+          break;
+        case preg_match('~^-(.*?)$~', $line, $args):
+          if (!$ul) {
+            $changes .= '<ul>';
+            $ul = TRUE;
+          }
+          $changes .= '<li>'.trim($args[1]).'</li>';
+          break;
+        default:
+          if ($ul) {
+            $changes .= '</ul>'."\n";
+            $ul = FALSE;
+          }
+          $changes .= '<strong>'.$line.'</strong><br>'."\n";
+          break;
+      }
+    }
+    return $ChangeLog;
+  }
+
+  /**
+   * Include files according to scope and pattern
+   *
+   * @param string|array $scopes Module,Plugin
+   * @param string|array $patterns File patterns
+   * @param bool $force Force load
+   */
+  public static function IncludeSpecial( $scopes, $patterns, $force=FALSE ) {
+    if (!is_array($scopes)) $scopes = array($scopes);
+    if (!is_array($patterns)) $patterns = array($patterns);
 
     // >> Debug
-    Yryie::Info(sprintf('(%s)'.DIRECTORY_SEPARATOR.'(%s)', implode('|',$Scopes), implode('|',$Patterns)));
+    Yryie::Info(sprintf('(%s)'.DIRECTORY_SEPARATOR.'(%s)', implode('|',$scopes), implode('|',$patterns)));
     // << Debug
 
-    foreach ($Scopes as $Scope) {
-      $chk4User = (!$force AND ($Scope == esf_Extensions::MODULE));
-      switch ($Scope) {
+    foreach ($scopes as $scope) {
+      $chk4User = (!$force AND ($scope == esf_Extensions::MODULE));
+      switch ($scope) {
         // --------------------
         case esf_Extensions::MODULE :
         case esf_Extensions::PLUGIN :
-          foreach (esf_Extensions::getExtensions($Scope) as $Extension) {
+          foreach (esf_Extensions::getExtensions($scope) as $ext) {
             /**
              * - load all plugin files if enabled
              * - load all module files if enabled and not login required or valid user
              */
-            if (esf_Extensions::checkState($Scope, $Extension, esf_Extensions::BIT_ENABLED) AND
+            if (esf_Extensions::checkState($scope, $ext, esf_Extensions::BIT_ENABLED) AND
                 (!$chk4User OR
-                 !Registry::get('Module.'.$Extension.'.LoginRequired') OR
+                 !Registry::get('Module.'.$ext.'.LoginRequired') OR
                  esf_User::isValid())) {
-              $path = sprintf(BASEDIR.'%1$s%2$s%1$s%3$s%1$s', DIRECTORY_SEPARATOR, $Scope, $Extension);
-              foreach ($Patterns as $Pattern) {
-                $Pattern = str_replace('/', DIRECTORY_SEPARATOR, $Pattern);
-                foreach (glob($path.$Pattern.'.php') as $file) {
+              $path = sprintf(BASEDIR.'%1$s%2$s%1$s%3$s%1$s', DIRECTORY_SEPARATOR, $scope, $ext);
+              foreach ($patterns as $pattern) {
+                $pattern = str_replace('/', DIRECTORY_SEPARATOR, $pattern);
+                foreach (glob($path.$pattern.'.php') as $file) {
                   /* ///
-                  Yryie::StartTimer($file, $file, 'include special '.$Scope);
+                  Yryie::StartTimer($file, $file, 'include special '.$scope);
                   Yryie::Info(sprintf('%s [0%s]',
                                            str_replace(@$_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR, '', $file),
                                            File::Permissions($file)));
@@ -299,13 +348,13 @@ abstract class Core {
 
         // --------------------
         case NULL :
-          foreach ($Patterns as $Pattern) {
-            $Pattern = str_replace('/', DIRECTORY_SEPARATOR, $Pattern);
-            $path = (substr($Pattern,0,1) != DIRECTORY_SEPARATOR)
+          foreach ($patterns as $pattern) {
+            $pattern = str_replace('/', DIRECTORY_SEPARATOR, $pattern);
+            $path = (substr($pattern,0,1) != DIRECTORY_SEPARATOR)
                     // relative path
-                  ? BASEDIR.DIRECTORY_SEPARATOR.$Pattern.'.php'
+                  ? BASEDIR.DIRECTORY_SEPARATOR.$pattern.'.php'
                     // absolute path
-                  : $Pattern.'.php';
+                  : $pattern.'.php';
             foreach (glob($path) as $file) {
               /* ///
               Yryie::StartTimer($file);
@@ -325,7 +374,7 @@ abstract class Core {
   /**
    * Read configurations from config.xml
    *
-   * $param string $scope module|plugin or other defined path
+   * @param string $scope module|plugin or other defined path
    * @return void
    */
   public static function ReadConfigs( $scope ) {
@@ -333,7 +382,7 @@ abstract class Core {
     if (in_array($scope, esf_Extensions::$Types))
       $scope .= DIRECTORY_SEPARATOR.'*';
 
-    if (!isset(self::$Cache)) self::$Cache = Cache::factory('Mock');
+    if (!isset(self::$Cache)) self::$Cache = Cache::create(NULL, 'Mock');
     $xml = new XML_Array_Configuration(self::$Cache);
 
     $files = glob(BASEDIR.DIRECTORY_SEPARATOR.$scope.DIRECTORY_SEPARATOR.'config.xml');
@@ -378,13 +427,12 @@ abstract class Core {
   }
 
   /**
-   * Check if all required Events for given Event found
+   * Check if all required extensions for given extension found
    *
    * @param string $scope module|plugin
    * @param string $part Event name
    * @param array &$Err Error messages
    * @return boolean
-   * @global array
    */
   public static function CheckRequired( $scope, $part, &$Err ) {
     $Err = array();
@@ -419,7 +467,7 @@ abstract class Core {
   /**
    * Definition of Event requirements
    *
-   * @var array
+   * @var array $Required
    */
   private static $Required = array();
 

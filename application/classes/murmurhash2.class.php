@@ -9,17 +9,15 @@
  * Sources:
  * - http://en.wikipedia.org/wiki/MurmurHash
  * - http://sites.google.com/site/murmurhash
- *
- * v3 - http://code.google.com/p/smhasher/source/browse/trunk/MurmurHash3.cpp?r=75
+ * - v3: http://code.google.com/p/smhasher/source/browse/trunk/MurmurHash3.cpp?r=75
  *
  * Adapted from JS version: https://gist.github.com/588423
  *
- * @ingroup    murmurHash
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2011 Knut Kohl
- * @par License:
- * <a href="http://www.gnu.org/licenses/gpl.txt">GNU General Public License</a>
- * @version    $Id: v2.4.1-43-g9eb0fbd - Tue Jan 11 21:51:29 2011 +0100 $
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
+ * @version    $Id: v2.4.1-62-gb38404e 2011-01-30 22:35:34 +0100 $
  */
 abstract class murmurHash2 {
 
@@ -72,20 +70,20 @@ abstract class murmurHash2 {
   }
 
   /**
+   * @name Mixing constants
+   * @{
    * 'm' and 'r' are mixing constants generated offline.
 	 * They're not really 'magic', they just happen to work well.
 	 *
-	 * @var int
+	 * @var int $m
    */
   private static $m = 0x5bd1e995;
 
   /**
-   * 'm' and 'r' are mixing constants generated offline.
-	 * They're not really 'magic', they just happen to work well.
-	 *
-	 * @var int
+	 * @var int $r
    */
   private static $r = 24;
+  /** @} */
 
   /**
    *

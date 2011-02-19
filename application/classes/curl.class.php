@@ -1,16 +1,12 @@
 <?php
-/** @defgroup cURL Client URL Library wrapper
-
-*/
-
 /**
  * cURL wrapper
  *
- * @ingroup    cURL
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2010-2011 Knut Kohl
- * @license
- * @version    $Id: v2.4.1-46-gfa6b976 - Sat Jan 15 13:42:37 2011 +0100 $
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
+ * @version    $Id: v2.4.1-68-gc26c4d6 2011-02-05 17:19:57 +0100 $
  */
 class cURL {
 
@@ -26,7 +22,7 @@ class cURL {
    *
    * @param $option int cURL option
    * @param $value mixed value of option
-   * @return $this reference for fluid interface
+   * @return reference $this for fluid interface
    */
   public function setOpt( $option, $value ) {
     curl_setopt($this->cURL, $option, $value);
@@ -38,7 +34,7 @@ class cURL {
    * Sets an array of options to a cURL session
    *
    * @param $options array array of cURL options and values
-   * @return $this reference for fluid interface
+   * @return reference $this for fluid interface
    */
   public function setOptArray( $options ) {
     if (is_array($options))
@@ -50,7 +46,7 @@ class cURL {
    * Sets an option to a cURL session
    *
    * @param $retry int
-   * @return $this reference for fluid interface
+   * @return reference $this for fluid interface
    */
   public function setRetry( $retry ) {
     $this->Retry = $retry;
@@ -101,7 +97,7 @@ class cURL {
   /**
    * Reset curl (re-create)
    *
-   * @return $this reference for fluid interface
+   * @return reference $this for fluid interface
    */
   public function reset() {
     curl_close($this->cURL);
@@ -148,22 +144,24 @@ class cURL {
   // -------------------------------------------------------------------------
 
   /**
+   * cURL instance
    *
+   * @var resource $cURL
    */
   private $cURL = NULL;
 
   /**
-   *
+   * @var bool $Verbose
    */
   private $Verbose = FALSE;
 
   /**
-   *
+   * @var int $Retry
    */
   private $Retry = 0;
 
   /**
-   *
+   * @var string $Debug
    */
   private $Debug = '';
 

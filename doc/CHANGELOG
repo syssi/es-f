@@ -1,3 +1,14 @@
+VERSION: 2.6.0
+--------------------
+Feature release
+
+NEW:
+- Documentation
+- Web installer for installation and upgrade
+BUGFIXES:
+- [plugin/prefreshbackground] Fix error when PHP cli can't be detected
+- [plugin/prefreshbackground] Fix error on cache handling
+
 VERSION: 2.5.0
 --------------------
 Feature release

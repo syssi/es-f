@@ -6,7 +6,7 @@
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2007-2010 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    $Id: v2.4.1-42-g440d05f - Sun Jan 9 21:40:58 2011 +0100 $
+ * @version    $Id: v2.4.1-80-g4acbac1 2011-02-15 22:22:16 +0100 $
  */
 
 defined('_ESF_OK') || die('No direct call allowed.');
@@ -88,6 +88,7 @@ Registry::set('CacheClass', 'File');
 // Version 9:
 // get language during login from $_SERVER['HTTP_ACCEPT_LANGUAGE']
 // set Layout during login
+Registry::set('Currency', 'EUR');
 
 /**
  * esniper configuration
@@ -182,6 +183,17 @@ function _dump() {
     ob_start();
     var_dump($arg);
     Messages::Info('<pre>'.ob_get_clean().'</pre>', TRUE);
+  }
+}
+
+/**
+ * @ignore
+ */
+function __dump() {
+  foreach (func_get_args() as $arg) {
+    echo '<pre>';
+    echo htmlspecialchars(print_r($arg, TRUE));
+    echo '</pre>';
   }
 }
 // << Debug

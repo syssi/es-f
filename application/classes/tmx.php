@@ -1,17 +1,20 @@
 <?php
 /**
- * @name TMX-Reader
- * @package tmx
- * @author Knut Kohl <knutkohl@users.sourceforge.net>
- * @version 1.0.20101120
+ * TMX Reader
+ *
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2011 Knut Kohl
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
+ * @version    $Id: v2.4.1-68-gc26c4d6 2011-02-05 17:19:57 +0100 $
  */
 class TMX {
 
   /**
    * Class constructor
    *
-   * @param $file string TMX (XML) file name
-   * @param $language string ISO language identifier
+   * @param string $file TMX (XML) file name
+   * @param string $language ISO language identifier
    */
   public function __construct( $file, $language ) {
     // reset array
@@ -42,9 +45,9 @@ class TMX {
   /**
    * Sets the start element handler function for the XML parser
    *
-   * @param $parser resource A reference to the XML parser calling the handler
-   * @param $name string Name of the element for which this handler is called
-   * @param $attribs array Array with the element's attributes (if any)
+   * @param resource $parser A reference to the XML parser calling the handler
+   * @param string $name Name of the element for which this handler is called
+   * @param array $attribs Array with the element's attributes (if any)
    */
   private function StartHandler( $parser, $name, $attribs ) {
     switch(strtolower($name)) {
@@ -90,8 +93,8 @@ class TMX {
   /**
    * Sets the end element handler function for the XML parser
    *
-   * @param $parser resource Reference to the XML parser calling the handler.
-   * @param $name string Name of the element for which this handler is called
+   * @param resource $parser Reference to the XML parser calling the handler.
+   * @param string $name Name of the element for which this handler is called
    */
   private function EndHandler( $parser, $name ) {
     switch(strtolower($name)) {
@@ -149,8 +152,8 @@ class TMX {
   /**
    * Sets the character data handler function for the XML parser
    *
-   * @param $parser resource A reference to the XML parser calling the handler
-   * @param $data string Contains the character data as a string
+   * @param resource $parser A reference to the XML parser calling the handler
+   * @param string $data Contains the character data as a string
    */
   private function CDataHandler( $parser, $data ) {
     if ($this->isSeg AND $this->tuid AND $this->xml_lang == $this->Language OR
@@ -183,47 +186,56 @@ class TMX {
   // -------------------------------------------------------------------------
 
   /**
-   * @var array TMX Header attributes
+   * TMX Header attributes
+   * @var array $Header
    */
   private $Header = array();
 
   /**
-   * @var array Key-Translation couples
+   * Key-Translation couples
+   * @var array $Data
    */
   private $Data = array();
 
   /**
-   * @var string Current tu -> tuid value
+   * Current tu -> tuid value
+   * @var string $tuid
    */
   private $tuid = FALSE;
 
   /**
-   * @var string Current tuv -> xml:lang value.
+   * Current tuv -> xml:lang value.
+   * @var string $xml_lang
    */
   private $xml_lang = FALSE;
 
   /**
-   * @var string
+   * Current property type
+   * @var string $propType
    */
   private $propType = FALSE;
 
   /**
-   * @var string Current data value.
+   * Current data value.
+   * @var string $curData
    */
   private $curData = FALSE;
 
   /**
-   * @var boolean Is TRUE when we are inside a note element
+   * Is TRUE when we are inside a note element
+   * @var boolean $isNote
    */
   private $isNote = FALSE;
 
   /**
-   * @var boolean Is TRUE when we are inside a seg element
+   * Is TRUE when we are inside a seg element
+   * @var boolean $isSeg
    */
   private $isSeg = FALSE;
 
   /**
-   * @var string ISO language identifier
+   * ISO language identifier
+   * @var string $Language
    */
   private $Language = FALSE;
 

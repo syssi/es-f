@@ -5,9 +5,11 @@
  * The following settings are supported:
  * - token    : used to build unique cache ids (optional)
  *
- * @package  Cache
- * @version  1.0.0
- * @version
+ * @ingroup    Cache
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2010-2011 Knut Kohl
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    $Id: v2.4.1-77-gc4bf735 2011-02-13 21:51:53 +0100 $
  */
 class Cache_Session extends Cache {
 
@@ -16,17 +18,20 @@ class Cache_Session extends Cache {
   // -------------------------------------------------------------------------
 
   /**
-   * Function set...
-   *
-   * @param string $id
-   * @param mixed $data
-   * @param int $expire Timestamp for expiration, if set to 0, expire never
-   * @return mixed
+   * @name Implemented abstract functions
+   * @{
    */
-  public function set( $id, $data, $expire=0 ) {
+  public function isAvailable() {
+    if (function_exists('session_start')) {
+      session_start();
+      return TRUE;
+    }
+  }
+
+  public function set( $id, $data, $ttl=0 ) {
     // optimized for probability Set -> Delete -> Clear
     if ($data !== NULL) {
-      $_SESSION[$this->token][$this->id($id)] = $this->serialize(array($expire, $data));
+      $_SESSION[$this->token][$this->id($id)] = $this->serialize(array($this->ts, $ttl, $data));
       return TRUE;
     } elseif ($id !== NULL) { // AND $data === NULL
       return $this->delete($id);
@@ -35,59 +40,25 @@ class Cache_Session extends Cache {
     }
   } // function set()
 
-  /**
-   * Function get...
-   *
-   * @param string $id
-   * @return mixed
-   */
-  public function get( $id ) {
+  public function get( $id, $expire=0 ) {
     $id = $this->id($id);
     if (!isset($_SESSION[$this->token][$id])) return;
-
-    $data = $this->unserialize($_SESSION[$this->token][$id]);
-
-    if ($data[0] === 0 OR // expire never
-        $data[0] >= $this->ts) return $data[1];
-
+    $cached = $this->unserialize($_SESSION[$this->token][$id]);
+    list($ts, $ttl, $data) = $cached;
+    // Data valid?
+    if ($this->valid($ts, $ttl, $expire)) return $data;
     // else drop data for this key
     $this->delete($id);
   } // function get()
 
-  /**
-   * Function delete...
-   *
-   * @param string $id
-   * @return void
-   */
   public function delete( $id ) {
     $id = $this->id($id);
     if (isset($_SESSION[$this->token][$id])) unset($_SESSION[$this->token][$id]);
-  } // function remove()
+  } // function delete()
 
-  /**
-   * Function flush...
-   *
-   * @return void
-   */
   public function flush() {
     unset($_SESSION[$this->token]);
-  } // function clear()
-
-  // -------------------------------------------------------------------------
-  // PROTECTED
-  // -------------------------------------------------------------------------
-
-  /**
-   * Class constructor
-   *
-   * @protected
-   * @param array $settings
-   * @return void
-   */
-  protected function __construct( $settings=array() ) {
-    parent::__construct($settings);
-    session_start();
-  } // function __construct()
+  } // function flush()
+  /** @} */
 
 }

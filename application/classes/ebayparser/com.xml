@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<patterns>
+
+  <!-- File version -->
+  <version>2.3.2</version>
+
+  <!-- URLs to parse -->
+  <url name="default">
+    <![CDATA[
+    http://cgi.ebay.com/ws/eBayISAPI.dll?ViewItem&item=%s
+    ]]>
+  </url>
+
+  <url name="default">
+    <![CDATA[
+    http://search.ebay.com/%s
+    ]]>
+  </url>
+
+  <section name="Patterns">
+
+    <!-- Invalid item -->
+    <pattern name="Invalid">
+      <![CDATA[
+      ~<title>Invalid item</title>~i => 0
+      ]]>
+    </pattern>
+
+    <!-- Dispatches to -->
+    <pattern name="dispatch">
+      <![CDATA[
+      ~Dispatches to.*?class="TableRow">~i => 0
+      ~Dispatches to:~i => 0
+      ~Post to:~i => 0
+      ~United States~ => 0
+      ]]>
+    </pattern>
+
+    <!-- Reg. expressions that matches auction title, as less as possible -->
+    <pattern name="Title">
+      <![CDATA[
+      ~<title>(.*?) - eBay \(.*?</title>~is => 1
+      ]]>
+    </pattern>
+
+    <!-- Reg. expressions that matches auction end date and time
+         <span id="DetailsTimeLeft"><b><nobr>Sep-02-07&nbsp;11:20:54 PDT</nobr></b> <nobr>(2 -->
+    <pattern name="End">
+      <![CDATA[
+      ~<title>.*end time\s+(\w{3}-\d+-\d+\s+\d+:\d+:\d+\s+\w+).*</title>~i => 1
+      ]]>
+    </pattern>
+
+    <!-- Reg. expressions that matches current # of bids
+         <span id="DetailsBidHistory"><a href="http://offer.ebay.in/ws/eBayISAPI.dll?ViewBids&amp;item=270158358815">1 bid</a></span> -->
+    <pattern name="NoOfBids">
+      <![CDATA[
+      ~(\d+)(<[^>]+>\s*(<[^>]+>)?)?bids?~si => 1
+      ]]>
+    </pattern>
+
+    <!-- Reg. expressions that matches dutch auctions -->
+    <pattern name="dutch">
+      <![CDATA[
+      ~<span[^>]*>Quantity:</span></td><td[^>]*>(\d+)~i => 1
+      ]]>
+    </pattern>
+
+    <!-- Find auctions ended early by seller -->
+    <pattern name="EndedEarly">
+      <![CDATA[
+      ~The seller ended this listing early[^<]*~i => 0
+      ]]>
+    </pattern>
+
+  </section>
+
+</patterns>

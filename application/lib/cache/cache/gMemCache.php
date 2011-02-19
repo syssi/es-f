@@ -1,48 +1,46 @@
 <?php
 /**
- * http://www.phpclasses.org/package/4094-PHP-memcache-client-in-pure-PHP.html
- */
-
-/*
-*************************************************************************
-**  gMemCache                                                           *
-**  Cesar D. Rodas (saddor@cesarodas.com)                               *
-**                                                                      *
-*************************************************************************
-**  A purely implementation of a MemCache client in php.                *
-**  With this class you could connect to a memcache server, store,      *
-**  get vars without download nothing more than this class.             *
-**                                                                      *
-*************************************************************************
-**  Bugs Report at:                                                     *
-**      http://www.phclasses.org/gmemcache (in forums)                  *
-**                                                                      *
-*************************************************************************
-**  If you are a window$ user you get a port of memcache here           *
-**  http://jehiah.com/projects/memcached-win32                          *
-**                                                                      *
-*************************************************************************
-**  The author disclaims the copyright of this project                  *
-**  You are legaly free to do what you want with this code              *
-**                                                                      *
-*************************************************************************
-*/
-
-/**
- * Adjusted for PHP 5
+ * A purely implementation of a MemCache client in PHP
  *
+ * http://www.phpclasses.org/package/4094-PHP-memcache-client-in-pure-PHP.html
+ *
+ * Adjusted for PHP 5:
+ *
+ * @b CHANGED
  * - define -> const internal
  * - var -> private
+ * - removed constructor, made connect() compatible to memcache
  *
- * - removed
- *   - constructor, made connect() compatible to memcache
+ * @b NEW
+ * - delete()
+ * - flush()
+ * - increment()
+ * - decrement()
  *
- * - added
- *   - delete()
- *   - flush()
- *   - inc()
- *   - dec()
+ * @ingroup    Cache
+ * @author     Cesar D. Rodas (saddor@cesarodas.com)
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    $Id: v2.4.1-64-gee8a889 2011-02-03 23:16:23 +0100 $
  */
+
+/* *************************************************************************
+   **  gMemCache                                                           *
+   **  Cesar D. Rodas (saddor@cesarodas.com)                               *
+   *************************************************************************
+   **  A purely implementation of a MemCache client in php.                *
+   **  With this class you could connect to a memcache server, store,      *
+   **  get vars without download nothing more than this class.             *
+   *************************************************************************
+   **  Bugs Report at:                                                     *
+   **      http://www.phclasses.org/gmemcache (in forums)                  *
+   *************************************************************************
+   **  If you are a window$ user you get a port of memcache here           *
+   **  http://jehiah.com/projects/memcached-win32                          *
+   *************************************************************************
+   **  The author disclaims the copyright of this project                  *
+   **  You are legaly free to do what you want with this code              *
+   ************************************************************************* */
 
 class gMemCache {
 
@@ -56,8 +54,6 @@ class gMemCache {
 
   private $host;
   private $port;
-
-  /* privates vars!, do not modify from outside the class */
   private $status;
   private $socket;
 

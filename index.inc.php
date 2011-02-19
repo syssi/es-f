@@ -1,10 +1,10 @@
 <?php
 /**
- * @ingroup    es-f
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
- * @copyright  2007-2010 Knut Kohl
- * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    $Id: v2.4.1-47-g938fb93 - Sat Jan 15 14:26:18 2011 +0100 $
+ * @copyright  2007-2011 Knut Kohl
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
+ * @version    $Id: v2.4.1-78-ge1f29df 2011-02-13 22:21:43 +0100 $
  */
 
 // include functions
@@ -49,7 +49,7 @@ unset($sDebugFile);
 Loader::Load(LIBDIR.'/cache/cache.class.php');
 
 $aCacheOptions = array('cachedir'=>TEMPDIR, 'token'=>'es-f');
-$oXML = new XML_Array_Configuration(Cache::factory('Files', $aCacheOptions));
+$oXML = new XML_Array_Configuration(Cache::create($aCacheOptions, 'Files'));
 $aConfiguration = $oXML->ParseXMLFile(LOCALDIR.'/config/config.xml');
 if (!$aConfiguration) die($oXML->Error);
 
@@ -65,29 +65,28 @@ unset($aConfiguration['esniper']);
 Registry::set($aConfiguration);
 unset($oXML, $aConfiguration, $aUser, $key, $value);
 
-if (Registry::get('CfgVersion') < ESF_CONFIG_VERSION) {
-  $oCache->flush();
-  Header('Location: setup/index.php?msg='
-        .urlencode('Need reconfiguration because of configuration changes!'));
-}
-if (count(esf_User::getAll()) == 0) {
-  $oCache->flush();
-  Header('Location: setup/index.php?msg='
-        .urlencode('At least one user account have to be defined!'));
-}
+Registry::set('cfg_esniper', Registry::get('bin_esniper').' -c .c');
 
-/// Yryie::Info('Used cache: '.Registry::get('CacheClass'));
 Loader::Load(LIBDIR.'/cache/cache/packer/gz.class.php');
 $aCacheOptions['packer'] = new Cache_Packer_GZ;
-$oCache = Cache::factory(Registry::get('CacheClass'), $aCacheOptions);
-if (Registry::get('ClearCache')) $oCache->flush();
+Core::$Cache = Cache::create($aCacheOptions, Registry::get('CacheClass'));
+if (Registry::get('ClearCache')) Core::$Cache->flush();
 unset($aCacheOptions);
+/// Yryie::Debug(Core::$Cache->info());
 
-Core::$Cache = $oCache;
+if (Registry::get('CfgVersion') < ESF_CONFIG_VERSION) {
+  Core::$Cache->flush();
+  Core::Redirect('setup/index.php?msg='
+                .urlencode('Need reconfiguration because of configuration changes!'));
+} elseif (count(esf_User::getAll()) == 0) {
+  Core::$Cache->flush();
+  Core::Redirect('setup/index.php?msg='
+                .urlencode('At least one user account have to be defined!'));
+}
 
 esf_Extensions::Init();
 
-Exec::InitInstance(ESF_OS, $oCache, Registry::get('bin_sh'));
+Exec::InitInstance(ESF_OS, Core::$Cache, Registry::get('bin_sh'));
 
 checkDir(TEMPDIR);
 
@@ -96,10 +95,14 @@ Loader::Load(APPDIR.'/ebay.php');
 // include additional configuration, mostly for development
 Core::ReadConfigs('local');
 
-#ErrorHandler::register(Registry::get('ErrorHandler', 'default'));
-// >> Debug
-Yryie::Register();
-// << Debug
+if (!_DEBUG) {
+  ErrorHandler::register();
+#  ErrorHandler::attach(new ErrorHandler_Debug());
+#  ErrorHandler::attach(new ErrorHandler_Echo());
+  ErrorHandler::attach(new ErrorHandler_File('local/tmp/error.{TS}.log'));
+} else {
+  Yryie::Register();
+}
 
 // since PHP 5.1.0
 if (function_exists('date_default_timezone_set'))
@@ -235,7 +238,7 @@ $sLanguage = Session::get('language');
 if (Registry::get('EnglishAsDefault') AND $sLanguage != 'en') {
   // load as default english texts and config
   foreach (glob(APPDIR.'/language/*en.tmx') as $file)
-    Translation::LoadTMXFile($file, 'en', $oCache);
+    Translation::LoadTMXFile($file, 'en', Core::$Cache);
   // Settings
   Loader::Load(APPDIR.'/language/en.php');
 }
@@ -243,7 +246,7 @@ if (Registry::get('EnglishAsDefault') AND $sLanguage != 'en') {
 // include translation
 if (file_exists(APPDIR.'/language/core.'.$sLanguage.'.tmx')) {
   foreach (glob(APPDIR.'/language/*'.$sLanguage.'.tmx') as $file)
-    Translation::LoadTMXFile($file, $sLanguage, $oCache);
+    Translation::LoadTMXFile($file, $sLanguage, Core::$Cache);
   // Settings
   Loader::Load(APPDIR.'/language/'.$sLanguage.'.php');
 } else {
@@ -297,12 +300,12 @@ foreach (esf_Extensions::$Types as $Scope) {
       if (Registry::get('EnglishAsDefault') AND $sLanguage != 'en') {
         // include as default all english texts
         foreach (glob($path.'language/*en.tmx') as $file) {
-          Translation::LoadTMXFile($file, 'en', $oCache);
+          Translation::LoadTMXFile($file, 'en', Core::$Cache);
         }
       }
       // include only for enabled modules and plugins
       foreach (glob($path.'language/*'.$sLanguage.'.tmx') as $file) {
-        Translation::LoadTMXFile($file, $sLanguage, $oCache);
+        Translation::LoadTMXFile($file, $sLanguage, Core::$Cache);
       }
     }
   }
@@ -336,7 +339,7 @@ $sModule = Registry::get('esf.Module');
 TplData::add('HtmlHeader.raw', StylesAndScripts('.', Session::getP('Layout')));
 
 if (strtoupper($_SERVER['REQUEST_METHOD']) == 'GET' AND isset($_REQUEST['returnto']))
-  Session::set('returnto', $_REQUEST['returnto']);
+  Session::setP('returnto', $_REQUEST['returnto']);
 
 $sModuleLast = FALSE;
 
@@ -369,11 +372,12 @@ do {
   if (isset($oModule)) $oModule->handle(Registry::get('esf.Action'));
 
   // handle ReturnTo=...
-  $sReturnTo = decodeReturnTo(Session::get('returnto'));
+  $sReturnTo = decodeReturnTo(Session::getP('returnto'));
+
   if (!empty($sReturnTo) AND
       (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST' OR
        strpos($sReturnTo, 'force') !== FALSE )) {
-    ##_dbg($sReturnTo, 'ReturnTo');
+    Session::setP('returnto');
     Core::Redirect($sReturnTo);
   }
 
@@ -420,7 +424,7 @@ TplData::setConstant('YUELO_VERSION', 'Yuelo - Template engine V. '.Yuelo::VERSI
 TplData::setConstant('PHP.VERSION', PHP_VERSION);
 
 // Store server into cache
-while ($oCache->save('Server', $server)) {
+while (Core::$Cache->save('Server', $server)) {
   reset($GLOBALS['Servers']);
   while ($s = current($GLOBALS['Servers']) AND empty($server)) {
     if (stristr($_SERVER['SERVER_SOFTWARE'], $s[0])) {
@@ -433,7 +437,7 @@ while ($oCache->save('Server', $server)) {
     preg_match('~^[\w\s]+~', $_SERVER['SERVER_SOFTWARE'], $args);
     $server = array('NAME' => strtoupper(trim($args[0])), 'URL' => NULL);
   }
-  $oCache->set('Server', $server);
+  Core::$Cache->set('Server', $server);
 }
 TplData::setConstant('SERVER', $server);
 unset($server, $s);
@@ -447,13 +451,6 @@ TplData::set('Ebay_Homepage', Registry::get('ebay.Homepage'));
 TplData::set('FormAction', Core::URL(array('module'=>$sModule)));
 TplData::set('NoJS', Registry::get('NoJS'));
 TplData::set('GetCategoryFromGroup', FROMGROUP);
-
-if (_DEBUG) {
-  TplData::add('HtmlHeader.CSS', '/application/lib/Yryie/style.css');
-  TplData::add('HtmlHeader.JS',  '/application/lib/Yryie/script.js');
-}
-
-$bc = Translation::getNVL($sModule.'.TitleIndex', TplData::get('Title'));
 
 // ----------------------------------------------------------------------------
 // post process / output
@@ -585,12 +582,12 @@ foreach ($steps as $step) {
   if (!DEVELOP) ob_start();
 
   if ($step == 'content') {
-    // if actual module is only a display module, try to render $step.Registry::get('esf.Action') ...
+    // if actual module is only a display module,
+    // try to render 'content'.Registry::get('esf.Action') ...
     if (TplData::isEmpty('Content')) {
       $content = $oTemplate->Render('content.'.Registry::get('esf.Action'), FALSE, $RootDir);
       TplData::set('Content', $content);
     }
-
     // Render general template 'content', if exists
     $content = $oTemplate->Render('content', FALSE, $RootDir);
     if ($content) TplData::set('Content', $content);

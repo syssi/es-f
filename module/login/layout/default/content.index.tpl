@@ -1,6 +1,6 @@
 <!--
 /**
- * @package Module-Login
+ * @ingroup Module-Login
  * @author  Knut Kohl <knutkohl@users.sourceforge.net>
  * @version 0.4.0
  *
@@ -20,13 +20,14 @@
 <div id="content">
 
   <form id="loginform" name="Login" action="{FORMACTION}" method="post"
-        accept-charset="ISO-8859-1" onsubmit="$('button').disable().value='...'">
+        accept-charset="ISO-8859-1" onsubmit="$('button').disable().value='• • •'">
   {fh:"module","login"}
 
-  <table id="login">
+  <table id="logintable">
 
   <tr><td class="menu">
     Login
+    <span style="float:right">{CONST.esf.Title} {CONST.esf.Version}</span>
   </td></tr>
 
   <tr><td class="label">
@@ -53,10 +54,10 @@
   </td></tr>
 
   <!-- IF CONST.MODULE.COOKIE > "0" -->
-  <tr><td class="value">
+  <tr><td class="value cookie">
     {fcb:"cookie",,,,"style=\"width:0\""}
-    <label for="cookie">[[Login.Cookie]]</label> {help:"LoginHelp.Cookie"}
-    <p class="alert">[[Login.CookieHint]]</p>
+    <label for="cookie"><strong>[[Login.Cookie]]</strong></label>
+    <div>[[Login.CookieHint]] {help:"LoginHelp.Cookie"}</div>
   </td></tr>
   <!-- ENDIF -->
 

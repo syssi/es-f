@@ -1,21 +1,26 @@
 <?php
 /**
- * @package    es-f
+ * User class
+ *
+ * @ingroup    es-f
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2007-2010 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    $Id: v2.4.1-49-g0f62a5c - Sat Jan 15 23:05:05 2011 +0100 $
+ * @version    $Id: v2.4.1-62-gb38404e 2011-01-30 22:35:34 +0100 $
  */
 abstract class esf_User {
 
-  /**
-   * User details
+  /** @{
+   * Shortcuts for user details
    */
   const USER_NAME = 1;
   const USER_PASS = 2;
+  /** @} */
 
   /**
    * Admin user name
+   *
+   * @var string $Admin
    */
   public static $Admin;
 
@@ -43,6 +48,7 @@ abstract class esf_User {
    * Get session user name
    *
    * @param boolean $lowercase
+   * @param boolean $RegEx Format user name for reg. ex. usage, e.g. for grep
    * @return string
    */
   public static function getActual( $lowercase=FALSE, $RegEx=FALSE ) {
@@ -62,8 +68,8 @@ abstract class esf_User {
    * 
    * @param boolean $frontend Return frontend password
    * @param string $user If no user specified, actual user is used
+   * @param string $password
    * @return string|boolean FALSE in case of not defined user
-   * @global array
    */
   public static function getPass( $frontend=FALSE, $user=NULL, $password=NULL ) {
     if (!isset($user, $password)) {
@@ -183,14 +189,14 @@ abstract class esf_User {
   /**
    * Array ( User => encrypted passwords )
    *
-   * @var array
+   * @var array $Users
    */
   private static $Users = array();
 
   /**
    * Last successfully logged in user
    *
-   * @var string
+   * @var string $LastUser
    */
   private static $LastUser;
 
@@ -199,13 +205,15 @@ abstract class esf_User {
    * - user agent
    * - remote address
    * - configured net mask
+   *
+   * @var string $Token
    */
   private static $Token = FALSE;
 
   /**
    * Get user token, build from users remote address and users browser
    * 
-   * @param boolean $plain Return plain / not encrypted token (USE ONLY DURING DEVELOPMENT)
+   * @return string
    */
   public static function getToken() {
     // protect session against hijacking using hash of user agent and remote address
@@ -215,11 +223,12 @@ abstract class esf_User {
     return self::$Token;
   }
 
-  // >> Debug
   /**
    * Get user token, build from users remote address and users browser
    * 
    * USE ONLY DURING DEVELOPMENT
+   *
+   * @return string
    */
   public static function getTokenPlain() {
     return array( $_SERVER['HTTP_USER_AGENT'], 
@@ -229,6 +238,5 @@ abstract class esf_User {
                      .(ip2long($_SERVER['REMOTE_ADDR']) & ip2long(Registry::get('NetMask'))))
                 );
   }
-  // << Debug
 
 }

@@ -23,30 +23,24 @@
    changedate="20101129T213215Z"
    o-encoding="UTF-8"
   >
-    <prop type="x-Namespace">Plugincategoriesconfiguration</prop>
+    <prop type="x-Namespace">Plugin_Categories</prop>
   </header>
   <body>
     <tu tuid="Name">
-      <tuv xml:lang="DE">
-        <seg>Kategorien</seg>
+      <tuv xml:lang="EN">
+        <seg>Categories</seg>
       </tuv>
     </tu>
 
     <tu tuid="Description">
-      <tuv xml:lang="DE">
-        <seg>Definiere Deine bevorzugten Kategorien für schnelle Auswahl in DropDowns.</seg>
+      <tuv xml:lang="EN">
+        <seg>Define your preferd categories for smart selection in dropdowns.</seg>
       </tuv>
     </tu>
 
     <tu tuid="DescriptionLong">
-      <tuv xml:lang="DE">
+      <tuv xml:lang="EN">
         <seg></seg>
-      </tuv>
-    </tu>
-
-    <tu tuid="Categories">
-      <tuv xml:lang="DE">
-        <seg><![CDATA[Deine bevorzugten Kategorien [<br>(Komma getrennte Liste)]]]></seg>
       </tuv>
     </tu>
 

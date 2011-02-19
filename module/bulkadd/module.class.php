@@ -1,12 +1,17 @@
 <?php
+/** @defgroup Module-BulkAdd Bulk auction add module
+
+*/
+
 /**
- * Bulk auction add module
+ * Module Bulk auction add
  *
  * @ingroup    Module-BulkAdd
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2009-2011 Knut Kohl
- * @license
- * @version    $Id: v2.4.1-51-gfeddc24 - Sun Jan 16 21:09:59 2011 +0100 $
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
+ * @version    $Id: v2.4.1-62-gb38404e 2011-01-30 22:35:34 +0100 $
  */
 class esf_Module_BulkAdd extends esf_Module {
 
