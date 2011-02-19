@@ -1,6 +1,6 @@
 <!--
 /**
- * @package Module-Login
+ * @ingroup Module-Login
  * @author  Knut Kohl <knutkohl@users.sourceforge.net>
  * @version 0.4.0
  *
@@ -27,6 +27,7 @@
 
   <tr><td class="menu">
     Login
+    <span style="float:right">{CONST.esf.Title} {CONST.esf.Version}</span>
   </td></tr>
 
   <tr><td class="label">

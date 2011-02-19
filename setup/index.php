@@ -12,6 +12,10 @@ ini_set('display_startup_errors', 0);
 ini_set('display_errors', 0);
 error_reporting(0);
 
+// Clear possible caches
+if (function_exists('apc_clear_cache')) apc_clear_cache();
+if (function_exists('eaccelerator_clear')) eaccelerator_clear();
+
 if (file_exists('../prepend.php')) require '../prepend.php';
 
 define('_ESF_OK', TRUE);
