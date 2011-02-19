@@ -27,4 +27,5 @@ You can also clone |es|f| from GIT repository.
 
 Don't forget after this to update the submodules with
 
+    # git submodule init
     # git submodule update

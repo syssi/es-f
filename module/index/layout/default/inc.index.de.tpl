@@ -51,7 +51,11 @@
 </p>
 
 <p>
-  Gestartet wird der Debugger durch den URL-Parameter TRACE, also <a href="?TRACE">so</a>.
+  Gestartet wird der Debugger durch den URL-Parameter DEBUG, also <a href="?DEBUG">so</a>.
+</p>
+
+<p>
+  Das Erstellen einer Trace-Datei wird durch den URL-Parameter TRACE gestartet, also <a href="?TRACE">so</a>.
 </p>
 
 <p>

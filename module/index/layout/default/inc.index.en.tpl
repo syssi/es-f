@@ -40,7 +40,11 @@
 </p>
 
 <p>
-  To activate the debugger use URI parameter TRACE like <a href="?TRACE">this</a>.
+  The creation of a trace file will be started by URI parameter TRACE like <a href="?TRACE">this</a>.
+</p>
+
+<p>
+  To activate the debugger use URI parameter DEBUG like <a href="?DEBUG">this</a>.
 </p>
 
 <p>
