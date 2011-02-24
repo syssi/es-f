@@ -39,6 +39,8 @@
     <tr><td colspan="3">&nbsp;</td></tr>
     <tr><td>Operating&nbsp;system</td><td>:</td><td>{SYSTEMVERSION}</td></tr>
     <tr><td>Web server</td><td>:</td><td>{CONST.SERVER.VERSION}</td></tr>
+    <tr><td>Running as</td><td>:</td><td>{html:ESFUSER}</td></tr>
+    <tr><td colspan="3">&nbsp;</td></tr>
     <tr><td>PHP module</td><td>:</td><td>{CONST.PHP.VERSION}</td></tr>
     <tr><td>PHP cli</td><td>:</td>  <td>{PHPCLIVERSION}</td></tr>
     </table>
@@ -51,7 +53,6 @@
   <div class="tabbertab">
     <h3 class="support"><a name="cfg">System</a></h3>
     <div id="cfg">
-      <p>frontend running user: <tt>{html:ESFUSER}</tt></p>
       {dump:SUPPORT.CFG}
     </div>
   </div>

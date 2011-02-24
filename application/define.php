@@ -105,7 +105,7 @@ define('ESF_CONFIG_VERSION', 9);
 /**
  * Auction data structure version, start using above ESF_VERSION > 2.5.0
  */
-define('ESF_AUCTION_VERSION', '2.5.0');
+define('ESF_AUCTION_VERSION', '2.5');
 
 /**
  * Required PHP version

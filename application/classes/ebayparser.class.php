@@ -384,16 +384,12 @@ abstract class ebayParser {
     $xml = new XML_Array_Parser(Core::$Cache);
 
     // Common patterns
-    $data = $xml->ParseXMLFile($dir.'main.xml');
-    if (!$data) throw new ebayParserException($xml->Error);
-
-    $this->TransformXML($data['patterns']);
+    if ($data = $xml->ParseXMLFile($dir.'main.xml'))
+      $this->TransformXML($data['patterns']);
 
     // Special patterns per domain
-    $data = $xml->ParseXMLFile($dir.$tld.'.xml');
-    if (!$data) throw new ebayParserException($xml->Error);
-
-    $this->TransformXML($data['patterns']);
+    if ($data = $xml->ParseXMLFile($dir.$tld.'.xml'))
+      $this->TransformXML($data['patterns']);
 
     Yryie::Debug($this->Pattern);
 
@@ -402,9 +398,9 @@ abstract class ebayParser {
   }
 
   /**
-   * Transform expresions into key => val relations
+   * Transform patterns into key => val relations
    *
-   * @param array $array Expressions from xml file
+   * @param array $patterns Expressions from XML file
    */
   private function TransformXML( $patterns ) {
     foreach ($patterns as $name => $data) {

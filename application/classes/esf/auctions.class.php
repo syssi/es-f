@@ -189,8 +189,8 @@ abstract class esf_Auctions {
 
     // skip ended auctions, $auction can be FALSE!
     if (isset($auction['ended']) AND $auction['ended'] AND !$all) {
-      // >> Debug
       $talk && Messages::Info('Auction '.$auction['item'].' "'.$auction['name'].'" is still ended.');
+      // >> Debug
       Yryie::Warning('Auction "'.$auction['name'].'" is still ended, ignored re-read request');
       // << Debug
       return $auction;
@@ -932,7 +932,7 @@ abstract class esf_Auctions {
 
       // raise to actual version, if failed, change only version
       if ($a = self::fetchAuction($auction, TRUE, FALSE)) $auction = $a;
-      $auction['version'] = ESF_VERSION;
+      $auction['version'] = ESF_AUCTION_VERSION;
       self::set($auction, FALSE);
       self::save($auction, FALSE);
     }
@@ -1008,27 +1008,27 @@ abstract class esf_Auctions {
    * @var array $NewAuction
    */
   private static $NewAuction = array (
-    'version'  => ESF_VERSION,   // detect here uprades
-    'item'     => '',            // ebay item id
-    'name'     => '',            // item title
-    'endts'    => 0,             // auction end (timestamp)
-    'ended'    => 0,             // is ended?
-    'bin'      => FALSE,         // Buy-it-now
-    'bid'      => '',            // actual bid
-    'bids'     => 0,             // # of bids
-    'bidder'   => '',            // highest bidder
+    'version'  => ESF_AUCTION_VERSION, // detect here uprades
+    'item'     => '',                  // ebay item id
+    'name'     => '',                  // item title
+    'endts'    => 0,                   // auction end (timestamp)
+    'ended'    => 0,                   // is ended?
+    'bin'      => FALSE,               // Buy-it-now
+    'bid'      => '',                  // actual bid
+    'bids'     => 0,                   // # of bids
+    'bidder'   => '',                  // highest bidder
     'currency' => '?',
     'seller'   => '',
     'shipping' => 0,
     'category' => '',
     'group'    => '',
-    'image'    => '',            // image type
+    'image'    => '',                  // image type
     'comment'  => '',
-    'mybid'    => '',            // auction spec. bid, owerwrites group bid
-    'dutch'    => 1,             // dutch auction?
+    'mybid'    => '',                  // auction spec. bid, owerwrites group bid
+    'dutch'    => 1,                   // dutch auction?
     'invalid'  => FALSE,
-    'parser'   => '',            // last used parser
-    '_extra'   => array(),       // buffer for extra data, e.g. from plugins
+    'parser'   => '',                  // last used parser
+    '_extra'   => array(),             // buffer for extra data, e.g. from plugins
   );
 
   /**
@@ -1056,12 +1056,17 @@ abstract class esf_Auctions {
     $invalid = FALSE;
     if (!$parser = Registry::get('ebayParser')) {
       $item = $auction['item'];
-      $po = Registry::get('ParseOrder');
-      if (!is_array($po)) {
-        $po = explode(',', Registry::get('ParseOrder'));
-        Registry::set('ParseOrder', $po);
+      if (!empty($auction['parser'])) {
+        /// Yryie::Debug('Reuse parser: '.$auction['parser']);
+        $po = array($auction['parser']);
+      } else {
+        $po = Registry::get('ParseOrder');
+        if (!is_array($po)) {
+          $po = explode(',', Registry::get('ParseOrder'));
+          Registry::set('ParseOrder', $po);
+        }
       }
-      foreach (Registry::get('ParseOrder') as $tld) {
+      foreach ($po as $tld) {
         $parser = ebayParser::factory(trim($tld));
         if ($parser->getDetail($item, 'Invalid')) {
           $parser = FALSE;

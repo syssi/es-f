@@ -3,6 +3,13 @@
 
   <section name="Patterns">
 
+    <!-- Reg. expressions that matches auction title, as less as possible -->
+    <pattern name="Title">
+      <![CDATA[
+      ~<meta[^>]+property="og:title"[^>]+content="(.+?)">~i => 1
+      ]]>
+    </pattern>
+
     <!-- Reg. expressions that matches current item price -->
     <pattern name="bid">
       <![CDATA[
@@ -58,6 +65,7 @@
          <img src="http://i16.ebayimg.com/04/c/04/d6/e1/75_8.JPG" name="stockphoto" alt="Stock photo" title="" border="0"> -->
     <pattern name="Image">
       <![CDATA[
+      ~<meta[^>]+property="og:image"[^>]+content="(.+?)">~ => 1
       ~<img[^>]+src="([^>"]+)"[^>]*id="i_vv4-\d+"~i => 1
       ~<img[^>]+src="([^>"]+)"[^>]*name="(?:eBayBig|ss0Viewport|SelfHostedImage|stockphoto)"[^>]*>~i => 1
       ]]>

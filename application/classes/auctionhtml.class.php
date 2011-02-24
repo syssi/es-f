@@ -43,17 +43,17 @@ abstract class AuctionHTML {
     $file = sprintf('%s/%s.%s.%s.html', TEMPDIR, $item, $urlId, md5($url));
 
     // >> Debug
-    Yryie::Info(sprintf('AuctionHTML::getHTML : Read auction HTML for item "%s", Id "%s"', $item, $urlId));
+    Yryie::Info(sprintf('Read auction HTML for item "%s", Id "%s"', $item, $urlId));
     // << Debug
 
     if (file_exists($file)) {
       // >> Debug
-      Yryie::Info('AuctionHTML::getHTML : Found cached file = '.$file);
+      Yryie::Info('Found cached file = '.$file);
       // << Debug
       $html = file_get_contents($file);
     } else {
       // >> Debug
-      Yryie::Info('AuctionHTML::getHTML : Read from ebay');
+      Yryie::Info('Read from ebay');
       Yryie::Info('URL: '.$url);
       Yryie::Info('Cache file: '.$file);
       // << Debug

@@ -30,13 +30,17 @@ class esf_Module_Support extends esf_Module {
    *
    */
   public function IndexAction() {
-    TplData::set('SYSTEMVERSION', php_uname());
-    TplData::set('PHPCliVersion', implode('<br>', $res));
-    unset($res);
+    TplData::set('SystemVersion', php_uname());
 
-    Exec::getInstance()->ExecuteCmd('SUPPORT::WHOAMI', $res);
-    TplData::set('esfUser', implode($res));
-    unset($res);
+    if (!Exec::getInstance()->ExecuteCmd('Support::WhichPHP', $res)) {
+      TplData::set('PHPCliVersion', implode('<br>', $res));
+      unset($res);
+    }
+
+    if (!Exec::getInstance()->ExecuteCmd('Support::WhoAmI', $res)) {
+      TplData::set('esfUser', implode($res));
+      unset($res);
+    }
 
     foreach (array(esf_Extensions::MODULE, esf_Extensions::PLUGIN) as $scope) {
       $uscope = strtoupper($scope);

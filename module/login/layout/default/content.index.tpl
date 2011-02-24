@@ -27,7 +27,6 @@
 
   <tr><td class="menu">
     Login
-    <span style="float:right">{CONST.esf.Title} {CONST.esf.Version}</span>
   </td></tr>
 
   <tr><td class="label">
@@ -68,7 +67,8 @@
   </table>
 
   <div id="copyright">
-    Copyright &copy; 2009-{CONST.YEAR}. <a href='http://es-f.com'>|es|f| esniper frontend</a>
+    Copyright &copy; 2006-{CONST.YEAR}.
+    <a href='http://es-f.com'>|es|f| esniper frontend - {CONST.esf.Version}</a>
   </div>
 
   </form>

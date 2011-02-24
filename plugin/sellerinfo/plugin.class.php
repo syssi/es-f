@@ -98,7 +98,7 @@ class esf_Plugin_SellerInfo extends esf_Plugin {
         $info = trim($info);
         $this->Sellers[$auction['seller']] = $info;
         // >> Debug
-        Yryie::Info('Seller info: ' . $info);
+        Yryie::Debug('sellerinfo : ' . $info);
         // << Debug
       }
     }
