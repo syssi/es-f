@@ -205,25 +205,25 @@ class esf_Module_Configuration extends esf_Module {
       if ($data['type'] !== 'h') {
         // no sub-header line
 
-        $FieldData['VARIABLE'] = $var;
-        $FieldData['VARTYPE'] = $data['type'];
+        $FieldData['Variable'] = $var;
+        $FieldData['VarType'] = $data['type'];
         $values = $data['option'];
 
         if (preg_match('~(.*?)\[(.*?)\]~s', $FieldData['Description'], $args)) {
           $FieldData['Description'] = $args[1];
-          $FieldData['MEASUREMENT'] = $args[2];
+          $FieldData['Measurement'] = $args[2];
         }
 
-        if ($FieldData['MEASUREMENT'] == 'readonly') {
+        if ($FieldData['Measurement'] == 'readonly') {
           $FieldData['Description'] .= ' (readonly)';
-          $FieldData['MEASUREMENT'] = '';
+          $FieldData['Measurement'] = '';
           $FieldData['ReadOnly'] = TRUE;
         }
 
         $value = Registry::get($var);
 
         // default translation for TRUE/FALSE
-        if ($FieldData['VARTYPE'] == 'b' AND empty($values)) {
+        if ($FieldData['VarType'] == 'b' AND empty($values)) {
           $values = array( TRUE  => Translation::get('Configuration.True'),
                            FALSE => Translation::get('Configuration.False') );
         }
@@ -241,7 +241,7 @@ class esf_Module_Configuration extends esf_Module {
             $input = sprintf('<input class="configinput" type="text" id="%1$s_v" name="vars[%1$s][v]" '
                             .'value="%2$s" size="%3$d" ', $var, $value, $data['length'] );
             if ($FieldData['ReadOnly']) $input .= 'readonly ';
-            if ($FieldData['VARTYPE'] == 'i') $input .= 'style="text-align:right" ';
+            if ($FieldData['VarType'] == 'i') $input .= 'style="text-align:right" ';
             $input .= '>';
           }
           $FieldData['Input'][] = $input;
@@ -252,7 +252,7 @@ class esf_Module_Configuration extends esf_Module {
             // build select options
             $select = sprintf('<select name="vars[%1$s][v]">'."\n", $var);
             foreach ($values as $val => $desc) {
-              if ($FieldData['VARTYPE'] == 's' AND is_int($val)) $val = $desc;
+              if ($FieldData['VarType'] == 's' AND is_int($val)) $val = $desc;
               $desc = Translation::getNVL($id.'>'.$val, $desc);
               $select .= sprintf('  <option value="%s"%s>%s</option>',
                                  $val, ($val==$value?' selected="selected"':''), $desc)."\n";
@@ -263,7 +263,7 @@ class esf_Module_Configuration extends esf_Module {
             $ratio = strlen(serialize($values)) / count($values);
             // build radio buttons
             foreach ($values as $val => $desc) {
-              if ($FieldData['VARTYPE'] == 's' AND is_int($val)) $val = $desc;
+              if ($FieldData['VarType'] == 's' AND is_int($val)) $val = $desc;
               $desc = Translation::getNVL($id.'>'.$val, $desc);
               $FieldData['Input'][] = sprintf('<div style="%spadding-right:10px">'
                                             .'<input type="radio" name="vars[%s][v]" value="%s"%s>%s</div>',
@@ -273,7 +273,7 @@ class esf_Module_Configuration extends esf_Module {
           }
         }
       }
-      
+
       TplData::add('Fields', $FieldData);
     }
 
