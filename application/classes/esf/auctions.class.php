@@ -526,7 +526,7 @@ abstract class esf_Auctions {
     $groupname = self::getGroupName($group);
 
     File::append($LogFile, sprintf(
-      'es-f:$ cd "%s"; %s "%s"' . "\n\n",
+      '# cd "%s"; %s "%s"' . "\n\n",
       esf_User::UserDir(), Registry::get('cfg_esniper'), self::AuctionFile($group, FALSE)
     ));
 

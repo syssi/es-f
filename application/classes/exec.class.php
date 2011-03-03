@@ -22,9 +22,9 @@ abstract class Exec {
   /**
    * Wrapper for make directory
    *
-   * @param $dir string Directory
-   * @param &$result mixed Return from system command
-   * @param $sudo string Run as another user
+   * @param string $dir Directory
+   * @param mixed &$result Return from system command
+   * @param string $sudo Run as another user
    * @return int Return code from system command
    */
   abstract function MkDir( $dir, &$result, $sudo='' );
@@ -32,11 +32,11 @@ abstract class Exec {
   /**
    * Wrapper for change mode
    *
-   * @param $filemask string
-   * @param $mode string
-   * @param $rec string Recursive
-   * @param &$result mixed Return from system command
-   * @param $sudo string Run as another user, if possible
+   * @param string $filemask
+   * @param string $mode
+   * @param string $rec Recursive
+   * @param mixed &$result Return from system command
+   * @param string $sudo Run as another user, if possible
    * @return int Return code from system command
    */
   abstract function ChMod( $filemask, $mode, $rec, &$result, $sudo='' );
@@ -44,10 +44,10 @@ abstract class Exec {
   /**
    * Wrapper for copy
    *
-   * @param $source string From
-   * @param $dest string To
-   * @param &$result mixed Return from system command
-   * @param $sudo string Run as another user, if possible
+   * @param string $source From
+   * @param string $dest To
+   * @param mixed &$result Return from system command
+   * @param string $sudo Run as another user, if possible
    * @return int Return code from system command
    */
   abstract function Copy( $source, $dest, &$result, $sudo='' );
@@ -55,10 +55,10 @@ abstract class Exec {
   /**
    * Wrapper for move
    *
-   * @param $source string From
-   * @param $dest string To
-   * @param &$result mixed Return from system command
-   * @param $sudo string Run as another user, if possible
+   * @param string $source From
+   * @param string $dest To
+   * @param mixed &$result Return from system command
+   * @param string $sudo Run as another user, if possible
    * @return int Return code from system command
    */
   abstract function Move( $source, $dest, &$result, $sudo='' );
@@ -66,9 +66,9 @@ abstract class Exec {
   /**
    * Wrapper for remove
    *
-   * @param $filemask string
-   * @param &$result mixed Return from system command
-   * @param $sudo string Run as another user, if possible
+   * @param string $filemask
+   * @param mixed &$result Return from system command
+   * @param string $sudo Run as another user, if possible
    * @return int Return code from system command
    */
   abstract function Remove( $filemask, &$result, $sudo='' );
@@ -80,9 +80,9 @@ abstract class Exec {
    * $this->_Exec($cmd)
    * to perform the call
    *
-   * @param $cmd string Command
-   * @param &$result mixed Return from system command
-   * @param $sudo string Run as another user, if possible
+   * @param string $cmd Command
+   * @param mixed &$result Return from system command
+   * @param string $sudo Run as another user, if possible
    * @return int Return code from system command
    */
   abstract function Execute( $cmd, &$result, $sudo='' );
@@ -102,9 +102,10 @@ abstract class Exec {
    * Returns instance of requested class
    *
    * @throws ExecException If intialized before
-   * @param $class string Name of requested class
-   * @param $cache Cache
-   * @param $shell string Shell binary for the instance
+   * @param string $class Name of requested class
+   * @param Cache $cache
+   * @param string $shell Shell binary for the instance
+   * @return void
    */
   public static final function InitInstance( $class, Cache $cache, $shell='' ) {
     if (self::$Instance != NULL)
@@ -134,8 +135,8 @@ abstract class Exec {
   /**
    * Set commands for a namespace
    *
-   * @param $cmds array Commands
-   * @param $namespace string
+   * @param array $cmds Commands
+   * @param string $namespace
    */
   public final function setCommands( $cmds, $namespace='Core' ) {
     if (empty($cmds)) return;
@@ -151,8 +152,8 @@ abstract class Exec {
   /**
    * Set commands from a INI file
    *
-   * @param $file string
-   * @param $required bool Log an error message if file is not valid
+   * @param string $file
+   * @param bool $required Log an error message if file is not valid
    */
   public final function setCommandsFromINIFile( $file, $required=TRUE ) {
     $file = str_replace('/', DIRECTORY_SEPARATOR, $file);
@@ -172,8 +173,8 @@ abstract class Exec {
   /**
    * Set commands from a XML file
    *
-   * @param $file string
-   * @param $required bool Log an error message if file is not valid
+   * @param string $file
+   * @param bool $required Log an error message if file is not valid
    */
   public final function setCommandsFromXMLFile( $file, $required=TRUE ) {
     $file = str_replace('/', DIRECTORY_SEPARATOR, $file);
@@ -195,9 +196,9 @@ abstract class Exec {
   /**
    * Execute a predefined system command
    *
-   * @param $cmd string Command to execute
-   * @param &$result array Return of executed command
-   * @param $sudo string Run as defined sudo user
+   * @param string $cmd Command to execute
+   * @param array &$result Return of executed command
+   * @param string $sudo Run as defined sudo user
    * @return integer Return code of system command
    */
   public final function ExecuteCmd( $cmd, &$result, $sudo='' ) {
@@ -230,8 +231,8 @@ abstract class Exec {
   /**
    * Class constructor
    *
-   * @param $cache Cache
-   * @param $shell string Shell binary for the instance
+   * @param Cache $cache
+   * @param string $shell Shell binary for the instance
    */
   protected final function __construct( Cache $cache, $shell ) {
     $this->Cache = $cache;
@@ -241,7 +242,7 @@ abstract class Exec {
   /**
    * Get real command for $cmd id
    *
-   * @param $cmd string|array Plain command or array of command and parameters
+   * @param string|array $cmd Plain command or array of command and parameters
    */
   protected final function getCommand( &$cmd ) {
     $cmdArray = is_array($cmd);
@@ -268,8 +269,8 @@ abstract class Exec {
   /**
    * Execute finaly a command
    *
-   * @param $cmd string
-   * @param &$result array Return of executed command
+   * @param string $cmd
+   * @param array &$result Return of executed command
    * @return int Return code
    */
   protected final function _exec( $cmd, &$result ) {
@@ -292,11 +293,16 @@ abstract class Exec {
   //---------------------------------------------------------------------------
 
   /**
+   * Singleton instance
    *
+   * @var Cache $Instance
    */
   private static $Instance;
 
   /**
+   * Commands
+   *
+   * @var array $Commands
    *
    */
   private $Commands = array();

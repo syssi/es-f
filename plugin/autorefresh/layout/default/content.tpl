@@ -6,7 +6,7 @@
     {fs:[[AutoRefresh.Deactivate]],,"button"}
   <!-- ELSE -->
     <label for="autorefresh_interval">[[Autorefresh.Refresh]]</label>: &nbsp;
-    {ft:"autorefresh_interval",INTERVAL,"input small r","size=\"3\""} [[AutoRefresh.Min]] &nbsp;
+    {ft:"autorefresh_interval",INTERVAL,"small r","size=\"3\""} [[AutoRefresh.Min]] &nbsp;
     {fs:[[AutoRefresh.Activate]],,"button"}
   <!-- ENDIF -->
   {fh:"autorefresh_active", ACTIVE|not}

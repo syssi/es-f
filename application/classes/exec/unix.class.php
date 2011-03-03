@@ -128,6 +128,8 @@ class Exec_Unix extends Exec {
 
   /**
    * Assume sh as shell
+   *
+   * @var string $Shell
    */
   protected $Shell = 'sh';
 

@@ -38,6 +38,8 @@ class esf_Module_Auction extends esf_Module {
 
     TplData::setConstant('CATEGORIES', esf_Auctions::getCategories());
     TplData::setConstant('GROUPS', esf_Auctions::getGroups());
+
+    Registry::set('esf.ContentOnly', Request::check('auction', '_dump'));
   }
 
   /**
@@ -48,7 +50,8 @@ class esf_Module_Auction extends esf_Module {
                  'editgroup', 'start', 'stop',
                  'refresh', 'refreshcategory', 'refreshgroup',
                  'mcategory', 'mgroup', 'mimage', 'mcomment', 'mbid',
-                 'mcurrency', 'mrefresh', 'mdel', 'mdelg', 'mstart', 'mstop');
+                 'mcurrency', 'mrefresh', 'mdel', 'mdelg', 'mstart', 'mstop',
+                 '_dump');
   }
 
   /**
@@ -683,6 +686,17 @@ class esf_Module_Auction extends esf_Module {
    */
   public function RefreshAction() {
     $this->redirect('refresh');
+  }
+
+  // -------------------------------------------------------------------------
+
+  /**
+   * Undocumented function to dump all auctions for Copy & Paste
+   */
+  public function _DumpAction() {
+    Header('Content-Type: text/plain');
+    foreach (esf_AUctions::$Auctions as $item=>$dummy) echo $item, "\n";
+    exit;
   }
 
   // -------------------------------------------------------------------------
