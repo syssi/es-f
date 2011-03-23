@@ -81,6 +81,12 @@
       </tuv>
     </tu>
 
+    <tu tuid="BugDeleted">
+      <tuv xml:lang="DE">
+        <seg>esniper Bug-File gelöscht.</seg>
+      </tuv>
+    </tu>
+
     <tu tuid="DeleteError">
       <note>%$1s - ...</note>
       <tuv xml:lang="DE">

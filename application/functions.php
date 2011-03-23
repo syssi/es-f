@@ -165,14 +165,10 @@ function Secure4fs( $str ) {
 function checkDir( $dir, $chmod=755 ) {
   $Exec = Exec::getInstance();
   if (!is_dir($dir)) {
-    if ($Exec->MkDir($dir, $res)) {
-      Messages::Error($res);
-    }
+    if ($Exec->MkDir($dir, $res)) Messages::Error($res);
     is_dir($dir) OR die('Can\'t create directory ['.$dir.']!');
   }
-  if ($Exec->ChMod($dir, $chmod, FALSE, $res)) {
-    Messages::Error($res);
-  }
+  if ($Exec->ChMod($dir, $chmod, FALSE, $res)) Messages::Error($res);
   return realpath($dir);
 }
 

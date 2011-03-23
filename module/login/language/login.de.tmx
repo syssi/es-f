@@ -35,7 +35,7 @@
     <tu tuid="MenuHint">
       <prop type="x-Format">html</prop>
       <tuv xml:lang="DE">
-        <seg><![CDATA[<tt>|es|f|</tt>-Login mit Username und Passwort]]></seg>
+        <seg><![CDATA[<tt>|es|f|</tt> Login mit Username und Passwort]]></seg>
       </tuv>
     </tu>
 
@@ -53,7 +53,7 @@
 
     <tu tuid="Account">
       <tuv xml:lang="DE">
-        <seg>eBay-Mitgliedsname</seg>
+        <seg>eBay Mitgliedsname</seg>
       </tuv>
     </tu>
 
@@ -66,7 +66,7 @@
     <tu tuid="Password">
       <prop type="x-Format">html</prop>
       <tuv xml:lang="DE">
-        <seg><![CDATA[<tt>|es|f|</tt>-Passwort]]></seg>
+        <seg><![CDATA[<tt>|es|f|</tt> Passwort]]></seg>
       </tuv>
     </tu>
 
@@ -78,7 +78,7 @@
 
     <tu tuid="YourAccountAndPassword">
       <tuv xml:lang="DE">
-        <seg><![CDATA[Dein eBay-Mitgliedsname und <tt>|es|f|</tt>-Passwort]]></seg>
+        <seg><![CDATA[Dein eBay Mitgliedsname und <tt>|es|f|</tt> Passwort]]></seg>
       </tuv>
     </tu>
 

@@ -34,33 +34,34 @@
   </td></tr>
 
   <!-- IF LOGINMSG -->
-  <tr><td class="error">{LOGINMSG}</td></tr>
+  <tr><td class="label error">{LOGINMSG}</td></tr>
   <!-- ENDIF -->
 
-  <tr><td class="value">
+  <tr><td>
     {cookie:"LastUser" > USER}
+    {nvl:USER,"" > USER}
     <label for="user">[[Login.Account]]</label><br>{ft:"user",USER}
   </td></tr>
 
-  <tr><td class="value">
+  <tr><td>
     <label for="pass">[[Login.Password]]</label><br>{fp:"pass"}
   </td></tr>
 
-  <tr><td class="value">
+  <tr><td>
     <label for="layout">[[Login.Layout]]</label><br>
     {cookie:"LastLayout" > LAYOUT}
     <select id="layout" name="layout">{options:LAYOUTS,LAYOUT}</select>
   </td></tr>
 
   <!-- IF CONST.MODULE.COOKIE > "0" -->
-  <tr><td class="value cookie">
+  <tr><td>
     {fcb:"cookie",,,,"style=\"width:0\""}
     <label for="cookie"><strong>[[Login.Cookie]]</strong></label>
     <div>[[Login.CookieHint]] {help:"LoginHelp.Cookie"}</div>
   </td></tr>
   <!-- ENDIF -->
 
-  <tr><td class="value">
+  <tr><td>
     {fs:[[Login.Login|quote]],"button"}
   </td></tr>
 
@@ -68,7 +69,7 @@
 
   <div id="copyright">
     Copyright &copy; 2006-{CONST.YEAR}.
-    <a href='http://es-f.com'>|es|f| esniper frontend - {CONST.esf.Version}</a>
+    <a href='http://es-f.com'>|es|f| esniper frontend {CONST.esf.Version}</a>
   </div>
 
   </form>

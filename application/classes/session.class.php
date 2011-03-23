@@ -95,7 +95,9 @@ abstract class Session {
   public static function start( $ttl=0 ) {
     session_set_cookie_params($ttl);
     session_start();
-    if (self::$RegenerateIdAlways) self::RegenerateId(TRUE);
+
+    if (self::$RegenerateIdAlways) self::regenerate();
+
     self::dbg('Started "%s" = "%s"', session_name(), session_id());
     self::_fixes();
     if (count(self::$Buffer)) {
@@ -129,14 +131,14 @@ abstract class Session {
    * @param bool $delete Delete the old associated session file
    * @return bool Success
    */
-  public static function RegenerateId( $delete=FALSE ) {
-    self::dbg('Regenerate id, old = "%s"', session_id());
-    if (session_regenerate_id($delete)) {
+  public static function regenerate() {
+    self::dbg('Regenerate ID: was "%s"', session_id());
+    if (session_regenerate_id(FALSE)) {
       self::_fixes();
-      self::dbg('Regenerate id, new = "%s"', session_id());
+      self::dbg('Regenerate ID: now "%s"', session_id());
       return TRUE;
     } else {
-      self::$Debug AND self::$Messages[] = 'Session: regenerate id, FAILED';
+      self::dbg('Regenerate ID: FAILED');
     }
     return FALSE;
   }
@@ -150,7 +152,7 @@ abstract class Session {
    * @return void
    */
   public static function RemoveCookies() {
-    self::$Debug AND self::$Messages[] = 'Session: remove cookies';
+    self::dbg('Remove cookies');
 
     $CookieInfo = session_get_cookie_params();
 

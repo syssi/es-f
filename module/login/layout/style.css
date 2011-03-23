@@ -23,6 +23,7 @@
 
 #logintable td {
   padding: 7px 10px;
+	text-align: left;
 }
 
 #logintable input,
@@ -41,28 +42,18 @@
 #logintable td.menu {
   background-color: #4D4D4D;
   color: white;
-	text-align: left;
 	font-size: bigger;
   font-weight: bold;
 }
 
 #logintable td.label {
+  text-align: center;
   background-color: #EFEFEF;
+  border-bottom: 1px solid #A0A0A0;
 }
 
 #logintable td.error {
-  background-color: #EFEFEF;
   font-style: italic;
-}
-
-#logintable td.value {
-	text-align: left;
-  border-top: 1px solid #A0A0A0;
-}
-
-#logintable td.cookie {
-	text-align: left;
-  padding: 0 10px;
 }
 
 #copyright {

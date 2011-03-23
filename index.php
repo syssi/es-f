@@ -67,6 +67,8 @@ try {
   require_once APPDIR . DIRECTORY_SEPARATOR . 'lib' . DIRECTORY_SEPARATOR
              . 'yryie' . DIRECTORY_SEPARATOR. 'yryie.class.php';
   Yryie::Versions();
+  Yryie::EnvVars('GPC');
+  Yryie::add(); // empty line
 
   /**
    * Class autoloading
@@ -83,7 +85,7 @@ try {
   Loader::$AutoLoadPath[] = APPDIR . DIRECTORY_SEPARATOR . 'classes';
   if (DEVELOP) Loader::setPreload('__develop');
 
-  Loader::Load(BASEDIR.'/index.inc.php');
+  Loader::Load(APPDIR.'/bootstrap.php');
 
   // set garbage collection probability to 5%
   $gc = Yuelo_Cache::gc(5);

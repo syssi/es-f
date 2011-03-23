@@ -78,7 +78,7 @@ class esf_Module_Login extends esf_Module {
         if ($this->Request('cookie'))
           Cookie::set('ttl', 60*60*24*$this->Cookie, $ts);
         else
-          Cookie::set('ttl');
+          Cookie::delete('ttl');
         $this->Redirect(STARTMODULE);
       } else {
         TplData::set('LoginMsg', Translation::get('Login.Failed'));

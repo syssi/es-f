@@ -64,4 +64,16 @@ class Cookie {
     return isset($_COOKIE[$name]) ? $_COOKIE[$name] : $default;
   } // function get()
 
+  /**
+   * Delete cookie
+   *
+   * @param string $name   The name of the cookie.
+   * @return void
+   */
+  public static function delete( $name ) {
+    // When deleting a cookie, assure that the expiration date is in the past
+    // to trigger the removal mechanism in the browser.
+    self::set($name, '', time()-3600);
+  } // function delete()
+
 }

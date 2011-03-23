@@ -91,8 +91,8 @@ class esf_Template {
     Yuelo::set('Language', Registry::get('Language'));
     Yuelo::set('ReuseCode', Registry::get('Template.ReuseCode', TRUE));
     Yuelo::set('Verbose', Registry::get('Template.Verbose', 0));
-    Yuelo::set('CustomLayout', Registry::get('Template.CustomLayout', ''));
     Yuelo::set('CompileDir', TEMPDIR);
+    Yuelo::set('CustomLayout', 'custom');
 
     Yuelo::set('VarNamesUppercase', TRUE);
 

@@ -36,7 +36,6 @@ class esf_Plugin_UrlRewrite extends esf_Plugin {
     $args['url'] .= '/'.$args['module'];
     if (!empty($args['action']) AND $args['action'] != 'content')
       $args['url'] .= '-' . $args['action'];
-    $args['url'] .= '.html';
 
     if (count($args['params']))
       $args['url'] .= '?' . http_build_query($args['params']);

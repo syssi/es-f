@@ -88,7 +88,7 @@ esf_Extensions::Init();
 
 Exec::InitInstance(ESF_OS, Core::$Cache, Registry::get('bin_sh'));
 
-checkDir(TEMPDIR);
+checkDir(TEMPDIR, 777);
 
 Loader::Load(APPDIR.'/ebay.php');
 
@@ -187,14 +187,12 @@ Core::StripSlashes($_REQUEST);
 /// Yryie::Debug('$_REQUEST : '.print_r($_REQUEST, TRUE));
 
 if (strtoupper($_SERVER['REQUEST_METHOD']) == 'GET') {
-  /// Yryie::Debug('$_GET before: '.print_r($_GET, TRUE));
   Core::StripSlashes($_GET);
   Event::Process('UrlUnRewrite', $_GET);
   Event::Process('AnalyseRequest', $_GET);
   /// Yryie::Debug('$_GET after analyse: '.print_r($_GET, TRUE));
   $_POST = array();
 } else {
-  /// Yryie::Debug('$_POST : '.print_r($_POST, TRUE));
   Core::StripSlashes($_POST);
   Event::Process('UrlUnRewrite', $_POST);
   Event::Process('AnalyseRequest', $_POST);

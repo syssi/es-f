@@ -77,7 +77,7 @@ class esf_Module_Watching extends esf_Module {
     } else {
       $auctionIds = array_keys(esf_Auctions::$Auctions);
       foreach ($myitems as $item => $data) {
-        if (strtolower($data['TIME']) != 'ended' OR $this->Ended) {
+        if (strtolower($data['TIME_LEFT']) != 'ended' OR $this->Ended) {
           $data['ACTIVE']  = in_array($item, $auctionIds);
           $data['ITEMURL'] = htmlspecialchars(sprintf(Registry::get('ebay.ShowUrl'), $item));
           TplData::add('Auctions', $data);
