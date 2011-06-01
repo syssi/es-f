@@ -47,11 +47,11 @@
                        title="'+wz_tooltip_version+'" alt="| '+wz_tooltip_version+'" \
                        onmouseover=\'Tip("'+wz_tooltip_version+'",ABOVE,true,CENTERMOUSE,true)\'><\/a>');
 
-  if (typeof PrototypeJsVersion !== "undefined")
+  if (typeof Prototype.Version !== "undefined")
     document.write('<a class="powered" href="http://prototypejs.org/"><img \
                        class="powered" src="layout/images/powered/prototype.js.gif" \
-                       title="Prototype JavaScript Framework '+PrototypeJsVersion+'" alt="| Prototype '+PrototypeJsVersion+'" \
-                       onmouseover=\'Tip("Prototype JavaScript Framework '+PrototypeJsVersion+'",ABOVE,true,CENTERMOUSE,true)\'><\/a>');
+                       title="Prototype JavaScript framework '+Prototype.Version+'" alt="| Prototype v'+Prototype.Version+'" \
+                       onmouseover=\'Tip("Prototype JavaScript framework '+Prototype.Version+'",ABOVE,true,CENTERMOUSE,true)\'><\/a>');
   // ]]>
 </script>
 

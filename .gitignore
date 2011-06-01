@@ -9,7 +9,8 @@ application/yuelo/help.inline.php
 plugin/detectmobile
 plugin/validate
 plugin/xml
-js/prototype/1.7RC2
+js/*/_*
+js/*/*/*.org.*
 jsDebugger
 *.org.php
 .save*

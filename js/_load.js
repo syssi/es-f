@@ -28,12 +28,9 @@ function LoadJSLib( _lib, _ver ) {
 // ---------------------------------------------------------------------------
 // load libraries
 // ---------------------------------------------------------------------------
-var PrototypeJsVersion = '1.6.1';
-LoadJSLib('prototype', PrototypeJsVersion);
-LoadJSLib('prototypePlus', PrototypeJsVersion);
-
-var ScriptaculousJsVersion = '1.8.0';
-LoadJSLib('scriptaculous', ScriptaculousJsVersion);
+LoadJSLib('prototype', '1.7');
+LoadJSLib('prototypePlus', '1.7');
+LoadJSLib('scriptaculous', '1.9.0');
 
 var DialogJsPath = 'js/';
 LoadJSLib('dialog');
