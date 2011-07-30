@@ -30,32 +30,39 @@
 
     <td style="white-space:nowrap">
       <div style="padding:3px;margin-right:3em">
-        <input name="auctions" class="input" style="width:100%"> {help:"AuctionHelp.AddMultipleAuctions"}
+        <input name="auctions" class="input" style="width:100%"
+               required="required" placeholder="[[Auction.AddAuctionsHint]]">
+        {help:"AuctionHelp.AddMultipleAuctions"}
       </div>
 
       <div class="left" style="padding:3px">
         <label for="CategorySelect">[[Auction.Category]]</label> {help:"AuctionHelp.Category"}:
         <select id="CategorySelect" name="category">{options:CONST.CATEGORIES}</select>
         &nbsp; <label for="categorynew">[[Auction.Or]]</label> &nbsp;
-        {ft:"categorynew",,"input","id=\"categorynew\" size=\"10\""}
+        <input id="categorynew" name="categorynew" class="input"
+               placeholder="[[Auction.NewCategoryHint]]" size="10">
       </div>
 
       <div class="right" style="padding:3px">
         <label for="GroupSelect">[[Auction.Group]]</label> {help:"AuctionHelp.Group"}:
         <select id="GroupSelect" name="group" onchange="SetGroupCategory(this.value)">{options:CONST.GROUPS}</select>
         &nbsp; <label for="groupnew">[[Auction.Or]]</label> &nbsp;
-        {ft:"groupnew",,"input","id=\"groupnew\" size=\"10\""}
+        <input id="groupnew" name="groupnew" class="input"
+               placeholder="[[Auction.NewGroupHint]]" size="10">
       </div>
     </td>
 
     <td style="text-align:left;white-space:nowrap">
       <div style="padding:2px">
         <div class="left" style="width:4em"><label for="q">[[Auction.Quantity]]</label>:</div>
-        <input style="width:3em" class="input num" type="text" id="q" name="q" value="1">
+        <input type="number" id="q" name="q" value="1"
+               style="width:3em" class="input num"
+               required="required" placeholder="[[Auction.Quantity]]">
       </div>
       <div style="padding:2px">
         <div class="left" style="width:4em"><label for="b">[[Auction.Bid]]</label>:</div>
-        <input style="width:3em" class="input num" type="text" id="b" name="b">
+        <input style="width:3em" class="input num" type="float" id="b" name="b"
+               placeholder="[[Auction.Bid]]">
       </div>
     </td>
 

@@ -31,14 +31,18 @@
     <tr class="{cycle:"EDITROW","tr1","tr2"}">
       <td class="nowrap">[[Auction.Quantity]]</td>
       <td>:</td>
-      <td><input class="input num" size="3" name="q" value="{GROUP.QUANTITY}"> [[Auction.Piece]]</td>
+      <td>
+        <input type="number" name="q" value="{GROUP.QUANTITY}" class="input num"
+               min="1" size="3" required="required" placeholder="1"> [[Auction.Piece]]
+      </td>
     </tr>
 
     <tr class="{cycle:"EDITROW","tr1","tr2"}">
       <td class="nowrap">[[Auction.GroupBid]]</td>
       <td>:</td>
       <td>
-        <input style="float:left" class="input num" type="text" size="8" name="b" value="{currency:GROUP.BID}"
+        <input type="number" name="b" value="{currency:GROUP.BID}"
+               style="float:left" class="input num" min="1" size="8"
                onfocus="if(this.value=='0,00')this.value=''">
         <div style="margin-left:8em">
           <input type="radio" name="t" value="0" checked="checked">[[Auction.GroupSingle]]

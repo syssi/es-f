@@ -14,6 +14,7 @@
 
 <a name="pagetop"></a>
 
+<header>
 <div id="header">
 
   <div id="header_title" style="text-align:center">
@@ -44,7 +45,9 @@
   <!-- ENDIF LASTUPDATE -->
 
 </div>
+</header>
 
+<nav>
 <div id="menu">
 
   <div id="menu_main" style="float:left;height:20px">
@@ -67,6 +70,7 @@
   </div>
 
 </div>
+</nav>
 
 <div style="clear:both"></div>
 

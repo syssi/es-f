@@ -26,6 +26,7 @@
 </div></noscript>
 <!-- ENDIF -->
 
+<header>
 <div id="header">
 
   <div id="header_title" style="text-align:center">
@@ -89,9 +90,11 @@
   </div>
 
 </div>
+</header>
 
 <!-- INCLUDE html.messages -->
 
+<nav>
 <div id="menu">
 
   <div id="menu_main" style="float:left;height:20px">
@@ -127,6 +130,7 @@
   </div>
 
 </div>
+</nav>
 
 <div style="clear:both"></div>
 

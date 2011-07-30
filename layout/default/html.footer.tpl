@@ -9,6 +9,7 @@
 
 <div id="footer_before"></div>
 
+<footer>
 <div id="footer" style="margin: 10px 0;text-align:center">
 
 <!-- /**
@@ -39,7 +40,7 @@
          onmouseover="Tip('{CONST.ESNIPER.VERSION|quote}',ABOVE,true,CENTERMOUSE,true)">
   </a>
 
-<script type="text/javascript">
+  <script type="text/javascript">
   // <![CDATA[
   if (typeof wz_tooltip_version !== "undefined")
     document.write('<a class="powered" href="http://www.walterzorn.de/tooltip/tooltip.htm"><img \
@@ -53,7 +54,7 @@
                        title="Prototype JavaScript framework '+Prototype.Version+'" alt="| Prototype v'+Prototype.Version+'" \
                        onmouseover=\'Tip("Prototype JavaScript framework '+Prototype.Version+'",ABOVE,true,CENTERMOUSE,true)\'><\/a>');
   // ]]>
-</script>
+  </script>
 
   <a class="powered" href="http://sourceforge.net/projects/es-f/">
     <img src="layout/images/powered/sf.net.gif"
@@ -77,6 +78,7 @@
        onmouseover="Tip('{CONST.SERVER.VERSION}',WIDTH,250,ABOVE,true,CENTERMOUSE,true)">
   <!-- ENDIF -->
 </div>
+</footer>
 
 <div id="footer_after"></div>
 

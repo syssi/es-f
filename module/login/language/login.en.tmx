@@ -70,6 +70,12 @@
       </tuv>
     </tu>
 
+    <tu tuid="PasswordHint">
+      <tuv xml:lang="EN">
+        <seg>Your es-f, not your ebay password!</seg>
+      </tuv>
+    </tu>
+
     <tu tuid="Layout">
       <tuv xml:lang="EN">
         <seg>Layout</seg>

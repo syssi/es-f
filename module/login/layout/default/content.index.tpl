@@ -40,11 +40,13 @@
   <tr><td>
     {cookie:"LastUser" > USER}
     {nvl:USER,"" > USER}
-    <label for="user">[[Login.Account]]</label><br>{ft:"user",USER}
+    <label for="user">[[Login.Account]]</label><br>
+    <input name="user" value="{USER}" required="required">
   </td></tr>
 
   <tr><td>
-    <label for="pass">[[Login.Password]]</label><br>{fp:"pass"}
+    <label for="pass">[[Login.Password]]</label><br>
+    <input type="password" name="pass" required="required" placeholder="[[Login.PasswordHint]]">
   </td></tr>
 
   <tr><td>

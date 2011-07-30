@@ -230,6 +230,12 @@
       </tuv>
     </tu>
 
+    <tu tuid="AddAuctionsHint">
+      <tuv xml:lang="DE">
+        <seg>Auktion Auktion ...</seg>
+      </tuv>
+    </tu>
+
     <tu tuid="Price">
       <tuv xml:lang="DE">
         <seg>Preis</seg>
@@ -257,6 +263,12 @@
     <tu tuid="Category">
       <tuv xml:lang="DE">
         <seg>Kategorie</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="NewCategoryHint">
+      <tuv xml:lang="DE">
+        <seg>Neue...</seg>
       </tuv>
     </tu>
 
@@ -300,6 +312,12 @@ Gebot</seg>
     <tu tuid="Group">
       <tuv xml:lang="DE">
         <seg>Gruppe</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="NewGroupHint">
+      <tuv xml:lang="DE">
+        <seg>Neue...</seg>
       </tuv>
     </tu>
 
