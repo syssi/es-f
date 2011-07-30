@@ -18,3 +18,4 @@ custom
 *.aop.php
 *~
 git-ftp.lck
+aop.class.php

@@ -300,35 +300,6 @@ function printf_flush() {
   }
 }
 
-// ----------------------------------------------------------------------------
-// Extension handling
-// ----------------------------------------------------------------------------
-/**
- * Set an value to the global Event variables
- * 
- * @internal 
- * @param string $scope module|plugin
- * @param string $extension Event name
- * @param string $var Variable name
- * @param mixed $value Variable value
- * /
-function setExtensionVar( $scope, $extension, $var, $value=NULL ) {
-  Registry::set($scope.'.'.$extension.'.'.$var, $value);
-
-  static $mark = array();
-
-  $id = $scope.$extension;
-  if (!isset($mark[$id])) {
-    Messages::Error('<i>ATTENTION</i>: Due to design changes it is required to '
-                      .Core::Link(Core::URL(array('module'=>'configuration',
-                                                  'action'=>'edit',
-                                                  'params'=>array('ext'=>$scope.'-'.$extension))),
-                                            're-configure '.$scope.' '.$extension)
-                      .'! Just re-save your settings, thats all...', TRUE);
-    $mark[$id] = TRUE;
-  }
-}
-
 /**
  * Format a variable value accoriding to its type for display
  */
@@ -450,28 +421,28 @@ function array_map_recursive( $func, $array ) {
   return $newArray;
 }
 
-  /**
-   * Returns an array with all keys from input lowercased or uppercased recursive.
-   *
-   * If $input ist no array, returns $input unchanged
-   *
-   * @param array $input
-   * @param int $case CASE_UPPER or CASE_LOWER
-   * @return mixed
-   */
-  function array_change_key_case_rec( $input, $case=CASE_LOWER ) {
-    if (!is_array($input))
-      return $input;
+/**
+ * Returns an array with all keys from input lowercased or uppercased recursive.
+ *
+ * If $input ist no array, returns $input unchanged
+ *
+ * @param array $input
+ * @param int $case CASE_UPPER or CASE_LOWER
+ * @return mixed
+ */
+function array_change_key_case_rec( $input, $case=CASE_LOWER ) {
+  if (!is_array($input))
+    return $input;
 
-    $newArray = array_change_key_case($input, $case);
+  $newArray = array_change_key_case($input, $case);
 
-    foreach ($newArray as $key => $array){
-      if (is_array($array)){
-        $newArray[$key] = self::array_change_key_case_rec($array, $case);
-      }
+  foreach ($newArray as $key => $array){
+    if (is_array($array)){
+      $newArray[$key] = self::array_change_key_case_rec($array, $case);
     }
-    return $newArray;
   }
+  return $newArray;
+}
 
 /**
  * @ignore
@@ -591,19 +562,19 @@ function getGradientColor( $start, $end, $max, $id ) {
 }
 
 if (!function_exists('image_type_to_Extension')) {
-/**
- * before PHP 5.2
- *
- * @ignore 
- */
-function image_type_to_extension( $type, $dot=TRUE ) {
-  $e = array( 1 => 'gif', 'jpeg', 'png', 'swf', 'psd', 'bmp',
-                   'tiff', 'tiff', 'jpc', 'jp2', 'jpf', 'jb2', 'swc',
-                   'aiff', 'wbmp', 'xbm');
-  // We are expecting an integer.
-  $type = (int)$type;
-  if (!$type) return null;
-  if ( !isset($e[$type]) ) return null;
-  return ($dot ? '.' : '') . $e[$type];
-}
+  /**
+   * before PHP 5.2
+   *
+   * @ignore
+   */
+  function image_type_to_extension( $type, $dot=TRUE ) {
+    $e = array( 1 => 'gif', 'jpeg', 'png', 'swf', 'psd', 'bmp',
+                     'tiff', 'tiff', 'jpc', 'jp2', 'jpf', 'jb2', 'swc',
+                     'aiff', 'wbmp', 'xbm');
+    // We are expecting an integer.
+    $type = (int)$type;
+    if (!$type) return null;
+    if (!isset($e[$type])) return null;
+    return ($dot ? '.' : '') . $e[$type];
+  }
 }

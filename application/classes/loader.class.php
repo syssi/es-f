@@ -6,7 +6,7 @@
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2009-2011 Knut Kohl
  * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
- * @version    1.0.0
+ * @version    1.1.0
  * @version    $Id: v2.4.1-62-gb38404e 2011-01-30 22:35:34 +0100 $
  */
 abstract class Loader {
@@ -28,19 +28,9 @@ abstract class Loader {
    * @param string $function Callback function pre load with one parameter: $file
    * @return boolean
    */
-  public static function setPreload( $function=NULL ) {
-    self::setCallback('Pre', $function);
-  } // function setPreload()
-
-  /**
-   * Function setPostload...
-   *
-   * @param string $function Callback function after load with one parameter: $file
-   * @return boolean
-   */
-  public static function setPostload( $function=NULL ) {
-    self::setCallback('Post', $function);
-  } // function setPostload()
+  public static function setHandler( LoaderHandler $handler ) {
+    self::$_handler = $handler;
+  } // function setHandler()
 
   /**
    * Function Load...
@@ -53,13 +43,15 @@ abstract class Loader {
    */
   public static function Load( $file, $once=TRUE, $throw=TRUE ) {
     $file = str_replace('/', DIRECTORY_SEPARATOR, $file);
+    $handle = self::$_handler instanceof LoaderHandler;
     if (file_exists($file)) {
-      self::callback('Pre', $file);
-      if ($once)
+      $handle && self::$_handler->BeforeLoad($file);
+      if ($once) {
         include_once $file;
-      else
+      } else {
         include $file;
-      self::callback('Post', $file);
+      }
+      $handle && self::$_handler->AfterLoad($file);
       return TRUE;
     } elseif ($throw) {
       throw new LoaderException(__METHOD__.' : Missing file: '.$file);
@@ -103,38 +95,15 @@ abstract class Loader {
   } // function Register()
 
   // -------------------------------------------------------------------------
-  // PRIVATE
+  // PROTECTED
   // -------------------------------------------------------------------------
 
   /**
-   * Callback function definitions
+   * Callback handler
    *
-   * @var array $Callbacks
+   * @var array $_handler
    */
-  private static $Callbacks = array();
-
-  /**
-   *
-   * @throws LoaderException
-   * @param string $step Pre|Post
-   * @param string $function
-   */
-  private static function setCallback( $step, $function ) {
-    if ($function AND !function_exists($function))
-      throw new LoaderException('Missing callback function: '.$function);
-    self::$Callbacks[$step] = $function;
-  }
-
-  /**
-   *
-   * @param string $step Pre|Post
-   * @param string &$file
-   */
-  private static function callback( $step, &$file ) {
-    if (empty(self::$Callbacks[$step])) return;
-    $callback = self::$Callbacks[$step];
-    $callback($file);
-  }
+  protected static $_handler = NULL;
 
 }
 

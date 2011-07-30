@@ -72,6 +72,7 @@ $aCacheOptions['packer'] = new Cache_Packer_GZ;
 Core::$Cache = Cache::create($aCacheOptions, Registry::get('CacheClass'));
 if (Registry::get('ClearCache')) Core::$Cache->flush();
 unset($aCacheOptions);
+
 /// Yryie::Debug(Core::$Cache->info());
 
 if (Registry::get('CfgVersion') < ESF_CONFIG_VERSION) {
@@ -347,9 +348,11 @@ do {
   $sTitle = Translation::getNVL($sModule.'.Title', ucwords($sModule));
   TplData::set('Title', $sTitle);
   TplData::set('SubTitle1', $sTitle);
-  /// TplData::set('SubTitle1',
-  ///              $sTitle.' <tt style="font-size:80%;color:red">['
-  ///             .exec('git branch | grep \* | cut -d" " -f2').']</tt>');
+  /* ///
+  TplData::set('SubTitle1',
+                $sTitle.' <tt style="font-size:80%;color:red">['
+               .exec('git branch | grep \* | cut -d" " -f2').']</tt>');
+  /// */
   unset($sTitle);
 
   TplData::set('SubTitle2', '');

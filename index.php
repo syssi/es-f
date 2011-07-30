@@ -73,6 +73,7 @@ try {
   /**
    * Class autoloading
    */
+  require_once APPDIR . DIRECTORY_SEPARATOR . 'classes' . DIRECTORY_SEPARATOR . 'loaderhandler.if.php';
   require_once APPDIR . DIRECTORY_SEPARATOR . 'classes' . DIRECTORY_SEPARATOR . 'loader.class.php';
 
   if (!Loader::Register()) {
@@ -83,9 +84,12 @@ try {
   }
 
   Loader::$AutoLoadPath[] = APPDIR . DIRECTORY_SEPARATOR . 'classes';
-  if (DEVELOP) Loader::setPreload('__develop');
+  if (DEVELOP) {
+    require 'aop.class.php';
+    Loader::setHandler(new AOP);
+  }
 
-  Loader::Load(APPDIR.'/bootstrap.php');
+  Loader::Load(APPDIR.DIRECTORY_SEPARATOR.'bootstrap.php');
 
   // set garbage collection probability to 5%
   $gc = Yuelo_Cache::gc(5);
