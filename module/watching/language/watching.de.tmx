@@ -147,7 +147,7 @@
     </tu>
 
     <tu tuid="SHOW_NO_ENDED">
-      <prop type="x-Format">html</prop>
+      <prop type="x-Filter">html</prop>
       <tuv xml:lang="DE">
         <seg><![CDATA[Bereits beendete Auktionen werden <b>nicht</b> angezeigt!]]></seg>
       </tuv>

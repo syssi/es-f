@@ -213,7 +213,7 @@
     </tu>
 
     <tu tuid="LookForInfo">
-      <prop type="x-Format">html</prop>
+      <prop type="x-Filter">html</prop>
       <note>%$1s - ...</note>
       <tuv xml:lang="DE">
         <seg><![CDATA[Lies bitte auf der <a href="%s">Informations-Seite</a> nach,

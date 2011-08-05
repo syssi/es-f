@@ -33,7 +33,7 @@
     </tu>
 
     <tu tuid="MenuHint">
-      <prop type="x-Format">html</prop>
+      <prop type="x-Filter">html</prop>
       <tuv xml:lang="EN">
         <seg><![CDATA[Login into <tt>|es|f|</tt> with account name and password]]></seg>
       </tuv>
@@ -64,7 +64,7 @@
     </tu>
 
     <tu tuid="Password">
-      <prop type="x-Format">html</prop>
+      <prop type="x-Filter">html</prop>
       <tuv xml:lang="EN">
         <seg><![CDATA[<tt>|es|f|</tt> password]]></seg>
       </tuv>
@@ -83,7 +83,7 @@
     </tu>
 
     <tu tuid="YourAccountAndPassword">
-      <prop type="x-Format">html</prop>
+      <prop type="x-Filter">html</prop>
       <tuv xml:lang="EN">
         <seg><![CDATA[Your eBay account and <tt>|es|f|</tt> password]]></seg>
       </tuv>

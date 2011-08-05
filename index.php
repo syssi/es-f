@@ -37,6 +37,7 @@ If not, see http://www.gnu.org/licenses/gpl.txt
  * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
  * @version    1.0.0
  * @version    $Id: v2.4.1-76-g3ee4c22 2011-02-11 21:42:58 +0100 $
+ * @revision   $Rev$
  */
 
 ini_set('display_startup_errors', 0);
@@ -84,7 +85,8 @@ try {
   }
 
   Loader::$AutoLoadPath[] = APPDIR . DIRECTORY_SEPARATOR . 'classes';
-  if (DEVELOP) {
+
+  if (AOP) {
     require 'aop.class.php';
     Loader::setHandler(new AOP);
   }

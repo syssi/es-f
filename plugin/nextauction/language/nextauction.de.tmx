@@ -34,7 +34,7 @@
     </tu>
 
     <tu tuid="Message">
-      <prop type="x-Format">html</prop>
+      <prop type="x-Filter">html</prop>
       <note>%$1s - ...</note>
       <tuv xml:lang="DE">
         <seg><![CDATA[Nächste Auktion: <a href="#%1$s">%2$s</a> (%4$s) &nbsp; <tt>[</tt>%3$s<tt>]</tt>]]></seg>

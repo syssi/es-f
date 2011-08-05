@@ -159,7 +159,7 @@
     </tu>
 
     <tu tuid="Description">
-      <prop type="x-Format">html</prop>
+      <prop type="x-Filter">html</prop>
       <tuv xml:lang="EN">
         <seg><![CDATA[As bigger and greener a circle is, there are lesser bids on an auction.<br>
 As smaller and reder a circle is, there are more bids on an auction.<br>
@@ -198,7 +198,7 @@ Not yet ended auctions are yellow.]]></seg>
     </tu>
 
     <tu tuid="ChanceMessageDesc1">
-      <prop type="x-Format">html</prop>
+      <prop type="x-Filter">html</prop>
       <note>%$1s - ...</note>
       <tuv xml:lang="EN">
         <seg><![CDATA[<form style="display:inline" method="post">
@@ -219,7 +219,7 @@ Splitted price range until a range holds less than
     </tu>
 
     <tu tuid="ChanceMessage">
-      <prop type="x-Format">html</prop>
+      <prop type="x-Filter">html</prop>
       <note>%$1s - ...</note>
       <tuv xml:lang="EN">
         <seg><![CDATA[The price range of <tt><strong>%1$.2f-%2$.2f</strong></tt>

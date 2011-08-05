@@ -45,7 +45,7 @@
     </tu>
 
     <tu tuid="Support">
-      <prop type="x-Format">html</prop>
+      <prop type="x-Filter">html</prop>
       <tuv xml:lang="EN">
         <seg><![CDATA[
 <h1>Support</h1>

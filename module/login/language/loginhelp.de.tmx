@@ -27,7 +27,7 @@
   </header>
   <body>
     <tu tuid="Cookie">
-      <prop type="x-Format">html</prop>
+      <prop type="x-Filter">html</prop>
       <tuv xml:lang="DE">
         <seg><![CDATA[<div class="li">Beim Einloggen können Sie festlegen, dass Ihre
 Einlog-Informationen einen Tag lang auf dem Computer gespeichert

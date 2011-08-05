@@ -5,6 +5,7 @@
  * @copyright  2007-2010 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
  * @version    $Id: v2.4.1-79-g85bf9fc 2011-02-15 18:24:07 +0100 $
+ * @revision   $Rev$
  */
 
 defined('_ESF_OK') || die('No direct call allowed.');
@@ -153,3 +154,4 @@ define('FROMGROUP', '#$#$#');
  * No delopment features by default
  */
 defined('DEVELOP') || define('DEVELOP', FALSE);
+defined('AOP') || define('AOP', FALSE);

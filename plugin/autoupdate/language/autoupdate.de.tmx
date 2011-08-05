@@ -27,7 +27,7 @@
   </header>
   <body>
     <tu tuid="LatestAppVersion">
-      <prop type="x-Format">html</prop>
+      <prop type="x-Filter">html</prop>
       <note>%$1s - neue Version</note>
       <tuv xml:lang="DE">
         <seg><![CDATA[
@@ -38,7 +38,7 @@
     </tu>
 
     <tu tuid="UpgradeDirect">
-      <prop type="x-Format">html</prop>
+      <prop type="x-Filter">html</prop>
       <note>%$1s - neue Version</note>
       <tuv xml:lang="DE">
         <seg><![CDATA[
@@ -49,7 +49,7 @@
     </tu>
 
     <tu tuid="LatestAppRelease">
-      <prop type="x-Format">html</prop>
+      <prop type="x-Filter">html</prop>
       <note>%$1s - ...</note>
       <tuv xml:lang="DE">
         <seg><![CDATA[Die neueste <tt>|es|f|</tt> Version ist &nbsp; <tt>%1$s</tt><br>%2$s<br>Du kannst <a href="%3$s">upgraden</a>!]]></seg>

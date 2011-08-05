@@ -123,7 +123,7 @@
     </tu>
 
     <tu tuid="PleaseWait">
-      <prop type="x-Format">html</prop>
+      <prop type="x-Filter">html</prop>
       <tuv xml:lang="EN">
         <seg><![CDATA[Auction will be added now.<br><br>Just a moment please...]]></seg>
       </tuv>

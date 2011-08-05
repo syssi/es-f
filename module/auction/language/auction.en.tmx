@@ -444,7 +444,7 @@ bid</seg>
     </tu>
 
     <tu tuid="ConfirmDeleteAuction">
-      <prop type="x-Format">html</prop>
+      <prop type="x-Filter">html</prop>
       <note>%$1s - ...</note>
       <tuv xml:lang="EN">
         <seg><![CDATA[Would you really delete auction<br><br><strong>%2$s</strong>?]]></seg>
@@ -728,7 +728,7 @@ auctions</seg>
     </tu>
 
     <tu tuid="GroupNotStarted">
-      <prop type="x-Format">html</prop>
+      <prop type="x-Filter">html</prop>
       <note>%$1s - ...</note>
       <tuv xml:lang="EN">
         <seg><![CDATA[Group [%1$s] not started! (refer to the <a href="?module=protocol#%2$s">auction log file</a> for more informations)]]></seg>
@@ -756,7 +756,7 @@ auctions</seg>
     </tu>
 
     <tu tuid="RefreshedJustEnded">
-      <prop type="x-Format">html</prop>
+      <prop type="x-Filter">html</prop>
       <note>%$1s - ...</note>
       <tuv xml:lang="EN">
         <seg><![CDATA[Refreshed just ended auction "%2$s".]]></seg>
@@ -778,7 +778,7 @@ auctions</seg>
     </tu>
 
     <tu tuid="ErrorRetrievingTryAgain">
-      <prop type="x-Format">html</prop>
+      <prop type="x-Filter">html</prop>
       <note>%$1s - ...</note>
       <tuv xml:lang="EN">
         <seg><![CDATA[May be, |es|f| couldn't fetch the ebay page correctly, in this case, you should <a href="?module=auction&amp;action=mrefresh&amp;auctions=%1$s">give it another try</a> :-)]]></seg>
@@ -786,7 +786,7 @@ auctions</seg>
     </tu>
 
     <tu tuid="ReportAuctionFiles">
-      <prop type="x-Format">html</prop>
+      <prop type="x-Filter">html</prop>
       <note>%$1s - ...</note>
       <tuv xml:lang="EN">
         <seg><![CDATA[If this error occurs more often, please:

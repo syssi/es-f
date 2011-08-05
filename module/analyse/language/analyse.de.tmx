@@ -159,7 +159,7 @@
     </tu>
 
     <tu tuid="Description">
-      <prop type="x-Format">html</prop>
+      <prop type="x-Filter">html</prop>
       <tuv xml:lang="DE">
         <seg><![CDATA[Je größer und grüner ein Kreis ist, desto weniger Gebote wurden für die Auktion abgegeben.<br>
 Je kleiner und roter ein Kreis ist, desto mehr Gebote wurden für die Auktion abgegeben.<br>
@@ -198,7 +198,7 @@ Noch nicht beendete Auktionen sind gelb.]]></seg>
     </tu>
 
     <tu tuid="ChanceMessageDesc1">
-      <prop type="x-Format">html</prop>
+      <prop type="x-Filter">html</prop>
       <note>%$1s - ...</note>
       <tuv xml:lang="DE">
         <seg><![CDATA[<form style="display:inline" method="post">
@@ -219,7 +219,7 @@ Der Preisbereich wird solange geteilt, bis ein Bereich weniger als
     </tu>
 
     <tu tuid="ChanceMessage">
-      <prop type="x-Format">html</prop>
+      <prop type="x-Filter">html</prop>
       <note>%$1s - ...</note>
       <tuv xml:lang="DE">
         <seg><![CDATA[Der Preisbereich

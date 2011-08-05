@@ -165,7 +165,7 @@
     </tu>
 
     <tu tuid="CantChangeProtected">
-      <prop type="x-Format">html</prop>
+      <prop type="x-Filter">html</prop>
       <note>%$1s - ...</note>
       <tuv xml:lang="EN">
         <seg><![CDATA[Nice try <tt>;-)</tt>, but %s "%s" is protected, you can't change state from here!]]></seg>
@@ -221,7 +221,7 @@
     </tu>
 
     <tu tuid="LookForInfo">
-      <prop type="x-Format">html</prop>
+      <prop type="x-Filter">html</prop>
       <note>%$1s - ...</note>
       <tuv xml:lang="EN">
         <seg><![CDATA[Please take a look at the <a href="%s">information page</a>

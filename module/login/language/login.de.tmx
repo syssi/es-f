@@ -33,7 +33,7 @@
     </tu>
 
     <tu tuid="MenuHint">
-      <prop type="x-Format">html</prop>
+      <prop type="x-Filter">html</prop>
       <tuv xml:lang="DE">
         <seg><![CDATA[<tt>|es|f|</tt> Login mit Username und Passwort]]></seg>
       </tuv>
@@ -64,7 +64,7 @@
     </tu>
 
     <tu tuid="Password">
-      <prop type="x-Format">html</prop>
+      <prop type="x-Filter">html</prop>
       <tuv xml:lang="DE">
         <seg><![CDATA[<tt>|es|f|</tt> Passwort]]></seg>
       </tuv>

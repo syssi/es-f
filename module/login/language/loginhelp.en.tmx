@@ -27,7 +27,7 @@
   </header>
   <body>
     <tu tuid="Cookie">
-      <prop type="x-Format">html</prop>
+      <prop type="x-Filter">html</prop>
       <tuv xml:lang="EN">
         <seg><![CDATA[<div class="li">When signing in, you can choose to have your computer
 remember your sign-in information for one day so that you don't have to

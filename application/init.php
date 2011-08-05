@@ -7,6 +7,7 @@
  * @copyright  2007-2010 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
  * @version    $Id: v2.4.1-80-g4acbac1 2011-02-15 22:22:16 +0100 $
+ * @revision   $Rev$
  */
 
 defined('_ESF_OK') || die('No direct call allowed.');
@@ -139,7 +140,7 @@ TplData::$NVL = NULL;
 /**
  * Configure I18n System
  */
-Translation::$NameSpaceSeparator = '.';
+Translation::$NamespaceSeparator = '.';
 
 /**
  * Icons for powered by footer

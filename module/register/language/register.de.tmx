@@ -45,7 +45,7 @@
     </tu>
 
     <tu tuid="AccountPasswords">
-      <prop type="x-Format">html</prop>
+      <prop type="x-Filter">html</prop>
       <tuv xml:lang="DE">
         <seg><![CDATA[Definiere hier Deinen eBay Mitgliedsnamen und Deine eBay und <tt>|es|f|</tt> Passwörter.]]></seg>
       </tuv>
@@ -58,7 +58,7 @@
     </tu>
 
     <tu tuid="AccountComment">
-      <prop type="x-Format">html</prop>
+      <prop type="x-Filter">html</prop>
       <tuv xml:lang="DE">
         <seg><![CDATA[Dies ist ebenfalls Dein <tt>|es|f|</tt> Account.]]></seg>
       </tuv>
@@ -71,21 +71,21 @@
     </tu>
 
     <tu tuid="EbayPasswordComment">
-      <prop type="x-Format">html</prop>
+      <prop type="x-Filter">html</prop>
       <tuv xml:lang="DE">
         <seg><![CDATA[Dieses Passwort wird immer verschlüsselt gespeichert und ist nur mit Deinem <tt>|es|f|</tt> Passwort wieder entschlüsselbar.]]></seg>
       </tuv>
     </tu>
 
     <tu tuid="EsfPassword">
-      <prop type="x-Format">html</prop>
+      <prop type="x-Filter">html</prop>
       <tuv xml:lang="DE">
         <seg><![CDATA[Wähle Dein <tt>|es|f|</tt> Passwort (2 mal)]]></seg>
       </tuv>
     </tu>
 
     <tu tuid="EsfPasswordComment">
-      <prop type="x-Format">html</prop>
+      <prop type="x-Filter">html</prop>
       <tuv xml:lang="DE">
         <seg><![CDATA[Mit diesem Passwort loggst Du Dich bei <tt>|es|f|</tt> ein.]]></seg>
       </tuv>
@@ -116,7 +116,7 @@
     </tu>
 
     <tu tuid="PasswordsNotEqual">
-      <prop type="x-Format">html</prop>
+      <prop type="x-Filter">html</prop>
       <tuv xml:lang="DE">
         <seg><![CDATA[Deine Passwörter für eBay oder <tt>|es|f|</tt> sind nicht identisch!]]></seg>
       </tuv>

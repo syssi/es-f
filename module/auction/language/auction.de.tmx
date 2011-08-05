@@ -433,7 +433,7 @@ Gebot</seg>
     <tu tuid="ShowAuctionsOfCategory">
       <note>%$1s - ...</note>
       <tuv xml:lang="DE">
-        <seg><![CDATA[Zeige/verberge alle Auktionen der Kategorie "%s"]]></seg>
+        <seg>Zeige/verberge alle Auktionen der Kategorie "%s"</seg>
       </tuv>
     </tu>
 
@@ -444,10 +444,16 @@ Gebot</seg>
     </tu>
 
     <tu tuid="ConfirmDeleteAuction">
-      <prop type="x-Format">html</prop>
+      <prop type="x-Filter">textile</prop>
       <note>%$1s - ...</note>
       <tuv xml:lang="DE">
-        <seg><![CDATA[Möchten Sie die Auktion<br><br><strong>%2$s</strong><br><br>wirklich löschen?]]></seg>
+        <seg>
+Möchten Sie die Auktion
+
+*%2$s*
+
+wirklich löschen?
+        </seg>
       </tuv>
     </tu>
 
@@ -525,7 +531,7 @@ Gebot</seg>
 
     <tu tuid="ClickForEdit">
       <tuv xml:lang="DE">
-        <seg><![CDATA[Klick für "inline" Bearbeitung]]></seg>
+        <seg>Klick für "inline" Bearbeitung</seg>
       </tuv>
     </tu>
 
@@ -728,10 +734,10 @@ Auktionen</seg>
     </tu>
 
     <tu tuid="GroupNotStarted">
-      <prop type="x-Format">html</prop>
+      <prop type="x-Filter">textile</prop>
       <note>%$1s - ...</note>
       <tuv xml:lang="DE">
-        <seg><![CDATA[Biet-Gruppe [%1$s] nicht gestartet! (weitere Informationen im <a href="?module=protocol#%2$s">Auktions-Logfile</a>)]]></seg>
+        <seg>Biet-Gruppe [%1$s] nicht gestartet! (weitere Informationen im "Auktions-Logfile":?module=protocol#%2$s)</seg>
       </tuv>
     </tu>
 
@@ -756,17 +762,16 @@ Auktionen</seg>
     </tu>
 
     <tu tuid="RefreshedJustEnded">
-      <prop type="x-Format">html</prop>
       <note>%$1s - ...</note>
       <tuv xml:lang="DE">
-        <seg><![CDATA[Soeben beendete Auktion "%2$s" wurde aktualisiert.]]></seg>
+        <seg>Soeben beendete Auktion "%2$s" wurde aktualisiert.</seg>
       </tuv>
     </tu>
 
     <tu tuid="SkipMonitored">
       <note>%$1s - ...</note>
       <tuv xml:lang="DE">
-        <seg><![CDATA[Ignoriere bereits erfasste Auktion [%1$s] "%2$s"]]></seg>
+        <seg>Ignoriere bereits erfasste Auktion [%1$s] "%2$s"</seg>
       </tuv>
     </tu>
 
@@ -778,21 +783,27 @@ Auktionen</seg>
     </tu>
 
     <tu tuid="ErrorRetrievingTryAgain">
-      <prop type="x-Format">html</prop>
+      <prop type="x-Filter">textile</prop>
       <note>%$1s - ...</note>
       <tuv xml:lang="DE">
-        <seg><![CDATA[Es kann sein, dass |es|f| die ebay-Seite nur nicht korrekt lesen konnte, in dem Fall solltest Du es <a href="?module=auction&amp;action=mrefresh&amp;auctions=%1$s">einfach nochmal versuchen</a> :-)]]></seg>
+        <!-- CDATA because of the ampersandes -->
+        <seg><![CDATA[
+        Es kann sein, dass |es|f| die ebay-Seite nur nicht korrekt lesen konnte,
+        in dem Fall solltest Du es "einfach nochmal versuchen":?module=auction&amp;action=mrefresh&amp;auctions=%1$s :-)
+        ]]></seg>
       </tuv>
     </tu>
 
     <tu tuid="ReportAuctionFiles">
-      <prop type="x-Format">html</prop>
+      <prop type="x-Filter">html</prop>
       <note>%$1s - ...</note>
       <tuv xml:lang="DE">
-        <seg><![CDATA[Wenn dieser Fehler öfter vorkommt:
-<div class="li">gehe bitte in dieses Verzeichnis: %1$s</div>
-<div class="li">packe folgende Dateien zusammen: %2$s.*.html</div>
-<div class="li"><a href="%3$s">erstelle einen Bug-Report auf SourceForge</a> und hänge diese Dateien an</div>]]></seg>
+        <seg>
+Wenn dieser Fehler öfter vorkommt:
+* gehe bitte in dieses Verzeichnis: %1$s
+* packe folgende Dateien zusammen: %2$s.*.html
+* "erstelle einen Bug-Report auf SourceForge":%3$s und hänge diese Dateien an
+        </seg>
       </tuv>
     </tu>
 
@@ -812,13 +823,13 @@ Auktionen</seg>
 
     <tu tuid="Dragger">
       <tuv xml:lang="DE">
-        <seg><![CDATA[Ziehe dies auf ein Drag'n'Drop Ziel, um die Auktion zu verschieben.]]></seg>
+        <seg>Ziehe dies auf ein Drag'n'Drop Ziel, um die Auktion zu verschieben.</seg>
       </tuv>
     </tu>
 
     <tu tuid="Droptarget">
       <tuv xml:lang="DE">
-        <seg><![CDATA[Drag'n'Drop Ziel]]></seg>
+        <seg>Drag'n'Drop Ziel</seg>
       </tuv>
     </tu>
 

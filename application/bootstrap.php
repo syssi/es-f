@@ -5,6 +5,7 @@
  * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
  * @version    1.0.0
  * @version    $Id: v2.4.1-78-ge1f29df 2011-02-13 22:21:43 +0100 $
+ * @revision   $Rev$
  */
 
 // include functions
@@ -229,6 +230,14 @@ Session::checkRequest('language', 'en');
 TplData::set('HtmlHeader.JS', array());
 TplData::set('HtmlHeader.CSS', array());
 TplData::set('HtmlHeader.Script', array());
+
+// Pre-Register translation filters
+Translation::RegisterFilter(new Translation_Filter_Escape);
+Translation::RegisterFilter(new Translation_Filter_File);
+Translation::RegisterFilter(new Translation_Filter_HTML);
+Translation::RegisterFilter(new Translation_Filter_nl2br);
+Translation::RegisterFilter(new Translation_Filter_p);
+Translation::RegisterFilter(new Translation_Filter_Textile);
 
 /// Yryie::StartTimer('CoreLangLoad', 'Load core languages');
 

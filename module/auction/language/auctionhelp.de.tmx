@@ -27,7 +27,7 @@
   </header>
   <body>
     <tu tuid="Category">
-      <prop type="x-Format">html</prop>
+      <prop type="x-Filter">html</prop>
       <tuv xml:lang="DE">
         <seg><![CDATA[Kategorie|
 <p>Die Kategorie (nur in <tt>|es|f|</tt>) ist eine einfache Klassifizierung zur Unterscheidung von Auktions-Gruppen, also z.B. "Computer", "Musik" etc.</p>
@@ -37,7 +37,7 @@
     </tu>
 
     <tu tuid="Group">
-      <prop type="x-Format">html</prop>
+      <prop type="x-Filter">html</prop>
       <tuv xml:lang="DE">
         <seg><![CDATA[Gruppe|
 <p>Die Bietgruppe (<tt>|es|f|</tt> und esniper) ist exakt die gleiche Funktionalität wie in esniper, d.h. mehrere ähnliche Auktionen werden zusammen beboten bis die "angeforderte" Menge erreicht ist.</p>
@@ -47,7 +47,7 @@
     </tu>
 
     <tu tuid="AddMultipleAuctions">
-      <prop type="x-Format">html</prop>
+      <prop type="x-Filter">html</prop>
       <tuv xml:lang="DE">
         <seg><![CDATA[Mehrere Auktion auf einmal hinzufügen|
 <div class="li">Gibt die Auktionsnummern getrennt durch eine &quot;Nicht-Ziffer&quot; wie z.B. Leerzeichen oder Komma ein.</div>

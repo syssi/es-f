@@ -33,7 +33,7 @@
     </tu>
 
     <tu tuid="MenuHint">
-      <prop type="x-Format">html</prop>
+      <prop type="x-Filter">html</prop>
       <tuv xml:lang="EN">
         <seg><![CDATA[Log off from <tt>|es|f|</tt>]]></seg>
       </tuv>

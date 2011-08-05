@@ -39,7 +39,7 @@
     </tu>
 
     <tu tuid="Info">
-      <prop type="x-Format">html</prop>
+      <prop type="x-Filter">html</prop>
       <note>%$1s - PHP binary, %$2S - path to refresh.php</note>
       <tuv xml:lang="DE">
         <seg>

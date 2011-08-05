@@ -39,7 +39,7 @@
     </tu>
 
     <tu tuid="AddMultipleAuctions">
-      <prop type="x-Format">html</prop>
+      <prop type="x-Filter">html</prop>
       <tuv xml:lang="EN">
         <seg><![CDATA[Add multiple auctions at once|
 <div class="li">Provide a list of auction ids, separated by a &quot;none numeric&quot; separator, like space or comma.</div>
