@@ -38,8 +38,6 @@
   <!-- ENDIF -->
 
   <tr><td>
-    {cookie:"LastUser" > USER}
-    {nvl:USER,"" > USER}
     <label for="user">[[Login.Account]]</label><br>
     <input name="user" value="{USER}" required="required">
   </td></tr>

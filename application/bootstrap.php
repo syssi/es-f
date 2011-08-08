@@ -157,6 +157,11 @@ Event::ProcessInform('ModuleConfigsLoaded');
 /// Yryie::StopTimer('LoadPlugins');
 
 ################################
+$signer = new Signer;
+Cookie::setSigner($signer);
+Session::setSigner($signer);
+unset($signer);
+
 Core::StartSession();
 
 if (!Session::get('language')) {

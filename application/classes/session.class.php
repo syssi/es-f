@@ -7,6 +7,7 @@
  * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
  * @version    1.0.0
  * @version    $Id: v2.4.1-62-gb38404e 2011-01-30 22:35:34 +0100 $
+ * @revision   $Rev$
  */
 abstract class Session {
 
@@ -45,8 +46,19 @@ abstract class Session {
    * @return void
    */
   public static function setSavePath( $path ) {
-    self::dbg('Set save path to "%s"', $path);
+    self::__dbg('Set save path to "%s"', $path);
     session_save_path($path);
+  }
+
+  /**
+   * Set a signer for session data
+   *
+   * @param ISigner $signer
+   * @return void
+   */
+  public static function setSigner( ISigner $signer ) {
+    self::__dbg('Set signer to a instance of "%s"', get_class($signer));
+    self::$__signer = $signer;
   }
 
   /**
@@ -71,9 +83,9 @@ abstract class Session {
    * @return string Name of the current session
    */
   public static function SetName( $name ) {
-    self::dbg('Set name to "%s"', $name);
+    self::__dbg('Set name to "%s"', $name);
     $name = session_name($name);
-    self::dbg('Old name was "%s"', $name);
+    self::__dbg('Old name was "%s"', $name);
     return $name;
   }
 
@@ -98,10 +110,10 @@ abstract class Session {
 
     if (self::$RegenerateIdAlways) self::regenerate();
 
-    self::dbg('Started "%s" = "%s"', session_name(), session_id());
-    self::_fixes();
-    if (count(self::$Buffer)) {
-      foreach(self::$Buffer as $key=>$value) {
+    self::__dbg('Started "%s" = "%s"', session_name(), session_id());
+    self::__fixes();
+    if (count(self::$__buffer)) {
+      foreach(self::$__buffer as $key=>$value) {
         $key = strtolower($key);
         if (isset($_SESSION[$key]) AND is_array($_SESSION[$key])) {
           $_SESSION[$key] = array_merge($_SESSION[$key], $value);
@@ -109,10 +121,10 @@ abstract class Session {
           $_SESSION[$key] = $value;
         }
       }
-      self::$Buffer = array();
+      self::$__buffer = array();
     }
-    if (count(self::$Protected)) {
-      foreach(self::$Protected as $key=>$value) {
+    if (count(self::$__protected)) {
+      foreach(self::$__protected as $key=>$value) {
         $key = strtolower($key);
         if (isset($_SESSION[self::PROTECT][$key]) AND
             is_array($_SESSION[self::PROTECT][$key])) {
@@ -121,7 +133,7 @@ abstract class Session {
           $_SESSION[self::PROTECT][$key] = $value;
         }
       }
-      self::$Protected = array();
+      self::$__protected = array();
     }
   }
 
@@ -132,13 +144,13 @@ abstract class Session {
    * @return bool Success
    */
   public static function regenerate() {
-    self::dbg('Regenerate ID: was "%s"', session_id());
+    self::__dbg('Regenerate ID: was "%s"', session_id());
     if (session_regenerate_id(FALSE)) {
-      self::_fixes();
-      self::dbg('Regenerate ID: now "%s"', session_id());
+      self::__fixes();
+      self::__dbg('Regenerate ID: now "%s"', session_id());
       return TRUE;
     } else {
-      self::dbg('Regenerate ID: FAILED');
+      self::__dbg('Regenerate ID: FAILED');
     }
     return FALSE;
   }
@@ -152,7 +164,7 @@ abstract class Session {
    * @return void
    */
   public static function RemoveCookies() {
-    self::dbg('Remove cookies');
+    self::__dbg('Remove cookies');
 
     $CookieInfo = session_get_cookie_params();
 
@@ -186,7 +198,7 @@ abstract class Session {
    * @return void
    */
   public static function destroy( $removeCookies=TRUE ) {
-    self::dbg('Destroy "%s" = "%s"', session_name(), session_id());
+    self::__dbg('Destroy "%s" = "%s"', session_name(), session_id());
     if ($removeCookies) self::removeCookies();
     $_SESSION = array();
     Session::close();
@@ -204,7 +216,7 @@ abstract class Session {
    * @return void
    */
   public static function checkRequest( $param, $default=FALSE ) {
-    $lparam = self::mapKey($param);
+    $lparam = self::__mapKey($param);
     if (isset($_REQUEST[$param])) $_SESSION[$lparam] = $_REQUEST[$param];
     if (!isset($_SESSION[$lparam])) $_SESSION[$lparam] = $default;
   }
@@ -221,9 +233,10 @@ abstract class Session {
    * @return void
    */
   public static function set( $key, $val=NULL ) {
-    $key = self::mapKey($key);
+    $key = self::__mapKey($key);
+    if (isset(self::$__signer)) $val = self::$__signer->sign($val);
     if (!self::active()) {
-      self::$Buffer[$key] = $val;
+      self::$__buffer[$key] = $val;
     } else {
       if (is_null($val)) {
         unset($_SESSION[$key]);
@@ -254,9 +267,10 @@ abstract class Session {
    * @return void
    */
   public static function add( $key, $val ) {
-    $key = self::mapKey($key);
+    $key = self::__mapKey($key);
+    if (isset(self::$__signer)) $val = self::$__signer->sign($val);
     if (!self::active()) {
-      self::$Buffer[$key][] = $val;
+      self::$__buffer[$key][] = $val;
     } else {
       if (!isset($_SESSION[$key])) {
         $_SESSION[$key] = array();
@@ -284,7 +298,7 @@ abstract class Session {
    * @return bool
    */
   public static function is_set( $var ) {
-    return isset($_SESSION[self::mapKey($var)]);
+    return isset($_SESSION[self::__mapKey($var)]);
   }
 
   /**
@@ -296,12 +310,14 @@ abstract class Session {
    * @return mixed
    */
   public static function get( $var, $default=NULL ) {
-    $var = self::mapKey($var);
-    return isset($_SESSION[$var])
+    $var = self::__mapKey($var);
+    $val = isset($_SESSION[$var])
          ? $_SESSION[$var]
          : ( isset($default)
            ? $default
            : self::$NVL );
+    if (isset(self::$__signer)) $val = self::$__signer->get($val);
+    return $val;
   }
 
   /**
@@ -318,9 +334,9 @@ abstract class Session {
    * @return void
    */
   public static function setP( $key, $val=NULL ) {
-    $key = self::mapKey($key);
+    $key = self::__mapKey($key);
     if (!self::active()) {
-      self::$Protected[$key] = $val;
+      self::$__protected[$key] = $val;
     } else {
       if (is_null($val)) {
         unset($_SESSION[self::PROTECT][$key]);
@@ -339,9 +355,9 @@ abstract class Session {
    * @return void
    */
   public static function addP( $key, $val ) {
-    $key = self::mapKey($key);
+    $key = self::__mapKey($key);
     if (!self::active()) {
-      self::$Protected[$key][] = $val;
+      self::$__protected[$key][] = $val;
     } else {
       if (!isset($_SESSION[self::PROTECT][$key])) {
         $_SESSION[self::PROTECT][$key] = array();
@@ -372,7 +388,7 @@ abstract class Session {
    * @return mixed
    */
   public static function getP( $key=NULL, $default=NULL ) {
-    $key = self::mapKey($key);
+    $key = self::__mapKey($key);
     return isset($key)
          ? ( isset($_SESSION[self::PROTECT][$key])
            ? $_SESSION[self::PROTECT][$key]
@@ -389,30 +405,37 @@ abstract class Session {
   /**
    * Data container
    *
-   * @var array $Buffer
+   * @var array $__buffer
    */
-  private static $Buffer = array();
+  private static $__buffer = array();
+
+  /**
+   * Data signer
+   *
+   * @var array $__signer
+   */
+  private static $__signer = NULL;
 
   /**
    * Data container
    *
-   * @var array $Protected
+   * @var array $__protected
    */
-  private static $Protected = array();
+  private static $__protected = array();
 
   /**
    * Transform $key for common use
    *
    * @param string $key
    */
-  private static function mapKey( $key ) {
+  private static function __mapKey( $key ) {
     return strtolower($key);
   }
 
   /**
    * Some statements to fix bugs in IE and PHP < 4.3.3
    */
-  private static function _fixes() {
+  private static function __fixes() {
     // to overcome/fix a bug in IE 6.x
     Header('Cache-control: private');
     // from http://php.net/manual/function.session-regenerate-id.php
@@ -425,7 +448,7 @@ abstract class Session {
   /**
    * Collect debug infos
    */
-  private static function dbg() {
+  private static function __dbg() {
     if (!self::$Debug) return;
 
     $params = func_get_args();

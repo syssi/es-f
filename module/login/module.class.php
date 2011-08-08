@@ -7,6 +7,7 @@
  * @copyright  2009-2011 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
  * @version    $Id: v2.4.1-54-g83ea36d 2011-01-17 20:17:17 +0100 $
+ * @revision   $Rev$
  */
 class esf_Module_Login extends esf_Module {
 
@@ -87,6 +88,7 @@ class esf_Module_Login extends esf_Module {
 
     Session::setP('Layout', 'default');
     TplData::set('Users', esf_User::getAll());
+    TplData::set('User', Cookie::get('LastUser', $user));
   }
 
 }

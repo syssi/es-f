@@ -7,12 +7,23 @@
  * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
  * @version    1.0.0
  * @version    $Id: v2.4.1-65-ge312679 2011-02-05 13:26:34 +0100 $
+ * @revision   $Rev$
  */
 class Cookie {
 
   // -------------------------------------------------------------------------
   // PUBLIC
   // -------------------------------------------------------------------------
+
+  /**
+   * Set a signer for session data
+   *
+   * @param ISigner $signer
+   * @return void
+   */
+  public static function setSigner( ISigner $signer ) {
+    self::$__signer = $signer;
+  }
 
   /**
    * Set a cookie
@@ -50,6 +61,7 @@ class Cookie {
    */
   public static function set( $name, $value, $expire=0, $path='/', $domain='', $secure=FALSE, $httponly=FALSE ) {
     if (empty($domain)) $domain = $_SERVER['HTTP_HOST'];
+    if (isset(self::$__signer)) $value = self::$__signer->sign($value);
     setcookie($name, $value, $expire, $path, $domain, $secure, $httponly);
   } // function set()
 
@@ -61,7 +73,13 @@ class Cookie {
    * @return mixed
    */
   public static function get( $name, $default=NULL ) {
-    return isset($_COOKIE[$name]) ? $_COOKIE[$name] : $default;
+    if (isset($_COOKIE[$name])) {
+      $value = $_COOKIE[$name];
+      if (isset(self::$__signer)) $value = self::$__signer->get($value);
+    } else {
+      $value = $default;
+    }
+    return $value;
   } // function get()
 
   /**
@@ -75,5 +93,16 @@ class Cookie {
     // to trigger the removal mechanism in the browser.
     self::set($name, '', time()-3600);
   } // function delete()
+
+  //--------------------------------------------------------------------------
+  // PRIVATE
+  //--------------------------------------------------------------------------
+
+  /**
+   * Data signer
+   *
+   * @var array $__signer
+   */
+  private static $__signer = NULL;
 
 }
