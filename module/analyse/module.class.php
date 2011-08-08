@@ -236,8 +236,6 @@ class esf_Module_Analyse extends esf_Module {
       );
     }
 
-_dbg($TplData);
-
     TplData::set('Groups', $TplData);
   }
 
