@@ -445,6 +445,15 @@ html>body .button:active {
   padding: 0;
 }
 
+input::-webkit-input-placeholder {
+  color: #999;
+  font-style: italic;
+}
+
+input:-moz-placeholder {
+	color: #999;
+  font-style: italic;
+}
 /*
  * forms
  * ****************************************************************************

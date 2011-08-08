@@ -13,6 +13,7 @@
  * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
  * @version    1.0.0
  * @version    $Id: v2.4.1-62-gb38404e 2011-01-30 22:35:34 +0100 $
+ * @revision   $Rev$
  */
 class esf_Module_Analyse extends esf_Module {
 
@@ -36,21 +37,24 @@ class esf_Module_Analyse extends esf_Module {
    *
    */
   public function IndexAction() {
-    // Skip group selection if only one exists, redirect direct to this group
-    if (count(esf_Auctions::$Groups) == 1) {
-      $groups = array_keys(esf_Auctions::$Groups);
-      $this->group = reset($groups);
-      $this->forward('show');
-      return;
-    }
     foreach (esf_Auctions::$Groups as $group => $data) {
       TplData::add('Groups', array(
-        'GROUP'     => $group,
+        'GROUP'     => $group.'|-',
         'GROUPNAME' => ( ($data['a'] > 1 OR !isset(esf_Auctions::$Auctions[$group]))
-                       ? $group : esf_Auctions::$Auctions[$group]['name'] ),
+                       ? $group : esf_Auctions::$Auctions[$group]['name'] )
+                       . ' (' . Translation::get('Analyse.WithoutShipping') . ')',
         'COUNT'     => $data['a'],
         'CATEGORY'  => $data['cat'],
-        'SHOWURL'   => Core::URL(array('action'=>'show', 'params'=>array('group'=>$group), 'anchor'=>'diagram')),
+        'SHOWURL'   => Core::URL(array('action'=>'show', 'params'=>array('group'=>$group.'|-'), 'anchor'=>'diagram')),
+      ));
+      TplData::add('Groups', array(
+        'GROUP'     => $group.'|+',
+        'GROUPNAME' => ( ($data['a'] > 1 OR !isset(esf_Auctions::$Auctions[$group]))
+                       ? $group : esf_Auctions::$Auctions[$group]['name'] )
+                       . ' (' . Translation::get('Analyse.WithShipping') . ')',
+        'COUNT'     => $data['a'],
+        'CATEGORY'  => $data['cat'],
+        'SHOWURL'   => Core::URL(array('action'=>'show', 'params'=>array('group'=>$group.'|+'), 'anchor'=>'diagram')),
       ));
     }
   }
@@ -59,6 +63,7 @@ class esf_Module_Analyse extends esf_Module {
    *
    */
   public function ShowAction() {
+    list($this->group, $shipping) = explode('|', $this->group);
     if (!isset(esf_Auctions::$Groups[$this->group])) {
       $this->forward();
       return;
@@ -74,15 +79,18 @@ class esf_Module_Analyse extends esf_Module {
     foreach (esf_Auctions::$Auctions as $item => $auction) {
       if (esf_Auctions::getGroup($auction) != $this->group) continue;
 
+      $amount = ($shipping != '+')
+              ? $auction['bid']
+              : $auction['bid'] + $auction['shipping'];
       if ($auction['ended']) {
-        $bids[] = $auction['bid'];
+        $bids[] = $amount;
         $cnt++;
-        $mid += $auction['bid'];
-        $hmid += 1/$auction['bid'];
+        $mid += $amount;
+        $hmid += 1/$amount;
       }
 
       $AuctionData['endts'][] = $auction['endts'];
-      $AuctionData['bid'][]   = $auction['bid'];
+      $AuctionData['bid'][]   = $amount;
       $AuctionData['bids'][]  = $auction['bids'];
 
       $TplData = $auction;
@@ -162,54 +170,73 @@ class esf_Module_Analyse extends esf_Module {
       return;
     }
 
-    $_tpldata = array();
-    $_tpldata['WIDTH']  = Registry::get('Module.Analyse.WidthMulti');
-    $_tpldata['HEIGHT'] = Registry::get('Module.Analyse.HeightMulti');
-
     foreach ($this->group as $group) {
-      if (!isset(esf_Auctions::$Groups[$group])) return;
-
-      $_tpldata['GROUP'] = $group;
-      $_tpldata['GROUPNAME'] = (esf_Auctions::$Groups[$group]['a'] > 1 OR
-                                !isset(esf_Auctions::$Auctions[$group]))
-                             ? $group
-                             : esf_Auctions::$Auctions[$group]['name'];
-      $_tpldata['SHOWURL'] = Core::URL(array('action'=>'show', 'params'=>array('group'=>$group), 'anchor'=>'diagram'));
-      $TplData[$group] = $_tpldata;
-    }
-
-    if ($this->SortByName) ksort($TplData[$group]);
-
-    $gdata = array();
-    foreach (esf_Auctions::$Auctions as $item => $auction) {
-      $ag = esf_Auctions::getGroup($auction);
-      if (in_array($ag, $this->group)) {
-        if ($auction['ended']) {
-          $cnt[$ag]++;
-          $hmid[$ag] += 1/$auction['bid'];
-        }
-        $gdata[$ag]['endts'][] = $auction['endts'];
-        $gdata[$ag]['bid'][]   = $auction['bid'];
-        $gdata[$ag]['bids'][]  = $auction['bids'];
+      list($group, ) = explode('|', $group);
+      if (!isset(esf_Auctions::$Groups[$group])) {
+        Messages::Error('Missing group: '.$group);
+        continue;
       }
     }
 
-    foreach ($gdata as $group => $data) {
-      if ($cnt[$group]) $hmid[$group] = $cnt[$group] / $hmid[$group];
-      $data = array(
-        $_tpldata['WIDTH'], $_tpldata['HEIGHT'],
+    $width  = Registry::get('Module.Analyse.WidthMulti');
+    $heigth = Registry::get('Module.Analyse.HeightMulti');
+    TplData::set('WIDTH', $width);
+    TplData::set('HEIGHT',$heigth );
+
+    $gdata = $cnt = $hmid = array();
+    foreach (esf_Auctions::$Auctions as $item => $auction) {
+      $ag = esf_Auctions::getGroup($auction);
+      foreach ($this->group as $id) {
+        list($group, $shipping) = explode('|', $id);
+        if ($ag == $group) {
+          $amount = ($shipping != '+')
+                  ? $auction['bid']
+                  : $auction['bid'] + $auction['shipping'];
+          if (!isset($cnt[$ag])) $cnt[$id] = 0;
+          if (!isset($hmid[$ag])) $hmid[$id] = 0;
+          if ($auction['ended']) {
+            $cnt[$id]++;
+            $hmid[$id] += 1/$amount;
+          }
+          $gdata[$id]['endts'][] = $auction['endts'];
+          $gdata[$id]['bid'][]   = $amount;
+          $gdata[$id]['bids'][]  = $auction['bids'];
+        }
+      }
+    }
+
+    foreach ($gdata as $id => $data) {
+      list($group, $shipping) = explode('|', $id);
+      if ($cnt[$id]) $hmid[$id] = $cnt[$id] / $hmid[$id];
+      $_data = array(
+        $width, $heigth,
         esf_Auctions::$Groups[$group]['b'],
         Translation::get('Analyse.MyBid'),
         0, NULL,
-        $hmid[$group],
+        $hmid[$id],
         Translation::get('Analyse.HarmonicAverage'),
         $data
       );
-      $data = serialize($data);
+      $_data = serialize($_data);
 
-      if (function_exists('gzcompress')) $data = gzcompress($data,9);
-      $TplData[$group]['DATA'] = base64_encode($data);
+      if (function_exists('gzcompress')) $_data = gzcompress($_data, 9);
+
+      $gname = (esf_Auctions::$Groups[$group]['a'] > 1 OR
+                !isset(esf_Auctions::$Auctions[$group]))
+             ? $group
+             : esf_Auctions::$Auctions[$group]['name'];
+      $st = ($shipping != '+') ? 'WithoutShipping' : 'WithShipping';
+      $gname .= ' (' . Translation::get('Analyse.'.$st) . ')';
+
+      $TplData[] = array(
+        'GROUP'     => $group,
+        'GROUPNAME' => $gname,
+        'SHOWURL'   => Core::URL(array('action'=>'show', 'params'=>array('group'=>$group.'|'.$shipping), 'anchor'=>'diagram')),
+        'DATA'      => base64_encode($_data),
+      );
     }
+
+_dbg($TplData);
 
     TplData::set('Groups', $TplData);
   }
