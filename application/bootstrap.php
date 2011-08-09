@@ -74,6 +74,8 @@ Core::$Cache = Cache::create($aCacheOptions, Registry::get('CacheClass'));
 if (Registry::get('ClearCache')) Core::$Cache->flush();
 unset($aCacheOptions);
 
+Core::$Crypter = new MD5Crypter;
+
 /// Yryie::Debug(Core::$Cache->info());
 
 if (Registry::get('CfgVersion') < ESF_CONFIG_VERSION) {

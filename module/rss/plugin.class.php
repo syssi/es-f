@@ -9,6 +9,7 @@
  * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
  * @version    0.1.0
  * @version    $Id: v2.4.1-62-gb38404e 2011-01-30 22:35:34 +0100 $
+ * @revision   $Rev$
  */
 class esf_Plugin_Module_RSS extends esf_Plugin {
 
@@ -36,7 +37,7 @@ class esf_Plugin_Module_RSS extends esf_Plugin {
       sprintf('<link rel="alternate" type="application/rss+xml "'
              .'href="index.php?module=rss&amp;%1$s=%3$s" '
              .'title="RSS Feed of auctions for %2$s">'."\n",
-              urlencode(APPID), $user, urlencode(MD5Encryptor::encrypt($user))));
+              urlencode(APPID), $user, urlencode(Core::$Crypter->encrypt($user))));
   }
 
   /**
@@ -50,7 +51,7 @@ class esf_Plugin_Module_RSS extends esf_Plugin {
 
     $data = array(
       'APPID'   => APPID,
-      'URLUSER' => MD5Encryptor::encrypt($user),
+      'URLUSER' => Core::$Crypter->encrypt($user),
       'USER'    => $user
     );
     $html = ParseModuleTemplate('rss', 'content', $data);

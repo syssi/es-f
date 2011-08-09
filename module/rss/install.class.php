@@ -9,6 +9,7 @@
  * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
  * @version    1.0.0
  * @version    $Id: v2.4.1-62-gb38404e 2011-01-30 22:35:34 +0100 $
+ * @revision   $Rev$
  */
 class esf_Install_Module_RSS extends esf_Install {
 
@@ -19,7 +20,9 @@ class esf_Install_Module_RSS extends esf_Install {
    */
   public function Info() {
     $app = APPID;
-    $user = esf_User::isValid() ? MD5Encryptor::encrypt(esf_User::getActual()) : '&lt;UserID&gt;';
+    $user = esf_User::isValid()
+          ? Core::$Crypter->encrypt(esf_User::getActual())
+          : '&lt;UserID&gt;';
     // html allowed
     return <<<EOT
       <p>Call news feed of your auction in form of</p>

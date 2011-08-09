@@ -49,7 +49,8 @@ $users = $_SESSION['USERS'];
 foreach ((array)$cfg['remove'] as $remove) unset($users[$remove]);
 
 if (!empty($cfg['user'])) {
-  $pass = MD5Encryptor::encrypt(md5($cfg['pass2'])."\x01".$cfg['pass1'], md5($cfg['pass2']));
+  $Crypter = new MD5Crypter;
+  $pass = $Crypter->encrypt(md5($cfg['pass2'])."\x01".$cfg['pass1'], md5($cfg['pass2']));
   $users[$cfg['user']] = $pass;
 }
 

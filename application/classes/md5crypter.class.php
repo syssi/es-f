@@ -1,22 +1,26 @@
 <?php
 /**
  * Encrypt / decrypt data using md5
- */
-
-/**
  *
+ * @author     Knut Kohl <knutkohl@users.sourceforge.net>
+ * @copyright  2009-2011 Knut Kohl
+ * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
+ * @version    1.0.0
+ * @version    $Id$
+ * @revision   $Rev$
  */
-abstract class MD5Encryptor  {
+class MD5Crypter  {
 
   /**
-   * Additional password for encryption
-   */
-  public static $Password = '';
-
-  /**
+   * Class constructor
    *
+   * @param string $password Additional application wide default password
+   * @param string $passwordlength Password length
    */
-  public static $PasswordLength = 2;
+  public function __construct( $password='', $passwordlength=2 ) {
+    $this->_password = $password;
+    $this->_passwordLength = $passwordlength;
+  }
 
   /**
    * Encrypt using MD5 algorithm
@@ -28,14 +32,14 @@ abstract class MD5Encryptor  {
    * @param string $password Additional password
    * @return string
    */
-  public static function encrypt( $plain, $password='' ) {
-    $password = self::$Password.$password;
+  public function encrypt( $plain, $password='' ) {
+    $password = $this->_password.$password;
     $plain .= "\x13";
     $n = strlen($plain);
     if ($n % 16) $plain .= str_repeat("\0", 16 - ($n % 16));
 
     $encoded = '';
-    $i = self::$PasswordLength;
+    $i = $this->_passwordLength;
     while ($i-- > 0) $encoded .= chr(mt_rand() & 0xff);
 
     $iv = substr($password ^ $encoded, 0, 512);
@@ -60,13 +64,13 @@ abstract class MD5Encryptor  {
    * @param string $password Additional password
    * @return string
    */
-  public static function decrypt( $encoded, $password='' ) {
-    $password = self::$Password.$password;
+  public function decrypt( $encoded, $password='' ) {
+    $password = $this->_password.$password;
     $encoded = base64_decode($encoded);
     $n = strlen($encoded);
-    $i = self::$PasswordLength;
+    $i = $this->_passwordLength;
     $plain = '';
-    $iv = substr($password ^ substr($encoded, 0, self::$PasswordLength), 0, 512);
+    $iv = substr($password ^ substr($encoded, 0, $this->_passwordLength), 0, 512);
     while ($i < $n) {
       $block = substr($encoded, $i, 16);
       $plain .= $block ^ pack('H*', md5($iv));
@@ -75,4 +79,19 @@ abstract class MD5Encryptor  {
     }
     return preg_replace('/\\x13\\x00*$/', '', $plain);
   }
+
+  //--------------------------------------------------------------------------
+  // PROTECTED
+  //--------------------------------------------------------------------------
+
+  /**
+   * Additional password for encryption
+   */
+  protected $_password;
+
+  /**
+   *
+   */
+  protected $_passwordLength;
+
 }

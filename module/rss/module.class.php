@@ -12,6 +12,7 @@
  * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
  * @version    1.0.0
  * @version    $Id: v2.4.1-74-ga09c8e3 2011-02-11 21:40:20 +0100 $
+ * @revision   $Rev$
  */
 class esf_Module_RSS extends esf_Module {
 
@@ -37,7 +38,7 @@ class esf_Module_RSS extends esf_Module {
     // remove default template extension, we provide here complete file names
     $Tpl->Adapter->TemplateExt = '';
 
-    if (!isset($_GET[APPID]) OR !$user = $_GET[APPID] OR !$user = MD5Encryptor::decrypt($user)) {
+    if (!isset($_GET[APPID]) OR !$user = $_GET[APPID] OR !$user = Core::$Crypter->decrypt($user)) {
       $xml = $Tpl->Render($feedpath.'/error.xml', FALSE, '', '');
     } else {
       // define user data

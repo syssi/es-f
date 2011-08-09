@@ -7,6 +7,7 @@
  * @copyright  2007-2010 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
  * @version    $Id: v2.4.1-62-gb38404e 2011-01-30 22:35:34 +0100 $
+ * @revision   $Rev$
  */
 abstract class esf_User {
 
@@ -81,7 +82,7 @@ abstract class esf_User {
     $pass = self::get($user, self::USER_PASS);
     if (!$pass) return FALSE;
 
-    $pass = explode("\x01", @MD5Encryptor::decrypt($pass, $password));
+    $pass = explode("\x01", Core::$Crypter->decrypt($pass, $password));
     // convert a bool to 0|1
     return @$pass[(int)!$frontend];
   }
@@ -117,7 +118,7 @@ abstract class esf_User {
     if (!$user AND !$password) {
       // 1. check session first
       // check session: user & password and user token
-      if ($user = MD5Encryptor::decrypt(Session::get(APPID)) AND
+      if ($user = Core::$Crypter->decrypt(Session::get(APPID)) AND
           $pass = Session::get($token) AND
           $pass == self::getPass(TRUE, $user, $pass)) {
         self::InitUser($user);
@@ -129,14 +130,14 @@ abstract class esf_User {
       self::$LastUser = NULL;
       if (!($pass = self::get($user, self::USER_PASS))) return FALSE;
 
-      $pass = explode("\x01", MD5Encryptor::decrypt($pass, $password));
+      $pass = explode("\x01", Core::$Crypter->decrypt($pass, $password));
       $pass = @$pass[0];
 
       if ($pass == $password) {
 
         Core::StartSession(!$relogin, $relogin);
 
-        Session::set(APPID, MD5Encryptor::encrypt($user));
+        Session::set(APPID, Core::$Crypter->encrypt($user));
         Session::set($token, $password);
 
         if ($relogin) {

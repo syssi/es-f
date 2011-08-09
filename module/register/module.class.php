@@ -13,6 +13,7 @@
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
  * @version    1.0.0
  * @version    $Id: v2.4.1-62-gb38404e 2011-01-30 22:35:34 +0100 $
+ * @revision   $Rev$
  */
 class esf_Module_Register extends esf_Module {
 
@@ -49,7 +50,7 @@ class esf_Module_Register extends esf_Module {
           $pp['esf'][0]  === $pp['esf'][1]) {
         File::write($this->RegisterPath . '/' . md5($this->Request('user')),
                     $this->Request('user') . "\n"
-                  . MD5Encryptor::encrypt(md5($pp['esf'][0])."\x01".$pp['ebay'][0], md5($pp['esf'][0])) . "\n"
+                  . Core::$Crypter->encrypt(md5($pp['esf'][0])."\x01".$pp['ebay'][0], md5($pp['esf'][0])) . "\n"
                   . $this->Request('cmt'));
         Messages::Info(Translation::get('Register.ThankYouForRegister'));
         if ($this->SendMail) {

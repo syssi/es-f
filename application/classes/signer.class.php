@@ -46,7 +46,7 @@ class Signer implements ISigner {
    */
   public function sign( $value ) {
     $value = serialize($value);
-    return $value.$this->Separator.$this->_hash($value);
+    return trim(base64_encode($value.$this->Separator.$this->_hash($value)), '=');
   }
 
   /**
@@ -58,6 +58,7 @@ class Signer implements ISigner {
     if (!$this->verify($signed))
       throw new \InvalidArgumentException(sprintf('The signature for "%s" was invalid.', $signed));
 
+    $signed = base64_decode($signed);
     list($value, $signature) = $this->_split($signed);
     $value = unserialize($value);
     return $value;
@@ -69,6 +70,7 @@ class Signer implements ISigner {
   public function verify( $signed )  {
     if ($signed == '') return TRUE;
 
+    $signed = base64_decode($signed);
     list($value, $sig1) = $this->_split($signed);
     $sig2 = $this->_hash($value);
 

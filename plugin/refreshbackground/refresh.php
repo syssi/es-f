@@ -7,6 +7,7 @@
  * @copyright  2009-2011 Knut Kohl
  * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
  * @version    $Id: v2.4.1-77-gc4bf735 2011-02-13 21:51:53 +0100 $
+ * @revision   $Rev$
  */
 
 error_reporting(0);
@@ -39,6 +40,7 @@ session_start();
 
 // Cache mockup
 Core::$Cache = Cache::create(NULL, 'Mock');
+Core::$Crypter = new MD5Crypter;
 
 HTMLPage::$Debug = FALSE;
 
@@ -118,7 +120,7 @@ foreach ($users as $user) {
     continue;
   }
 
-  Session::set(APPID, MD5Encryptor::encrypt($user));
+  Session::set(APPID, Core::$Crypter->encrypt($user));
   esf_User::InitUser($user);
 
   if (!$logfile = Registry::get('Plugin.RefreshBackground.LogFile'))
