@@ -4,11 +4,15 @@
 
     <section name="esniperVersion">
 
+      <config name="ChangeLog">http://esniper.cvs.sourceforge.net/viewvc/esniper/esniper/ChangeLog</config>
+
+      <config name="Period">1</config>
+
       <!-- *******************************************************************
       **  Don't change from here
       ******************************************************************** -->
 
-      <config name="Name">esniper version check onca a day or once a session</config>
+      <config name="Name">esniper version check on session start and periodic</config>
 
       <config name="Category">Core</config>
 

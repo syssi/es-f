@@ -1,0 +1,13 @@
+<configuration>
+
+  <definition name="Plugin.EsniperVersion.ChangeLog">
+    <![CDATA[
+    ChangeLog URL &nbsp; <strong><em>(DON't change until advice!)</em></strong>
+    ]]>
+  </definition>
+
+  <definition name="Plugin.EsniperVersion.Period" Type="int">
+    Check for new esniper version each [hour(s)]
+  </definition>
+
+</configuration>
