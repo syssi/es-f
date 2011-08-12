@@ -159,7 +159,7 @@ Event::ProcessInform('ModuleConfigsLoaded');
 /// Yryie::StopTimer('LoadPlugins');
 
 ################################
-$signer = new Signer;
+$signer = new Signer('es-f');
 Cookie::setSigner($signer);
 Session::setSigner($signer);
 unset($signer);

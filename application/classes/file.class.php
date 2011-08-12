@@ -7,6 +7,7 @@
  * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
  * @version    1.0.0
  * @version    $Id: v2.4.1-62-gb38404e 2011-01-30 22:35:34 +0100 $
+ * @revision   $Rev$
  */
 abstract class File {
 
@@ -81,8 +82,24 @@ abstract class File {
    * @return integer Timestamp
    */
   public static function MTime( $file ) {
-    clearStatCache();
-    return file_exists($file) ? filemtime($file) : 0;
+    if (!self::$clearStatCache) {
+      clearStatCache();
+      self::$clearStatCache = TRUE;
+    }
+
+    if (!file_exists($file)) return 0;
+
+    $mtime = \filemtime($file);
+
+    $isDST = (bool) date('I', $mtime);
+    $systemDST = (bool) date('I');
+
+    if (!$isDST && $systemDST)
+      $mtime += 3600;
+    elseif ($isDST && !$systemDST)
+      $mtime -= 3600;
+
+    return $mtime;
   }
 
   /**
@@ -95,5 +112,11 @@ abstract class File {
     clearStatCache();
     return file_exists($file) ? filesize($file) : 0;
   }
+
+  //--------------------------------------------------------------------------
+  // PROTECTED
+  //--------------------------------------------------------------------------
+
+  protected static $clearStatCache = FALSE;
 
 }
