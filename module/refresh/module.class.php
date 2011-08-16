@@ -13,15 +13,9 @@
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
  * @version    1.0.0
  * @version    $Id: v2.4.1-62-gb38404e 2011-01-30 22:35:34 +0100 $
+ * @revision   $Rev$
  */
 class esf_Module_Refresh extends esf_Module {
-
-  /**
-   * @return array Array of actions handled by the module
-   */
-  public function handles() {
-    return array('index');
-  }
 
   /**
    *

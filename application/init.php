@@ -91,6 +91,9 @@ Registry::set('CacheClass', 'File');
 // set Layout during login
 Registry::set('Currency', 'EUR');
 
+// Version 10:
+// Require PHP >= 5.3.0
+
 /**
  * esniper configuration
  */

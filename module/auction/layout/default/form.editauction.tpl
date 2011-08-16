@@ -66,7 +66,7 @@
       </td>
       <td colspan="2">
         [[Auction.Or]]
-        {if:SHIPPING,"=","FREE" > SHIPPINGFREE}
+        {if:SHIPPING,"=","FREE","on","" > SHIPPINGFREE}
         {fcb:"shippingfree",TRUE,SHIPPINGFREE}[[Auction.ShippingFree]]
       </td>
     </tr>

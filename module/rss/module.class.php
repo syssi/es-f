@@ -19,8 +19,7 @@ class esf_Module_RSS extends esf_Module {
   /**
    *
    */
-  public function __construct() {
-    parent::__construct();
+  public function IndexAction() {
 
     $feedpath = dirname(__FILE__).'/feed';
     $xml = '';
@@ -122,12 +121,4 @@ class esf_Module_RSS extends esf_Module {
 
     die($xml);
   }
-
-  /**
-   * @return array Array of actions handled by the module
-   */
-  public function handles() {
-    return array();
-  }
-
 }

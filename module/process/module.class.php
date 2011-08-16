@@ -13,15 +13,9 @@
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
  * @version    1.0.0
  * @version    $Id: v2.4.1-62-gb38404e 2011-01-30 22:35:34 +0100 $
+ * @revision   $Rev$
  */
 class esf_Module_Process extends esf_Module {
-
-  /**
-   * @return array Array of actions handled by the module
-   */
-  public function handles() {
-    return array('index', 'kill', 'empty');
-  }
 
   /**
    *
@@ -31,26 +25,29 @@ class esf_Module_Process extends esf_Module {
     $cmd = array('Process::RUNNING', $user);
     Exec::getInstance()->ExecuteCmd($cmd, $processes);
 
-    if (!empty($processes)) {
-      foreach ($processes as $id => $line) {
-        $p['PROCESS'] = $line;
+    if (empty($processes)) return;
 
-        $g = preg_split('~\s+~', trim($line));
+    foreach ($processes as $id => $line) {
+      $p['PROCESS'] = $line;
 
-        // PID
-        $p['PID'] = $g[0];
+      $g = preg_split('~\s+~', trim($line));
 
-        // get last word as auction file ...
-        $g = $g[count($g)-1];
-        // ... and remove user name
-        $p['GROUP'] = preg_replace('~.*/(.*)\.'.$user.'~', '$1', $g);
+      // PID
+      $p['PID'] = $g[0];
 
-        TplData::add('Processes', $p);
-      }
-    } else {
-      $this->forward('empty');
+      // get last word as auction file ...
+      $g = $g[count($g)-1];
+      // ... and remove user name
+      $p['GROUP'] = preg_replace('~.*/(.*)\.'.$user.'~', '$1', $g);
+
+      TplData::add('Processes', $p);
     }
   }
+
+  /**
+   *
+   */
+  public function EmptyAction() {}
 
   /**
    *

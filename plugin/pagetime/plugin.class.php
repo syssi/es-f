@@ -15,6 +15,7 @@ Get page creation/processing time
  * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
  * @version    1.0.0
  * @version    $Id: v2.4.1-62-gb38404e 2011-01-30 22:35:34 +0100 $
+ * @revision   $Rev$
  */
 class esf_Plugin_PageTime extends esf_Plugin {
 
@@ -39,7 +40,9 @@ class esf_Plugin_PageTime extends esf_Plugin {
   }
 
   /**
+   * Add PHP generation time
    *
+   * @param string &$output
    */
   public function OutputFilterFooter( &$output ) {
     // disable on mobile layouts
@@ -54,7 +57,9 @@ class esf_Plugin_PageTime extends esf_Plugin {
   }
 
   /**
+   * Add JS for page generation
    *
+   * @param string &$output
    */
   public function OutputFilterHtmlEnd( &$output ) {
     // disable on mobile layouts

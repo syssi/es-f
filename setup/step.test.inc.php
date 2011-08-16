@@ -40,7 +40,16 @@ foreach ($setup_dirs as $h => $data) {
 }
 
 // Extensions
-CheckResult('<h3>PHP Extensions</h3>');
+CheckResult('<h3>PHP and PHP Extensions</h3>');
+
+CheckResult(
+  'PHP',
+  ($ok = version_compare(PHP_VERSION, PHP_VERSION_REQUIRED, '>=')),
+  'PHP Version',
+  'Please upgrade your PHP at least to version '.PHP_VERSION_REQUIRED.'!',
+  $ok ? Messages::toStr(PHP_VERSION, Messages::SUCCESS)
+      : Messages::toStr(PHP_VERSION, Messages::ERROR)
+);
 
 CheckResult(
   'pcre',

@@ -1,23 +1,21 @@
-<div id="plugin_autorefresh" class="noprint" style="text-align:center;padding:5px;font-size:90%">
+<div class="noprint" style="text-align:center;padding:5px;font-size:90%">
   {form:}
-  <!-- IF ACTIVE -->
+  <!-- IF ACTIVE = "2" -->
     [[Autorefresh.Refresh]]: &nbsp;
     <span id="plugin_autorefresh_left">{INTERVAL}</span> [[AutoRefresh.Min]] &nbsp;
     {fs:[[AutoRefresh.Deactivate]],,"button"}
+    {fh:"autorefresh_active", 1}
   <!-- ELSE -->
     <label for="autorefresh_interval">[[Autorefresh.Refresh]]</label>: &nbsp;
     {ft:"autorefresh_interval",INTERVAL,"small r","size=\"3\""} [[AutoRefresh.Min]] &nbsp;
     {fs:[[AutoRefresh.Activate]],,"button"}
+    {fh:"autorefresh_active", 2}
   <!-- ENDIF -->
-  {fh:"autorefresh_active", ACTIVE|not}
   </form>
 </div>
 
 <script type="text/javascript">
   // <![CDATA[
-  // move div on load
-  addLoadEvent(function(){ $("plugin_autorefresh").move($("footer_after")) });
-
   if ("{ACTIVE}") {
     var plugin_autorefresh_start = (new Date).getTime();
 

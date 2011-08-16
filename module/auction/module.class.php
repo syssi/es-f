@@ -7,6 +7,7 @@
  * @copyright  2009-2010 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
  * @version    $Id: v2.4.1-79-g85bf9fc 2011-02-15 18:24:07 +0100 $
+ * @revision   $Rev$
  */
 class esf_Module_Auction extends esf_Module {
 
@@ -43,21 +44,9 @@ class esf_Module_Auction extends esf_Module {
   }
 
   /**
-   * @return array Array of actions handled by the module
-   */
-  public function handles() {
-    return array('index', 'add', 'editauction', 'delete', 'cleanup',
-                 'editgroup', 'start', 'stop',
-                 'refresh', 'refreshcategory', 'refreshgroup',
-                 'mcategory', 'mgroup', 'mimage', 'mcomment', 'mbid',
-                 'mcurrency', 'mrefresh', 'mdel', 'mdelg', 'mstart', 'mstop',
-                 '_dump');
-  }
-
-  /**
    * Run, if all prepare is done!
    */
-  public function IndexContentAction() {
+  public function IndexAction() {
 
     TplData::set('Auctions', array());
 
@@ -281,6 +270,7 @@ class esf_Module_Auction extends esf_Module {
       }
     } elseif ($auction = esf_Auctions::get($this->Item)) {
 
+      TplData::set('PopupForm', FALSE);
       TplData::set('SubTitle2', Translation::get('Auction.EditAuction'));
       TplData::set($this->getAuctionTplData($auction));
       TplData::set('Group', self::getGroupTplData(esf_Auctions::getGroup($auction)));
@@ -422,6 +412,7 @@ class esf_Module_Auction extends esf_Module {
           $this->forward();
         }
       } else {
+        TplData::set('PopupForm', FALSE);
         TplData::set('SubTitle2', Translation::get('Auction.EditGroup'));
         TplData::set('Group', $this->getGroupTplData($this->Group));
       }

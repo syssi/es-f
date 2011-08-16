@@ -17,6 +17,7 @@ before.
  * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
  * @version    1.0.0
  * @version    $Id: v2.4.1-75-g5ea615c 2011-02-11 21:42:26 +0100 $
+ * @revision   $Rev$
  */
 abstract class Event implements EventI {
 
@@ -32,8 +33,9 @@ abstract class Event implements EventI {
   /**
    * Attach a handler instance
    *
-   * @param $handler EventHandlerI
-   * @param $position Force position in event queue if defined
+   * @param EventHandlerI $handler
+   * @param int $position Force position in event queue if defined
+   * @return int Position on which the handler was inserted
    */
   public static function Attach( EventHandlerI $handler, $position=0 ) {
     /// Yryie::StartTimer(__METHOD__, __METHOD__, 'attach event');
@@ -55,17 +57,24 @@ abstract class Event implements EventI {
     Yryie::Info('Attached event handlers: '.count(self::$EventHandlers));
     Yryie::StopTimer(__METHOD__);
     /// */
+    return $position;
   }
 
   /**
    * Dettach a handler instance
    *
-   * @param $handler EventHandlerI
+   * @param EventHandlerI $handler
+   * @return bool Handler was found and dettached
    */
   public static function Dettach( EventHandlerI $handler ) {
-    if ($position = array_search($handler, self::$EventHandlers, TRUE))
+    if ($position = array_search($handler, self::$EventHandlers, TRUE)) {
       unset(self::$EventHandlers[$position], self::$HandlerMethods[$position]);
+      $ok = TRUE;
+    } else {
+      $ok = FALSE;
+    }
     /// Yryie::Info('Attached event handlers: '.count(self::$EventHandlers));
+    return $ok;
   }
 
   /**

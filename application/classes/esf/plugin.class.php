@@ -13,8 +13,9 @@
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
  * @version    1.0.0
  * @version    $Id: v2.4.1-62-gb38404e 2011-01-30 22:35:34 +0100 $
+ * @revision   $Rev$
  */
-abstract class esf_Plugin extends esf_Extension {
+abstract class esf_Plugin extends esf_Extension implements EventHandlerI {
 
   /**
    *

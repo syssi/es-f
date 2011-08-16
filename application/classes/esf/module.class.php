@@ -12,51 +12,65 @@
  * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
  * @version    1.0.0
  * @version    $Id: v2.4.1-62-gb38404e 2011-01-30 22:35:34 +0100 $
+ * @revision   $Rev$
  */
 abstract class esf_Module extends esf_Extension {
 
   /**
-   * Handle called action routines
+   * Called before the Action function is processed
+   */
+  public function Before() {
+  }
+
+  /**
+   * Called after the Action function is processed
+   */
+  public function After() {
+    $dir = np('module/'.$this->ExtensionName);
+    $layout = Session::getP('Layout');
+    $html = '';
+    foreach (array('style.css', 'print.css', 'script.js') as $id => $f) {
+      // common for all layouts
+      $file = $dir.'/layout/'.$f;
+      file_exists(np($file)) AND $html .= sprintf($this->formats[$id], $file);
+      // custom common for all layouts
+      $file = $dir.'/layout/custom/'.$f;
+      file_exists(np($file)) AND $html .= sprintf($this->formats[$id], $file);
+      // for specific layout ...
+      $file = $dir.'/layout/'.$layout.'/'.$f;
+      file_exists(np($file)) AND $html .= sprintf($this->formats[$id], $file);
+      // custom for specific layout ...
+      $file = $dir.'/layout/'.$layout.'/custom/'.$f;
+      file_exists(np($file)) AND $html .= sprintf($this->formats[$id], $file);
+    }
+    TplData::add('HtmlHeader.raw', $html);
+  }
+
+  /**
+   * Handle not defined action routines
    *
-   * Simple actions
-   * - IndexAction
-   * - ShowAction
-   *
-   * Actions during processing
-   * - IndexHeaderAction
-   * - IndexContentAction
-   * - IndexFooterAction
-   *
-   * @param string $action
-   * @param string $step Header|Content|Footer
+   * @param string $name Method name
+   * @param array $arguments
    * @return void
    */
-  public function handle( $action, $step='' ) {
-    $this->Action = $action;
-    do {
-      $saveaction = $this->Action;
-      // Check for supported action
-      if (in_array($this->Action, $this->handles())) {
-        $method = $this->Action . $step . 'Action';
-        // Check for method
-        if (method_exists($this, $method)) {
-          // >> Debug
-          Yryie::Info(get_class($this).'::'.$method.'()');
-          // << Debug
-          $this->$method();
-        }
-      } else {
-        if (DEVELOP)
-          Messages::Error('Not handled action "'.$this->Action.'" in '.get_class($this));
-        // redirect to 1st handled action (mostly "index") of module
-        $this->redirect($this->ExtensionName, reset($this->handles()));
-      }
-    } while ($saveaction != $this->Action);
+  public function __call( $name, $arguments ) {
+    if (DEVELOP) die('Not handled action "'.$name.'" in '.get_class($this));
+    // redirect to Index action of module
+    $this->forward();
   }
 
   //--------------------------------------------------------------------------
   // PROTECTED
   //--------------------------------------------------------------------------
+
+  /**
+   *
+   */
+  protected $formats = array (
+    '  <link type="text/css" rel="stylesheet" href="%s">',
+    '  <link type="text/css" rel="stylesheet" href="%s" media="print">',
+    '  <script type="text/javascript" src="%s"></script>',
+  );
 
   /**
    * Actual module action
@@ -73,6 +87,8 @@ abstract class esf_Module extends esf_Extension {
   protected function forward( $action='index' ) {
     $this->Action = $action;
     Registry::set('esf.Action', $this->Action);
+    $method = $this->Action.'Action';
+    $this->$method();
   }
 
   /**

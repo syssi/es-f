@@ -13,15 +13,9 @@
  * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
  * @version    1.0.0
  * @version    $Id: v2.4.1-62-gb38404e 2011-01-30 22:35:34 +0100 $
+ * @revision   $Rev$
  */
 class esf_Module_Watching extends esf_Module {
-
-  /**
-   * @return array Array of actions handled by the module
-   */
-  public function handles() {
-    return array('index', 'empty');
-  }
 
   /**
    *
@@ -73,21 +67,23 @@ class esf_Module_Watching extends esf_Module {
         TplData::set('EMAIL', Core::Email($this->Email, $this->Author, TRUE, $header));
         TplData::set('RESULT', array_merge(array('$ '.$cmd, ''), $res));
       }
-      $this->forward('empty');
-    } else {
-      $auctionIds = array_keys(esf_Auctions::$Auctions);
-      foreach ($myitems as $item => $data) {
-        if (strtolower($data['TIME_LEFT']) != 'ended' OR $this->Ended) {
-          $data['ACTIVE']  = in_array($item, $auctionIds);
-          $data['ITEMURL'] = htmlspecialchars(sprintf(Registry::get('ebay.ShowUrl'), $item));
-          TplData::add('Auctions', $data);
-        }
-      }
-
-      TplData::set('Categories', esf_Auctions::getCategories());
-      TplData::set('Groups', esf_Auctions::getGroups());
-      TplData::set('GetCategoryFromGroup', FROMGROUP);
+      return;
     }
-  }
 
+    $auctionIds = array_keys(esf_Auctions::$Auctions);
+    foreach ($myitems as $item => $data) {
+      if (strtolower($data['TIME_LEFT']) != 'ended' OR $this->Ended) {
+        $data['ACTIVE']  = in_array($item, $auctionIds);
+        $data['ITEMURL'] = htmlspecialchars(sprintf(Registry::get('ebay.ShowUrl'), $item));
+        TplData::add('Auctions', $data);
+      }
+    }
+
+    if (!$this->Ended)
+      Messages::Info(Translation::get('Watching.Show_No_Ended'));
+
+    TplData::set('Categories', esf_Auctions::getCategories());
+    TplData::set('Groups', esf_Auctions::getGroups());
+    TplData::set('GetCategoryFromGroup', FROMGROUP);
+  }
 }

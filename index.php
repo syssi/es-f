@@ -44,7 +44,7 @@ ini_set('display_startup_errors', 0);
 ini_set('display_errors', 0);
 error_reporting(0);
 
-if (file_exists('prepend.php')) require 'prepend.php';
+file_exists('prepend.php') AND require 'prepend.php';
 
 define('_ESF_OK', TRUE);
 
@@ -102,4 +102,4 @@ try {
 
 }
 
-if (file_exists('append.php')) require 'append.php';
+file_exists('append.php') AND require 'append.php';

@@ -7,10 +7,11 @@
 
 <hr style="clear:both">
 
-<div id="footer_before"></div>
+<div id="footer_before">{nvl:FOOTER_BEFORE}</div>
 
 <footer>
 <div id="footer" style="margin: 10px 0;text-align:center">
+  {nvl:POWERED_BEFORE}
 
 <!-- /**
   <a class="powered" href="http://validator.w3.org/">
@@ -77,10 +78,11 @@
        src="{button:"i","../layout/images/powered/powered.gif","t",CONST.SERVER.NAME,"w","80","c","FFF","s",,"f","1","y","1"}"
        onmouseover="Tip('{CONST.SERVER.VERSION}',WIDTH,250,ABOVE,true,CENTERMOUSE,true)">
   <!-- ENDIF -->
+  {nvl:POWERED_AFTER}
 </div>
 </footer>
 
-<div id="footer_after"></div>
+<div id="footer_after">{nvl:FOOTER_AFTER}</div>
 
 <div id="PopupMessage" class="popupwindow" style="width:300px;display:none">
   {"PopupMessage" > POPUPNAME}

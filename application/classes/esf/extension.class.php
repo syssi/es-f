@@ -8,8 +8,9 @@
  * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
  * @version    1.0.0
  * @version    $Id: v2.4.1-62-gb38404e 2011-01-30 22:35:34 +0100 $
+ * @revision   $Rev$
  */
-abstract class esf_Extension implements EventHandlerI {
+abstract class esf_Extension {
 
   /**
    * @todo

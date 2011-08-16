@@ -14,6 +14,7 @@
  * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
  * @version    1.0.0
  * @version    $Id: v2.4.1-75-g5ea615c 2011-02-11 21:42:26 +0100 $
+ * @revision   $Rev$
  */
 class esf_Module_Help extends esf_Module {
 
@@ -42,13 +43,6 @@ class esf_Module_Help extends esf_Module {
 
     $this->Dir = $path . '/help';
     $this->File = $this->Dir . '/' . Session::get('language').'.htm';
-  }
-
-  /**
-   * @return array Array of actions handled by the module
-   */
-  public function handles() {
-    return array('index', 'topic', 'show', 'edit');
   }
 
   /**
@@ -100,6 +94,7 @@ class esf_Module_Help extends esf_Module {
   /**
    *
    */
+  /* ///
   public function EditAction() {
     if ($this->isPost()) {
       $this->File = $this->Request('helpfile');
@@ -128,6 +123,7 @@ class esf_Module_Help extends esf_Module {
       TplData::set('HelpText', addslashes($text));
     }
   }
+  /// */
 
   /**
    *

@@ -46,13 +46,19 @@
 
     <tu tuid="Enable_1">
       <tuv xml:lang="DE">
+        <seg>Automatische Seiten-Aktualisierung deaktiviert.</seg>
+      </tuv>
+    </tu>
+
+    <tu tuid="Enable_2">
+      <tuv xml:lang="DE">
         <seg>Automatische Seiten-Aktualisierung aktiviert.</seg>
       </tuv>
     </tu>
 
-    <tu tuid="Enable_0">
+    <tu tuid="EnableState">
       <tuv xml:lang="DE">
-        <seg>Automatische Seiten-Aktualisierung deaktiviert.</seg>
+        <seg>Automatische Seiten-Aktualisierung aller %d min.</seg>
       </tuv>
     </tu>
 

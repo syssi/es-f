@@ -7,6 +7,7 @@
  * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
  * @version    1.0.0
  * @version    $Id: v2.4.1-62-gb38404e 2011-01-30 22:35:34 +0100 $
+ * @revision   $Rev$
  */
 
 abstract class Messages {
@@ -50,13 +51,9 @@ abstract class Messages {
     if (is_array($msg)) {
       if (!$formated) $msg = array_map_recursive('htmlspecialchars', $msg);
     } else {
-      @list($func, $msg) = explode(':', $msg, 2);
-      if (!$msg) {
-        $msg = $func;
-      } elseif ($func == 'html') {
+      if (strpos($msg, 'html:') === 0) {
         $formated = TRUE;
-      } else {
-        $msg = $func.':'.$msg;
+        list(, $msg) = explode(':', $msg, 2);
       }
       if (!$formated) $msg = htmlspecialchars($msg, ENT_QUOTES);
     }

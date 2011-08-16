@@ -8,7 +8,7 @@
 
 <h2>Check permissions</h2>
 
-<table id="perm">
+<table class="perm">
 
   <tr>
     <th>Directory / File</th>
@@ -30,7 +30,7 @@
 
 <h2>Check system and PHP settings</h2>
 
-<table id="perm">
+<table class="perm">
 
   <tr>
     <th>Option</th>

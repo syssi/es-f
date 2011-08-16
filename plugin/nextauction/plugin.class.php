@@ -7,6 +7,7 @@
  * @copyright  2009-2011 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
  * @version    $Id: v2.4.1-54-g83ea36d 2011-01-17 20:17:17 +0100 $
+ * @revision   $Rev$
  */
 class esf_Plugin_NextAuction extends esf_Plugin {
 
@@ -14,7 +15,7 @@ class esf_Plugin_NextAuction extends esf_Plugin {
    * @return array Array of events handled by the plugin
    */
   public function handles() {
-    return array('Start', 'OutputStart', 'OutputFilterContent');
+    return array('Start', 'OutputStart');
   }
 
   /**
@@ -28,17 +29,17 @@ class esf_Plugin_NextAuction extends esf_Plugin {
    *
    */
   public function OutputStart() {
-    if ($this->Active AND $this->Style == 1 AND $content = $this->content())
-      Messages::Info($content, TRUE);
-  }
+    if (!$this->Active OR !$content = $this->content()) return;
 
-  /**
-   *
-   */
-  public function OutputFilterContent( &$output ) {
-    if ($this->Active AND $this->Style == 0 AND
-        $data['NEXTAUCTION'] = $this->content())
-      $output = $this->Render('content', $data) . $output;
+    switch ($this->Style) {
+      case 0:
+        $data['NEXTAUCTION'] = $content;
+        TplData::add('Header_Center', $this->Render('content', $data));
+        break;
+      case 1:
+        Messages::Info($content, TRUE);
+        break;
+    }
   }
 
   //--------------------------------------------------------------------------
@@ -83,4 +84,4 @@ class esf_Plugin_NextAuction extends esf_Plugin {
 
 }
 
-Event::attach(new esf_Plugin_NextAuction);
+Event::attach(new esf_Plugin_NextAuction, -1);

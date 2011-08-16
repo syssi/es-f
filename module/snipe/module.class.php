@@ -13,6 +13,7 @@
  * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
  * @version    1.0.0
  * @version    $Id: v2.4.1-62-gb38404e 2011-01-30 22:35:34 +0100 $
+ * @revision   $Rev$
  */
 class esf_Module_Snipe extends esf_Module {
 
@@ -24,13 +25,6 @@ class esf_Module_Snipe extends esf_Module {
     Event::block('OutputFilterFooter');
     Event::block('OutputFilterHtmlEnd');
     Registry::set('esf.contentonly', TRUE);
-  }
-
-  /**
-   * @return array Array of actions handled by the module
-   */
-  public function handles() {
-    return array('index', 'save', 'error');
   }
 
   /**

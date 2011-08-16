@@ -1,3 +1,16 @@
+VERSION: 2.7.0
+--------------------
+Feature release
+
+NEW:
+- Require PHP 5.3.0 according to Yuelo v3.3.0
+- Simplify request flow
+- Use signed Cookie and Session values
+- Transaltion uses now injected filter classes for modifications like textile, escape etc.
+- Use some HTML5 features, mostly in forms
+- Upgrade prototype.js to 1.7.0.0 and scriptaculous to 1.9.0
+- Reuse founded parser at auction creation on auction refresh
+
 VERSION: 2.6.0
 --------------------
 Feature release

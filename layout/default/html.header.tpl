@@ -136,7 +136,7 @@
 
 <div id="header_left" style="float:left">{nvl:HEADER_LEFT}</div>
 <div id="header_right" style="float:right">{nvl:HEADER_RIGHT}</div>
-
 <div style="clear:both"></div>
+<div id="header_center">{nvl:HEADER_CENTER}</div>
 
 <!-- _INCLUDE html.messages -->

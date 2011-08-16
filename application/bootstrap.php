@@ -54,10 +54,12 @@ $oXML = new XML_Array_Configuration(Cache::create($aCacheOptions, 'Files'));
 $aConfiguration = $oXML->ParseXMLFile(LOCALDIR.'/config/config.xml');
 if (!$aConfiguration) die($oXML->Error);
 
+// extract users
 foreach ($aConfiguration['users'] as $aUser)
   esf_User::set($aUser['name'], $aUser['auth']);
 unset($aConfiguration['users']);
 
+// extract esniper settings
 foreach ($aConfiguration['esniper'] as $key => $value)
   Esniper::set($key, $value);
 unset($aConfiguration['esniper']);
@@ -99,24 +101,16 @@ Loader::Load(APPDIR.'/ebay.php');
 // include additional configuration, mostly for development
 Core::ReadConfigs('local');
 
-if (!_DEBUG) {
+if (_DEBUG) {
+  Yryie::Register();
+} else {
   ErrorHandler::register();
+  ErrorHandler::attach(new ErrorHandler_File('local/tmp/error.{TS}.log'));
 #  ErrorHandler::attach(new ErrorHandler_Debug());
 #  ErrorHandler::attach(new ErrorHandler_Echo());
-  ErrorHandler::attach(new ErrorHandler_File('local/tmp/error.{TS}.log'));
-} else {
-  Yryie::Register();
 }
 
-// since PHP 5.1.0
-if (function_exists('date_default_timezone_set'))
-  // http://php.net/manual/en/timezones.php
-  date_default_timezone_set(Registry::get('TimeZone'));
-
-$sPath = dirname($_SERVER['PHP_SELF']);
-if (substr($sPath, -1) != '/') $sPath .= '/';
-define('BASEHTML', sprintf('%s://%s%s', ServerProtocol(), $_SERVER['HTTP_HOST'], $sPath));
-unset($sPath);
+date_default_timezone_set(Registry::get('TimeZone'));
 
 TplData::setConstant('BASEHTML', BASEHTML);
 
@@ -166,18 +160,21 @@ unset($signer);
 
 Core::StartSession();
 
+Event::ProcessInform('SessionStarted');
+
 if (!Session::get('language')) {
   if (!$language = HTTPlanguage::getMatch(array_keys(Registry::get('esf.Languages'), TRUE)))
     $language = 'en';
   Session::set('language', $language);
 }
 
-Event::ProcessInform('SessionStarted');
+Session::checkRequest('language', 'en');
 
-if (Session::get('Mobile'))
+if (Session::get('Mobile')) {
   Session::setP('Layout', 'mobile');
-elseif (!Session::getP('Layout'))
+} elseif (!Session::getP('Layout')) {
   Session::setP('Layout', 'default');
+}
 
 if (PluginEnabled('Validate')) {
   DefineValidator('module', 'Regex', array('pattern'=>'\w*'));
@@ -195,7 +192,7 @@ Core::StripSlashes($_REQUEST);
 
 /// Yryie::Debug('$_REQUEST : '.print_r($_REQUEST, TRUE));
 
-if (strtoupper($_SERVER['REQUEST_METHOD']) == 'GET') {
+if (!Core::isPost()) {
   Core::StripSlashes($_GET);
   Event::Process('UrlUnRewrite', $_GET);
   Event::Process('AnalyseRequest', $_GET);
@@ -216,12 +213,12 @@ Registry::set('esf.Module', checkR('module', STARTMODULE));
 $sModule = Registry::get('esf.Module');
 
 // check module for mobile capability
-if ($sModule != STARTMODULE AND
-    Session::get('Mobile') AND
-    Registry::get('Module.'.$sModule.'.Mobile') === FALSE)
+if ($sModule != STARTMODULE AND Session::get('Mobile') AND
+    Registry::get('Module.'.$sModule.'.Mobile') === FALSE) {
   Core::Redirect(Core::URL(array('module'=>STARTMODULE)));
+}
 
-Registry::set('esf.Action',      checkR('action',      'index'));
+Registry::set('esf.Action',      checkR('action', 'index'));
 Registry::set('esf.contentonly', checkR('contentonly', FALSE));
 
 /// Yryie::StopTimer('AnalyseRequestParams');
@@ -231,9 +228,7 @@ Registry::set('esf.contentonly', checkR('contentonly', FALSE));
 // ----------------------------------------------------------------------------
 Event::ProcessInform('Start');
 
-Session::checkRequest('language', 'en');
-
-// only initiate empty array data to mark as array, empty strings not required
+// only initiate empty array data to mark as array, empty strings are not required
 TplData::set('HtmlHeader.JS', array());
 TplData::set('HtmlHeader.CSS', array());
 TplData::set('HtmlHeader.Script', array());
@@ -335,8 +330,7 @@ if (esf_User::isValid()) esf_Auctions::Load();
 
 Event::ProcessInform('PageStart');
 
-if (!esf_User::isValid() AND
-    Registry::get('Module.'.$sModule.'.LoginRequired')) {
+if (!esf_User::isValid() AND Registry::get('Module.'.$sModule.'.LoginRequired')) {
   /// Yryie::Info('Forward: '.$sModule.' -> Login');
   if ($sModule != 'login') {
     unset($_REQUEST['ESFSESSID']);
@@ -353,57 +347,43 @@ $sModule = Registry::get('esf.Module');
 // generic styles/scripts, from defined layout or fallback layout
 TplData::add('HtmlHeader.raw', StylesAndScripts('.', Session::getP('Layout')));
 
-if (strtoupper($_SERVER['REQUEST_METHOD']) == 'GET' AND isset($_REQUEST['returnto']))
+if (!Core::isPost() AND isset($_REQUEST['returnto'])) {
   Session::setP('returnto', $_REQUEST['returnto']);
-
-$sModuleLast = FALSE;
+}
 
 // module preparation
-do {
+$sTitle = Translation::getNVL($sModule.'.Title', ucwords($sModule));
+TplData::set('Title', $sTitle);
+TplData::set('SubTitle1', $sTitle);
+/* ///
+TplData::set('SubTitle1',
+              $sTitle.' <tt style="font-size:80%;color:red">['
+             .exec('git branch | grep \* | cut -d" " -f2').']</tt>');
+/// */
+unset($sTitle);
 
-  $sTitle = Translation::getNVL($sModule.'.Title', ucwords($sModule));
-  TplData::set('Title', $sTitle);
-  TplData::set('SubTitle1', $sTitle);
-  /* ///
-  TplData::set('SubTitle1',
-                $sTitle.' <tt style="font-size:80%;color:red">['
-               .exec('git branch | grep \* | cut -d" " -f2').']</tt>');
-  /// */
-  unset($sTitle);
+TplData::set('SubTitle2', '');
 
-  TplData::set('SubTitle2', '');
+// >> Debug
+Yryie::Info('Processing '.$sModule.' / '.Registry::get('esf.Action'));
+// << Debug
 
-  // >> Debug
-  Yryie::Info('Processing '.$sModule.' / '.Registry::get('esf.Action'));
-  // << Debug
+if (Loader::Load('module/'.$sModule.'/module.class.php', TRUE, FALSE)) {
+  $sClass = 'esf_Module_'.$sModule;
+  $oModule = new $sClass;
+  call_user_func(array($oModule, 'Before'));
+  call_user_func(array($oModule, Registry::get('esf.Action').'Action'));
+  call_user_func(array($oModule, 'After'));
+}
 
-  if ($sModuleLast != $sModule) unset($oModule);
+// handle ReturnTo=...
+$sReturnTo = decodeReturnTo(Session::getP('returnto'));
 
-  $sModuleLast = $sModule;
-
-  if (!isset($oModule) AND
-      Loader::Load('module/'.$sModule.'/module.class.php', TRUE, FALSE)) {
-    $sClass = 'esf_Module_'.$sModule;
-    $oModule = new $sClass;
-  }
-  if (isset($oModule)) $oModule->handle(Registry::get('esf.Action'));
-
-  // handle ReturnTo=...
-  $sReturnTo = decodeReturnTo(Session::getP('returnto'));
-
-  if (!empty($sReturnTo) AND
-      (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST' OR
-       strpos($sReturnTo, 'force') !== FALSE )) {
-    Session::setP('returnto');
-    Core::Redirect($sReturnTo);
-  }
-
-  // module specific styles/scripts, from defined layout
-  TplData::add('HtmlHeader.raw', StylesAndScripts('module/'.$sModule, Session::getP('Layout')));
-
-  // loop until no more forwarded
-} while ($sModuleLast != $sModule);
-unset($sModuleLast);
+if (!empty($sReturnTo) AND
+    (Core::isPost() OR strpos($sReturnTo, 'force') !== FALSE )) {
+  Session::setP('returnto');
+  Core::Redirect($sReturnTo);
+}
 
 // ----------------------------------------------------------------------------
 // process
@@ -556,15 +536,13 @@ if (!DEVELOP) ob_start();
 
 Yuelo::set('Language', Session::get('language'));
 Yuelo::set('Layout', Session::getP('Layout'));
+
 $RootDir = array(
   BASEDIR.'/module/'.$sModule.'/layout',
   BASEDIR.'/layout',
 );
-
 $oTemplate->Output('doctype', FALSE, $RootDir);
-
 $html = $oTemplate->Render('html.head', TRUE, $RootDir);
-Event::Process('OutputFilterHtmlHead', $html);
 Event::Process('OutputFilter', $html);
 echo $html;
 
@@ -575,7 +553,6 @@ TplData::set('esf_MessagesErrors', Messages::count(Messages::ERROR));
 TplData::set('esf_Messages', implode((array)Messages::get()));
 
 $html = $oTemplate->Render('html.start', TRUE, $RootDir);
-Event::Process('OutputFilterHtmlStart', $html);
 Event::Process('OutputFilter', $html);
 echo $html;
 
@@ -592,13 +569,12 @@ if (!DEVELOP) ob_end_flush();
 foreach ($steps as $step) {
   /// $block = $step.'block';
   /// Yryie::StartTimer($block, ucwords($step).' block');
-  Event::ProcessInform('Output'.$step);
-
-  if (isset($oModule)) $oModule->handle(Registry::get('esf.Action'), $step);
 
   if (!DEVELOP) ob_start();
 
   if ($step == 'content') {
+
+    Event::ProcessInform('OutputContent');
     // if actual module is only a display module,
     // try to render 'content'.Registry::get('esf.Action') ...
     if (TplData::isEmpty('Content')) {

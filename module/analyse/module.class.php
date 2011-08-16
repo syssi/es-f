@@ -26,32 +26,22 @@ class esf_Module_Analyse extends esf_Module {
   }
 
   /**
-   * @return array Array of actions handled by the module
-   */
-  public function handles() {
-    return array('index', 'show', 'showmulti');
-  }
-
-
-  /**
    *
    */
   public function IndexAction() {
     foreach (esf_Auctions::$Groups as $group => $data) {
+      $groupname = ($data['a'] > 1 OR !isset(esf_Auctions::$Auctions[$group]))
+                 ? $group : esf_Auctions::$Auctions[$group]['name'];
       TplData::add('Groups', array(
         'GROUP'     => $group.'|-',
-        'GROUPNAME' => ( ($data['a'] > 1 OR !isset(esf_Auctions::$Auctions[$group]))
-                       ? $group : esf_Auctions::$Auctions[$group]['name'] )
-                       . ' (' . Translation::get('Analyse.WithoutShipping') . ')',
+        'GROUPNAME' => $groupname . ' (' . Translation::get('Analyse.WithoutShipping') . ')',
         'COUNT'     => $data['a'],
         'CATEGORY'  => $data['cat'],
         'SHOWURL'   => Core::URL(array('action'=>'show', 'params'=>array('group'=>$group.'|-'), 'anchor'=>'diagram')),
       ));
       TplData::add('Groups', array(
         'GROUP'     => $group.'|+',
-        'GROUPNAME' => ( ($data['a'] > 1 OR !isset(esf_Auctions::$Auctions[$group]))
-                       ? $group : esf_Auctions::$Auctions[$group]['name'] )
-                       . ' (' . Translation::get('Analyse.WithShipping') . ')',
+        'GROUPNAME' => $groupname . ' (' . Translation::get('Analyse.WithShipping') . ')',
         'COUNT'     => $data['a'],
         'CATEGORY'  => $data['cat'],
         'SHOWURL'   => Core::URL(array('action'=>'show', 'params'=>array('group'=>$group.'|+'), 'anchor'=>'diagram')),

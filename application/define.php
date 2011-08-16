@@ -10,11 +10,6 @@
 
 defined('_ESF_OK') || die('No direct call allowed.');
 
-/**
- * prior PHP 5.2
- */
-if (!isset($_SERVER['REQUEST_TIME'])) $_SERVER['REQUEST_TIME'] = time();
-
 $version = file(dirname(__FILE__).'/.version', FILE_IGNORE_NEW_LINES);
 
 /**
@@ -100,8 +95,11 @@ define('ESF_FULL_TITLE', ESF_LONG_TITLE . ', ' . ESF_FULL_VERSION);
  * Version 9:
  * - Remove cache probing
  * - Make currency global
+ *
+ * Version 10:
+ * - Require PHP >= 5.3.0
  */
-define('ESF_CONFIG_VERSION', 9);
+define('ESF_CONFIG_VERSION', 10);
 
 /**
  * Auction data structure version, start using above ESF_VERSION > 2.5.0
@@ -111,7 +109,7 @@ define('ESF_AUCTION_VERSION', '2.5');
 /**
  * Required PHP version
  */
-define('PHP_VERSION_REQUIRED', '5.1.0');
+define('PHP_VERSION_REQUIRED', '5.3.0');
 
 /**
  * Operating system
@@ -136,6 +134,13 @@ define('APPDIR',   BASEDIR.'/application');
 define('LIBDIR',   APPDIR.'/lib');
 define('LOCALDIR', BASEDIR.'/local');
 define('TEMPDIR',  realpath(dirname(__FILE__).'/..').'/local/tmp');
+
+$sPath = dirname($_SERVER['PHP_SELF']);
+if (substr($sPath, -1) != '/') $sPath .= '/';
+$http = (isset($_SERVER['HTTPS']) AND strtoupper($_SERVER['HTTPS']) == 'ON')
+      ? 'https' : 'http';
+define('BASEHTML', sprintf('%s://%s%s', $http, $_SERVER['HTTP_HOST'], $sPath));
+unset($sPath, $http);
 
 /**
  * Start always with Auction module

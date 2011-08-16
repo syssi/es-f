@@ -56,11 +56,11 @@ div.msg {
  * permission check
  */
 
-table#perm {
+table.perm {
 	width: 100%;
 }
 
-table#perm th {
+table.perm th {
 	text-align: left;
 }
 

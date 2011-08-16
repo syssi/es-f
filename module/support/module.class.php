@@ -7,23 +7,16 @@
  * @copyright  2009-2011 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
  * @version    $Id: v2.4.1-54-g83ea36d 2011-01-17 20:17:17 +0100 $
+ * @revision   $Rev$
  */
 class esf_Module_Support extends esf_Module {
 
   /**
    *
    */
-  public function __construct() {
-    parent::__construct();
+  public function Before() {
     // force re-read of esniper version, if changed during actual session
     Session::set('esniperVersion');
-  }
-
-  /**
-   * @return array Array of actions handled by the module
-   */
-  public function handles() {
-    return array('index', 'download');
   }
 
   /**

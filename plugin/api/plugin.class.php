@@ -13,6 +13,7 @@
  * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
  * @version    1.0.0
  * @version    $Id: v2.4.1-62-gb38404e 2011-01-30 22:35:34 +0100 $
+ * @revision   $Rev$
  */
 class esf_Plugin_API extends esf_Plugin {
 
@@ -44,19 +45,20 @@ class esf_Plugin_API extends esf_Plugin {
    * @return string JSON formated
    */
   public function AuctionsLoaded() {
-    if ($request = $this->Request AND $action = @$request['api']) {
-      Loader::Load(dirname(__FILE__).'/api/'.$action.'.php');
-      $func = 'API_'.$action;
-      $result = array( 'rc'=>0, 'result'=>'', 'msg'=>'' );
-      if (function_exists($func)) {
-        unset($request['api']);
-        $func($request, $result);
-      } else {
-        $result['rc']  = -1;
-        $result['msg'] = 'Missing API function: '.$func;
-      }
-      die(JSON::encode($result));
+    if (!$request = $this->Request OR empty($request['api'])) return;
+
+    $action = $request['api'];
+    Loader::Load(dirname(__FILE__).'/api/'.$action.'.php');
+    $func = 'API_'.$action;
+    $result = array( 'rc'=>0, 'result'=>'', 'msg'=>'' );
+    if (function_exists($func)) {
+      unset($request['api']);
+      $func($request, $result);
+    } else {
+      $result['rc']  = -1;
+      $result['msg'] = 'Missing API function: '.$func;
     }
+    die(JSON::encode($result));
   }
 
 }

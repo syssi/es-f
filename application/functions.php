@@ -8,6 +8,7 @@
  * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
  * @version    1.0.0
  * @version    $Id: v2.4.1-62-gb38404e 2011-01-30 22:35:34 +0100 $
+ * @revision   $Rev$
  */
 
 defined('_ESF_OK') || die('No direct call allowed.');
@@ -247,16 +248,6 @@ function checkArray( &$array, $param, $default=NULL ) {
  */
 function nvl( $value, $default=NULL ) {
   return ($value !== '') ? $value : $default;
-}
-
-/**
- * Get server protocol
- * 
- * @return string http|https
- */
-function ServerProtocol() {
-  return (isset($_SERVER['HTTPS']) AND strtolower($_SERVER['HTTPS']) == 'on')
-       ? 'https' : 'http';
 }
 
 /**

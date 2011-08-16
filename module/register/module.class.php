@@ -24,16 +24,8 @@ class esf_Module_Register extends esf_Module {
   /**
    *
    */
-  public function __construct() {
-    parent::__construct();
+  public function Before() {
     $this->RegisterPath = $this->Core['localpath'] . '/reg';
-  }
-
-  /**
-   * @return array Array of actions handled by the module
-   */
-  public function handles() {
-    return array('index', 'admin');
   }
 
   /**

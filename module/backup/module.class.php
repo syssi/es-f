@@ -7,6 +7,7 @@
  * @copyright  2009-2011 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
  * @version    $Id: v2.4.1-54-g83ea36d 2011-01-17 20:17:17 +0100 $
+ * @revision   $Rev$
  */
 class esf_Module_Backup extends esf_Module {
 
@@ -25,13 +26,6 @@ class esf_Module_Backup extends esf_Module {
     if ($page < 1) $page = 1;
     $this->Start = ($page-1) * $this->AuctionsPerPage + 1;
     $this->End = $page * $this->AuctionsPerPage;
-  }
-
-  /**
-   * @return array Array of actions handled by the module
-   */
-  public function handles() {
-    return array('index', 'show', 'delete', 'restore', 'lock', 'unlock', 'clear');
   }
 
   /**

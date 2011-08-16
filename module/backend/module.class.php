@@ -7,6 +7,7 @@
  * @copyright  2009-2011 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
  * @version    $Id: v2.4.1-75-g5ea615c 2011-02-11 21:42:26 +0100 $
+ * @revision   $Rev$
  */
 class esf_Module_Backend extends esf_Module {
 
@@ -49,14 +50,6 @@ class esf_Module_Backend extends esf_Module {
     // >> Debug
     Yryie::Info(ucwords(Registry::get('esf.Action').': '.$this->Scope.'/'.$this->Extension));
     // << Debug
-  }
-
-  /**
-   * @return array Array of actions handled by the module
-   */
-  public function handles() {
-    return array('index', 'install', 'deinstall', 'reinstall',
-                 'enable', 'disable', 'toggle', 'info');
   }
 
   /**

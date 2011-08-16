@@ -15,6 +15,7 @@ Category jump link
  * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
  * @version    1.0.0
  * @version    $Id$
+ * @revision   $Rev$
  */
 class esf_Plugin_CategoryJump extends esf_Plugin {
 
@@ -22,7 +23,7 @@ class esf_Plugin_CategoryJump extends esf_Plugin {
    * @return array Array of events handled by the plugin
    */
   public function handles() {
-    return array('OutputFilterContent');
+    return array('OutputStart');
   }
 
   /**
@@ -30,7 +31,7 @@ class esf_Plugin_CategoryJump extends esf_Plugin {
    *
    * @param array &$output
    */
-  public function OutputFilterContent( &$output ) {
+  public function OutputStart() {
     if (!Request::check('auction', 'index') OR !esf_User::isValid()) return;
 
     $c = esf_Auctions::getCategories(TRUE);
@@ -39,7 +40,7 @@ class esf_Plugin_CategoryJump extends esf_Plugin {
     if (count($c) >= $this->Count) {
       $data['Category'] = $c;
       $data['DropDown'] = $this->DropDown;
-      $output = $this->Render('content', $data) . $output;
+      TplData::add('Header_Center', $this->Render('content', $data));
     }
   }
 

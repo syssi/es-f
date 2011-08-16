@@ -14,15 +14,9 @@
  * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
  * @version    1.0.0
  * @version    $Id: v2.4.1-70-g8bb353a 2011-02-07 20:54:16 +0100 $
+ * @revision   $Rev$
  */
 class esf_Module_Logout extends esf_Module {
-
-  /**
-   * @return array Array of actions handled by the module
-   */
-  public function handles() {
-    return array('index');
-  }
 
   /**
    *

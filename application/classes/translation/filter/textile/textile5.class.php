@@ -817,9 +817,9 @@ class Textile5 {
   protected function relURL($url)
   {
     $parts = parse_url($url);
-    if ((empty($parts['scheme']) or @$parts['scheme'] == 'http') and
+    if ((empty($parts['scheme']) or $parts['scheme'] == 'http') and
        empty($parts['host']) and
-       preg_match('/^\w/', @$parts['path']))
+       !empty($parts['path']) and preg_match('/^\w/', $parts['path']))
       $url = $this->hu.$url;
     if ($this->restricted and !empty($parts['scheme']) and
         !in_array($parts['scheme'], $this->url_schemes))

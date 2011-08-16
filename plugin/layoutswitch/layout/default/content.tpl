@@ -1,6 +1,4 @@
-
-<div id="plugin_layoutswitch" class="noprint"
-     style="display:none;text-align:center;padding:5px;font-size:90%">
+<div class="noprint" style="text-align:center;padding:5px;font-size:90%">
   [[Core.Layout]]:
   {form:}
   {fh:"module",CONST.ESF.MODULE}
@@ -16,9 +14,3 @@
   </noscript>
   </form>
 </div>
-
-<script type="text/javascript">
-  // <![CDATA[
-  addLoadEvent(function(){ $("plugin_layoutswitch").move($("{TARGET}")).show() });
-  // ]]>
-</script>

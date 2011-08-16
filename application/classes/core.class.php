@@ -180,6 +180,16 @@ abstract class Core {
   }
 
   /**
+   * Check request method
+   *
+   * @return bool
+   */
+  public static function isPost() {
+    return (isset($_SERVER['REQUEST_METHOD']) AND
+            strtoupper($_SERVER['REQUEST_METHOD']) == 'POST');
+  }
+
+  /**
    * Forward to another module and/or action without page relaod
    *
    * @param string $module Module

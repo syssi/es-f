@@ -17,7 +17,7 @@ class esf_Plugin_Module_RSS extends esf_Plugin {
    * @return array Array of events handled by the plugin
    */
   public function handles() {
-    return array('Start', 'OutputStart', 'OutputFilterFooter');
+    return array('Start', 'OutputStart');
   }
 
   /**
@@ -38,27 +38,17 @@ class esf_Plugin_Module_RSS extends esf_Plugin {
              .'href="index.php?module=rss&amp;%1$s=%3$s" '
              .'title="RSS Feed of auctions for %2$s">'."\n",
               urlencode(APPID), $user, urlencode(Core::$Crypter->encrypt($user))));
-  }
 
-  /**
-   * Add RSS icon to footer
-   */
-  function OutputFilterFooter( &$content ) {
-    // disable on mobile layouts
+    // Add RSS icon to footer, disable footer link in mobile layouts
     if (Session::get('Mobile') AND !$this->Mobile) return;
-
-    if (!$user = esf_User::getActual()) return;
 
     $data = array(
       'APPID'   => APPID,
       'URLUSER' => Core::$Crypter->encrypt($user),
       'USER'    => $user
     );
-    $html = ParseModuleTemplate('rss', 'content', $data);
-    $content = preg_replace('~<div[^>]+id=(["\'])footer\1[^>]+>~',
-                            '$0' . $html, $content);
+    TplData::add('Powered_Before', ParseModuleTemplate('rss', 'inc.footer', $data));
   }
-
 }
 
 Event::attach(new esf_Plugin_Module_RSS);
