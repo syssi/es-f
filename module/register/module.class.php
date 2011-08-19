@@ -25,6 +25,7 @@ class esf_Module_Register extends esf_Module {
    *
    */
   public function Before() {
+    parent::Before();
     $this->RegisterPath = $this->Core['localpath'] . '/reg';
   }
 

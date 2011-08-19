@@ -15,6 +15,7 @@ class esf_Module_Support extends esf_Module {
    *
    */
   public function Before() {
+    parent::Before();
     // force re-read of esniper version, if changed during actual session
     Session::set('esniperVersion');
   }

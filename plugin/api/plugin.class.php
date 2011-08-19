@@ -58,7 +58,7 @@ class esf_Plugin_API extends esf_Plugin {
       $result['rc']  = -1;
       $result['msg'] = 'Missing API function: '.$func;
     }
-    die(JSON::encode($result));
+    die(json_encode($result));
   }
 
 }

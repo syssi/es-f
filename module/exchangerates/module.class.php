@@ -22,14 +22,13 @@ class esf_Module_ExchangeRates extends esf_Module {
    * Handles index action
    */
   public function IndexAction() {
-    $path = dirname(__file__).'/classes';
-
     if (time() > (Session::get('Module.ExchangeRates.TS')+$this->CacheLifespan*24*60*60) OR
         !($rates = Session::get('Module.ExchangeRates.Rates')) OR
         !($source = Session::get('Module.ExchangeRates.Source'))) {
 
       /// Yryie::Info('Read exchange rates from ECB: '.$this->URL);
 
+      $path = dirname(__file__).'/classes';
       Loader::Load($path.'/xmlparser.class.php');
 
       $parser = new XMLParser;
@@ -57,7 +56,7 @@ class esf_Module_ExchangeRates extends esf_Module {
                .$data[2]['childs'][0]['attr']['TIME'];
 
       Session::set('Module.ExchangeRates.TS', time());
-      Session::set('Module.ExchangeRates.Rates',  $rates);
+      Session::set('Module.ExchangeRates.Rates', $rates);
       Session::set('Module.ExchangeRates.Source', $source);
 
     /* ///

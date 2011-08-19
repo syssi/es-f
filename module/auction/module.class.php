@@ -16,7 +16,6 @@ class esf_Module_Auction extends esf_Module {
    */
   public function __construct() {
     parent::__construct();
-
     // menu entry for cleaning up
     if (esf_Auctions::Count()) {
       esf_Menu::addModule( array(
@@ -36,10 +35,15 @@ class esf_Module_Auction extends esf_Module {
     $this->Item     = checkR('item');
     $this->Group    = checkR('group');
     $this->Auctions = checkR('auctions');
+  }
 
+  /**
+   *
+   */
+  public function After() {
+    parent::After();
     TplData::setConstant('CATEGORIES', esf_Auctions::getCategories());
     TplData::setConstant('GROUPS', esf_Auctions::getGroups());
-
     Registry::set('esf.ContentOnly', Request::check('auction', '_dump'));
   }
 

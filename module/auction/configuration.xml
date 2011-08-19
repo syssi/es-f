@@ -1,39 +1,27 @@
 <configuration>
 
   <definition name="Module.Auction.LayoutEnded" type="bool">
-    <![CDATA[
-      Use for ended auctions/groups other (smaller) layout
-    ]]>
+    Use for ended auctions/groups other (smaller) layout
   </definition>
 
   <definition name="Module.Auction.ImageSize" type="int">
-    <![CDATA[
-      Max. image width/height in display mode (popup window) [px <small>(0 to disable limit)</small>]
-    ]]>
+    Max. image width/height in display mode (popup window) [px (0 to disable limit)]
   </definition>
 
   <definition name="Module.Auction.NoImage">
-    <![CDATA[
-      "NoImage" image [(rel. or absolute HTML path)]
-    ]]>
+    "NoImage" image [(rel. or absolute HTML path)]
   </definition>
 
   <definition name="Module.Auction.LoadImages" type="bool">
-    <![CDATA[
-      Load item images from eBay
-    ]]>
+    Load item images from eBay
   </definition>
 
   <definition name="Module.Auction.Currency" type="str" length="5">
-    <![CDATA[
-      Default currency
-    ]]>
+    Default currency
   </definition>
 
   <definition name="Module.Auction.RefreshButtons" type="int">
-    <![CDATA[
-      Show extra refresh buttons on which level
-    ]]>
+    Show extra refresh buttons on which level
     <option value="0">No extra icons</option>
     <option value="1">On category level only</option>
     <option value="2">On group and category level</option>
@@ -41,18 +29,14 @@
   </definition>
 
   <definition name="Module.Auction.Countdown" type="int">
-    <![CDATA[
-      Show extra refresh buttons on which level
-    ]]>
+    Show extra refresh buttons on which level
     <option value="0">No (static time)</option>
     <option value="1">Next ending auction only</option>
     <option value="2">All auctions, but HIGH work load for browser</option>
   </definition>
 
   <definition name="Module.Auction.PopupEdit" type="bool">
-    <![CDATA[
-      Use Popup dialogs for editing and delete confirmation
-    ]]>
+    Use Popup dialogs for editing and delete confirmation
   </definition>
 
 </configuration>

@@ -16,9 +16,8 @@
 
 <script type="text/javascript">
   // <![CDATA[
-  if ("{ACTIVE}") {
+  if ("{ACTIVE}" == 2) {
     var plugin_autorefresh_start = (new Date).getTime();
-
     function plugin_autorefresh_update() {
       // Calc. diff. from load until refresh
       var diff = ((plugin_autorefresh_start - (new Date).getTime())/60000 + {INTERVAL}).toFixed(0);

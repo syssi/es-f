@@ -10,6 +10,8 @@ NEW:
 - Use some HTML5 features, mostly in forms
 - Upgrade prototype.js to 1.7.0.0 and scriptaculous to 1.9.0
 - Reuse founded parser at auction creation on auction refresh
+CHANGED:
+- Remove plugin ImageSize and integrate functionality as PreProcessor to Yuelo_Compiler
 
 VERSION: 2.6.0
 --------------------

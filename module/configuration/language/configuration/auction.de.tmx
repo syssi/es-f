@@ -51,6 +51,7 @@
     </tu>
 
     <tu tuid="ImageSize">
+      <prop type="x-Filter">html</prop>
       <tuv xml:lang="de">
         <seg><![CDATA[Max. Bild-Breite/-Höhe im Anzeige-Modus (PopUp) [px <small>(0 für keine Beschränkung)</small>]]]></seg>
       </tuv>

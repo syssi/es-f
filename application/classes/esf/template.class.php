@@ -7,6 +7,7 @@
  * @copyright  2009-2011 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
  * @version    $Id: v2.4.1-54-g83ea36d 2011-01-17 20:17:17 +0100 $
+ * @revision   $Rev$
  */
 class esf_Template {
 
@@ -112,11 +113,13 @@ class esf_Template {
       require_once np(APPDIR.'/yuelo/button.extension.php');
       require_once np(APPDIR.'/yuelo/help.extension.php');
       require_once np(APPDIR.'/yuelo/translate.extension.php');
+      require_once np(APPDIR.'/yuelo/imagesize.processor.php');
     }
     $complier = Yuelo_Compiler::getInstance();
     $complier->RegisterExtension('Button',    np(APPDIR.'/yuelo/button.extension.php'));
     $complier->RegisterExtension('Help',      np(APPDIR.'/yuelo/help.extension.php'));
     $complier->RegisterExtension('Translate', np(APPDIR.'/yuelo/translate.extension.php'));
+    $complier->RegisterProcessor(new Yuelo_Processor_ImageSize);
 
     // register processors
     require_once YUELO_BASE_PROCESSOR.'removephp.class.php';

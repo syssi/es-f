@@ -371,9 +371,9 @@ Yryie::Info('Processing '.$sModule.' / '.Registry::get('esf.Action'));
 if (Loader::Load('module/'.$sModule.'/module.class.php', TRUE, FALSE)) {
   $sClass = 'esf_Module_'.$sModule;
   $oModule = new $sClass;
-  call_user_func(array($oModule, 'Before'));
+  $oModule->Before();
   call_user_func(array($oModule, Registry::get('esf.Action').'Action'));
-  call_user_func(array($oModule, 'After'));
+  $oModule->After();
 }
 
 // handle ReturnTo=...
