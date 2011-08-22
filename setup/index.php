@@ -76,6 +76,13 @@ $step = isset($steps[$step]) ? $step : 'intro';
 $stepdata = $steps[$step];
 $Error = FALSE;
 
+if ($step == 'intro') {
+  // remove all cookies
+  foreach (array_keys($_COOKIE) as $key) {
+    setcookie($key, FALSE, time()-3600, '/', $_SERVER['HTTP_HOST']);
+  }
+}
+
 /**
  * pre process
  */
