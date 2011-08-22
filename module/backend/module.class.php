@@ -299,7 +299,7 @@ class esf_Module_Backend extends esf_Module {
       $category = ucwords(Registry::get($scope.'.'.$name.'.Category', 'Core'));
       if ($category == 'Core') {
         // Force Core to first position on key sort ;-)
-        $category = "\x01".$category;
+        $category = "\x00".$category;
       }
       $data['CATEGORY'][$category]['EXTENSIONS'][] = $_tpldata;
     }

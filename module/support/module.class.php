@@ -73,6 +73,7 @@ class esf_Module_Support extends esf_Module {
       }
     }
 
+    esf_Auctions::Load();
     TplData::set('Support.Auctions', esf_Auctions::$Auctions);
     TplData::set('Support.GROUPS', esf_Auctions::$Groups);
 

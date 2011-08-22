@@ -326,8 +326,6 @@ foreach (esf_Extensions::$Types as $Scope) {
 // ----------------------------------------------------------------------------
 // pre process
 // ----------------------------------------------------------------------------
-##if (esf_User::isValid()) esf_Auctions::Load();
-
 Event::ProcessInform('PageStart');
 
 if (!esf_User::isValid() AND Registry::get('Module.'.$sModule.'.LoginRequired')) {
@@ -392,9 +390,6 @@ if (!empty($sReturnTo) AND
 Event::ProcessInform('ProcessStart');
 
 if (esf_User::isValid()) {
-  // reread auctions AND GROUPS!!
-  esf_Auctions::Load();
-
   if ($sLastUpdate = Event::ProcessReturn('getLastUpdate')) {
     TplData::set('LastUpdate', strftime(Registry::get('Format.DateTimeS'), $sLastUpdate));
     unset($sLastUpdate);
