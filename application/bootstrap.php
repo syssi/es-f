@@ -326,7 +326,7 @@ foreach (esf_Extensions::$Types as $Scope) {
 // ----------------------------------------------------------------------------
 // pre process
 // ----------------------------------------------------------------------------
-if (esf_User::isValid()) esf_Auctions::Load();
+##if (esf_User::isValid()) esf_Auctions::Load();
 
 Event::ProcessInform('PageStart');
 
@@ -368,13 +368,13 @@ TplData::set('SubTitle2', '');
 Yryie::Info('Processing '.$sModule.' / '.Registry::get('esf.Action'));
 // << Debug
 
-if (Loader::Load('module/'.$sModule.'/module.class.php', TRUE, FALSE)) {
-  $sClass = 'esf_Module_'.$sModule;
-  $oModule = new $sClass;
-  $oModule->Before();
-  call_user_func(array($oModule, Registry::get('esf.Action').'Action'));
-  $oModule->After();
-}
+Loader::Load('module/'.$sModule.'/module.class.php');
+
+$sClass = 'esf_Module_'.$sModule;
+$oModule = new $sClass;
+$oModule->Before();
+call_user_func(array($oModule, Registry::get('esf.Action').'Action'));
+$oModule->After();
 
 // handle ReturnTo=...
 $sReturnTo = decodeReturnTo(Session::getP('returnto'));

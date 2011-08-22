@@ -27,12 +27,10 @@
       ]]>
     </pattern>
 
-    <!-- Reg. expressions that matches BuyItNow auctions
-         <img src="http://pics.ebaystatic.com/aw/pics/bin_15x54.gif" alt="Buy It Now" align="middle">
-         <img src="http://pics.ebaystatic.com/aw/pics/de/nn.gif" alt="Sofort &amp; Neu: Neue Artikel mit festgelegten Versandkosten und zum Sofort-Kaufen."> -->
+    <!-- Reg. expressions that matches BuyItNow auctions -->
     <pattern name="bin">
       <![CDATA[
-      ~<img[^>]+src="http://pics\.ebaystatic\.com/.*/(bin_15x54|nn)\.gif"[^>]*>~i => 1
+      ~<i>Buy It Now</i>~i => 0
       ]]>
     </pattern>
 

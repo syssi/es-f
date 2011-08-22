@@ -52,6 +52,8 @@ class esf_Module_Auction extends esf_Module {
    */
   public function IndexAction() {
 
+    esf_Auctions::Load();
+
     TplData::set('Auctions', array());
 
     $maxImgSize = getModuleVar('Auction', 'ImageSize');

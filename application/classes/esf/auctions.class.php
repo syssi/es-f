@@ -7,6 +7,7 @@
  * @copyright  2007-2010 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
  * @version    $Id: v2.4.1-81-g966abf9 2011-02-18 21:49:18 +0100 $
+ * @revision   $Rev$
  */
 abstract class esf_Auctions {
 
@@ -59,9 +60,6 @@ abstract class esf_Auctions {
       Event::Process('AuctionLoaded', $auctions[$item]);
     }
 
-    // sort auctions
-    uasort($auctions, array('self', 'SortAuctions'));
-
     // sort & save groups
     self::$Groups = $groups;
     ksort(self::$Groups);
@@ -71,6 +69,9 @@ abstract class esf_Auctions {
     self::$Auctions = $auctions;
 
     Event::ProcessInform('AuctionsLoaded');
+
+    // sort auctions
+    self::Sort();
   }
 
   /**
@@ -120,6 +121,14 @@ abstract class esf_Auctions {
     foreach (self::$Auctions as $item => $auction)
       if (self::getGroup($auction) == $group) $Auctions[] = $item;
     return $Auctions;
+  }
+
+  /**
+   * Sort auctions
+   *
+   */
+  public static function Sort() {
+    uasort(self::$Auctions, array('self', 'SortAuctions'));
   }
 
   /**

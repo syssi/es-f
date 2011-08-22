@@ -19,6 +19,9 @@
 
 <div id="content">
 
+<table id="content">
+<tr><td style="width:450px;padding:0 auto">
+
   <form id="loginform" name="Login" action="{FORMACTION}" method="post"
         accept-charset="ISO-8859-1" onsubmit="$('button').disable().value='• • •'">
   {fh:"module","login"}
@@ -74,6 +77,20 @@
 
   </form>
 
+</td><td>
+
+  <h3 style="float:left"><a name="twitter"></a>Twitter Updates</h3>
+  <a style="float:right" href="http://www.twitter.com/es_f"><img
+     src="http://twitter-badges.s3.amazonaws.com/follow_us-a.png" alt="Follow es_f on Twitter"/></a>
+
+  <div class="clear"></div>
+
+  <ul id="twitter_update_list"><li>Connecting to Twitter (JS required) ...</li></ul>
+  <script type="text/javascript" src="http://twitter.com/javascripts/blogger.js"></script>
+  <script type="text/javascript" src="http://twitter.com/statuses/user_timeline/es_f.json?callback=twitterCallback2&amp;count=8"></script>
+
+</td></tr></table>
+
 </div>
 
 <script type="text/javascript">
@@ -81,3 +98,7 @@
   addLoadEvent(function(){ $('loginform').focusFirstElement() });
   // ]]>
 </script>
+
+<div>
+{nvl:CONTENT_AFTER}
+</div>

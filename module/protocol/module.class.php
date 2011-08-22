@@ -74,7 +74,7 @@ class esf_Module_Protocol extends esf_Module {
       }
     }
 
-    if (TplData::isEmpty('Protocols')) $this->forward('empty');
+    if (TplData::isEmpty('Protocols')) Registry::set('esf.Action', 'empty');
   }
 
   /**

@@ -6,6 +6,7 @@
  * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
  * @version    1.0.0
  * @version    $Id: v2.4.1-84-g4cb6710 2011-02-19 14:07:42 +0100 $
+ * @revision   $Rev$
  */
 
 ini_set('display_startup_errors', 0);
@@ -49,6 +50,8 @@ unregister_GLOBALS();
 
 Loader::Load(APPDIR.'/lib/cache/cache.class.php');
 $oCache = Cache::create(NULL, 'Mock');
+
+Core::$Crypter = new MD5Crypter;
 
 TplData::$NameSpaceSeparator = '.';
 

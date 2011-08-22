@@ -65,6 +65,13 @@
       ]]>
     </pattern>
 
+    <!-- Reg. expressions that matches BuyItNow auctions -->
+    <pattern name="bin">
+      <![CDATA[
+      ~<i>Sofort-Kaufen</i>~i => 0
+      ]]>
+    </pattern>
+
     <!-- Find auctions ended early by seller -->
     <pattern name="EndedEarly">
       <![CDATA[

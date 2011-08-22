@@ -33,13 +33,13 @@ class esf_Module_Watching extends esf_Module {
     $item = FALSE;
 
     foreach ($res as $line) {
+      // skip empty lines
+      if (empty($line)) continue;
+
       if (stristr($line, 'Login failed')) {
         Messages::Error($res);
         break;
       }
-
-      // skip empty lines
-      if (empty($line)) continue;
 
       // Description can contain a ":"...
       list($key, $val) = explode(':', $line, 2);

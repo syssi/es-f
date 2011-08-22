@@ -26,8 +26,6 @@ CHANGES:
 
 <div class="clear"></div>
 
-<noscript>Sorry, JavaScript is required...</noscript>
-
 <ul id="twitter_update_list"><li>Connecting to Twitter (JS required) ...</li></ul>
 <script type="text/javascript" src="http://twitter.com/javascripts/blogger.js"></script>
 <script type="text/javascript" src="http://twitter.com/statuses/user_timeline/es_f.json?callback=twitterCallback2&amp;count=15"></script>

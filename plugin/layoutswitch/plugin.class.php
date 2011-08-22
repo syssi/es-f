@@ -22,7 +22,8 @@ class esf_Plugin_LayoutSwitch extends esf_Plugin {
    *
    */
   public function Start() {
-    if ($layout = $this->Request('switchlayout')) Session::setP('Layout', $layout);
+    if ($layout = $this->Request('switchlayout'))
+      Session::setP('Layout', $layout);
   }
 
   /**
@@ -35,7 +36,6 @@ class esf_Plugin_LayoutSwitch extends esf_Plugin {
     $data['LAYOUT'] = Session::getP('Layout');
     TplData::add('Footer_After', $this->Render('content', $data));
   }
-
 }
 
 Event::attach(new esf_Plugin_LayoutSwitch);

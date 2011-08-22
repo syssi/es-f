@@ -8,22 +8,29 @@
   font-size: 12px;
 }
 
-/* for IE surrounding div */
+/* for IE surrounding div
 #content {
 	text-align: center;
+}
+ */
+
+td {
+  vertical-align: top;
+}
+
+table#content td {
+  padding:50px 3% 0;
+}
+
+table#content td td {
+  padding: 7px 10px;
 }
 
 #logintable {
   width: 310px;
-  margin: 50px auto 0.5em;
+  margin: 0 auto 0.5em;
   border: 1px solid #4D4D4D;
-	text-align: center;
   font-size: 12px;
-}
-
-#logintable td {
-  padding: 7px 10px;
-	text-align: left;
 }
 
 #logintable input,
@@ -54,6 +61,10 @@
 
 #logintable td.error {
   font-style: italic;
+}
+
+#twitter_update_list {
+  padding-left: 1.5em;
 }
 
 #copyright {

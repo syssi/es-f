@@ -18,7 +18,7 @@ class esf_Module_Login extends esf_Module {
    */
   public function __construct() {
     parent::__construct();
-    Registry::set('esf.contentonly', TRUE);
+ #   Registry::set('esf.contentonly', TRUE);
   }
 
   /**
