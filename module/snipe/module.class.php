@@ -30,6 +30,13 @@ class esf_Module_Snipe extends esf_Module {
   /**
    *
    */
+  public function Before() {
+    $this->LanguageSet(Session::get('Language'));
+  }
+
+  /**
+   *
+   */
   public function IndexAction() {
     if (!esf_User::isValid()) {
       Session::setP('LoginReturn', $_GET);
@@ -127,4 +134,9 @@ class esf_Module_Snipe extends esf_Module {
       $this->forward('error');
     }
   }
+
+  /**
+   *
+   */
+  public function ErrorAction() {}
 }

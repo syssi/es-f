@@ -7,6 +7,7 @@
  * @copyright  2009-2011 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
  * @version    $Id: v2.4.1-54-g83ea36d 2011-01-17 20:17:17 +0100 $
+ * @revision   $Rev$
  */
 class esf_Plugin_Module_Support extends esf_Plugin {
 
@@ -14,7 +15,7 @@ class esf_Plugin_Module_Support extends esf_Plugin {
    * @return array Array of events handled by the plugin
    */
   public function handles() {
-    return array('BuildMenu', 'OutputStart');
+    return array('LanguageSet', 'BuildMenu', 'OutputStart');
   }
 
   /**
@@ -59,7 +60,6 @@ class esf_Plugin_Module_Support extends esf_Plugin {
     Header('Content-Length: '.strlen($page));
     die($page);
   }
-
 }
 
 Event::attach(new esf_Plugin_Module_Support);

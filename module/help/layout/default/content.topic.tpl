@@ -14,7 +14,7 @@
 
   <script type="text/javascript">
     document.write('<p><button class="button" onclick="window.close()">'
-                  +'[[Help.CloseWindow]]</button></p>');
+                  +'[[Help.CloseWindow]]<\/button><\/p>');
   </script>
 
 </div>

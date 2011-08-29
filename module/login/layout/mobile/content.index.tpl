@@ -11,10 +11,11 @@
 <div id="content">
 
   <!-- IF LOGINMSG -->
-  <p class="msgerror b">{nvl:LOGINMSG}</p>
+  <p class="msgerror b">{LOGINMSG}</p>
   <!-- ENDIF -->
 
-  <form id="loginform" name="Login" action="{FORMACTION}" method="post" accept-charset="ISO-8859-1">
+  <form id="loginform" name="Login" action="{FORMACTION}" method="post"
+        accept-charset="ISO-8859-1">
   {fh:"module","login"}
 
   <div>
@@ -31,7 +32,7 @@
 
     <p>
       <input class="button" type="submit" name="login" alt="[ [[Login.Login]] ]"
-             value="[[Login.Login|quote]]" tabindex="4">
+             value="[[Login.Login|quote]]" tabindex="3">
     </p>
 
   </div>

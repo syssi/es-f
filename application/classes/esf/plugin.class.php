@@ -22,7 +22,6 @@ abstract class esf_Plugin extends esf_Extension implements EventHandlerI {
    * /
   public function __construct() {
     parent::__construct();
-    $this->Layouts = explode(',', $this->Layouts);
   }
 
   //--------------------------------------------------------------------------

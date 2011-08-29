@@ -137,6 +137,7 @@ class esf_Template {
     $this->Template = new Yuelo_Template($this->Adapter);
 
     $this->Template->AssignConstant('DEVELOP', DEVELOP);
+    if (Registry::get('Template.ClearCache')) $this->Template->ClearCache();
 
     if (Session::getP('ClearCache', FALSE)) {
       Yuelo::ClearCache();

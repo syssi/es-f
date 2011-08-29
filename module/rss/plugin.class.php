@@ -7,7 +7,6 @@
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2009 Knut Kohl
  * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
- * @version    0.1.0
  * @version    $Id: v2.4.1-62-gb38404e 2011-01-30 22:35:34 +0100 $
  * @revision   $Rev$
  */
@@ -17,7 +16,7 @@ class esf_Plugin_Module_RSS extends esf_Plugin {
    * @return array Array of events handled by the plugin
    */
   public function handles() {
-    return array('Start', 'OutputStart');
+    return array('LanguageSet', 'Start', 'OutputStart');
   }
 
   /**
@@ -47,7 +46,7 @@ class esf_Plugin_Module_RSS extends esf_Plugin {
       'URLUSER' => Core::$Crypter->encrypt($user),
       'USER'    => $user
     );
-    TplData::add('Powered_Before', ParseModuleTemplate('rss', 'inc.footer', $data));
+    TplData::add('POWERED_BEFORE', ParseModuleTemplate('rss', 'inc.footer', $data));
   }
 }
 

@@ -234,14 +234,14 @@ abstract class Session {
    */
   public static function set( $key, $val=NULL ) {
     $key = self::__mapKey($key);
-    if (isset(self::$__signer)) $val = self::$__signer->sign($val);
+    $_val = isset(self::$__signer) ? self::$__signer->sign($val) : $val;
     if (!self::active()) {
-      self::$__buffer[$key] = $val;
+      self::$__buffer[$key] = $_val;
     } else {
       if (is_null($val)) {
         unset($_SESSION[$key]);
       } else {
-        $_SESSION[$key] = $val;
+        $_SESSION[$key] = $_val;
       }
     }
   }
@@ -294,29 +294,33 @@ abstract class Session {
   /**
    * Chck if a $_SESSION variable is set
    *
-   * @param string $var Varibale name
+   * @param string $key Varibale name
    * @return bool
    */
-  public static function is_set( $var ) {
-    return isset($_SESSION[self::__mapKey($var)]);
+  public static function is_set( $key ) {
+    return isset($_SESSION[self::__mapKey($key)]);
   }
 
   /**
    * Get a value from a $_SESSION variable, return $default if not set
    *
    * @see set()
-   * @param string $var Variable name
+   * @param string $key Variable name
    * @param mixed $default Return if $var not set
+   * @param bool $clear Remove data
    * @return mixed
    */
-  public static function get( $var, $default=NULL ) {
-    $var = self::__mapKey($var);
-    $val = isset($_SESSION[$var])
-         ? $_SESSION[$var]
-         : ( isset($default)
-           ? $default
-           : self::$NVL );
-    if (isset(self::$__signer)) $val = self::$__signer->get($val);
+  public static function get( $key, $default=NULL, $clear=FALSE ) {
+    $key = self::__mapKey($key);
+    if (isset($_SESSION[$key])) {
+      $val = $_SESSION[$key];
+      if (isset(self::$__signer)) $val = self::$__signer->get($val);
+    } elseif (isset($default)) {
+      $val = $default;
+    } else {
+      $val = self::$NVL;
+    }
+    if ($clear) unset($_SESSION[$key]);
     return $val;
   }
 

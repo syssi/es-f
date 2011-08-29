@@ -6,7 +6,6 @@
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2009-2011 Knut Kohl
  * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
- * @version    1.0.0
  * @version    $Id: v2.4.1-62-gb38404e 2011-01-30 22:35:34 +0100 $
  * @revision   $Rev$
  */
@@ -18,7 +17,7 @@ abstract class esf_Extension {
    *
    * @var array $Core
    */
-  public $Core = array();
+  public $Core;
 
   /**
    * Class constructor
@@ -34,7 +33,9 @@ abstract class esf_Extension {
     else
       $this->Request =& $_POST;
 
-    $this->Core['localpath'] = LOCALDIR.'/'.$this->ExtensionScope.'/'.$this->ExtensionName;
+    $this->Core = array(
+      'localpath' => np(LOCALDIR.'/'.$this->ExtensionScope.'/'.$this->ExtensionName)
+    );
 
     if (!is_dir($this->Core['localpath'])) {
       $res = Exec::getInstance()->MkDir($this->Core['localpath'], $err);
@@ -60,6 +61,33 @@ abstract class esf_Extension {
    */
   public function __get( $name ) {
     return Registry::get($this->ExtensionScope.'.'.$this->ExtensionName.'.'.$name);
+  }
+
+  /**
+   *
+   */
+  public function LanguageSet( $lang ) {
+    $path = np(BASEDIR.'/'.$this->ExtensionScope.'/'.$this->ExtensionName.'/language/');
+
+    $file = $path . $lang . '.tmx';
+    if (file_exists($file)) {
+      Translation::LoadTMXFile($file, $lang, Core::$Cache);
+    } else {
+      // load english
+      $file = $path . 'en.tmx';
+      if (file_exists($file))
+        Translation::LoadTMXFile($file, 'en', Core::$Cache);
+    }
+
+    $file = $path . 'help.' . $lang . '.tmx';
+    if (file_exists($file)) {
+      Translation::LoadTMXFile($file, $lang, Core::$Cache);
+    } else {
+      // load english
+      $file = $path . 'help.en.tmx';
+      if (file_exists($file))
+        Translation::LoadTMXFile($file, 'en', Core::$Cache);
+    }
   }
 
   // -------------------------------------------------------------------------

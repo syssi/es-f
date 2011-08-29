@@ -10,8 +10,8 @@
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2007-2011 Knut Kohl
  * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
- * @version    1.0.0
  * @version    $Id: v2.4.1-80-g4acbac1 2011-02-15 22:22:16 +0100 $
+ * @revision   $Rev$
  * @throws     ebayParserException
  */
 abstract class ebayParser {
@@ -29,7 +29,8 @@ abstract class ebayParser {
   /**
    * Constructor
    *
-   * @param $tld string Top level domain to create
+   * @param string $tld Top level domain to create
+   * @return ebayParser
    */
   public final static function factory( $tld ) {
     $tld = str_replace('.', '_', strtolower($tld));
@@ -45,10 +46,10 @@ abstract class ebayParser {
   /**
    * Get an auction detail
    *
-   * @param $item string
-   * @param $name string Detail name
-   * @param $stripTags bool Strip tags from result
-   * @param $url string URL id
+   * @param string $item
+   * @param string $name Detail name
+   * @param bool $stripTags Strip tags from result
+   * @param string $url URL id
    * @return string
    */
   public final function getDetail( $item, $name, $stripTags=TRUE, $url=NULL ) {

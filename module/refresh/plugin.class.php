@@ -7,8 +7,8 @@
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2009-2011 Knut Kohl
  * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
- * @version    1.0.0
  * @version    $Id: v2.4.1-62-gb38404e 2011-01-30 22:35:34 +0100 $
+ * @revision   $Rev$
  */
 class esf_Plugin_Module_Refresh extends esf_Plugin {
 
@@ -16,7 +16,7 @@ class esf_Plugin_Module_Refresh extends esf_Plugin {
    * @return array Array of events handled by the plugin
    */
   public function handles() {
-    return array('BuildMenu', 'OutputStart', 'OutputContent');
+    return array('LanguageSet', 'BuildMenu', 'ProcessStart');
   }
 
   /**
@@ -35,65 +35,34 @@ class esf_Plugin_Module_Refresh extends esf_Plugin {
   /**
    *
    */
-  function OutputStart() {
+  function ProcessStart() {
+    if (!esf_User::isValid()) return;
+
     // skip refresh, when only content is required (e.g. auction / group edit)
     if (Registry::get('esf.contentonly')) return;
 
-    $auctions = Session::get('Module.Refresh.Items');
-    $maxage = (int)Registry::get('Module.Refresh.MaxAge')*60;
+    $maxage = (int) Registry::get('Module.Refresh.MaxAge') * 60;
 
-    if (esf_User::isValid() AND
-        ($auctions OR
-         Registry::get('esf.module') == 'auction' AND $maxage > 0 AND
-         $_SERVER['REQUEST_TIME']-$maxage > Event::ProcessReturn('getLastUpdate'))) {
-
+    if (Registry::get('esf.module') == 'auction' AND $maxage > 0 AND
+        $_SERVER['REQUEST_TIME']-$maxage > Event::ProcessReturn('getLastUpdate')) {
       TplData::add('HtmlHeader.raw', StylesAndScripts('module/refresh', Session::getP('Layout')));
-
-      if (!$auctions)
-        Session::set('Module.Refresh.Items', array_keys(esf_Auctions::$Auctions));
+      $items = array_keys(esf_Auctions::$Auctions);
+    } else {
+      $items = Session::get('Module.Refresh.Items', NULL, TRUE);
     }
-  }
 
-  /**
-   *
-   */
-  function OutputContent() {
-    $items = Session::get('Module.Refresh.Items');
-    Session::set('Module.Refresh.Items');
-
-    if (!esf_User::isValid() OR !count($items)) return;
+    if (empty($items)) return;
 
     $auctions = array();
-    foreach ($items as $item)
+    foreach ($items as $item) {
       if (isset(esf_Auctions::$Auctions[$item])) $auctions[] = $item;
+    }
 
     if (!$count = count($auctions)) return;
 
-    echo '<div id="autorefresh"><img style="float:left" src="module/refresh/layout/'
-       . Registry::get('Module.Refresh.Layout', 'default').'/images/wait.gif">'
-       . '<div style="margin-left:50px">'.Translation::get('Refresh.Message').'</div>';
-
-    // Overlay divs for each auction via z-index
-    // 1. Outer DIV have to have position:relative
-    echo '<div style="margin-left:50px;position:relative">';
-
-    // 2. Inner DIV have to have position:absolute, which results in combination
-    //    with a relative positioned parent ==> absolute from _parent_ element.
-    $div = '<div class="inner" style="z-index:%d">%s</div>';
-
-    $div_msg = ($count > 1)
-           ? '<tt>%1$02d/'.sprintf('%02d',$count).' : </tt> %2$s ...'
-           : '%2$s ...';
-
-    $id = 1;
     $r = 0;
-
     foreach ($auctions as $item) {
       $auction = esf_Auctions::get($item);
-      $msg = sprintf($div_msg, $id++, $auction['name']);
-      // force buffer output with a looong string...
-      printf_flush($div, $id, $msg);
-      // ... and read auction from ebay
       if (!$auction['ended'] AND
           $auction = esf_Auctions::fetchAuction($auction, $this->FullRefresh)) {
         esf_Auctions::set($auction, FALSE);
@@ -101,21 +70,9 @@ class esf_Plugin_Module_Refresh extends esf_Plugin {
         $r = $r + 1;
       }
     }
-
-    $done = Translation::get('Refresh.Done', $r, $count-$r);
-    printf($div, $id++, $done);
-    echo_flush('</div></div>'."\n");
-
     Event::ProcessInform('setLastUpdate');
-
-    // try to remove the refreshing output and update "last updated" timestamp
-    $script = sprintf('$("autorefresh").remove();'
-                     .'$("lastupdate").update("%s");',
-                      date(Registry::get('Format.DateTime'),
-                           Event::ProcessReturn('getLastUpdate')));
-    echo_script($script);
+    Messages::Success(Translation::get('Refresh.Done', $r, $count-$r));
   }
-
 }
 
 Event::attach(new esf_Plugin_Module_Refresh);

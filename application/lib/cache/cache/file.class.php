@@ -18,8 +18,8 @@ require_once dirname(__FILE__).'/filebase.class.php';
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2007-2011 Knut Kohl
  * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
- * @version    1.0.0
  * @version    $Id: v2.4.1-77-gc4bf735 2011-02-13 21:51:53 +0100 $
+ * @revision   $Rev$
  */
 class Cache_File extends Cache_FileBase {
 
@@ -90,12 +90,11 @@ class Cache_File extends Cache_FileBase {
     $info = parent::info();
     $info['filename'] = $this->FileName();
     $info['count'] = count($this->data);
-    if (function_exists('memory_get_usage')) {
-      $size = memory_get_usage();
-      $a = array_merge($this->data);
-      $info['size'] = memory_get_usage() - $size;
-      unset($a);
-    }
+    $size = memory_get_usage();
+    // provoke real memory allocation
+    $a = unserialize(serialize($this->data));
+    $info['size'] = memory_get_usage() - $size;
+    unset($a);
     return $info;
   }
 

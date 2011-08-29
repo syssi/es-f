@@ -21,8 +21,8 @@ class esf_Module_Help extends esf_Module {
   /**
    *
    */
-  public function __construct() {
-    parent::__construct();
+  public function Before() {
+    parent::Before();
 
     if (isset($this->Request['ext'])) {
       $ext = @explode('-', @$this->Request['ext']);
@@ -34,10 +34,9 @@ class esf_Module_Help extends esf_Module {
     }
     $path = $this->Scope . '/' . $this->Extension;
 
-    if (Registry::get('EnglishAsDefault'))
-      foreach (glob($path.'/language/en.php') as $file)
-        Loader::Load($file);
-
+    // load english texts as default
+    foreach (glob($path.'/language/en.php') as $file)
+      Loader::Load($file);
     foreach (glob($path.'/language/'.Session::get('Language').'.php') as $file)
       Loader::Load($file);
 
@@ -129,26 +128,17 @@ class esf_Module_Help extends esf_Module {
    *
    */
   public function TopicAction() {
-    if (!isset($this->Request['t']))
-      return;
-
-    $topic = $this->Request['t'];
+    if (!isset($this->Request['t'])) return;
 
     Registry::set('esf.ContentOnly', TRUE);
-    @list($title, $help) = explode('|', Translation::get($topic), 2);
-    if (empty($help)) {
-      // no title, help is in title
-      $help = $title;
-#      $title = explode(Translation::$NameSpaceSeparator, $topic);
-#      $title = array_pop($title);
+
+    $help = Translation::get($this->Request['t']);
+    if (strpos($help, '|') !== FALSE) {
+      list($title, $help) = explode('|', $help, 2);
+    } else {
       $title = '';
     }
     TplData::set('Title', $title);
     TplData::set('Help', $help);
   }
-
-  // -------------------------------------------------------------------------
-  // PRIVATE
-  // -------------------------------------------------------------------------
-
 }

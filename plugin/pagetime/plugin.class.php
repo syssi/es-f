@@ -23,7 +23,7 @@ class esf_Plugin_PageTime extends esf_Plugin {
    * @return array Array of events handled by the plugin
    */
   public function handles() {
-    return array('OutputStart', 'OutputFilterFooter', 'OutputFilterHtmlEnd');
+    return array('LanguageSet', 'OutputStart', 'OutputFilterFooter', 'OutputFilterHtmlEnd');
   }
 
   /**

@@ -8,6 +8,7 @@
  * @copyright  2009-2011 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
  * @version    $Id: v2.4.1-62-gb38404e 2011-01-30 22:35:34 +0100 $
+ * @revision   $Rev$
  */
 class esf_Plugin_Module_Process extends esf_Plugin {
 
@@ -15,7 +16,7 @@ class esf_Plugin_Module_Process extends esf_Plugin {
    * @return array Array of events handled by the plugin
    */
   public function handles() {
-    return array('BuildMenu');
+    return array('LanguageSet', 'BuildMenu');
   }
 
   /**

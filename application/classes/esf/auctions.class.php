@@ -584,8 +584,10 @@ abstract class esf_Auctions {
       }
     }
 
-    File::append($LogFile, $skip);
-    File::append($LogFile);  // a empty line ;-)
+    if (!empty($skip)) {
+      File::append($LogFile, $skip);
+      File::append($LogFile);  // a empty line ;-)
+    }
 
     $pid = 0;
 

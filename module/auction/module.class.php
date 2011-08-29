@@ -12,10 +12,10 @@
 class esf_Module_Auction extends esf_Module {
 
   /**
-   * Class constructor
+   *
    */
-  public function __construct() {
-    parent::__construct();
+  public function Before() {
+    parent::Before();
     // menu entry for cleaning up
     if (esf_Auctions::Count()) {
       esf_Menu::addModule( array(
@@ -35,6 +35,8 @@ class esf_Module_Auction extends esf_Module {
     $this->Item     = checkR('item');
     $this->Group    = checkR('group');
     $this->Auctions = checkR('auctions');
+
+    esf_Auctions::Load();
   }
 
   /**
@@ -51,15 +53,12 @@ class esf_Module_Auction extends esf_Module {
    * Run, if all prepare is done!
    */
   public function IndexAction() {
-
-    esf_Auctions::Load();
+    if ($this->Forwarded) esf_Auctions::Load();
 
     TplData::set('Auctions', array());
 
     $maxImgSize = getModuleVar('Auction', 'ImageSize');
-
     $LastCategory = $LastGroup = FALSE;
-
     $Pids = esf_Auctions::PIDs();
     $time = time();
     $next = FALSE;
@@ -275,7 +274,6 @@ class esf_Module_Auction extends esf_Module {
         $this->forward();
       }
     } elseif ($auction = esf_Auctions::get($this->Item)) {
-
       TplData::set('PopupForm', FALSE);
       TplData::set('SubTitle2', Translation::get('Auction.EditAuction'));
       TplData::set($this->getAuctionTplData($auction));
@@ -283,7 +281,6 @@ class esf_Module_Auction extends esf_Module {
       TplData::set('Category', array('NAME'=>$auction['category']));
       $imgUrl = sprintf('%s/%s.%s', esf_User::UserDir(), $auction['item'], $auction['image']);
       TplData::set('ImgURL', urlencode(trim(base64_encode($imgUrl), '=')));
-
     } else {
       $this->forward();
     }

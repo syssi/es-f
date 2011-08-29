@@ -4,7 +4,7 @@
  */
 -->
 
-{nvl:DEBUG}
+{nvl:END_OF_PAGE}
 
 </body>
 </html>

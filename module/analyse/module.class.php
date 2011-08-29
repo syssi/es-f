@@ -18,11 +18,12 @@
 class esf_Module_Analyse extends esf_Module {
 
   /**
-   * Class constructor
+   *
    */
-  public function __construct() {
-    parent::__construct();
+  public function Before() {
+    parent::Before();
     $this->group = $this->Request('group');
+    esf_Auctions::Load();
   }
 
   /**

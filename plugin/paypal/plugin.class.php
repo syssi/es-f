@@ -11,8 +11,8 @@
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2009-2011 Knut Kohl
  * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
- * @version    1.0.0
  * @version    $Id: v2.4.1-80-g4acbac1 2011-02-15 22:22:16 +0100 $
+ * @revision   $Rev$
  */
 class esf_Plugin_Paypal extends esf_Plugin {
 
@@ -29,7 +29,7 @@ class esf_Plugin_Paypal extends esf_Plugin {
    * @return array Array of events handled by the plugin
    */
   public function handles() {
-    return array('AuctionReadedInitial', 'DisplayAuction');
+    return array('LanguageSet', 'AuctionReadedInitial', 'DisplayAuction');
   }
 
   /**

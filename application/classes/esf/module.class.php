@@ -10,16 +10,24 @@
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2007-2011 Knut Kohl
  * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
- * @version    1.0.0
  * @version    $Id: v2.4.1-62-gb38404e 2011-01-30 22:35:34 +0100 $
  * @revision   $Rev$
  */
 abstract class esf_Module extends esf_Extension {
 
   /**
+   * Class constructor
+   */
+  public function __construct() {
+    parent::__construct();
+    $this->Forwarded = FALSE;
+  }
+  /**
    * Called before the Action function is processed
    */
   public function Before() {
+    if ($this->LoginRequired AND !esf_User::isValid())
+      $this->redirect('login');
   }
 
   /**
@@ -64,6 +72,13 @@ abstract class esf_Module extends esf_Extension {
   //--------------------------------------------------------------------------
 
   /**
+   * Set if the internal method flow goes through $this->forward()
+   *
+   * @var bool $Forwarded
+   */
+  protected $Forwarded;
+
+  /**
    *
    */
   protected $formats = array (
@@ -87,6 +102,7 @@ abstract class esf_Module extends esf_Extension {
   protected function forward( $action='index' ) {
     $this->Action = $action;
     Registry::set('esf.Action', $this->Action);
+    $this->Forwarded = TRUE;
     $method = $this->Action.'Action';
     $this->$method();
   }

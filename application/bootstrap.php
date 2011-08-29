@@ -24,22 +24,20 @@ $sDebugFile = np('%s/%s.debug', TEMPDIR, APPID);
 if (isset($_GET['DEBUG'])) {
   touch($sDebugFile);
 } elseif (isset($_GET['TRACE'])) {
-  $_TRACE = np('%s/trace-%s-%s.csv', TEMPDIR, ESF_VERSION, date('Ymd-Hi'));
-  File::write($sDebugFile, $_TRACE);
+  File::write($sDebugFile, np('%s/trace-%s-%s.csv', TEMPDIR, ESF_VERSION, date('Ymd-Hi')));
 } elseif (isset($_GET['STOP'])) {
   @unlink($sDebugFile);
   Messages::Info('Debug off');
 }
 
 define('_DEBUG', file_exists($sDebugFile));
-
-$_TRACE = _DEBUG ? file_get_contents($sDebugFile) : FALSE;
+define('_TRACE', _DEBUG ? file_get_contents($sDebugFile) : FALSE);
 
 Yryie::Active(_DEBUG);
 #Yryie::$TimeUnit = Yryie::MICROSECONDS;
 
-if ($_TRACE) {
-  Messages::Success('Debug trace is active: '.$_TRACE, TRUE);
+if (_TRACE) {
+  Messages::Success('Debug trace is active: '._TRACE, TRUE);
 } elseif (_DEBUG) {
   Messages::Success('Debug active!', TRUE);
 }
@@ -140,7 +138,6 @@ Core::IncludeSpecial(esf_Extensions::MODULE, 'plugin.class', TRUE);
 
 // include all plugin configs
 ################################
-#Core::IncludeSpecial(esf_Extensions::PLUGIN, 'config');
 Core::ReadConfigs(esf_Extensions::PLUGIN);
 
 Event::ProcessInform('PluginConfigsLoaded');
@@ -167,8 +164,9 @@ if (!Session::get('language')) {
     $language = 'en';
   Session::set('language', $language);
 }
-
 Session::checkRequest('language', 'en');
+
+Event::ProcessInform('LanguageSet', Session::get('language'));
 
 if (Session::get('Mobile')) {
   Session::setP('Layout', 'mobile');
@@ -188,8 +186,6 @@ if (PluginEnabled('Validate')) {
 //_dbg($_SESSION);
 //_dbg($_REQUEST);
 
-Core::StripSlashes($_REQUEST);
-
 /// Yryie::Debug('$_REQUEST : '.print_r($_REQUEST, TRUE));
 
 if (!Core::isPost()) {
@@ -205,6 +201,7 @@ if (!Core::isPost()) {
   /// Yryie::Debug('$_POST after analyse: '.print_r($_POST, TRUE));
   $_GET = array();
 }
+Core::StripSlashes($_REQUEST);
 Event::Process('UrlUnRewrite', $_REQUEST);
 Event::Process('AnalyseRequest', $_REQUEST);
 
@@ -243,17 +240,8 @@ Translation::RegisterFilter(new Translation_Filter_Textile);
 
 /// Yryie::StartTimer('CoreLangLoad', 'Load core languages');
 
+// include core translations
 $sLanguage = Session::get('language');
-
-if (Registry::get('EnglishAsDefault') AND $sLanguage != 'en') {
-  // load as default english texts and config
-  foreach (glob(APPDIR.'/language/*en.tmx') as $file)
-    Translation::LoadTMXFile($file, 'en', Core::$Cache);
-  // Settings
-  Loader::Load(APPDIR.'/language/en.php');
-}
-
-// include translation
 if (file_exists(APPDIR.'/language/core.'.$sLanguage.'.tmx')) {
   foreach (glob(APPDIR.'/language/*'.$sLanguage.'.tmx') as $file)
     Translation::LoadTMXFile($file, $sLanguage, Core::$Cache);
@@ -270,7 +258,7 @@ if ($locale = Session::get('locale')) {
 } else {
   if (!setlocale(LC_ALL, Registry::get('locale'))) {
     Messages::Error(sprintf('Locale <tt>['.Registry::get('locale').']</tt> not found on your system! '
-                              .'Please <a href="setup/">reconfigure</a> your system and select a correct locale!'),
+                           .'Please <a href="setup/">reconfigure</a> your system and select a correct locale!'),
                        TRUE);
     Messages::Info(sprintf('Fall back for now to locale <tt>[%s]</tt>.', setlocale(LC_ALL, 0)), TRUE);
   }
@@ -279,16 +267,9 @@ if ($locale = Session::get('locale')) {
 
 /// Yryie::StopTimer('CoreLangLoad');
 
-// Init template engine
-$oTemplate = esf_Template::getInstance();
-if (Registry::get('Template.ClearCache')) $oTemplate->Template->ClearCache();
 
 // check if requested module is enabled
 if (!ModuleEnabled($sModule)) {
-  if ($sModule == STARTMODULE) {
-    die('<p>Default module "'.$sModule.'" is disabled!</p>'
-       .'<p>Please <a href="setup/">configure</a> a different default module!</p>');
-  }
   Messages::Error(Translation::get('Core.ModuleNotFound', $sModule));
   Core::Redirect(Core::URL(array('module'=>STARTMODULE)));
 } elseif (!Core::CheckRequired('module', $sModule, $Err)) {
@@ -296,49 +277,13 @@ if (!ModuleEnabled($sModule)) {
   Core::Redirect(Core::URL(array('module'=>STARTMODULE)));
 }
 
-/// Yryie::StartTimer('MoreLangLoad', 'Load plugin / module languages');
-
-$sLanguage = Session::get('language');
-
-foreach (esf_Extensions::$Types as $Scope) {
-  foreach (esf_Extensions::getExtensions($Scope) as $Extension) {
-    if (esf_Extensions::checkState($Scope, $Extension, esf_Extensions::BIT_ENABLED) AND
-        ($Scope != esf_Extensions::MODULE OR
-         !Registry::get('Module.'.$Extension.'.LoginRequired') OR
-         esf_User::isValid())) {
-      $path = sprintf(BASEDIR.'%1$s%2$s%1$s%3$s%1$s', DIRECTORY_SEPARATOR, $Scope, $Extension);
-      if (Registry::get('EnglishAsDefault') AND $sLanguage != 'en') {
-        // include as default all english texts
-        foreach (glob($path.'language/*en.tmx') as $file) {
-          Translation::LoadTMXFile($file, 'en', Core::$Cache);
-        }
-      }
-      // include only for enabled modules and plugins
-      foreach (glob($path.'language/*'.$sLanguage.'.tmx') as $file) {
-        Translation::LoadTMXFile($file, $sLanguage, Core::$Cache);
-      }
-    }
-  }
-}
-
-/// Yryie::StopTimer('MoreLangLoad');
-
 // ----------------------------------------------------------------------------
 // pre process
 // ----------------------------------------------------------------------------
 Event::ProcessInform('PageStart');
 
-if (!esf_User::isValid() AND Registry::get('Module.'.$sModule.'.LoginRequired')) {
-  /// Yryie::Info('Forward: '.$sModule.' -> Login');
-  if ($sModule != 'login') {
-    unset($_REQUEST['ESFSESSID']);
-    Session::setP('LoginReturn', $_REQUEST);
-  }
-  Core::Forward('login');
-} elseif (esf_User::isValid() AND $sLoginReturn = Session::getP('LoginReturn')) {
-  Session::setP('LoginReturn');
-  Core::Forward(NULL, NULL, $sLoginReturn);
-}
+// Init template engine
+$oTemplate = esf_Template::getInstance();
 
 $sModule = Registry::get('esf.Module');
 
@@ -355,7 +300,7 @@ TplData::set('Title', $sTitle);
 TplData::set('SubTitle1', $sTitle);
 /* ///
 TplData::set('SubTitle1',
-              $sTitle.' <tt style="font-size:80%;color:red">['
+              $sTitle.' <tt style="font-size:60%;color:red">['
              .exec('git branch | grep \* | cut -d" " -f2').']</tt>');
 /// */
 unset($sTitle);
@@ -537,6 +482,7 @@ $RootDir = array(
   BASEDIR.'/layout',
 );
 $oTemplate->Output('doctype', FALSE, $RootDir);
+Event::ProcessInform('BeforeOutputHtmlHead');
 $html = $oTemplate->Render('html.head', TRUE, $RootDir);
 Event::Process('OutputFilter', $html);
 echo $html;
@@ -547,6 +493,7 @@ echo $html;
 TplData::set('esf_MessagesErrors', Messages::count(Messages::ERROR));
 TplData::set('esf_Messages', implode((array)Messages::get()));
 
+Event::ProcessInform('BeforeOutputHtmlStart');
 $html = $oTemplate->Render('html.start', TRUE, $RootDir);
 Event::Process('OutputFilter', $html);
 echo $html;
@@ -581,6 +528,7 @@ foreach ($steps as $step) {
     if ($content) TplData::set('Content', $content);
   }
 
+  Event::ProcessInform('BeforeOutputHtml'.$step);
   $html = $oTemplate->Render('html.'.$step, TRUE, $RootDir);
   Event::Process('OutputFilter'.$step, $html);
   Event::Process('OutputFilter', $html);
@@ -594,17 +542,7 @@ foreach ($steps as $step) {
 
 if (!DEVELOP) ob_start();
 
-if (_DEBUG) {
-  Yryie::Finalize();
-  if ($_TRACE) Yryie::Save($_TRACE);
-  echo '<div id="Yryie_title"
-             style="margin-top:1em;cursor:pointer;text-align:center;padding:0.25em"
-             onclick="$(\'Yryie_wrap\').toggle()"><tt><strong>Yryie</strong></tt></div>
-        <div id="Yryie_wrap" style="height:40em;overflow:auto;display:none">';
-  Yryie::Output(TRUE, TRUE);
-  echo '</div>';
-}
-
+Event::ProcessInform('BeforeOutputHtmlEnd');
 $html = $oTemplate->Render('html.end', TRUE, $RootDir);
 Event::Process('OutputFilterHtmlEnd', $html);
 Event::Process('OutputFilter', $html);

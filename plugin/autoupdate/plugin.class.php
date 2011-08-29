@@ -11,8 +11,8 @@
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2009-2010 Knut Kohl
  * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
- * @version    1.0.0
  * @version    $Id: v2.4.1-70-g8bb353a 2011-02-07 20:54:16 +0100 $
+ * @revision   $Rev$
  */
 class esf_Plugin_AutoUpdate extends esf_Plugin {
 
@@ -40,7 +40,7 @@ class esf_Plugin_AutoUpdate extends esf_Plugin {
    * @return array Array of events handled by the plugin
    */
   public function handles() {
-    return array('Start', 'PageStart', 'OutputContent');
+    return array('LanguageSet', 'Start', 'PageStart', 'OutputContent');
   }
 
   /**

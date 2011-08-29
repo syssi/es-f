@@ -11,8 +11,8 @@
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2009-2011 Knut Kohl
  * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
- * @version    1.0.0
  * @version    $Id: v2.4.1-62-gb38404e 2011-01-30 22:35:34 +0100 $
+ * @revision   $Rev$
  */
 class esf_Plugin_SellerItems extends esf_Plugin {
 
@@ -21,7 +21,6 @@ class esf_Plugin_SellerItems extends esf_Plugin {
    */
   public function __construct() {
     parent::__construct();
-
     $this->URL = str_replace('$SELLER', '%s', $this->OtherItems);
     $this->URL = str_replace('$HOMEPAGE', Registry::get('ebay.Homepage'), $this->URL);
   }
@@ -30,7 +29,7 @@ class esf_Plugin_SellerItems extends esf_Plugin {
    * @return array Array of events handled by the plugin
    */
   public function handles() {
-    return array('DisplayAuction');
+    return array('LanguageSet', 'DisplayAuction');
   }
 
   /**
