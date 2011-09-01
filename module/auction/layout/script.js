@@ -125,7 +125,8 @@ function ajaxStartGroup ( _group, _hash ) {
             $('td_group2_'+_hash).removeClassName('group_active');
             tip_startstop[_hash] = tip_start;
           }
-        } else if (json.msg) {
+        }
+        if (json.msg) {
           alert(json.msg);
         }
       },

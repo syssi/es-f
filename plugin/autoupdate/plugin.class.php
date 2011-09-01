@@ -40,7 +40,7 @@ class esf_Plugin_AutoUpdate extends esf_Plugin {
    * @return array Array of events handled by the plugin
    */
   public function handles() {
-    return array('LanguageSet', 'Start', 'PageStart', 'OutputContent');
+    return array('LanguageSet', 'Start', 'ProcessStart', 'OutputContent');
   }
 
   /**
@@ -95,7 +95,7 @@ class esf_Plugin_AutoUpdate extends esf_Plugin {
   /**
    *
    */
-  public function PageStart() {
+  public function ProcessStart() {
 
     if (!$this->Update1) return;
 

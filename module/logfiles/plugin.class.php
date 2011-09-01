@@ -38,7 +38,7 @@ class esf_Plugin_Module_LogFiles extends esf_Plugin {
   /**
    * NOT YET ACTIVE
    */
-  function PageStart() {
+  function ProcessStart() {
     if (!PluginEnabled('Validate')) return;
 
     DefineValidator('id', 'integer');

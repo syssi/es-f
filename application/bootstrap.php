@@ -278,9 +278,9 @@ if (!ModuleEnabled($sModule)) {
 }
 
 // ----------------------------------------------------------------------------
-// pre process
+// process
 // ----------------------------------------------------------------------------
-Event::ProcessInform('PageStart');
+Event::ProcessInform('ProcessStart');
 
 // Init template engine
 $oTemplate = esf_Template::getInstance();
@@ -327,12 +327,6 @@ if (!empty($sReturnTo) AND
   Session::setP('returnto');
   Core::Redirect($sReturnTo);
 }
-
-// ----------------------------------------------------------------------------
-// process
-// ----------------------------------------------------------------------------
-
-Event::ProcessInform('ProcessStart');
 
 if (esf_User::isValid()) {
   if ($sLastUpdate = Event::ProcessReturn('getLastUpdate')) {

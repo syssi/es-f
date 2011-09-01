@@ -531,8 +531,13 @@ abstract class esf_Auctions {
       return 0;
     }
 
-    $LogFile = self::GroupLogFile($group);
     $groupname = self::getGroupName($group);
+    $LogFile   = self::GroupLogFile($group);
+
+    if (File::Size($LogFile)) {
+      // append to an existing file
+      File::append($LogFile, "\n\n" . str_repeat('-', 78) . "\n\n");
+    }
 
     File::append($LogFile, sprintf(
       '# cd "%s"; %s "%s"' . "\n\n",
@@ -586,7 +591,7 @@ abstract class esf_Auctions {
 
     if (!empty($skip)) {
       File::append($LogFile, $skip);
-      File::append($LogFile);  // a empty line ;-)
+      File::append($LogFile);  // a empty line
     }
 
     $pid = 0;

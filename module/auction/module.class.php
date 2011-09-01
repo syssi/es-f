@@ -16,6 +16,8 @@ class esf_Module_Auction extends esf_Module {
    */
   public function Before() {
     parent::Before();
+    esf_Auctions::Load();
+
     // menu entry for cleaning up
     if (esf_Auctions::Count()) {
       esf_Menu::addModule( array(
@@ -30,13 +32,11 @@ class esf_Module_Auction extends esf_Module {
       ));
     }
 
-    Yuelo::set('SuppressCurrency', Registry::get('Currency'));
-
     $this->Item     = checkR('item');
     $this->Group    = checkR('group');
     $this->Auctions = checkR('auctions');
 
-    esf_Auctions::Load();
+    Yuelo::set('SuppressCurrency', Registry::get('Currency'));
   }
 
   /**
@@ -53,6 +53,7 @@ class esf_Module_Auction extends esf_Module {
    * Run, if all prepare is done!
    */
   public function IndexAction() {
+    // reload auctions after a forwarding
     if ($this->Forwarded) esf_Auctions::Load();
 
     TplData::set('Auctions', array());

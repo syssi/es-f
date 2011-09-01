@@ -8,8 +8,8 @@
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2009-2011 Knut Kohl
  * @license    http://www.gnu.org/licenses/gpl.txt GNU General Public License
- * @version    1.0.0
  * @version    $Id: v2.4.1-62-gb38404e 2011-01-30 22:35:34 +0100 $
+ * @revision   $Rev$
  */
 
 // -----------------------------------------------------------------------------
@@ -167,7 +167,6 @@ include $jppath.'/jpgraph_line.php';
 if ($bid > 0) {
   // Create bid line as lin. plot
   $lp1 = new LinePlot($linebids, $datax);
-#  $lp1->SetColor('FF0000');
   $lp1->SetLegend(sprintf($flegend, $bid, $legend));
   $graph->Add($lp1);
 }
@@ -175,7 +174,6 @@ if ($bid > 0) {
 if ($mid > 0) {
   // Arithmetical average
   $lp2 = new LinePlot($linemid, $datax);
-#  $lp2->SetColor('green');
   $lp2->SetLegend(sprintf($flegend, $mid, $mlegend));
   $graph->Add($lp2);
 }
@@ -183,7 +181,6 @@ if ($mid > 0) {
 if ($hmid > 0) {
   // Harmonic average
   $lp3 = new LinePlot($linehmid, $datax);
-#  $lp3->SetColor('blue');
   $lp3->SetLegend(sprintf($flegend, $hmid, $hlegend));
   $graph->Add($lp3);
 }

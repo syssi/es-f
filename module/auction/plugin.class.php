@@ -19,16 +19,11 @@ class esf_Plugin_Module_Auction extends esf_Plugin {
   }
 
   /**
-   * @todo NOT YET HANDELD
-   */
-  public function PageStart() {
-    if (PluginEnabled('Validate')) DefineValidator('item', 'integer');
-  }
-
-  /**
    *
    */
   public function ProcessStart() {
+    if (PluginEnabled('Validate')) DefineValidator('item', 'integer');
+
     if (!esf_User::isValid() OR !Request::check('auction')) return;
 
     $auctions = array();

@@ -21,7 +21,7 @@ class esf_Plugin_API extends esf_Plugin {
    * @return array Array of events handled by the plugin
    */
   public function handles() {
-    return array('AnalyseRequest', 'AuctionsLoaded');
+    return array('AnalyseRequest', 'ProcessStart');
   }
 
   /**
@@ -44,8 +44,10 @@ class esf_Plugin_API extends esf_Plugin {
    *
    * @return string JSON formated
    */
-  public function AuctionsLoaded() {
+  public function ProcessStart() {
     if (!$request = $this->Request OR empty($request['api'])) return;
+
+    esf_Auctions::Load();
 
     $action = $request['api'];
     Loader::Load(dirname(__FILE__).'/api/'.$action.'.php');
@@ -60,7 +62,6 @@ class esf_Plugin_API extends esf_Plugin {
     }
     die(json_encode($result));
   }
-
 }
 
 Event::attach(new esf_Plugin_API);
