@@ -35,17 +35,19 @@ class esf_Module_Analyse extends esf_Module {
                  ? $group : esf_Auctions::$Auctions[$group]['name'];
       TplData::add('Groups', array(
         'GROUP'     => $group.'|-',
-        'GROUPNAME' => $groupname . ' (' . Translation::get('Analyse.WithoutShipping') . ')',
+        'GROUPNAME' => $groupname,
         'COUNT'     => $data['a'],
         'CATEGORY'  => $data['cat'],
         'SHOWURL'   => Core::URL(array('action'=>'show', 'params'=>array('group'=>$group.'|-'), 'anchor'=>'diagram')),
+        'TOTAL'     => FALSE,
       ));
       TplData::add('Groups', array(
         'GROUP'     => $group.'|+',
-        'GROUPNAME' => $groupname . ' (' . Translation::get('Analyse.WithShipping') . ')',
+        'GROUPNAME' => $groupname,
         'COUNT'     => $data['a'],
         'CATEGORY'  => $data['cat'],
         'SHOWURL'   => Core::URL(array('action'=>'show', 'params'=>array('group'=>$group.'|+'), 'anchor'=>'diagram')),
+        'TOTAL'     => TRUE,
       ));
     }
   }
@@ -66,13 +68,17 @@ class esf_Module_Analyse extends esf_Module {
     TplData::set('Height', Registry::get('Module.Analyse.Height'));
 
     $AuctionData = $bids = array();
-    $cnt = $mid = $hmid = 0;
+    $cnt = $mid = $hmid = $ship = 0;
     foreach (esf_Auctions::$Auctions as $item => $auction) {
       if (esf_Auctions::getGroup($auction) != $this->group) continue;
 
-      $amount = ($shipping != '+')
-              ? $auction['bid']
-              : $auction['bid'] + $auction['shipping'];
+      if ($shipping != '+') {
+        $amount = $auction['bid'];
+      } else {
+        $amount = $auction['bid'] + $auction['shipping'];
+        $ship += $auction['shipping'];
+      }
+
       if ($auction['ended']) {
         $bids[] = $amount;
         $cnt++;
@@ -93,10 +99,12 @@ class esf_Module_Analyse extends esf_Module {
     if ($cnt) {
       $mid = $mid / $cnt;
       $hmid = $cnt / $hmid;
+      $ship = $ship / $cnt;
     }
 
-    $data = serialize(array( TplData::get('Width'), TplData::get('Height'),
-                             esf_Auctions::$Groups[$this->group]['b'],
+    $data = serialize(array( TplData::get('Width'),
+                             TplData::get('Height'),
+                             esf_Auctions::$Groups[$this->group]['b'] + $ship,
                              Translation::get('Analyse.MyBid'),
                              $mid,
                              Translation::get('Analyse.Average'),
@@ -174,19 +182,25 @@ class esf_Module_Analyse extends esf_Module {
     TplData::set('WIDTH', $width);
     TplData::set('HEIGHT',$heigth );
 
-    $gdata = $cnt = $hmid = array();
+    $gdata = $cnt = $mid = $hmid = $ship = array();
     foreach (esf_Auctions::$Auctions as $item => $auction) {
       $ag = esf_Auctions::getGroup($auction);
       foreach ($this->group as $id) {
         list($group, $shipping) = explode('|', $id);
         if ($ag == $group) {
-          $amount = ($shipping != '+')
-                  ? $auction['bid']
-                  : $auction['bid'] + $auction['shipping'];
-          if (!isset($cnt[$ag])) $cnt[$id] = 0;
-          if (!isset($hmid[$ag])) $hmid[$id] = 0;
+          if (!isset($cnt[$id]))  $cnt[$id]  = 0;
+          if (!isset($mid[$id]))  $mid[$id]  = 0;
+          if (!isset($hmid[$id])) $hmid[$id] = 0;
+          if (!isset($ship[$id])) $ship[$id] = 0;
+          if ($shipping != '+') {
+            $amount = $auction['bid'];
+          } else {
+            $amount = $auction['bid'] + $auction['shipping'];
+            $ship[$id] += $auction['shipping'];
+          }
           if ($auction['ended']) {
             $cnt[$id]++;
+            $mid[$id] += $amount;
             $hmid[$id] += 1/$amount;
           }
           $gdata[$id]['endts'][] = $auction['endts'];
@@ -198,12 +212,18 @@ class esf_Module_Analyse extends esf_Module {
 
     foreach ($gdata as $id => $data) {
       list($group, $shipping) = explode('|', $id);
-      if ($cnt[$id]) $hmid[$id] = $cnt[$id] / $hmid[$id];
+      if ($cnt[$id]) {
+        $mid[$id] = $mid[$id] / $cnt[$id];
+        $hmid[$id] = $cnt[$id] / $hmid[$id];
+        $ship[$id] = $ship[$id] / $cnt[$id];
+      }
       $_data = array(
-        $width, $heigth,
-        esf_Auctions::$Groups[$group]['b'],
+        $width,
+        $heigth,
+        esf_Auctions::$Groups[$group]['b'] + $ship[$id],
         Translation::get('Analyse.MyBid'),
-        0, NULL,
+        $mid[$id],
+        Translation::get('Analyse.Average'),
         $hmid[$id],
         Translation::get('Analyse.HarmonicAverage'),
         $data
@@ -216,8 +236,8 @@ class esf_Module_Analyse extends esf_Module {
                 !isset(esf_Auctions::$Auctions[$group]))
              ? $group
              : esf_Auctions::$Auctions[$group]['name'];
-      $st = ($shipping != '+') ? 'WithoutShipping' : 'WithShipping';
-      $gname .= ' (' . Translation::get('Analyse.'.$st) . ')';
+      if ($shipping == '+')
+        $gname .= ' (' . Translation::get('Analyse.WithShipping') . ')';
 
       $TplData[] = array(
         'GROUP'     => $group,

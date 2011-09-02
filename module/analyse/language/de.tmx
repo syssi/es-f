@@ -110,17 +110,10 @@
       </tuv>
     </tu>
 
-    <tu tuid="WithoutShipping">
-      <prop type="x-Filter">html</prop>
-      <tuv xml:lang="DE">
-        <seg><![CDATA[<strong>ohne</strong> Versandkosten]]></seg>
-      </tuv>
-    </tu>
-
     <tu tuid="WithShipping">
       <prop type="x-Filter">html</prop>
       <tuv xml:lang="DE">
-        <seg><![CDATA[<strong>mit</strong> Versandkosten]]></seg>
+        <seg>Mit Versandkosten</seg>
       </tuv>
     </tu>
 

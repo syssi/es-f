@@ -15,7 +15,14 @@ class esf_Plugin_Module_Auction extends esf_Plugin {
    * @return array Array of events handled by the plugin
    */
   public function handles() {
-    return array('LanguageSet', 'ProcessStart', 'BuildMenu', 'OutputContent');
+    return array('LanguageSet', 'Start', 'ProcessStart', 'BuildMenu', 'OutputContent');
+  }
+
+  /**
+   *
+   */
+  public function Start() {
+    if (esf_User::isValid()) esf_Auctions::Load();
   }
 
   /**

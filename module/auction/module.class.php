@@ -16,7 +16,6 @@ class esf_Module_Auction extends esf_Module {
    */
   public function Before() {
     parent::Before();
-    esf_Auctions::Load();
 
     // menu entry for cleaning up
     if (esf_Auctions::Count()) {

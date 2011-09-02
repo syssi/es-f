@@ -16,7 +16,13 @@
 <div class="{cycle:"class","tr1","tr2"}" style="padding:5px">
   <input type="checkbox" name="group[]" value="{GROUP}">
   &nbsp;
-  <a href="{SHOWURL}">{GROUPNAME}</a> [{nvl:CATEGORY,[[Auction.NoCategory]]}] ({COUNT})
+  <a href="{SHOWURL}">{GROUPNAME}</a>
+  <!-- IF TOTAL -->
+    &nbsp;
+    <img src="{$IMGDIR}/total.gif" onmouseover="Tip('[[Analyse.WithShipping]]')"
+         alt="([[Analyse.WithShipping]])">
+  <!-- ENDIF -->
+  &nbsp; [{nvl:CATEGORY,[[Auction.NoCategory]]}] ({COUNT})
 </div>
 <!-- END GROUPS -->
 

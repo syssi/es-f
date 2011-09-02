@@ -75,4 +75,4 @@ class esf_Plugin_Module_Refresh extends esf_Plugin {
   }
 }
 
-Event::attach(new esf_Plugin_Module_Refresh);
+Event::attach(new esf_Plugin_Module_Refresh, 100);
