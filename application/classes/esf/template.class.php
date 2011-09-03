@@ -25,7 +25,10 @@ class esf_Template {
    * Singleton function
    */
   public static function getInstance() {
-    if (!isset(self::$Instance)) self::$Instance = new self;
+    if (!isset(self::$Instance)) {
+      self::$Instance = new self;
+      self::$Instance->bootstrap();
+    }
     return self::$Instance;
   }
 
@@ -76,12 +79,12 @@ class esf_Template {
   /**
    * Singleton instance container
    */
-  private static $Instance;
+  private static $Instance = NULL;
 
   /**
    * Class constructor
    */
-  private function __construct() {
+  private function bootstrap() {
     // prepare Yuelo
     require_once LIBDIR.'/yuelo/yuelo.require.php';
 
@@ -145,4 +148,14 @@ class esf_Template {
       Session::deleteP('ClearCache');
     }
   }
+
+  /**
+   * Can't create singletons directly
+   */
+  private function __construct() {}
+
+  /**
+   * Can't clone singletons
+   */
+  private function __clone() {}
 }
