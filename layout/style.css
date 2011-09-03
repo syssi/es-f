@@ -26,6 +26,10 @@ input {
   font-size: 100%;
 }
 
+input[type=image] {
+  background-color: transparent;
+}
+
 /*
 #container {
   min-height: 400px;
