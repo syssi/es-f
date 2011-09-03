@@ -20,8 +20,22 @@ class esf_Module_Savings extends esf_Module {
   /**
    *
    */
+  public function Before() {
+    parent::Before();
+#    esf_Auctions::Load();
+  }
+
+  /**
+   *
+   */
   public function IndexAction() {
-    $auctions = $total = array();
+    $auctions = array();
+    $total = array(
+      'PRICE'         => 0,
+      'BID'           => 0,
+      'SAVING'        => 0,
+      'SAVINGPERCENT' => 0,
+    );
     $user = esf_User::getActual();
     foreach (esf_Auctions::$Auctions as $item=>$auction) {
       if ($auction['ended'] AND $auction['bidder'] == $user) {
