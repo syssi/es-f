@@ -46,4 +46,4 @@ class esf_Plugin_CategoryJump extends esf_Plugin {
 
 }
 
-Event::attach(new esf_Plugin_CategoryJump);
+Event::attach(new esf_Plugin_CategoryJump, 100);

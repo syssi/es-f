@@ -84,4 +84,4 @@ class esf_Plugin_NextAuction extends esf_Plugin {
 
 }
 
-Event::attach(new esf_Plugin_NextAuction, -1);
+Event::attach(new esf_Plugin_NextAuction);
