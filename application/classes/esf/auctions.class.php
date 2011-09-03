@@ -245,10 +245,19 @@ abstract class esf_Auctions {
         // find out auction win by parsing esniper log file
         // real names are only visible for logged in users (esniper)
         $user = esf_User::getActual();
-        $regex = sprintf('~Auction %s: Post-bid info:.*?High bidder: %s!!!\s+won~is', $item, $user);
         $file = self::GroupLogFile(self::getGroup($auction));
-        if (file_exists($file) AND preg_match($regex, file_get_contents($file))) {
-          $auction['bidder'] = $user;
+        if (file_exists($file)) {
+          $regex = sprintf('~Auction %s: Post-bid info:.*?High bidder: %s!!!\s+won~is', $item, $user);
+          $log = file($file, FILE_SKIP_EMPTY_LINES );
+          if (preg_match($regex, implode($log), $test)) {
+            // check for the correct won auction if more than one auction is refreshed
+            foreach (array_reverse($log) as $line) {
+              if (preg_match('~Auction (\d+):~i', $line, $args)) {
+                if ($args[1] == $item) $auction['bidder'] = $user;
+                break;
+              }
+            }
+          }
         } else {
           // check "bid now" log file and rename it to read it only once after a esniper -n
           $regex = sprintf('~High bidder: %s!!!~i', $user);
@@ -261,7 +270,8 @@ abstract class esf_Auctions {
 
         $auction['bids']    = $parser->getDetail($item, 'NoOfBids');
         $auction['_ts']     = $_SERVER['REQUEST_TIME'];
-        if ($auction['endts'] AND ($auction['endts'] < $auction['_ts'])) $auction['ended']++;
+        if ($auction['endts'] AND ($auction['endts'] < $auction['_ts']))
+          $auction['ended']++;
         $auction['invalid'] = FALSE;
       }
     }
