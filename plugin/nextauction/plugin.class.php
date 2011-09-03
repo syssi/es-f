@@ -15,7 +15,14 @@ class esf_Plugin_NextAuction extends esf_Plugin {
    * @return array Array of events handled by the plugin
    */
   public function handles() {
-    return array('LanguageSet', 'Start', 'OutputStart');
+    return array('LanguageSet', 'PluginsLoaded', 'Start', 'OutputStart');
+  }
+
+  /**
+   * Reorder plugin sequence
+   */
+  public function PluginsLoaded() {
+    Event::setSequence('esf_Plugin_NextAuction', Event::BEFORE, 'esf_Plugin_CategoryJump');
   }
 
   /**

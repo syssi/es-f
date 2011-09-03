@@ -41,19 +41,20 @@ abstract class Event implements EventI {
     /// Yryie::StartTimer(__METHOD__, __METHOD__, 'attach event');
 
     // make sure not overwrite an existing handler, find next free position
-    while (isset(self::$EventHandlers[$position])) $position++;
+    while (isset(self::$HandlerOrder[$position])) $position++;
 
-    self::$EventHandlers[$position] = $handler;
-    ksort(self::$EventHandlers);
+    $name = strtolower(get_class($handler));
 
-    // store handled events for better performance
-    self::$HandlerMethods[$position] =
-      array_change_key_case(array_flip($handler->handles()));
+    self::$HandlerOrder[$position] = $name;
+    self::$EventHandlers[$name] = new EventHandler($handler);
+    ksort(self::$HandlerOrder);
 
     /* ///
-    foreach (self::$HandlerMethods[$position] as $key=>$value)
-      if (!method_exists($handler, $key))
-        Messages::Error('Missing: '.get_class($handler).'->'.$key.'()');
+    foreach ($handler->handles() as $method) {
+      if (!method_exists($handler, $method)) {
+        Messages::Error('Missing: '.get_class($handler).'->'.$method.'()');
+      }
+    }
     Yryie::Info('Attached event handlers: '.count(self::$EventHandlers));
     Yryie::StopTimer(__METHOD__);
     /// */
@@ -67,38 +68,85 @@ abstract class Event implements EventI {
    * @return bool Handler was found and dettached
    */
   public static function Dettach( EventHandlerI $handler ) {
-    if ($position = array_search($handler, self::$EventHandlers, TRUE)) {
-      unset(self::$EventHandlers[$position], self::$HandlerMethods[$position]);
-      $ok = TRUE;
-    } else {
-      $ok = FALSE;
+    $name = strtolower(get_class($handler));
+    if ($position = array_search($name, self::$HandlerOrder, TRUE)) {
+      unset(self::$HandlerOrder[$position], self::$EventHandlers[$name]);
     }
     /// Yryie::Info('Attached event handlers: '.count(self::$EventHandlers));
-    return $ok;
+    return ($position !== FALSE);
+  }
+
+  /**
+   * Resort handlers in required order
+   *
+   * $name1 (before|after) $name2
+   *
+   * @param string $name1 Handler name 1
+   * @param string $sequence Event::BEFORE|Event::AFTER
+   * @param string $name2 Handler name 2
+   */
+  public static function setSequence( $name1, $sequence, $name2 ) {
+    $name1 = strtolower($name1);
+    $name2 = strtolower($name2);
+
+    // init
+    $pos1 = $pos2 = NULL;
+
+    // determine positions of handlers
+    foreach (self::$HandlerOrder as $pos=>$name) {
+      switch ($name) {
+        case $name1: $pos1 = $pos; break;
+        case $name2: $pos2 = $pos; break;
+      }
+    }
+
+    // Where both handlers found?
+    if (is_null($pos1) OR is_null($pos2)) return;
+
+    // Still in correct sequence ...
+    if ($sequence == self::BEFORE AND $pos1 < $pos2 OR
+        $sequence == self::AFTER  AND $pos1 > $pos2) return;
+
+    // ... or re-order
+    $tmp = array();
+    if ($sequence == self::BEFORE) {
+      // move handler 1 right before handler 2
+      foreach (self::$HandlerOrder as $name) {
+        if ($name == $name2) $tmp[] = self::$HandlerOrder[$pos1];
+        if ($name != $name1) $tmp[] = $name;
+      }
+    } elseif ($sequence == self::AFTER) {
+      // move handler 1 right after handler 2
+      foreach (self::$HandlerOrder as $name) {
+        if ($name != $name1) $tmp[] = $name;
+        if ($name == $name2) $tmp[] = self::$HandlerOrder[$pos1];
+      }
+    }
+    self::$HandlerOrder = $tmp;
   }
 
   /**
    * Process all registered functions for an Event
    *
-   * @param $event string Event name
-   * @param $params array Parameters for event notification
+   * @param string $event Event name
+   * @param array $params Parameters for event notification
    */
   public static function Process( $event, &$params ) {
+    /// $__event = $event;
+    /// Yryie::StartTimer($__event);
     $event = strtolower($event);
-    /// Yryie::StartTimer($event);
 
     if (!isset(self::$BlockedEvents[$event]) OR !self::$BlockedEvents[$event]) {
-      foreach (self::$EventHandlers as $position=>$EventHandler) {
-        if (!isset(self::$HandlerMethods[$position][$event])) continue;
-        // >> Debug
-        Yryie::Info(get_class($EventHandler).'->'.$event.'('.Yryie::format($params).')');
-        // << Debug
-        $EventHandler->$event($params);
+      foreach (self::$HandlerOrder as $name) {
+        if (self::$EventHandlers[$name]->handles($event)) {
+          /// Yryie::Info(get_class(self::$EventHandlers[$name]->Handler)
+          ///            .'->'.$__event.'('.Yryie::format($params).')');
+          self::$EventHandlers[$name]->Handler->$event($params);
+        }
       }
     }
-    /// else Yryie::Info('Skip "'.$event.'", actually blocked.');
-
-    /// Yryie::StopTimer($event);
+    /// else Yryie::Info('Skip "'.$__event.'", actually blocked.');
+    /// Yryie::StopTimer($__event);
   }
 
   /**
@@ -145,18 +193,18 @@ abstract class Event implements EventI {
   // -------------------------------------------------------------------------
 
   /**
-   * Event handler instances
+   * Event handler names in defined order
+   *
+   * @var array $HandlerOrder
+   */
+  private static $HandlerOrder = array();
+
+  /**
+   * Handlers
    *
    * @var array $EventHandlers
    */
   private static $EventHandlers = array();
-
-  /**
-   * Handler methods
-   *
-   * @var array $HandlerMethods
-   */
-  private static $HandlerMethods = array();
 
   /**
    * Blocked events
@@ -164,5 +212,54 @@ abstract class Event implements EventI {
    * @var array $BlockedEvents
    */
   private static $BlockedEvents = array();
+
+}
+
+/**
+ *
+ */
+class EventHandler {
+
+  // -------------------------------------------------------------------------
+  // PUBLIC
+  // -------------------------------------------------------------------------
+
+  /**
+   * Handler instance
+   *
+   * @var EventHandlerI $Handler
+   */
+  public $Handler;
+
+  /**
+   * Class constructor
+   *
+   * @param EventHandlerI $handler
+   */
+  public function __construct( EventHandlerI $handler ) {
+    $this->Handler = $handler;
+    // store handled events for better performance
+    $this->_handles = array_change_key_case(array_flip($handler->handles()));
+  }
+
+  /**
+   * Check if the handler handles the given event
+   *
+   * @param string $event
+   */
+  public function handles( $event ) {
+    return isset($this->_handles[strtolower($event)]);
+  }
+
+  // -------------------------------------------------------------------------
+  // PROTECTED
+  // -------------------------------------------------------------------------
+
+  /**
+   * The handled events by the handler
+   *
+   * @var array $_handles
+   */
+  protected $_handles = array();
 
 }
