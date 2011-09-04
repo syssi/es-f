@@ -5,7 +5,6 @@
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2007-2011 Knut Kohl
  * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
- * @version    1.0.0
  * @version    $Id: v2.4.1-62-gb38404e 2011-01-30 22:35:34 +0100 $
  * @revision   $Rev$
  */
@@ -108,28 +107,19 @@ abstract class Translation {
     if (is_array($args[0])) $args = $args[0];
     $ustr = strtoupper($args[0]);
 
+
     // first argument after text id is interpreted as amount if integer
     $n = (isset($args[1]) AND $args[1]*1==$args[1]) ? (int)$args[1] : 0;
 
     list($namespace, $key) = explode(self::$NamespaceSeparator, $ustr, 2);
 
-    if (isset(self::$Translation[$namespace][$key])) {
-      // pointer to content
-      $str =& self::$Translation[$namespace][$key];
-
-      if (is_array($str)) {
-        if ($n == 1 AND isset($str[0])) {
-          // singular
-          $args[0] = $str[0];
-        } elseif (isset($str[1])) {
-          // plural
-          $args[0] = $str[1];
-        }
-      } else {
-        // default
-        $args[0] = $str;
-      }
-      // translate
+    if (isset(self::$Translation[$namespace][$key.'-'.$n])) {
+      // special quantity key
+      $args[0] =& self::$Translation[$namespace][$key.'-'.$n];
+      return self::getf($args);
+    } elseif (isset(self::$Translation[$namespace][$key])) {
+      // default key
+      $args[0] =& self::$Translation[$namespace][$key];
       return self::getf($args);
     }
 
