@@ -1,17 +1,4 @@
 /*
- * Copyright (c) 2006-2008 Knut Kohl <knutkohl@users.sourceforge.net>
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * GPL: http://www.gnu.org/licenses/gpl.txt
  *
  */
 
@@ -26,12 +13,12 @@ function ToggleAuctionsTable() {
     if (!tbl.visible()) {
       // hide auction table
       img.src = path + 'show.gif';
-      img.alt = '⇓';
+      img.alt = 'v';
       img.onmouseover = function() { Tip(AnalyseShowAuctions) };
     } else {
       // show auction table
       img.src = path + 'hide.gif';
-      img.alt = '⇑';
+      img.alt = '^';
       img.onmouseover = function() { Tip(AnalyseHideAuctions) };
     }
   }

@@ -40,7 +40,7 @@
 
   <a href="#" onclick="return ToggleAuctionsTable()">
     <img class="icon" src="{$IMGDIR}/hide.gif"
-         alt="⇑" onmouseover="Tip('[[Analyse.HideAuctions]]')">
+         alt="^" onmouseover="Tip('[[Analyse.HideAuctions]]')">
   </a>
 
   <p><a href="#pagetop">top</a></p>
