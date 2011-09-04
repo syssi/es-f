@@ -16,23 +16,21 @@ class esf_Plugin_Module_Register extends esf_Plugin {
    * @return array Array of events handled by the plugin
    */
   public function handles() {
-    return array('LanguageSet', 'OutputStart');
+    return array('LanguageSet', 'Start');
   }
 
   /**
    *
    */
-  public function OutputStart() {
+  public function Start() {
     if (!Request::check('register') AND
         esf_User::getActual(TRUE) == strtolower(esf_User::$Admin)) {
-
-      $path = Registry::get(esf_Extensions::MODULE.'.Register.Core.LocalPath').'/reg/*';
-
+      $path = np(BASEDIR.'/local/module/register/reg/*');
       if ($cnt = count(glob($path))) {
         $title = Translation::get('Register.RegistrationsPending', $cnt);
         $link = Core::Link(Core::URL(array('module'=>'register', 'action'=>'admin')),
                            Translation::get('Register.RegistrationsEdit'));
-        Messages::Success($title.' '.$link, TRUE);
+        Messages::Error($title.' '.$link, TRUE, FALSE);
       }
     }
 

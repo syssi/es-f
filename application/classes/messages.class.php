@@ -5,7 +5,6 @@
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2007-2011 Knut Kohl
  * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
- * @version    1.0.0
  * @version    $Id: v2.4.1-62-gb38404e 2011-01-30 22:35:34 +0100 $
  * @revision   $Rev$
  */
@@ -44,10 +43,10 @@ abstract class Messages {
    *
    * @param mixed $msg Message(s)
    * @param string $type Message type
-   * @param boolean $formated Message is still HTML formated
+   * @param bool $formated Message is still HTML formated
    * @return string
    */
-  public static function toStr( $msg, $type=MSG_INFO, $formated=FALSE ) {
+  public static function toStr( $msg, $type=self::INFO, $formated=FALSE ) {
     if (is_array($msg)) {
       if (!$formated) $msg = array_map_recursive('htmlspecialchars', $msg);
     } else {
@@ -68,7 +67,7 @@ abstract class Messages {
    * Store info message into buffer
    *
    * @param mixed $msg Message(s)
-   * @param boolean $formated Message is still HTML formated
+   * @param bool $formated Message is still HTML formated
    */
   public static function Info( $msg, $formated=FALSE ) {
     self::add($msg, self::INFO, $formated);
@@ -78,7 +77,7 @@ abstract class Messages {
    * Store success message into buffer
    *
    * @param mixed $msg Message(s)
-   * @param boolean $formated Message is still HTML formated
+   * @param bool $formated Message is still HTML formated
    */
   public static function Success( $msg, $formated=FALSE ) {
     self::add($msg, self::SUCCESS, $formated);
@@ -88,10 +87,11 @@ abstract class Messages {
    * Store error message into buffer
    *
    * @param mixed $msg Message(s)
-   * @param boolean $formated Message is still HTML formated
+   * @param bool $formated Message is still HTML formated
+   * @param bool $mark Mark message, only if $msg is not an array
    */
-  public static function Error( $msg, $formated=FALSE ) {
-    if (!is_array($msg)) $msg = '[Error] '.$msg;
+  public static function Error( $msg, $formated=FALSE, $mark=TRUE ) {
+    if (!is_array($msg) AND $mark) $msg = '[Error] '.$msg;
     self::add($msg, self::ERROR, $formated);
   }
 
@@ -99,7 +99,7 @@ abstract class Messages {
    * Store code message into buffer
    *
    * @param mixed $msg Message(s)
-   * @param boolean $formated Message is still HTML formated
+   * @param bool $formated Message is still HTML formated
    */
   public static function Code( $msg, $formated=FALSE ) {
     self::add($msg, self::CODE, $formated);
@@ -110,7 +110,7 @@ abstract class Messages {
    *
    * @param mixed $msg Message(s)
    * @param string $type Message type
-   * @param boolean $formated Message is still HTML formated
+   * @param bool $formated Message is still HTML formated
    */
   public static function add( $msg, $type, $formated ) {
     Session::addP(self::$SessionVar, array($msg, $type, $formated));
@@ -119,7 +119,7 @@ abstract class Messages {
   /**
    * Get messages from buffer an clear buffer if requested
    *
-   * @param boolean $clear Clear buffer
+   * @param bool $clear Clear buffer
    * @return array
    */
   public static function get( $clear=TRUE ) {
@@ -133,7 +133,7 @@ abstract class Messages {
   /**
    * Get message count from buffer according to type
    *
-   * @param boolean $type If not set return count of all messages
+   * @param bool $type If not set return count of all messages
    * @return int
    */
   public static function count( $type=NULL ) {

@@ -8,6 +8,12 @@
 
   <div id="register">
 
+    <!-- IF REGISTERMSG -->
+    <div style="text-align:left;padding:1em 0">{REGISTERMSG}</div>
+    <!-- ENDIF -->
+
+    <!-- IF SHOWFORM -->
+
     <form id="Register" name="Register" action="{FORMACTION}" method="post" accept-charset="ISO-8859-1">
     {fh:"module","register"}
 
@@ -16,9 +22,6 @@
     <tr>
       <td style="padding:10px 0;text-align:center" colspan="3">
         <h3>[[Register.AccountPasswords]]</h3>
-        <!-- IF REGISTERMSG -->
-        <p class="msgerror">{nvl:REGISTERMSG}<br></p>
-        <!-- ENDIF -->
       </td>
     </tr>
 
@@ -70,6 +73,8 @@
     </table>
 
     </form>
+
+    <!-- ENDIF -->
 
   </div>
 

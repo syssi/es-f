@@ -33,6 +33,8 @@ class esf_Module_Register extends esf_Module {
    *
    */
   public function IndexAction() {
+    TplData::set('ShowForm', TRUE);
+
     if ($this->isPost()) {
 
       $pp = $this->Request('pass');
@@ -45,27 +47,26 @@ class esf_Module_Register extends esf_Module {
                     $this->Request('user') . "\n"
                   . Core::$Crypter->encrypt(md5($pp['esf'][0])."\x01".$pp['ebay'][0], md5($pp['esf'][0])) . "\n"
                   . $this->Request('cmt'));
-        Messages::Info(Translation::get('Register.ThankYouForRegister'));
+        $this->Msgs[] = Messages::toStr(Translation::get('Register.ThankYouForRegister'));
         if ($this->SendMail) {
           // send email about registration request
           $msg = 'User: '.$this->Request['user']."\n\n".'Comment: '.$this->Request('cmt');
           mail($this->SendMail, '['.ESF_TITLE.'] Registration request', $msg);
         }
-        $this->redirect(STARTMODULE);
-      }
-
-      if (empty($this->Request['user']) OR
-          empty($pp['ebay'][0]) OR empty($pp['ebay'][1]) OR
-          empty($pp['esf'][0]) OR empty($pp['esf'][1])) {
-        $this->Msgs[] = Translation::get('Register.FieldMissing');
-      }
-
-      if ($pp['ebay'][0] !== $pp['ebay'][1] OR
-          $pp['esf'][0]  !== $pp['esf'][1]) {
-        $this->Msgs[] = Translation::get('Register.PasswordsNotEqual');
+        TplData::set('ShowForm', FALSE);
+      } else {
+        if (empty($this->Request['user']) OR
+            empty($pp['ebay'][0]) OR empty($pp['ebay'][1]) OR
+            empty($pp['esf'][0]) OR empty($pp['esf'][1])) {
+          $this->Msgs[] = Messages::toStr(Translation::get('Register.FieldMissing'), Messages::ERROR, TRUE);
+        }
+        if ($pp['ebay'][0] !== $pp['ebay'][1] OR
+            $pp['esf'][0]  !== $pp['esf'][1]) {
+          $this->Msgs[] = Messages::toStr(Translation::get('Register.PasswordsNotEqual'), Messages::ERROR, TRUE);
+        }
       }
     }
-    TplData::set('RegisterMsg', implode('<br>', $this->Msgs));
+    TplData::set('RegisterMsg', implode($this->Msgs));
   }
 
   /**
