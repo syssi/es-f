@@ -142,6 +142,13 @@ function ajaxStartGroup ( _group, _hash ) {
 }
 
 // ---------------------------------------------------------------------------
+function DeleteAuction ( _item, _msg ) {
+  var answer = confirm(_msg);
+  if (answer) ajaxDeleteAuction(_item);
+  return false;
+}
+
+// ---------------------------------------------------------------------------
 function ajaxDeleteAuction ( _item ) {
   new Ajax.Request(
     'index.php',

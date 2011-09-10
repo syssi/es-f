@@ -44,15 +44,6 @@
   </div>
   <!-- ENDIF !ENDED -->
 
-  <div id="PopupAuctionDelete{ITEM}" class="popupwindow" style="width:300px;display:none">
-    {:[[Auction.DeleteAuction]],": ",ITEM > TITLETEXT}
-    {"PopupAuctionDelete",ITEM > POPUPNAME}
-    <!-- INCLUDE popup.title -->
-    <div class="content">
-      <!-- INCLUDE form.delete -->
-    </div>
-  </div>
-
   <!-- IF GROUP --><!-- IF !GROUP.ENDED -->
   <div id="PopupGroupEdit{GROUP.NAME|hash}" class="popupwindow" style="width:600px;display:none">
     {:[[Auction.EditGroup]],": ",GROUP.NAME > TITLETEXT}
