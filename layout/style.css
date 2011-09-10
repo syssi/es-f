@@ -26,10 +26,6 @@ input {
   font-size: 100%;
 }
 
-input[type=image] {
-  background-color: transparent;
-}
-
 /*
 #container {
   min-height: 400px;
@@ -458,6 +454,11 @@ input:-moz-placeholder {
 	color: #999;
   font-style: italic;
 }
+
+input[type=image] {
+  background-color: transparent;
+}
+
 /*
  * forms
  * ****************************************************************************
@@ -504,7 +505,6 @@ div.popupwindow .title {
 div.popupwindow .title .text {
   float: left;
   font-weight: bold;
-  font-family: Verdana, Arial, Helvetica, Sans-Serif;
   padding: 4px 5px;
 }
 
