@@ -216,9 +216,8 @@ abstract class Session {
    * @return void
    */
   public static function checkRequest( $param, $default=FALSE ) {
-    $lparam = self::__mapKey($param);
-    if (isset($_REQUEST[$param])) $_SESSION[$lparam] = $_REQUEST[$param];
-    if (!isset($_SESSION[$lparam])) $_SESSION[$lparam] = $default;
+    if (isset($_REQUEST[$param])) self::set($param, $_REQUEST[$param]);
+    if (!self::is_set($param))    self::set($param, $default);
   }
 
   /**
