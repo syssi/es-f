@@ -35,7 +35,7 @@ class esf_Plugin_Compress extends esf_Plugin {
    *
    */
   public function OutputFilter( &$output ) {
-    if (!$output) return;
+    if ($output == '') return;
 
     $this->Before += strlen($output);
 
@@ -110,12 +110,12 @@ class esf_Plugin_Compress extends esf_Plugin {
   /**
    * HTML size before compression
    */
-  private $Before;
+  private $Before = 0;
 
   /**
    * HTML size after compression
    */
-  private $After;
+  private $After = 0;
 
   /**
    * Mask formated HTML code to prevent compression
@@ -141,7 +141,7 @@ class esf_Plugin_Compress extends esf_Plugin {
    * @return string
    */
   private function MaskScript( $html, $nl ) {
-    if (!$html) return '';
+    if ($html == '') return '';
 
     // skip protocols like http:// etc.
     $script = preg_replace('~\s*(?<!:)//~', "\n".'//', $html);

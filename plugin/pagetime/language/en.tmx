@@ -29,14 +29,14 @@
     <tu tuid="PageMessage">
       <note>%$1s - ...</note>
       <tuv xml:lang="EN">
-        <seg>Page generated in %.2f sec.</seg>
+        <seg>Generation: %.2f sec.</seg>
       </tuv>
     </tu>
 
     <tu tuid="HtmlMessage">
       <note>%$1s - ...</note>
       <tuv xml:lang="EN">
-        <seg>HTML generated in %.2f sec.</seg>
+        <seg>HTML: %.2f sec.</seg>
       </tuv>
     </tu>
 

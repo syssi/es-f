@@ -13,7 +13,6 @@ Get page creation/processing time
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2009-2011 Knut Kohl
  * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
- * @version    1.0.0
  * @version    $Id: v2.4.1-62-gb38404e 2011-01-30 22:35:34 +0100 $
  * @revision   $Rev$
  */
@@ -23,52 +22,30 @@ class esf_Plugin_PageTime extends esf_Plugin {
    * @return array Array of events handled by the plugin
    */
   public function handles() {
-    return array('LanguageSet', 'OutputStart', 'OutputFilterFooter', 'OutputFilterHtmlEnd');
+    // disable on mobile layouts
+    if (Session::get('Mobile') AND !$this->Mobile) return array();
+    if (Registry::get('esf.ContentOnly')) return array();
+    return array('LanguageSet', 'OutputStart', 'OutputFilterHtmlEnd');
   }
 
   /**
    *
    */
   public function OutputStart() {
-    // disable on mobile layouts
-    if (Session::get('Mobile') AND !$this->Mobile) return;
-
-    if (Registry::get('esf.ContentOnly')) return;
-
     TplData::add('HtmlHeader.Script', 'LoadJSLib("sprintf");');
     TplData::add('HtmlHeader.raw', $this->Render('head'));
   }
 
   /**
-   * Add PHP generation time
-   *
-   * @param string &$output
-   */
-  public function OutputFilterFooter( &$output ) {
-    // disable on mobile layouts
-    if (Session::get('Mobile') AND !$this->Mobile) return;
-
-    if (Registry::get('esf.ContentOnly')) return;
-
-    // create footer
-    $ts = explode(' ',microtime());
-    $data['PAGETIME'] = $ts[0]+$ts[1] - $_SERVER['REQUEST_TIME'];
-    $output .= $this->Render('footer', $data);
-  }
-
-  /**
-   * Add JS for page generation
+   * Add PHP generation time and JS for page generation time
    *
    * @param string &$output
    */
   public function OutputFilterHtmlEnd( &$output ) {
-    // disable on mobile layouts
-    if (Session::get('Mobile') AND !$this->Mobile) return;
-
-    if (Registry::get('esf.ContentOnly')) return;
-
+    $ts = explode(' ', microtime());
+    $data['PAGETIME'] = $ts[0]+$ts[1] - $_SERVER['REQUEST_TIME'];
     $output = str_ireplace('</body>',
-                           $this->Render('end').'</body>',
+                           $this->Render('end', $data).'</body>',
                            $output);
   }
 
