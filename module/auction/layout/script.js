@@ -361,13 +361,9 @@ function ToggleCategoryAuctions( _category, _checked ) {
 // ---------------------------------------------------------------------------
 // Toggle auction row class
 // ---------------------------------------------------------------------------
-function ToggleAuctionRow( _El, _checked ) {
+function ToggleAuctionRow( _El ) {
   // can be a string...
   _El = $(_El);
-  if (_checked === undefined) {
-    _checked = !_El.checked;
-  }
-  _El.checked = _checked;
   $('tr_'+_El.value).toggleClassName('selected', _checked);
 }
 

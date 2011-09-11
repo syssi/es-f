@@ -59,7 +59,8 @@ th {
   background-color: #2B2B2B;
 }
 
-tr.selected {
+tr.selected,
+div.selected {
   background-color: #402000;
 }
 

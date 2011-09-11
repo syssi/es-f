@@ -13,8 +13,9 @@
 {fh:"action","showmulti"}
 
 <!-- BEGIN GROUPS -->
-<div class="{cycle:"class","tr1","tr2"}" style="padding:5px">
-  <input type="checkbox" name="group[]" value="{GROUP}">
+<div id="row_{GROUP|hash}" class="{cycle:"class","tr1","tr2"}" style="padding:5px">
+  <input id="{GROUP|hash}" type="checkbox" name="group[]" value="{GROUP}"
+         onclick="ToggleGroupRow(this.id)">
   &nbsp;
   <a href="{SHOWURL}">{GROUPNAME}</a>
   <!-- IF TOTAL -->

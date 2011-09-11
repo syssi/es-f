@@ -191,8 +191,8 @@ class esf_Extensions {
       ksort(self::$States[$scope]);
 
       foreach (self::$States[$scope] as $key => $value) {
-        // don't save the state ESF_STATE_NOTHING
-        if ($value === ESF_STATE_NOTHING) continue;
+        // don't save STATE_NOTHING
+        if ($value === self::STATE_NOTHING) continue;
 
         $cfg = $doc->createElement('config', $value);
         $sec->appendChild($cfg);
