@@ -16,6 +16,7 @@
       ~<font size="-1" color="#666666">(.+?)</span>~i => 1
       ~<div .*id="v4-31"[^>]*>(.+?)</~i => 1
       ~<span .*id="v4-26"[^>]*>(.+?)</~i => 1
+      ~<span[^>]+class="vi-is1-prcp-eu".*?> *([^>]+?)</span~i => 1
       ]]>
     </pattern>
 
