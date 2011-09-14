@@ -77,7 +77,7 @@
 
   </form>
 
-</td><td>
+</td><td style="min-width:460px">
 
   <h3 style="float:left"><a name="twitter"></a>Twitter Updates</h3>
   <a style="float:right" href="http://www.twitter.com/es_f"><img
@@ -85,9 +85,8 @@
 
   <div class="clear"></div>
 
-  <ul id="twitter_update_list"><li>Connecting to Twitter (JS required) ...</li></ul>
-  <script type="text/javascript" src="http://twitter.com/javascripts/blogger.js"></script>
-  <script type="text/javascript" src="http://twitter.com/statuses/user_timeline/es_f.json?callback=twitterCallback2&amp;count=8"></script>
+  <ul id="twitter_update_list"></ul>
+  <noscript><em>(For Twitter updates is JavaScript required.)</em></noscript>
 
 </td></tr></table>
 
