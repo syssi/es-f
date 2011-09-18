@@ -247,7 +247,7 @@ var esf_CountDownRefresh = true;
 var esf_CountDownEndedStr = 'Ended';
 
 // ---------------------------------------------------------------------------
-function showCountDown() {
+new PeriodicalExecuter( function() {
 
   var Now = new Date();
   var cMax = esf_CountDown.length;
@@ -310,10 +310,7 @@ function showCountDown() {
       }
     }
   }
-
-  // execute every second
-  window.setTimeout('showCountDown()', 1000);
-}
+}, 1);
 
 // ---------------------------------------------------------------------------
 function ColorCountDownElement( Remain, El ) {
@@ -348,12 +345,11 @@ function ColorCountDownElement( Remain, El ) {
 // ---------------------------------------------------------------------------
 function ToggleCategoryAuctions( _category, _checked ) {
   // get all checkboxes in auction rows
-  var i, El;
-  var CheckBoxes = document.getElementsByName('auctions[]');
-  for (i=0; i<CheckBoxes.length; i++) {
-    El = CheckBoxes[i];
-    if (El.id.indexOf(_category) === 0) {
-      ToggleAuctionRow(El, _checked);
+  var cb = document.getElementsByName('auctions[]');
+  for (var i=0; i<cb.length; i++) {
+    if (cb[i].id.indexOf(_category) === 0) {
+      cb[i].checked = _checked;
+      ToggleAuctionRow(cb[i]);
     }
   }
 }
@@ -363,8 +359,7 @@ function ToggleCategoryAuctions( _category, _checked ) {
 // ---------------------------------------------------------------------------
 function ToggleAuctionRow( _El ) {
   // can be a string...
-  _El = $(_El);
-  $('tr_'+_El.value).toggleClassName('selected', _checked);
+  $('tr_'+_El.value).toggleClassName('selected', _El.checked);
 }
 
 // ---------------------------------------------------------------------------
@@ -386,4 +381,4 @@ function ToggleAddRow( _img ) {
 // ---------------------------------------------------------------------------
 // Init
 // ---------------------------------------------------------------------------
-addLoadEvent(showCountDown);
+//addLoadEvent(showCountDown);

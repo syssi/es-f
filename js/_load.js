@@ -40,7 +40,7 @@ LoadJSLib('tabber');
 document.write('<style type="text/css">.tabber{display:none;}<\/style>');
 
 LoadJSLib('cookies');
-LoadJSLib('sprintf');
+LoadJSLib('string');
 
 // ---------------------------------------------------------------------------
 // load single scripts
