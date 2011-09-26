@@ -68,6 +68,11 @@
       -->
       <config name="Wait4EsniperStart" type="int">5</config>
 
+      <!--
+        Use static add row or popup dialog
+      -->
+      <config name="AddStatic" type="bool">FALSE</config>
+
       <!-- *******************************************************************
       **  Don't change from here
       ******************************************************************** -->

@@ -406,7 +406,8 @@ input.input.num {
   border-top: 1px solid #363636;
   background: #7d7d7d;
   color: white;
-  font-size: 1.2em;
+  /* font-size: 1.2em; */
+  font-weight: bold;
   padding: 5.5px 11px;
 }
 

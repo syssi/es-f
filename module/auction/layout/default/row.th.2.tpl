@@ -7,9 +7,13 @@
 <tr class="th th2">
   <th>
     <script type="text/javascript">
-    document.write("<img id=\"togglerowadd\" src=\"layout/images/arrow-down.gif\" class=\"clickable\" " +
-                   "onmouseover=\"Tip('Show the row to add auctions.')\" onclick=\"ToggleAddRow(this)\">");
-    addLoadEvent(function() { ToggleAddRow($('togglerowadd')) });
+    if (!"{CONST.MODULE.AUCTION.ADDSTATIC}") {
+      document.write("<img id=\"addimg\" style=\"display:none\" class=\"clickable\" " +
+                     "src=\"module/auction/layout/default/images/plus.gif\" " +
+                     "onmouseover=\"Tip('Add auctions')\" " +
+                     "onclick=\"return CreatePopupWindow('addauctions')\">");
+      addLoadEvent(function() { $('rowadd').hide(); $('addimg').show() });
+    }
     </script>
   </th>
 

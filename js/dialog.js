@@ -26,10 +26,8 @@ if (typeof DialogJsPath === 'undefined') {
 /** **************************************************************************
  *
  */
-function CreatePopupWindow( _ID, _y ) {
-  if (_y === undefined) _y = 20;
-  if (_y < 0) _y = (window.innerHeight/2) + _y;
-  new Dialog.Box(_ID, (window.pageYOffset + _y) + 'px');
+function CreatePopupWindow( _ID ) {
+  new Dialog.Box(_ID);
   $(_ID).show();
   return false;
 }
@@ -65,23 +63,16 @@ var Dialog = {};
 Dialog.Box = Class.create();
 
 Object.extend(Dialog.Box.prototype, {
-  initialize: function(id, y) {
+  initialize: function(id) {
     this.createOverlay();
 
     this.dialog_box = $(id);
     this.dialog_box.style.position = 'absolute';
     this.dialog_box.show = this.show.bind(this);
     this.dialog_box.hide = this.hide.bind(this);
+    this.dialog_box.style.zIndex = this.overlay.style.zIndex + 10;
 
     this.parent_element = this.dialog_box.parentNode;
-
-    var e_dims = Element.getDimensions(this.dialog_box);
-    var b_dims = Element.getDimensions(this.overlay);
-    this.dialog_box.style.left = ((b_dims.width/2) - (e_dims.width/2)) + 'px';
-    if (y !== undefined) {
-      this.dialog_box.style.top = y;
-    }
-    this.dialog_box.style.zIndex = this.overlay.style.zIndex + 10;
   },
 
   createOverlay: function() {
@@ -116,6 +107,12 @@ Object.extend(Dialog.Box.prototype, {
   show: function() {
     this.overlay.style.height = Math.max(window.innerHeight, document.body.getHeight()) + 'px';
     new Effect.Appear(this.overlay, {from: 0.0, to: 0.75, duration: 0.1});
+
+    var e_dims = Element.getDimensions(this.dialog_box);
+    var b_dims = Element.getDimensions(this.overlay);
+    this.dialog_box.style.top = ((window.innerHeight/2) - (e_dims.height/2) + (window.pageYOffset)) + 'px';
+    this.dialog_box.style.left = ((b_dims.width/2) - (e_dims.width/2)) + 'px';
+
     this.moveDialogBox('out');
     this.overlay.onclick = this.hide.bind(this);
     this.selectBoxes('hide');

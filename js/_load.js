@@ -4,7 +4,7 @@
 
 // ---------------------------------------------------------------------------
 function LoadJS( _file ) {
-  document.writeln('<script type="text/javascript" src="'+_file+'"><\/script>');
+  document.writeln('<script src="'+_file+'"><\/script>');
 }
 
 // ---------------------------------------------------------------------------
@@ -28,9 +28,13 @@ function LoadJSLib( _lib, _ver ) {
 // ---------------------------------------------------------------------------
 // load libraries
 // ---------------------------------------------------------------------------
-LoadJSLib('prototype', '1.7');
+//LoadJSLib('prototype', '1.7');
+//LoadJSLib('prototypePlus', '1.7');
+//LoadJSLib('scriptaculous', '1.9.0');
+
+LoadJS('https://ajax.googleapis.com/ajax/libs/prototype/1.7.0.0/prototype.js');
 LoadJSLib('prototypePlus', '1.7');
-LoadJSLib('scriptaculous', '1.9.0');
+LoadJS('https://ajax.googleapis.com/ajax/libs/scriptaculous/1.9.0/scriptaculous.js');
 
 var DialogJsPath = 'js/';
 LoadJSLib('dialog');
@@ -41,7 +45,3 @@ document.write('<style type="text/css">.tabber{display:none;}<\/style>');
 
 LoadJSLib('cookies');
 LoadJSLib('string');
-
-// ---------------------------------------------------------------------------
-// load single scripts
-// ---------------------------------------------------------------------------

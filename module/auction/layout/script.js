@@ -361,24 +361,3 @@ function ToggleAuctionRow( _El ) {
   // can be a string...
   $('tr_'+_El.value).toggleClassName('selected', _El.checked);
 }
-
-// ---------------------------------------------------------------------------
-// Toggle auction row class
-// ---------------------------------------------------------------------------
-function ToggleAddRow( _img ) {
-  var row = $('rowadd');
-  if (_img && row) {
-    if (row.visible()) {
-      _img.src = 'layout/images/arrow-down.gif';
-      row.hide();
-    } else {
-      _img.src = 'layout/images/arrow-up.gif';
-      row.show();
-    }
-  }
-}
-
-// ---------------------------------------------------------------------------
-// Init
-// ---------------------------------------------------------------------------
-//addLoadEvent(showCountDown);
