@@ -22,6 +22,11 @@ class esf_Plugin_AutoUpdate extends esf_Plugin {
   const SESSIONFLAG = 'AppIsUpToDate';
 
   /**
+   * Time between checks in sec., 1 day
+   */
+  const LIFESPAN = 86400;
+
+  /**
    * Parameter to trigger update now
    * PluginAutoUpdateNow
    */
@@ -48,8 +53,9 @@ class esf_Plugin_AutoUpdate extends esf_Plugin {
    */
   public function Start() {
 
-    // 1st call, check once per session
-    $this->Update1 = !Session::get(self::SESSIONFLAG);
+    // 1st call, check once per session or each day
+    $this->Update1 = (!$last = Session::get(self::SESSIONFLAG) OR
+                      $last + self::LIFESPAN < time());
     /// Yryie::Info('Update1: '.($this->Update1?'TRUE':'FALSE'));
 
     // 2nd call, check url parameter
@@ -63,9 +69,9 @@ class esf_Plugin_AutoUpdate extends esf_Plugin {
       Loader::Load(dirname(__FILE__).'/classes/appupdate.class.php');
 
       $this->cURL = new cURL;
-      $this->cURL->setOpt(CURLOPT_CONNECTTIMEOUT, Registry::get('cURL.ConnectionTimeOut'))
-                 ->setOpt(CURLOPT_TIMEOUT, Registry::get('cURL.TimeOut'))
-                 ->setOpt(CURLOPT_VERBOSE, Registry::get('cURL.Verbose'));
+      $this->cURL->setOpt(CURLOPT_CONNECTTIMEOUT, 3) // set very short timeouts
+                 ->setOpt(CURLOPT_TIMEOUT,        3)
+                 ->setOpt(CURLOPT_VERBOSE,        Registry::get('cURL.Verbose'));
 
       $options = array(
         'server'         => $this->Server,
@@ -78,7 +84,7 @@ class esf_Plugin_AutoUpdate extends esf_Plugin {
         $this->Updater = new AppUpdate($this->cURL, $options);
         $this->Updater->CheckUpdates(array(&$this, 'CheckFileVersion'));
         $this->UpdateCount = $this->Updater->getUpdatableCount();
-        Session::set(self::SESSIONFLAG, TRUE);
+        Session::set(self::SESSIONFLAG, time());
         // >> Debug
         Yryie::Debug($this->cURL->info());
         if (Registry::get('cURL.Verbose')) Yryie::Debug($this->cURL->getDebug());
@@ -165,7 +171,7 @@ class esf_Plugin_AutoUpdate extends esf_Plugin {
     echo '</div>';
 
     file_put_contents($this->CheckFile, ESF_VERSION);
-    Session::set(self::SESSIONFLAG, TRUE);
+    Session::set(self::SESSIONFLAG, time());
   }
 
   /**
