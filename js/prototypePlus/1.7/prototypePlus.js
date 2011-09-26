@@ -32,7 +32,8 @@ Element.addMethods({
 
   // move element as new child to dest
   move: function(element, dest) {
-    $(dest).appendChild(element.remove());
+    El = $(dest);
+    if (El) El.appendChild(element.remove());
     return element;
   }
 

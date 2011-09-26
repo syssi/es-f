@@ -115,7 +115,7 @@ abstract class esf_User {
     $token = self::getToken();
     $relogin = FALSE;
 
-    if (!$user AND !$password) {
+    if (is_null($user) AND is_null($password)) {
       // 1. check session first
       // check session: user & password and user token
       if ($user = Core::$Crypter->decrypt(Session::get(APPID)) AND

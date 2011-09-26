@@ -30,7 +30,7 @@ class esf_Plugin_LayoutSwitch extends esf_Plugin {
    *
    */
   public function OutputStart() {
-    if (Registry::get('esf.ContentOnly')) return;
+    if (Registry::get('esf.ContentOnly') OR Request::check('login')) return;
 
     $data['LAYOUTS'] = getLayouts();
     $data['LAYOUT'] = Session::getP('Layout');

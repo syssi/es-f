@@ -175,8 +175,8 @@ abstract class Core {
       Session::Start();
     }
 
-    /// if (Yryie::Active())
-    ///   foreach ((array)Session::$Messages as $msg) Yryie::Info($msg);
+    /// Yryie::Info('Session -> Debug');
+    /// if (Yryie::Active()) foreach ((array)Session::$Messages as $msg) Yryie::Info($msg);
   }
 
   /**
