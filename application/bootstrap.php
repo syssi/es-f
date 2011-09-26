@@ -129,6 +129,8 @@ if (IniFile::Parse(APPDIR.'/language/languages.ini')) {
   Registry::set('esf.Languages', array('en' => 'English'));
 }
 
+################################
+
 /// Yryie::StartTimer('LoadPlugins', 'Load plugins');
 
 Core::ReadConfigs(esf_Extensions::MODULE);
@@ -136,7 +138,6 @@ Core::ReadConfigs(esf_Extensions::MODULE);
 Core::IncludeSpecial(esf_Extensions::MODULE, 'plugin.class', TRUE);
 
 // include all plugin configs
-################################
 Core::ReadConfigs(esf_Extensions::PLUGIN);
 
 Event::ProcessInform('PluginConfigsLoaded');
@@ -149,12 +150,17 @@ Event::ProcessInform('ModuleConfigsLoaded');
 /// Yryie::StopTimer('LoadPlugins');
 
 ################################
-$signer = new Signer('es-f');
-Cookie::setSigner($signer);
-Session::setSigner($signer);
+
+if ($signer = Registry::get('Signer')) {
+  $signer = new Signer($signer);
+  Cookie::setSigner($signer);
+  Session::setSigner($signer);
+}
 unset($signer);
 
 Core::StartSession();
+
+/// Yryie::Debug($_SESSION);
 
 Event::ProcessInform('SessionStarted');
 
