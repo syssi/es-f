@@ -23,7 +23,7 @@ class esf_Plugin_LayoutSwitch extends esf_Plugin {
    */
   public function Start() {
     if ($layout = $this->Request('switchlayout'))
-      Session::setP('Layout', $layout);
+      Session::set('Layout', $layout);
   }
 
   /**
@@ -33,7 +33,7 @@ class esf_Plugin_LayoutSwitch extends esf_Plugin {
     if (Registry::get('esf.ContentOnly') OR Request::check('login')) return;
 
     $data['LAYOUTS'] = getLayouts();
-    $data['LAYOUT'] = Session::getP('Layout');
+    $data['LAYOUT'] = Session::get('Layout');
     TplData::add('Footer_After', $this->Render('content', $data));
   }
 }

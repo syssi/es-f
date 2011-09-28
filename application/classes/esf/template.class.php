@@ -142,10 +142,10 @@ class esf_Template {
     $this->Template->AssignConstant('DEVELOP', DEVELOP);
     if (Registry::get('Template.ClearCache')) $this->Template->ClearCache();
 
-    if (Session::getP('ClearCache', FALSE)) {
+    if (Session::get('ClearCache', FALSE)) {
       Yuelo::ClearCache();
       Yuelo_Cache::Clear();
-      Session::deleteP('ClearCache');
+      Session::delete('ClearCache');
     }
   }
 

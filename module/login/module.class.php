@@ -64,8 +64,8 @@ class esf_Module_Login extends esf_Module {
         else
           $msg = Translation::get('Login.GoodEvening');
         Messages::Success($msg.' '.$user.'!');
-        Session::setP('Layout', $this->Request('layout'));
-        Session::setP('ClearCache', TRUE);
+        Session::set('Layout', $this->Request('layout'));
+        Session::set('ClearCache', TRUE);
         $ts = time()+60*60*24*365;
         Cookie::set('LastUser', $user, $ts);
         Cookie::set('LastLayout', $this->Request('layout'), $ts);
@@ -79,7 +79,7 @@ class esf_Module_Login extends esf_Module {
       }
     }
 
-    Session::setP('Layout', 'default');
+    Session::set('Layout', 'default');
     TplData::set('Users', esf_User::getAll());
     TplData::set('User', Cookie::get('LastUser', $user));
   }

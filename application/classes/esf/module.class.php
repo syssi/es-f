@@ -35,7 +35,7 @@ abstract class esf_Module extends esf_Extension {
    */
   public function After() {
     $dir = np('module/'.$this->ExtensionName);
-    $layout = Session::getP('Layout');
+    $layout = Session::get('Layout');
     $html = '';
     foreach (array('style.css', 'print.css', 'script.js') as $id => $f) {
       // common for all layouts

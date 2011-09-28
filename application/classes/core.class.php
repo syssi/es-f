@@ -108,13 +108,6 @@ abstract class Core {
   }
 
   /**
-   *
-   */
-  public static function TempName( $prefix ) {
-    return tempnam(TEMPDIR, $prefix);
-  }
-
-  /**
    * ISO 8859-1 to UTF-8 conversion
    *
    * @source http://www.php.net/manual/en/function.iconv.php#43463
@@ -157,24 +150,17 @@ abstract class Core {
   /**
    * Own session handling
    *
-   * @param boolean $forceRestart Force restart of session, e.g. in case of logout
+   * @param bool $regenerate Force restart of session, e.g. in case of logout
    */
-  public static function StartSession( $forceRestart=FALSE ) {
+  public static function StartSession( $regenerate=FALSE ) {
     /// Session::$Debug = TRUE;
     /// Session::$Messages = array();
     if (!Session::Active()) {
       // Session not started yet
       Event::ProcessInform('InitSession');
-      Session::SetName(Registry::get('SessionName'));
-      Session::Start(Cookie::get('ttl'));
-    } elseif ($forceRestart) {
-      // force restart
-      Session::destroy();
-      Event::ProcessInform('InitSession');
-      Session::SetName(Registry::get('SessionName'));
-      Session::Start();
     }
-
+    Session::Start(Registry::get('SessionName'), Cookie::get('ttl'));
+    if ($regenerate) Session::regenerate(TRUE);
     /// Yryie::Info('Session -> Debug');
     /// if (Yryie::Active()) foreach ((array)Session::$Messages as $msg) Yryie::Info($msg);
   }

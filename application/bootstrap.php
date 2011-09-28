@@ -174,9 +174,9 @@ Session::checkRequest('language', 'en');
 Event::ProcessInform('LanguageSet', Session::get('language'));
 
 if (Session::get('Mobile')) {
-  Session::setP('Layout', 'mobile');
-} elseif (!Session::getP('Layout')) {
-  Session::setP('Layout', 'default');
+  Session::set('Layout', 'mobile');
+} elseif (!Session::get('Layout')) {
+  Session::set('Layout', 'default');
 }
 
 if (PluginEnabled('Validate')) {
@@ -293,10 +293,10 @@ $oTemplate = esf_Template::getInstance();
 $sModule = Registry::get('esf.Module');
 
 // generic styles/scripts, from defined layout or fallback layout
-TplData::add('HtmlHeader.raw', StylesAndScripts('.', Session::getP('Layout')));
+TplData::add('HtmlHeader.raw', StylesAndScripts('.', Session::get('Layout')));
 
 if (!Core::isPost() AND isset($_REQUEST['returnto'])) {
-  Session::setP('returnto', $_REQUEST['returnto']);
+  Session::set('returnto', $_REQUEST['returnto']);
 }
 
 // module preparation
@@ -325,11 +325,11 @@ call_user_func(array($oModule, Registry::get('esf.Action').'Action'));
 $oModule->After();
 
 // handle ReturnTo=...
-$sReturnTo = decodeReturnTo(Session::getP('returnto'));
+$sReturnTo = decodeReturnTo(Session::get('returnto'));
 
 if (!empty($sReturnTo) AND
     (Core::isPost() OR strpos($sReturnTo, 'force') !== FALSE )) {
-  Session::setP('returnto');
+  Session::set('returnto');
   Core::Redirect($sReturnTo);
 }
 
@@ -381,7 +381,7 @@ unset($server, $s);
 TplData::setConstant('SERVER.VERSION', $_SERVER['SERVER_SOFTWARE']);
 
 TplData::set('Layouts', getLayouts());
-TplData::set('Layout', Session::getP('Layout'));
+TplData::set('Layout', Session::get('Layout'));
 
 TplData::set('Ebay_Homepage', Registry::get('ebay.Homepage'));
 TplData::set('FormAction', Core::URL(array('module'=>$sModule)));
@@ -395,7 +395,7 @@ TplData::set('GetCategoryFromGroup', FROMGROUP);
 $path = 'module/'.$sModule.'/layout/';
 Loader::Load($path . 'layout.php', TRUE, FALSE);
 // for actual module layout, if exists
-Loader::Load($path . Session::getP('Layout').'.php', TRUE, FALSE);
+Loader::Load($path . Session::get('Layout').'.php', TRUE, FALSE);
 
 foreach (esf_Extensions::$Types as $ExtType) {
   foreach (esf_Extensions::getExtensions($ExtType) as $Ext) {
@@ -426,7 +426,7 @@ Event::ProcessInform('OutputStart');
 // plugin specific styles/scripts, from defined layout or fallback layout
 foreach (esf_Extensions::getExtensions(esf_Extensions::PLUGIN) as $plugin)
   if (PluginEnabled($plugin))
-    TplData::add('HtmlHeader.raw', StylesAndScripts('plugin/'.$plugin, Session::getP('Layout')));
+    TplData::add('HtmlHeader.raw', StylesAndScripts('plugin/'.$plugin, Session::get('Layout')));
 
 /// Yryie::StopTimer('LoadPluginStyles');
 /// Yryie::StartTimer('BuildMenus', 'Build menus');
@@ -474,7 +474,7 @@ unset($aBugReports, $sBugDir, $sFile, $sTo, $sResult);
 if (!DEVELOP) ob_start();
 
 Yuelo::set('Language', Session::get('language'));
-Yuelo::set('Layout', Session::getP('Layout'));
+Yuelo::set('Layout', Session::get('Layout'));
 
 $RootDir = array(
   BASEDIR.'/module/'.$sModule.'/layout',

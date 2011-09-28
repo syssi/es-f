@@ -44,7 +44,7 @@ class esf_Module_Backend extends esf_Module {
 
     if (in_array(Registry::get('esf.Action'), $modes)) {
       // clear cache to force recreate menus in header
-      Session::setP('ClearCache', TRUE);
+      Session::set('ClearCache', TRUE);
     }
 
     // >> Debug

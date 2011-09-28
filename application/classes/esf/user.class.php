@@ -115,7 +115,7 @@ abstract class esf_User {
     $token = self::getToken();
     $relogin = FALSE;
 
-    if (is_null($user) AND is_null($password)) {
+    if (is_null($user) OR is_null($password)) {
       // 1. check session first
       // check session: user & password and user token
       if ($user = Core::$Crypter->decrypt(Session::get(APPID)) AND
@@ -135,7 +135,7 @@ abstract class esf_User {
 
       if ($pass == $password) {
 
-        Core::StartSession(!$relogin, $relogin);
+        Core::StartSession(!$relogin);
 
         Session::set(APPID, Core::$Crypter->encrypt($user));
         Session::set($token, $password);
@@ -231,6 +231,7 @@ abstract class esf_User {
    *
    * @return string
    */
+  /* ///
   public static function getTokenPlain() {
     return array( $_SERVER['HTTP_USER_AGENT'], 
                   $_SERVER['REMOTE_ADDR'], 
@@ -239,5 +240,6 @@ abstract class esf_User {
                      .(ip2long($_SERVER['REMOTE_ADDR']) & ip2long(Registry::get('NetMask'))))
                 );
   }
+  /// */
 
 }

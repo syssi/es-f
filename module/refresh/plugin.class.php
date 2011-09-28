@@ -45,7 +45,7 @@ class esf_Plugin_Module_Refresh extends esf_Plugin {
 
     if (Registry::get('esf.module') == 'auction' AND $maxage > 0 AND
         $_SERVER['REQUEST_TIME']-$maxage > Event::ProcessReturn('getLastUpdate')) {
-      TplData::add('HtmlHeader.raw', StylesAndScripts('module/refresh', Session::getP('Layout')));
+      TplData::add('HtmlHeader.raw', StylesAndScripts('module/refresh', Session::get('Layout')));
       $items = array_keys(esf_Auctions::$Auctions);
     } else {
       $items = Session::get('Module.Refresh.Items', NULL, TRUE);

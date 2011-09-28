@@ -6,7 +6,6 @@
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2007-2010 Knut Kohl
  * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
- * @version    1.0.0
  * @version    $Id: v2.4.1-62-gb38404e 2011-01-30 22:35:34 +0100 $
  * @revision   $Rev$
  */
@@ -97,7 +96,7 @@ function getNewRequest( $request, $param ) {
  * @param string $Layout Layout to check against
  */
 function FindActualLayout( $Layout ) {
-  $sLayout = Session::getP('Layout');
+  $sLayout = Session::get('Layout');
   if ($sLayout != 'default' AND $Layout == 'default') $Layout = $sLayout;
   return $Layout;
 }

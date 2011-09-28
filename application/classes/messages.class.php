@@ -26,7 +26,7 @@ abstract class Messages {
    *
    * @var string $SessionVar
    */
-  public static $SessionVar = '__MESSAGES__';
+  public static $SessionVar = 'MESSAGES';
 
   /**
    * html code to format messages for output
@@ -113,7 +113,7 @@ abstract class Messages {
    * @param bool $formated Message is still HTML formated
    */
   public static function add( $msg, $type, $formated ) {
-    Session::addP(self::$SessionVar, array($msg, $type, $formated));
+    Session::add(self::$SessionVar, array($msg, $type, $formated));
   }
 
   /**
@@ -124,7 +124,7 @@ abstract class Messages {
    */
   public static function get( $clear=TRUE ) {
     $msgs = array();
-    foreach ((array) Session::getP(self::$SessionVar) as $msg)
+    foreach ((array) Session::get(self::$SessionVar) as $msg)
       $msgs[] = self::toStr($msg[0], $msg[1], $msg[2]);
     if ($clear) self::clear();
     return $msgs;
@@ -138,9 +138,9 @@ abstract class Messages {
    */
   public static function count( $type=NULL ) {
     if (!isset($type)) {
-      $cnt = count((array) Session::getP(self::$SessionVar));
+      $cnt = count((array) Session::get(self::$SessionVar));
     } else {
-      $msgs = (array) Session::getP(self::$SessionVar);
+      $msgs = (array) Session::get(self::$SessionVar);
       $cnt = 0;
       foreach ($msgs as $msg) if ($msg[1] == $type) $cnt++;
     }
@@ -151,6 +151,6 @@ abstract class Messages {
    * Clear message buffer
    */
   public static function clear() {
-    Session::setP(self::$SessionVar);
+    Session::delete(self::$SessionVar);
   }
 }

@@ -5,7 +5,6 @@
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2007-2011 Knut Kohl
  * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
- * @version    1.0.0
  * @version    $Id: v2.4.1-62-gb38404e 2011-01-30 22:35:34 +0100 $
  * @revision   $Rev$
  */
@@ -33,11 +32,6 @@ abstract class Session {
    * @var mixed $NVL
    */
   public static $NVL = NULL;
-
-  /**
-   * Renerate session Id on every session start
-   */
-  public static $RegenerateIdAlways = TRUE;
 
   /**
    * Set session save path
@@ -77,19 +71,6 @@ abstract class Session {
   }
 
   /**
-   * Set session name
-   *
-   * @param string $name New session name
-   * @return string Name of the current session
-   */
-  public static function SetName( $name ) {
-    self::__dbg('Set name to "%s"', $name);
-    $name = session_name($name);
-    self::__dbg('Old name was "%s"', $name);
-    return $name;
-  }
-
-  /**
    * Is a session active
    *
    * @return bool
@@ -101,17 +82,38 @@ abstract class Session {
   /**
    * Start session
    *
+   * @param string $name New session name
    * @param int $ttl Time to live for session cookie
+   * @param string $path Used to restrict where the browser sends the cookie
+   * @param string $domain Used to allow subdomains access to the cookie
+   * @param bool $secure If TRUE the browser only sends the cookie over https
    * @return void
    */
-  public static function start( $ttl=0 ) {
-    session_set_cookie_params($ttl);
-    session_start();
+  public static function start( $name, $ttl=0, $path='/', $domain=NULL, $secure=NULL ) {
+    self::__dbg('Set name to "%s"', $name);
+    $name = session_name($name);
+    self::__dbg('Old name was "%s"', $name);
 
-    if (self::$RegenerateIdAlways) self::regenerate();
+    // Set SSL level
+    $https = isset($secure) ? $secure : isset($_SERVER['HTTPS']);
+
+    session_set_cookie_params($ttl, $path, $domain, $https, TRUE);
+
+    self::__start();
+
+    // Make sure the session hasn't expired and is valid ...
+    if (self::validate()) {
+      // Give a 5% chance of the session id changing on any request
+      if (rand(1, 100) <= 5) self::regenerate();
+    } else {
+      // ... and destroy it if it has
+      $_SESSION = array();
+      self::destroy();
+      self::__start();
+    }
 
     self::__dbg('Started "%s" = "%s"', session_name(), session_id());
-    self::__fixes();
+
     if (count(self::$__buffer)) {
       foreach(self::$__buffer as $key=>$value) {
         $key = strtolower($key);
@@ -123,6 +125,7 @@ abstract class Session {
       }
       self::$__buffer = array();
     }
+/*
     if (count(self::$__protected)) {
       foreach(self::$__protected as $key=>$value) {
         $key = strtolower($key);
@@ -135,24 +138,44 @@ abstract class Session {
       }
       self::$__protected = array();
     }
+*/
   }
 
   /**
    * Update the current session id with a newly generated one
    *
-   * @param bool $delete Delete the old associated session file
+   * @param bool $clear Clear all session data
    * @return bool Success
    */
-  public static function regenerate() {
+  public static function regenerate( $clear=FALSE ) {
+    // If this session is obsolete it means there already is a new id
+    if (isset($_SESSION['_OBSOLETE']) && $_SESSION['_OBSOLETE']) return;
+
     self::__dbg('Regenerate ID: was "%s"', session_id());
-    if (session_regenerate_id(FALSE)) {
-      self::__fixes();
+
+    // Set current session to expire in 10 seconds
+    $_SESSION['_OBSOLETE'] = TRUE;
+    $_SESSION['_EXPIRES']  = time() + 10;
+
+    if ($ok = session_regenerate_id(TRUE)) {
+      // hang on to the new session id
+      $sid = session_id();
+      // close the old and new sessions
+      self::close();
+      // re-open the new session
+      session_id($sid);
+      self::__start();
       self::__dbg('Regenerate ID: now "%s"', session_id());
-      return TRUE;
     } else {
       self::__dbg('Regenerate ID: FAILED');
     }
-    return FALSE;
+    // Now we unset the obsolete and expiration values for the session we want to keep
+    unset($_SESSION['_OBSOLETE']);
+    unset($_SESSION['_EXPIRES']);
+
+    if ($clear) $_SESSION = array();
+
+    return $ok;
   }
 
   /**
@@ -201,7 +224,7 @@ abstract class Session {
     self::__dbg('Destroy "%s" = "%s"', session_name(), session_id());
     if ($removeCookies) self::removeCookies();
     $_SESSION = array();
-    Session::close();
+    self::close();
     @session_destroy();
   }
 
@@ -323,82 +346,27 @@ abstract class Session {
     return $val;
   }
 
-  /**
-   * Set a "protected" variable value into $_SESSION
-   *
-   * It lifes over session lifetime in case of login/logout
-   *
-   * Deletes variable from session if value is NULL
-   *
-   * @see addP()
-   * @see getP()
-   * @param string $key Varibale name
-   * @param mixed $val Varibale value
-   * @return void
-   */
-  public static function setP( $key, $val=NULL ) {
-    $key = self::__mapKey($key);
-    if (!self::active()) {
-      self::$__protected[$key] = $val;
-    } else {
-      if (is_null($val)) {
-        unset($_SESSION[self::PROTECT][$key]);
-      } else {
-        $_SESSION[self::PROTECT][$key] = $val;
-      }
-    }
-  }
+  //---------------------------------------------------------------------------
+  // PROTECTED
+  //---------------------------------------------------------------------------
 
   /**
-   * Add a value to a "protected" $_SESSION variable
+   * This function is used to see if a session has expired or not.
    *
-   * @see setP()
-   * @param string $key Varibale name
-   * @param mixed $val Varibale value
-   * @return void
+   * @return bool
    */
-  public static function addP( $key, $val ) {
-    $key = self::__mapKey($key);
-    if (!self::active()) {
-      self::$__protected[$key][] = $val;
-    } else {
-      if (!isset($_SESSION[self::PROTECT][$key])) {
-        $_SESSION[self::PROTECT][$key] = array();
-      } elseif (!is_array($_SESSION[self::PROTECT][$key])) {
-        $_SESSION[self::PROTECT][$key] = array($_SESSION[self::PROTECT][$key]);
-      }
-      $_SESSION[self::PROTECT][$key][] = $val;
-    }
-  }
+  protected static function validate() {
+    if (isset($_SESSION['_OBSOLETE']) AND !isset($_SESSION['_EXPIRES']) )
+      return FALSE;
 
-  /**
-   * Remove a "protected" $_SESSION variable
-   *
-   * @param string $var Varibale name
-   * @return void
-   */
-  public static function deleteP( $var ) {
-    self::setP($var);
-  }
+    if (isset($_SESSION['_EXPIRES']) AND $_SESSION['_EXPIRES'] < time())
+      return FALSE;
 
-  /**
-   * Get a value from a protected $_SESSION variable
-   *
-   * @see setP()
-   * @see addP()
-   * @param string $key Varibale name
-   * @param mixed $default Return if $key not set
-   * @return mixed
-   */
-  public static function getP( $key=NULL, $default=NULL ) {
-    $key = self::__mapKey($key);
-    return isset($key)
-         ? ( isset($_SESSION[self::PROTECT][$key])
-           ? $_SESSION[self::PROTECT][$key]
-           : $default )
-         : ( isset($_SESSION[self::PROTECT])
-           ? $_SESSION[self::PROTECT]
-           : array());
+    if (!isset($_SESSION['_HTTP_USER_AGENT']) OR
+              $_SESSION['_HTTP_USER_AGENT'] !== md5($_SERVER['HTTP_USER_AGENT'].__FILE__))
+      return FALSE;
+
+    return TRUE;
   }
 
   //---------------------------------------------------------------------------
@@ -436,9 +404,10 @@ abstract class Session {
   }
 
   /**
-   * Some statements to fix bugs in IE and PHP < 4.3.3
+   * starts session and some statements to fix bugs in IE and PHP < 4.3.3
    */
-  private static function __fixes() {
+  private static function __start() {
+    session_start();
     // to overcome/fix a bug in IE 6.x
     Header('Cache-control: private');
     // from http://php.net/manual/function.session-regenerate-id.php
@@ -446,6 +415,8 @@ abstract class Session {
     if (version_compare(PHP_VERSION, '4.3.3', '<')) {
       setCookie( session_name(), session_id(), ini_get('session.cookie_lifetime'));
     }
+    // random suffix: file location
+    $_SESSION['_HTTP_USER_AGENT'] = md5($_SERVER['HTTP_USER_AGENT'].__FILE__);
   }
 
   /**
