@@ -125,7 +125,7 @@ abstract class esf_User {
         return $user;
       }
     } else {
-      // 2. login with user ans password
+      // 2. login with user and password
       // Login: check user/password and store in session
       self::$LastUser = NULL;
       if (!($pass = self::get($user, self::USER_PASS))) return FALSE;
