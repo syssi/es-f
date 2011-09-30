@@ -32,7 +32,6 @@ class esf_Plugin_PageTime extends esf_Plugin {
    *
    */
   public function OutputStart() {
-    TplData::add('HtmlHeader.Script', 'LoadJSLib("sprintf");');
     TplData::add('HtmlHeader.raw', $this->Render('head'));
   }
 
