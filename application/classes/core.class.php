@@ -158,8 +158,8 @@ abstract class Core {
     if (!Session::Active()) {
       // Session not started yet
       Event::ProcessInform('InitSession');
+      Session::Start(Registry::get('SessionName'), Cookie::get('ttl'));
     }
-    Session::Start(Registry::get('SessionName'), Cookie::get('ttl'));
     if ($regenerate) Session::regenerate(TRUE);
     /// Yryie::Info('Session -> Debug');
     /// if (Yryie::Active()) foreach ((array)Session::$Messages as $msg) Yryie::Info($msg);

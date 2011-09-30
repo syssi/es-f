@@ -12,11 +12,6 @@ abstract class Session {
 
   /**
    *
-   */
-  const PROTECT = '~protected~session~data~';
-
-  /**
-   *
    * @var bool $Debug
    */
   public static $Debug = FALSE;
@@ -104,7 +99,9 @@ abstract class Session {
     // Make sure the session hasn't expired and is valid ...
     if (self::validate()) {
       // Give a 5% chance of the session id changing on any request
-      if (rand(1, 100) <= 5) self::regenerate();
+      if (rand(1, 100) <= 5) {
+        self::regenerate();
+      }
     } else {
       // ... and destroy it if it has
       $_SESSION = array();
@@ -125,20 +122,6 @@ abstract class Session {
       }
       self::$__buffer = array();
     }
-/*
-    if (count(self::$__protected)) {
-      foreach(self::$__protected as $key=>$value) {
-        $key = strtolower($key);
-        if (isset($_SESSION[self::PROTECT][$key]) AND
-            is_array($_SESSION[self::PROTECT][$key])) {
-          $_SESSION[self::PROTECT][$key] = array_merge($_SESSION[self::PROTECT][$key], $value);
-        } else {
-          $_SESSION[self::PROTECT][$key] = $value;
-        }
-      }
-      self::$__protected = array();
-    }
-*/
   }
 
   /**
@@ -155,7 +138,6 @@ abstract class Session {
 
     // Set current session to expire in 10 seconds
     $_SESSION['_OBSOLETE'] = TRUE;
-    $_SESSION['_EXPIRES']  = time() + 10;
 
     if ($ok = session_regenerate_id(TRUE)) {
       // hang on to the new session id
@@ -171,7 +153,6 @@ abstract class Session {
     }
     // Now we unset the obsolete and expiration values for the session we want to keep
     unset($_SESSION['_OBSOLETE']);
-    unset($_SESSION['_EXPIRES']);
 
     if ($clear) $_SESSION = array();
 
@@ -304,26 +285,6 @@ abstract class Session {
   }
 
   /**
-   * Remove a value from $_SESSION
-   *
-   * @param string $var Varibale name
-   * @return void
-   */
-  public static function delete( $var ) {
-    self::set($var);
-  }
-
-  /**
-   * Chck if a $_SESSION variable is set
-   *
-   * @param string $key Varibale name
-   * @return bool
-   */
-  public static function is_set( $key ) {
-    return isset($_SESSION[self::__mapKey($key)]);
-  }
-
-  /**
    * Get a value from a $_SESSION variable, return $default if not set
    *
    * @see set()
@@ -346,6 +307,38 @@ abstract class Session {
     return $val;
   }
 
+  /**
+   * Get a value from $_SESSION and deletes it
+   *
+   * @param string $key Varibale name
+   * @return mixed
+   */
+  public static function takeout( $key ) {
+    $val = self::get($key);
+    self::delete($key);
+    return $val;
+  }
+
+  /**
+   * Remove a value from $_SESSION
+   *
+   * @param string $var Varibale name
+   * @return void
+   */
+  public static function delete( $var ) {
+    self::set($var);
+  }
+
+  /**
+   * Chck if a $_SESSION variable is set
+   *
+   * @param string $key Varibale name
+   * @return bool
+   */
+  public static function is_set( $key ) {
+    return isset($_SESSION[self::__mapKey($key)]);
+  }
+
   //---------------------------------------------------------------------------
   // PROTECTED
   //---------------------------------------------------------------------------
@@ -356,16 +349,14 @@ abstract class Session {
    * @return bool
    */
   protected static function validate() {
-    if (isset($_SESSION['_OBSOLETE']) AND !isset($_SESSION['_EXPIRES']) )
+    if (isset($_SESSION['_OBSOLETE'])) {
       return FALSE;
-
-    if (isset($_SESSION['_EXPIRES']) AND $_SESSION['_EXPIRES'] < time())
-      return FALSE;
+    }
 
     if (!isset($_SESSION['_HTTP_USER_AGENT']) OR
-              $_SESSION['_HTTP_USER_AGENT'] !== md5($_SERVER['HTTP_USER_AGENT'].__FILE__))
+              $_SESSION['_HTTP_USER_AGENT'] !== md5($_SERVER['HTTP_USER_AGENT'].__FILE__)) {
       return FALSE;
-
+    }
     return TRUE;
   }
 
@@ -386,13 +377,6 @@ abstract class Session {
    * @var array $__signer
    */
   private static $__signer = NULL;
-
-  /**
-   * Data container
-   *
-   * @var array $__protected
-   */
-  private static $__protected = array();
 
   /**
    * Transform $key for common use
