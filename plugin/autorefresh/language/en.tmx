@@ -44,21 +44,21 @@
       </tuv>
     </tu>
 
-    <tu tuid="Enable_1">
+    <tu tuid="Enabled">
       <tuv xml:lang="EN">
-        <seg>Automatic page refresh deactivated.</seg>
+        <seg>Automatic page refresh each %d min.</seg>
       </tuv>
     </tu>
 
-    <tu tuid="Enable_2">
+    <tu tuid="Enable_On">
       <tuv xml:lang="EN">
         <seg>Automatic page refresh activated.</seg>
       </tuv>
     </tu>
 
-    <tu tuid="EnableState">
+    <tu tuid="Enable_Off">
       <tuv xml:lang="EN">
-        <seg>Automatic page refresh each %d min.</seg>
+        <seg>Automatic page refresh deactivated.</seg>
       </tuv>
     </tu>
 

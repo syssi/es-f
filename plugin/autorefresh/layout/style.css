@@ -5,3 +5,7 @@
   border: 0;
   border-bottom: solid gray 1px;
 }
+
+#plugin_autorefresh_left {
+  font-weight: bold;
+}
