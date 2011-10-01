@@ -193,18 +193,18 @@ if (PluginEnabled('Validate')) {
 
 /// Yryie::Debug('$_REQUEST : '.print_r($_REQUEST, TRUE));
 
-if (!Core::isPost()) {
-  Core::StripSlashes($_GET);
-  Event::Process('UrlUnRewrite', $_GET);
-  Event::Process('AnalyseRequest', $_GET);
-  /// Yryie::Debug('$_GET after analyse: '.print_r($_GET, TRUE));
-  $_POST = array();
-} else {
+if (Core::isPost()) {
   Core::StripSlashes($_POST);
-  Event::Process('UrlUnRewrite', $_POST);
-  Event::Process('AnalyseRequest', $_POST);
+  /// Yryie::Debug('$_POST before analyse: '.print_r($_POST, TRUE));
+  Event::Process('AnalysePost', $_POST);
   /// Yryie::Debug('$_POST after analyse: '.print_r($_POST, TRUE));
   $_GET = array();
+} else {
+  Core::StripSlashes($_GET);
+  /// Yryie::Debug('$_GET before analyse: '.print_r($_GET, TRUE));
+  Event::Process('AnalyseGet', $_GET);
+  /// Yryie::Debug('$_GET after analyse: '.print_r($_GET, TRUE));
+  $_POST = array();
 }
 Core::StripSlashes($_REQUEST);
 Event::Process('UrlUnRewrite', $_REQUEST);
