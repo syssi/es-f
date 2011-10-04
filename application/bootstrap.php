@@ -9,14 +9,15 @@
 
 // include functions
 Loader::Load(APPDIR.'/functions.php');
+
+// Emulate register_globals off
+unregister_GLOBALS();
+
 // Configurations
 Loader::Load(APPDIR.'/init.php');
 Loader::Load(LOCALDIR.'/custom/init.php', TRUE, FALSE);
 
 HTMLPage::$Debug = (DEVELOP OR Registry::get('cURL.Verbose'));
-
-// Emulate register_globals off
-unregister_GLOBALS();
 
 // >> Debug
 $sDebugFile = np('%s/%s.debug', TEMPDIR, APPID);
@@ -31,6 +32,9 @@ if (isset($_GET['DEBUG'])) {
 
 define('_DEBUG', file_exists($sDebugFile));
 define('_TRACE', _DEBUG ? file_get_contents($sDebugFile) : FALSE);
+
+// Make sure, session is closed at the end of the script
+ShutDown::getInstance()->register(array('Session','close'));
 
 Yryie::Active(_DEBUG);
 #Yryie::$TimeUnit = Yryie::MICROSECONDS;
@@ -548,5 +552,3 @@ Event::Process('OutputFilter', $html);
 echo $html;
 
 Event::ProcessInform('PageEnded');
-
-Session::close();
