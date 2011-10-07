@@ -13,18 +13,15 @@
   - relative name from DOCUMENT_ROOT
   - one of above BASE64 encoded: base64_encode($ImageFileName)
 
+  @changelog
+  - Add water marking
+  - Shorten the hash
+
   @author     Knut Kohl <knutkohl@users.sourceforge.net>
   @copyright  2007-2011 Knut Kohl
   @license    GNU General Public Licensehttp://www.gnu.org/licenses/gpl.txt
-  @version    1.2.0
   @version    $Id: v2.4.1-64-gee8a889 2011-02-03 23:16:23 +0100 $
-
-  @changelog
-  - Version 1.2.0
-    - NEW: water marking
-  - Version 1.1.0
-    - NEW: Shorten the hash
-
+  @revision   $Rev$
 */
 
 /**
@@ -289,7 +286,7 @@ if ($makeThumb) {
 }
 
 Header('ETag: "'.$ETag.'"');
-Header('Cache-Control: private');
+Header('Cache-Control: max-age=604800');
 Header('Content-Type: image/'.$ImgType);
 Header('Content-Length: '.filesize($ImageName));
 Header('Last-Modified: '.gmdate('D, d M Y H:i:s', filemtime($ImageName)).' GMT');
