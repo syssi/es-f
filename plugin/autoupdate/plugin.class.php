@@ -64,6 +64,8 @@ class esf_Plugin_AutoUpdate extends esf_Plugin {
 
     if ($this->Update1 OR $this->Update2) {
 
+      Session::set(self::SESSIONFLAG, time());
+
       !is_dir($this->LocalPath) && Exec::getInstance()->MkDir($this->LocalPath, $res);
 
       Loader::Load(dirname(__FILE__).'/classes/appupdate.class.php');
@@ -84,7 +86,6 @@ class esf_Plugin_AutoUpdate extends esf_Plugin {
         $this->Updater = new AppUpdate($this->cURL, $options);
         $this->Updater->CheckUpdates(array(&$this, 'CheckFileVersion'));
         $this->UpdateCount = $this->Updater->getUpdatableCount();
-        Session::set(self::SESSIONFLAG, time());
         // >> Debug
         Yryie::Debug($this->cURL->info());
         if (Registry::get('cURL.Verbose')) Yryie::Debug($this->cURL->getDebug());
