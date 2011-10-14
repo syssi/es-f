@@ -65,9 +65,6 @@
   </td>
 
   <td style="text-align:right">
-    <!-- IF BIN -->
-    <img alt="Buy now" src="{$IMGDIR}/{CONST.ESF.LANGUAGE}/{BIN}.gif"><br>
-    <!-- ENDIF -->
     <tt>{currency:BID,,CURRENCY}</tt><br>
     <!-- IF SHIPPING = "FREE" -->
       <tt>[[Auction.ShippingFree]]</tt>
@@ -80,7 +77,13 @@
   </td>
 
   <td style="text-align:center">
-    <!-- IF BIDS -->
+    <!-- IF BIN -->
+    <img alt="Buy now" title="Buy now" onmouseover="Tip('Buy now')"
+         style="margin-bottom:5px"
+         src="module/auction/layout/default/images/buynow.png">
+    <br>
+    <!-- ENDIF -->
+    <!-- IF BIDS > "0" -->
       <tt>{BIDS}</tt>
       <br>
       <small>{BIDDER}</small>
