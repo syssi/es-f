@@ -1,5 +1,5 @@
 /**
- * Extends prototype version 1.6.0
+ * Extends prototype version 1.7.0
  */
 
 Element.addMethods({

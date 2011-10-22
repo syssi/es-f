@@ -1,10 +1,14 @@
 <!--
 /**
- * @version 0.3.0
- * @author  Knut Kohl / knutkohl@users.sourceforge.net
+ * @author    Knut Kohl / knutkohl@users.sourceforge.net
  *
  * CHANGELOG
  * =========
+ * [2011-10-22]
+ * - reintegrate all JS and CSS loading
+ *
+ * @version   $Id$
+ * @revision  $Rev$
  */
 -->
 <html>
@@ -15,6 +19,7 @@
     var ApplicationId = '{CONST.ESF.APPID}';
     var GB_ROOT_DIR = '{CONST.BASEHTML}js/greybox/greybox/';
     var GetCategoryFromGroup = '{GETCATEGORYFROMGROUP}';
+    var TabberRootDir = 'js/';
     // ]]>
   </script>
 
@@ -31,27 +36,67 @@
   <link rel="shortcut icon" href="favicon.ico">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 
-  <link rel="stylesheet" type="text/css" href="layout/text.css">
-  <!-- BEGIN HTMLHEADER.CSS -->
-  <link rel="stylesheet" type="text/css" href="{CSS}">
-  <!-- END HTMLHEADER.CSS -->
-
   <!-- dynamic font size -->
+  <script type="text/javascript" src="js/cookies.js"></script>
   <script type="text/javascript" src="js/efa/efa_fontsize.js"></script>
 
-  <script type="text/javascript" src="js/_load.js"></script>
+  <!-- Libraries -->
+  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/prototype/1.7.0.0/prototype.js"></script>
+  <script type="text/javascript">
+    if (typeof Prototype == 'undefined') {
+      document.write(unescape("%3Cscript type='text/javascript' src='/js/prototype.js'%3E%3C/script%3E"));
+    }
+  </script>
+  <script type="text/javascript" src="/js/prototypePlus.js"></script>
+
+  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/scriptaculous/1.9.0/scriptaculous.js"></script>
+  <script type="text/javascript">
+    if (typeof Prototype == 'undefined') {
+      document.write(unescape("%3Cscript type='text/javascript' src='/js/scriptaculous.js'%3E%3C/script%3E"));
+    }
+  </script>
+
+  <script type="text/javascript" src="js/ModalBox/modalbox.js"></script>
+  <link rel="stylesheet" type="text/css" href="js/ModalBox/modalbox.css" media="screen">
+
+  <script type="text/javascript" src="js/tabber.js"></script>
+  <script type="text/javascript" src="js/string.js"></script>
+
   <script type="text/javascript" src="layout/script.js"></script>
   <!-- BEGIN HTMLHEADER.JS -->
   <script type="text/javascript" src="{JS}"></script>
   <!-- END HTMLHEADER.JS -->
 
+  <link rel="stylesheet" type="text/css" href="layout/text.css">
+  <!-- BEGIN HTMLHEADER.CSS -->
+  <link rel="stylesheet" type="text/css" href="{CSS}">
+  <!-- END HTMLHEADER.CSS -->
+
   <script type="text/javascript">
+    document.write('<style type="text/css">.tabber{ display:none; }<\/style>');
+
     // <![CDATA[
-    var cookieManager =
-      new Cookiemanager('cookieManager', '', 1, 'years', document.domain);
     <!-- BEGIN HTMLHEADER.SCRIPT -->
     {SCRIPT}
     <!-- END HTMLHEADER.SCRIPT -->
+
+    efa_bigger[1]  = '<img src="layout/default/images/text+1.gif">';
+    efa_bigger[2]  = '[[Core.Efabigger]]';
+    efa_bigger[7]  = 'Tip(\'[[Core.EfaBigger]]\')';
+    efa_reset[1]   = '<img src="layout/default/images/text0.gif">';
+    efa_reset[2]   = '[[Core.Efareset]]';
+    efa_reset[7]   = 'Tip(\'[[Core.EfaReset]]\')';
+    efa_smaller[1] = '<img src="layout/default/images/text-1.gif">';
+    efa_smaller[2] = '[[Core.Efasmaller]]';
+    efa_smaller[7] = 'Tip(\'[[Core.EfaSmaller]]\')';
+
+    var cookieManager =
+      new Cookiemanager('cookieManager', '', 1, 'years', document.domain);
+    var efa_fontSize =
+      new Efa_Fontsize(efa_increment,
+                       efa_bigger, efa_reset, efa_smaller,
+                       efa_default);
+    if (efa_fontSize) efa_fontSize.efaInit();
     // ]]>
   </script>
 
