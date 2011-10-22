@@ -33,7 +33,6 @@ abstract class esf_User {
       self::USER_NAME => $user, 
       self::USER_PASS => $passwords
     );
-
     if (empty(self::$Admin)) self::$Admin = $user;
   }
 
@@ -75,8 +74,8 @@ abstract class esf_User {
   public static function getPass( $frontend=FALSE, $user=NULL, $password=NULL ) {
     if (!isset($user, $password)) {
       // use actual user
-      $user = self::getActual();
-      $password = Session::get(self::getToken());
+      $data = Session::get(self::getToken());
+      if (count($data) == 2) list($user, $password) = $data;
     }
 
     $pass = self::get($user, self::USER_PASS);
@@ -113,13 +112,17 @@ abstract class esf_User {
     if (!is_null($password)) $password = md5($password);
 
     $token = self::getToken();
-    $relogin = FALSE;
 
     if (is_null($user) OR is_null($password)) {
       // 1. check session first
       // check session: user & password and user token
-      if ($user = Core::$Crypter->decrypt(Session::get(APPID)) AND
-          $pass = Session::get($token) AND
+      if (count($data = Session::get($token)) == 2) {
+        list($user, $pass) = $data;
+      } else {
+        $pass = '';
+      }
+      if (#$user = Core::$Crypter->decrypt(Session::get(APPID)) AND
+          #$pass = Session::get($token) AND
           $pass == self::getPass(TRUE, $user, $pass)) {
         self::InitUser($user);
         return $user;
@@ -131,23 +134,12 @@ abstract class esf_User {
       if (!($pass = self::get($user, self::USER_PASS))) return FALSE;
 
       $pass = explode("\x01", Core::$Crypter->decrypt($pass, $password));
-      $pass = @$pass[0];
+      if (isset($pass[0])) $pass = $pass[0];
 
       if ($pass == $password) {
-
-        Core::StartSession(!$relogin);
-
-        Session::set(APPID, Core::$Crypter->encrypt($user));
-        Session::set($token, $password);
-
-        if ($relogin) {
-          Event::ProcessInform('Log', 'Login: '.$user.' from '.$_SERVER['REMOTE_ADDR'].' (Cookie)');
-          // >> Debug
-          Yryie::Info('Login from cookie: '.$user);
-          // << Debug
-        } else {
-          Event::ProcessInform('Log', 'Login: '.$user.' from '.$_SERVER['REMOTE_ADDR']);
-        }
+        Core::StartSession(TRUE);
+        Session::set($token, array($user, $password));
+        Event::ProcessInform('Log', 'Login: '.$user.' from '.$_SERVER['REMOTE_ADDR']);
         self::InitUser($user);
         return $user;
       } else {
@@ -167,7 +159,6 @@ abstract class esf_User {
     if (self::$LastUser == $user) return;
 
     self::$LastUser = $user;
-
     $UserDir = self::UserDir();
     is_dir($UserDir) || mkdir($UserDir);
 

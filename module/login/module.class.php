@@ -15,10 +15,9 @@ class esf_Module_Login extends esf_Module {
    * Class constructor
    *
    * @return void
-   */
+   * /
   public function __construct() {
     parent::__construct();
- #   Registry::set('esf.contentonly', TRUE);
   }
 
   /**
@@ -55,14 +54,20 @@ class esf_Module_Login extends esf_Module {
     if ($user AND $pass) {
       if (esf_User::isValid($user, $pass)) {
         $h = date('G');
-        if ($h < $this->Morning)
-          $msg = Translation::get('Login.GoodMorning');
-        elseif ($h < $this->Day)
-          $msg = Translation::get('Login.GoodDay');
-        elseif ($h < $this->Afternoon)
-          $msg = Translation::get('Login.GoodAfternoon');
-        else
-          $msg = Translation::get('Login.GoodEvening');
+        switch (TRUE) {
+          case ($h < $this->Morning):
+            $msg = Translation::get('Login.GoodMorning');
+            break;
+          case ($h < $this->Day):
+            $msg = Translation::get('Login.GoodDay');
+            break;
+          case ($h < $this->Afternoon):
+            $msg = Translation::get('Login.GoodAfternoon');
+            break;
+          default:
+            $msg = Translation::get('Login.GoodEvening');
+            break;
+        }
         Messages::Success($msg.' '.$user.'!');
         Session::set('Layout', $this->Request('layout'));
         Session::set('ClearCache', TRUE);
