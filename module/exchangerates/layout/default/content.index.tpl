@@ -1,14 +1,19 @@
 <!--
 /**
  *
+ * @version   $Id$
+ * @revision  $Rev$
  */
 -->
 
-<table class="w100"><tr><td class="c" style="width:50%">
+<table class="w100"><tr>
+
+<td class="c t" style="width:50%">
 
 <h2>[[Exchangerates.Currencies]]</h2>
 
-<table>
+<div style="height:20em;overflow:auto">
+<table style="width:100%">
 
 <tr class="{cycle:"tr","tr1","tr2"}">
   <th style="text-align:left;width:20em" colspan="2">[[Exchangerates.Currency]]</th>
@@ -26,6 +31,7 @@
 <!-- END RATES -->
 
 </table>
+<div>
 
 </td>
 
@@ -74,6 +80,6 @@
 
 </td></tr></table>
 
-<p class="c">
-[[Exchangerates.Source]]: {SOURCE} ({a:SOURCEURL})
-</p>
+<p class="c i" style="padding:0 10%">{replace:DISCLAIMER,".",".<br>"}</p>
+
+<p class="c">[[Exchangerates.Source]]: {SOURCE} ({a:URL,DATAURL})</p>

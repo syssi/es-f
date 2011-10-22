@@ -12,7 +12,6 @@
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2009-2011 Knut Kohl
  * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
- * @version    1.0.0
  * @version    $Id: v2.4.1-62-gb38404e 2011-01-30 22:35:34 +0100 $
  * @revision   $Rev$
  */
@@ -22,42 +21,41 @@ class esf_Module_ExchangeRates extends esf_Module {
    * Handles index action
    */
   public function IndexAction() {
-    if (time() > (Session::get('Module.ExchangeRates.TS')+$this->CacheLifespan*24*60*60) OR
+    if (time() > (Session::get('Module.ExchangeRates.TS')+$this->CacheLifespan) OR
         !($rates = Session::get('Module.ExchangeRates.Rates')) OR
-        !($source = Session::get('Module.ExchangeRates.Source'))) {
+        !($source = Session::get('Module.ExchangeRates.Source')) OR
+        !($disclaimer = Session::get('Module.ExchangeRates.Disclaimer'))) {
 
-      /// Yryie::Info('Read exchange rates from ECB: '.$this->URL);
+      /// Yryie::Info('Read exchange rates from '.$this->DataURL);
 
-      $path = dirname(__file__).'/classes';
-      Loader::Load($path.'/xmlparser.class.php');
+      $cURL = new cURL;
+      $cURL->setOpt(CURLOPT_CONNECTTIMEOUT, 3) // set very short timeouts
+           ->setOpt(CURLOPT_TIMEOUT,        3)
+           ->setOpt(CURLOPT_URL,            $this->DataURL)
+           ->setOpt(CURLOPT_HEADER,         FALSE)
+           ->setOpt(CURLOPT_RETURNTRANSFER, TRUE)
+           ->exec($data);
 
-      $parser = new XMLParser;
-      $data = $parser->loadFile($this->URL);
-      $data = $data[0]['childs'];
-
-      // _dbg($data);
+      if ($data != '') $data = json_decode($data);
 
       // currency names
-      $ini = parse_ini_file($path.'/currencies.ini', true);
+      $ini = parse_ini_file(dirname(__file__).'/currencies.ini', true);
       $curr = $ini['en'];
       $lang = Session::get('Language');
       if (isset($ini[$lang])) $curr = array_merge($curr, $ini[$lang]);
 
-      $rates['EUR'] = array( 'rate' => 1, 'name' => 'Euro' );
-
-      foreach ($data[2]['childs'][0]['childs'] as $c) {
-        $key = $c['attr']['CURRENCY'];
-        $rates[$key]['rate'] = $c['attr']['RATE'];
+      $rates = array();
+      foreach ($data->rates as $key=>$value) {
+        $rates[$key]['rate'] = $value;
         $rates[$key]['name'] = array_key_exists($key, $curr) ? $curr[$key] : NULL;
       }
 
-      $source = $data[1]['childs'][0]['value'] . ', '
-               .$data[0]['value'] . ', '
-               .$data[2]['childs'][0]['attr']['TIME'];
+      $source = 'open source Exchange Rates - '.date('r', $data->timestamp);
 
       Session::set('Module.ExchangeRates.TS', time());
       Session::set('Module.ExchangeRates.Rates', $rates);
       Session::set('Module.ExchangeRates.Source', $source);
+      Session::set('Module.ExchangeRates.Disclaimer', $data->disclaimer);
 
     /* ///
     } else {
@@ -65,9 +63,11 @@ class esf_Module_ExchangeRates extends esf_Module {
     /// */
     }
 
-    TplData::set('sourceurl', $this->URL);
+    TplData::set('DataURL', $this->DataURL);
+    TplData::set('URL', $this->URL);
+    TplData::set('Rates', $rates);
     TplData::set('source', $source);
-    TplData::set('rates', $rates);
+    TplData::set('Disclaimer', $disclaimer);
 
     if (!$this->isPost()) {
       TplData::set('Amount', 1);

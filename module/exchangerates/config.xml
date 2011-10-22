@@ -8,16 +8,21 @@
     <section name="ExchangeRates">
 
       <!--
-        URL to get exchangerates in XML
+        URL to get exchangerates in JSON
       -->
-      <config name="URL">http://www.ecb.int/stats/eurofxref/eurofxref-daily.xml</config>
+      <config name="DataURL">http://openexchangerates.org/latest.php</config>
+
+      <!--
+        Homepage
+      -->
+      <config name="URL">http://openexchangerates.org/</config>
 
       <!--
         How long are the read data are valid (in seconds)
-        default: 1 day
+        default: 6 hours = 6*60*60 = 21600
         set 0 to disable caching
       -->
-      <config name="CacheLifespan" type="int">1</config>
+      <config name="CacheLifespan" type="int">21600</config>
 
       <!-- *******************************************************************
       **  Don't change from here
