@@ -130,6 +130,17 @@
 
       </config>
 
+      <!--
+        Truncate Title to ? characters
+        If 0, don't truncate
+      -->
+      <config name="truncate" type="int">60</config>
+
+      <!--
+        Add to truncated title
+      -->
+      <config name="suffix">...</config>
+
       <!-- *******************************************************************
       **  Don't change from here
       ******************************************************************** -->

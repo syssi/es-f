@@ -101,3 +101,23 @@ select#multiaction option {
 img.grouptotal {
   margin-right: 10px;
 }
+
+img.smallframe {
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border: 3px solid #808080;
+  box-shadow: 2px 2px 5px #808080;
+}
+
+img.largeframe {
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border: 5px solid #808080;
+  box-shadow: 8px 8px 10px #808080;
+  -moz-border-bottom-colors: #aaa #bbb #ccc #ddd #eee;
+  -moz-border-top-colors: #aaa #bbb #ccc #ddd #eee;
+  -moz-border-left-colors: #aaa #bbb #ccc #ddd #eee;
+  -moz-border-right-colors: #aaa #bbb #ccc #ddd #eee;
+}

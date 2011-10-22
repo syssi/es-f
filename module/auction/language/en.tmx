@@ -92,6 +92,12 @@
       </tuv>
     </tu>
 
+    <tu tuid="Name">
+      <tuv xml:lang="EN">
+        <seg>Name</seg>
+      </tuv>
+    </tu>
+
     <tu tuid="Auctions">
       <tuv xml:lang="EN">
         <seg>Auctions</seg>
@@ -236,6 +242,12 @@
       </tuv>
     </tu>
 
+    <tu tuid="StartAddAuctions">
+      <tuv xml:lang="EN">
+        <seg>Add now your first auction(s)...</seg>
+      </tuv>
+    </tu>
+
     <tu tuid="Price">
       <tuv xml:lang="EN">
         <seg>Price</seg>
@@ -333,21 +345,9 @@ bid</seg>
       </tuv>
     </tu>
 
-    <tu tuid="ShouldReadAutomatic">
-      <tuv xml:lang="EN">
-        <seg>This data was obtained automatically</seg>
-      </tuv>
-    </tu>
-
     <tu tuid="ImageUrl">
       <tuv xml:lang="EN">
         <seg>Image URL</seg>
-      </tuv>
-    </tu>
-
-    <tu tuid="YourAuctionSettings">
-      <tuv xml:lang="EN">
-        <seg>Your auction settings</seg>
       </tuv>
     </tu>
 
@@ -360,12 +360,6 @@ bid</seg>
     <tu tuid="BidNow">
       <tuv xml:lang="EN">
         <seg>Bid now</seg>
-      </tuv>
-    </tu>
-
-    <tu tuid="UseToBreakBuyNow">
-      <tuv xml:lang="EN">
-        <seg>use this e.g. to break buy-it-now price</seg>
       </tuv>
     </tu>
 
@@ -447,7 +441,7 @@ bid</seg>
       <prop type="x-Filter">html</prop>
       <note>%$1s - ...</note>
       <tuv xml:lang="EN">
-        <seg><![CDATA[Would you really delete auction<br><br><strong>%2$s</strong>?]]></seg>
+        <seg><![CDATA[Would you really delete auction<br><br><strong>%1$s</strong>?]]></seg>
       </tuv>
     </tu>
 

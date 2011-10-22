@@ -35,8 +35,4 @@
     <option value="2">All auctions, but HIGH work load for browser</option>
   </definition>
 
-  <definition name="Module.Auction.PopupEdit" type="bool">
-    Use Popup dialogs for editing and delete confirmation
-  </definition>
-
 </configuration>

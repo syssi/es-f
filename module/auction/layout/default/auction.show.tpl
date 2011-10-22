@@ -1,6 +1,8 @@
 <!-- COMMENT
 /*
  *
+ * @version   $Id$
+ * @revision  $Rev$
  */
 -->
 
@@ -16,7 +18,7 @@
 <td style="vertical-align:top">
   <div style="float:left;height:1.5em;line-height:1.5em;overflow:hidden">
     <a name="{ITEM}" class="ebay" href="{ITEMURL}"
-       title="{RAW.NAME}" onmouseover="Tip('{js:RAW.NAME}')">{truncate:NAME,"50",," ..."}</a>
+       title="{RAW.NAME}" onmouseover="Tip('{js:RAW.NAME}')">{NAME}</a>
   </div>
 
   <div style="clear:both" class="{iif:ENDTS,"running","ended"}">

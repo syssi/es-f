@@ -8,8 +8,9 @@ function LoadJS( _file ) {
 }
 
 // ---------------------------------------------------------------------------
-function LoadStyle( _file ) {
-  document.writeln('<link rel="stylesheet" type="text/css" href="'+_file+'" \/>');
+function LoadCSS( _file, _media ) {
+  var media = (typeof _media !== 'undefined') ? 'media="'+_media+'"' : '';
+  document.writeln('<link rel="stylesheet" type="text/css" href="'+_file+'" '+media+'\/>');
 }
 
 // ---------------------------------------------------------------------------
@@ -35,6 +36,9 @@ function LoadJSLib( _lib, _ver ) {
 LoadJS('https://ajax.googleapis.com/ajax/libs/prototype/1.7.0.0/prototype.js');
 LoadJSLib('prototypePlus', '1.7');
 LoadJS('https://ajax.googleapis.com/ajax/libs/scriptaculous/1.9.0/scriptaculous.js');
+
+LoadJS('js/ModalBox/modalbox.js');
+LoadCSS('js/ModalBox/modalbox.css', 'screen');
 
 var DialogJsPath = 'js/';
 LoadJSLib('dialog');

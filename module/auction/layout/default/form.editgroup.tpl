@@ -1,90 +1,49 @@
 <!--
-/*
+/**
  *
+ * @version   $Id$
+ * @revision  $Rev$
  */
 -->
 
 <form action="{server:"PHP_SELF"}#{GROUP.NAME|hash}" method="post">
-{fh:"module","auction"}
-{fh:"action","editgroup"}
-{fh:"group",GROUP.NAME}
-{fh:"ajax",POPUPFORM}
+  {fh:"module","auction"}
+  {fh:"action","editgroup"}
+  {fh:"group",GROUP.NAME}
 
-<div class="editform">
+  <label class="MB_label" for="groupnew">[[Auction.Rename]]</label>
+  <div class="MB_inputs">
+    <input id="groupnew" class="input MB_input" name="groupnew" value="{nvl:GROUP.AUCTIONGROUP}">
+    <br>
+    <small>([[Auction.RemoveGroupWillSplit]])</small>
+  </div>
 
-  <!-- IF !POPUPFORM -->
-  <h2 class="c">[[Auction.EditGroup]]: {GROUP.NAME}</h2>
-  <!-- ENDIF -->
+  <label class="MB_label" for="q">[[Auction.Quantity]]</label>
+  <div class="MB_inputs">
+    <input type="number" id="q" name="q" value="{GROUP.QUANTITY}" class="input num"
+           min="1" size="3" required="required" placeholder="1"> [[Auction.Piece]]
+  </div>
 
-  <table class="popup" style="width:100%">
+  <label class="MB_label" for="b">[[Auction.GroupBid]]</label>
+  <div class="MB_inputs">
+    <input type="number" id="b" name="b" value="{currency:GROUP.BID}"
+           style="float:left" class="input num" min="1" size="8"
+           onfocus="if(this.value=='0,00')this.value=''">
+    <div>
+      <input type="radio" name="t" value="0" checked="checked">[[Auction.GroupSingle]]
+      <br>
+      <input type="radio" name="t" value="1" {iif:GROUP.TOTAL,"checked=\"checked\""}>[[Auction.GroupTotal]]
+    </div>
+  </div>
 
-    <tr class="{cycle:"EDITROW","tr1","tr2"}">
-      <td class="nowrap" style="width:25%">[[Auction.Rename]]</td>
-      <td>:</td>
-      <td style="width:75%">
-        <input class="input" style="width:95%" name="groupnew" value="{nvl:GROUP.AUCTIONGROUP}">
-        <br>
-        <small>([[Auction.RemoveGroupWillSplit]])</small>
-      </td>
-    </tr>
+  <label class="MB_label" for="c">[[Auction.GroupComment]]</label>
+  <div class="MB_inputs">
+    {ft:"c",GROUP.COMMENT,"input MB_input"}
+  </div>
 
-    <tr class="{cycle:"EDITROW","tr1","tr2"}">
-      <td class="nowrap">[[Auction.Quantity]]</td>
-      <td>:</td>
-      <td>
-        <input type="number" name="q" value="{GROUP.QUANTITY}" class="input num"
-               min="1" size="3" required="required" placeholder="1"> [[Auction.Piece]]
-      </td>
-    </tr>
-
-    <tr class="{cycle:"EDITROW","tr1","tr2"}">
-      <td class="nowrap">[[Auction.GroupBid]]</td>
-      <td>:</td>
-      <td>
-        <input type="number" name="b" value="{currency:GROUP.BID}"
-               style="float:left" class="input num" min="1" size="8"
-               onfocus="if(this.value=='0,00')this.value=''">
-        <div style="margin-left:8em">
-          <input type="radio" name="t" value="0" checked="checked">[[Auction.GroupSingle]]
-          <br>
-          <input type="radio" name="t" value="1" {iif:GROUP.TOTAL,"checked=\"checked\""}>[[Auction.GroupTotal]]
-        </div>
-      </td>
-    </tr>
-
-    <tr class="{cycle:"EDITROW","tr1","tr2"}">
-      <td class="nowrap">[[Auction.GroupComment]]</td>
-      <td>:</td>
-      <td>{ft:"c",GROUP.COMMENT,"input","style=\"width:95%\""}</td>
-    </tr>
-
-    <tr>
-      <td class="c spacer" colspan="3">
-        <input class="button" style="width:150px" type="submit" name="start"
-               value="[[Auction.EditStartGroup]]"
-               <!-- IF POPUPFORM -->
-               onclick="return !RemovePopupWindow('PopupGroupEdit{GROUP.NAME|hash}',false)"
-               <!-- ENDIF -->
-        >
-        &nbsp;&nbsp;&nbsp;
-        <input class="button" style="width:150px" type="submit" name="save"
-               value="[[Auction.EditSaveGroup]]"
-               <!-- IF POPUPFORM -->
-               onclick="return !RemovePopupWindow('PopupGroupEdit{GROUP.NAME|hash}',false)"
-               <!-- ENDIF -->
-        >
-        &nbsp;&nbsp;&nbsp;
-        <input class="button" style="width:150px" type="submit" name="cancel"
-               value="[[Auction.EditCancel]]"
-               <!-- IF POPUPFORM -->
-               onclick="return RemovePopupWindow('PopupGroupEdit{GROUP.NAME|hash}')"
-               <!-- ENDIF -->
-              >
-      </td>
-    </tr>
-
-  </table>
-
-</div>
+  <div class="MB_buttons">
+    <input type="submit" class="button" name="start" value="[[Auction.EditStartGroup]]">
+    <input type="submit" class="button" name="save" value="[[Auction.EditSaveGroup]]">
+  </div>
 
 </form>

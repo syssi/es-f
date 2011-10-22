@@ -41,6 +41,16 @@ class esf_Plugin_ClearTitle extends esf_Plugin {
       // repeat until all changes done
     } while ($h != $auction['name']);
     $auction['name'] = trim($auction['name']);
+
+    if ($this->truncate > 0) {
+      $trunc = trim(substr($auction['name'], 0, $this->truncate+1));
+      if (strlen($trunc) > $this->truncate) {
+        $w = strrchr($trunc, ' ');
+        if ($w != '') $trunc = substr($trunc, 0, -strlen($w));
+      }
+      if ($trunc AND $trunc != $auction['name']) $trunc .= $this->suffix;
+      $auction['name'] = $trunc;
+    }
     /// Yryie::Info('Title after: '.$auction['name']);
   }
 

@@ -143,13 +143,15 @@ function ajaxStartGroup ( _group, _hash ) {
 
 // ---------------------------------------------------------------------------
 function DeleteAuction ( _item, _msg ) {
-  var answer = confirm(_msg);
-  if (answer) ajaxDeleteAuction(_item);
-  return false;
+  $('AuctionDeleteMessage').update(_msg);
+  AuctionDeleteItem = _item;
+  Modalbox.show($('DeleteAuction'), {title:AuctionDeleteTitle, width:300});
 }
 
 // ---------------------------------------------------------------------------
 function ajaxDeleteAuction ( _item ) {
+  if (!_item) return;
+
   new Ajax.Request(
     'index.php',
     { method: 'post',
@@ -220,7 +222,6 @@ function ajaxDeleteAuction ( _item ) {
       }
     }
   );
-  return false;
 }
 
 // ---------------------------------------------------------------------------

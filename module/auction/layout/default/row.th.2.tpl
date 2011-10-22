@@ -1,20 +1,17 @@
-<!-- COMMENT
-/*
+<!--
+/**
  *
+ * @version   $Id$
+ * @revision  $Rev$
  */
 -->
 
 <tr class="th th2">
   <th>
-    <script type="text/javascript">
-    if (!"{CONST.MODULE.AUCTION.ADDSTATIC}") {
-      document.write("<img id=\"addimg\" style=\"display:none\" class=\"clickable\" " +
-                     "src=\"module/auction/layout/default/images/plus.gif\" " +
-                     "onmouseover=\"Tip('Add auctions')\" " +
-                     "onclick=\"return CreatePopupWindow('addauctions')\">");
-      addLoadEvent(function() { $('rowadd').hide(); $('addimg').show() });
-    }
-    </script>
+    <img class="clickable" src="module/auction/layout/default/images/plus.gif"
+         title="[[Auction.AddAuctions]]" alt="[[Auction.AddAuctions]]"
+         onmouseover="Tip('[[Auction.AddAuctions]]')"
+         onclick="Modalbox.show($('addauctions'),\{title:'[[Auction.AddAuctions]]',width:500\}); return false;">
   </th>
 
   <th colspan="2">

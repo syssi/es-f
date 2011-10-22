@@ -1,6 +1,8 @@
-<!-- COMMENT
-/*
+<!--
+/**
  *
+ * @version   $Id$
+ * @revision  $Rev$
  */
 -->
 
@@ -14,70 +16,79 @@
   // ]]>
 </script>
 
-<table id="auctions" style="width:100%">
-
 <!-- IF AUCTIONS|count > "0" -->
-<!-- INCLUDE row.th -->
-<!-- ENDIF -->
 
-<!-- INCLUDE row.add -->
+  <form id="auctionstable" name="auctionstable" action="{FORMACTION}" method="post">
+  {fh:"module","auction"}
 
-<form id="auctionstable" name="auctionstable" action="{FORMACTION}" method="post">
-{fh:"module","auction"}
+  <table id="auctions" style="width:100%">
 
-<tbody>
+  <!-- INCLUDE row.th -->
 
-<!-- Some default values -->
-{nvl:__THUMBSIZE,"50" > __THUMBSIZE}
-{nvl:__IMGBORDERCOLOR,"#DDD" > __IMGBORDERCOLOR}
+  <tbody>
 
-<!-- BEGIN AUCTIONS -->
+  <!-- Some default values -->
+  {nvl:__THUMBSIZE,"50" > __THUMBSIZE}
+  {nvl:__IMGBORDERCOLOR,"#DDD" > __IMGBORDERCOLOR}
 
-  <!-- IF CATEGORY.NEW -->
-    <!-- COMMENT reset row classes -->
-    {cycle:"ACLASS"}{cycle:"GCLASS"}
-    <!-- INCLUDE row.category -->
-  <!-- ENDIF -->
+  <!-- BEGIN AUCTIONS -->
 
-  <tr id="tr_{ITEM}" class="{cycle:"ACLASS","tr1","tr2"} {ACLASS}"
-      style="border:dashed black 1px">
+    <!-- IF CATEGORY.NEW -->
+      <!-- COMMENT reset row classes -->
+      {cycle:"ACLASS"}{cycle:"GCLASS"}
+      <!-- INCLUDE row.category -->
+    <!-- ENDIF -->
 
-    <!-- IF !ENDED -->
-      <!-- INCLUDE auction.show -->
-    <!-- ELSE -->
-      <!-- IF !CONST.MODULE.LAYOUTENDED -->
+    <tr id="tr_{ITEM}" class="{cycle:"ACLASS","tr1","tr2"} {ACLASS}"
+        style="border:dashed black 1px">
+
+      <!-- IF !ENDED -->
         <!-- INCLUDE auction.show -->
       <!-- ELSE -->
-        <!-- INCLUDE auction.show.ended -->
-      <!-- ENDIF -->
-    <!-- ENDIF -->
-
-    <!-- IF GROUP.NEW -->
-      {cycle:"GCLASS","tr1","tr2" > GCLASS}
-      <!-- IF !GROUP.ENDED -->
-        <!-- INCLUDE group.show -->
-      <!-- ELSE -->
         <!-- IF !CONST.MODULE.LAYOUTENDED -->
-          <!-- INCLUDE group.show -->
+          <!-- INCLUDE auction.show -->
         <!-- ELSE -->
-          <!-- INCLUDE group.show.ended -->
+          <!-- INCLUDE auction.show.ended -->
         <!-- ENDIF -->
       <!-- ENDIF -->
-    <!-- ENDIF -->
 
-  </tr>
+      <!-- IF GROUP.NEW -->
+        {cycle:"GCLASS","tr1","tr2" > GCLASS}
+        <!-- IF !GROUP.ENDED -->
+          <!-- INCLUDE group.show -->
+        <!-- ELSE -->
+          <!-- IF !CONST.MODULE.LAYOUTENDED -->
+            <!-- INCLUDE group.show -->
+          <!-- ELSE -->
+            <!-- INCLUDE group.show.ended -->
+          <!-- ENDIF -->
+        <!-- ENDIF -->
+      <!-- ENDIF -->
 
-<!-- END AUCTIONS -->
+    </tr>
 
-</tbody>
+  <!-- END AUCTIONS -->
 
-</table>
+  </tbody>
 
-<!-- IF AUCTIONS|count > "0" -->
-<!-- INCLUDE row.multi -->
+  </table>
+
+  <!-- INCLUDE row.multi -->
+
+  </form>
+
+<!-- ELSE -->
+
+  <div class="c">
+  <button class="button" style="margin:100px;padding:1em"
+          onclick="Modalbox.show($('addauctions'),\{title:'[[Auction.AddAuctions]]',with:500\}); return false;">
+    [[Auction.StartAddAuctions]]
+  </button>
+  </div>
+
 <!-- ENDIF -->
 
-</form>
+<!-- INCLUDE inc.auction.add -->
 
 <!-- IF CONST.MODULE.POPUPEDIT -->
   <!-- INCLUDE inc.popups -->

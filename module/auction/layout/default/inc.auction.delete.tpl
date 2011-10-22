@@ -1,17 +1,16 @@
-<!-- COMMENT
-/*
+<!--
+/**
  *
+ * @version   $Id$
+ * @revision  $Rev$
  */
 -->
 
-{translate:"Auction.ConfirmDeleteAuction", "", ITEM > CONFIRM_MSG}
+{translate:"Auction.ConfirmDeleteAuction", RAW.NAME > MSG}
 
 <a href="{DELETEURL}"
-   <!-- IF CONST.MODULE.POPUPEDIT -->
-   onclick="return DeleteAuction('{ITEM}','{CONFIRM_MSG|striptags}')"
-   <!-- ENDIF -->
-  >
-  <img class="icon" src="layout/default/images/delete.gif" alt="D"
+   onclick="DeleteAuction('{ITEM}','{MSG|quote}'); return false">
+  <img class="icon" src="layout/default/images/delete.gif" alt="X"
        title="[[Auction.DeleteAuction|striptags|quote]]"
        onmouseover="Tip('{js:[[Auction.DeleteAuction]]}')">
 </a>

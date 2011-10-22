@@ -20,9 +20,10 @@ class esf_Module_Auction extends esf_Module {
     // menu entry for cleaning up
     if (esf_Auctions::Count()) {
       esf_Menu::addModule( array(
-        'module' => 'auction',
-        'action' => 'cleanup',
-        'extra'  => 'onclick="return CreatePopupWindow(\'PopupCleanupAuctions\',200)"',
+#        'module' => 'auction',
+#        'action' => 'cleanup',
+        'extra'  => 'onclick="Modalbox.show($(\'CleanupAuctions\'),{title:\''
+                   .Translation::get('Auction.CleanupAuctions').'\', width:300}); return false"',
         'title'  => Translation::get('Auction.MenuDeleteEnded'),
         'hint'   => Translation::get('Auction.MenuHintDeleteEnded'),
         'img'    => 'module/auction/images/delete.gif',
@@ -45,7 +46,8 @@ class esf_Module_Auction extends esf_Module {
     parent::After();
     TplData::setConstant('CATEGORIES', esf_Auctions::getCategories());
     TplData::setConstant('GROUPS', esf_Auctions::getGroups());
-    Registry::set('esf.ContentOnly', Request::check('auction', '_dump'));
+    if (!Registry::get('esf.ContentOnly'))
+      Registry::set('esf.ContentOnly', Request::check('auction', '_dump'));
   }
 
   /**
@@ -268,11 +270,8 @@ class esf_Module_Auction extends esf_Module {
 
         // restart auction if required
         if ($running) esf_Auctions::Start($this->Group);
-        // redirect in case of inline editing
-        $this->Request('ajax') && $this->redirect('auction') || $this->forward();
-      } else {
-        $this->forward();
       }
+      $this->forward();
     } elseif ($auction = esf_Auctions::get($this->Item)) {
       TplData::set('PopupForm', FALSE);
       TplData::set('SubTitle2', Translation::get('Auction.EditAuction'));
@@ -294,11 +293,8 @@ class esf_Module_Auction extends esf_Module {
     if ($this->isPost()) {
       if ($this->Request('confirm') OR $this->Request('confirm_x')) {
         esf_Auctions::Delete($this->Item);
-        // redirect in case of inline editing
-        $this->Request('ajax') && $this->redirect('auction') || $this->forward();
-      } else {
-        $this->forward();
       }
+      $this->forward();
     } elseif ($auction = esf_Auctions::get($this->Item)) {
       TplData::set('SubTitle2', Translation::get('Auction.DeleteAuction'));
       TplData::set($this->getAuctionTplData($auction));
@@ -325,8 +321,6 @@ class esf_Module_Auction extends esf_Module {
         ? Translation::get('Auction.DeletedEnded', $cnt)
         : Translation::get('Auction.NoDeletedEnded') )
       );
-      // redirect in case of inline editing
-      $this->Request('ajax') && $this->redirect('auction');
     }
     $this->forward();
   }
@@ -409,11 +403,8 @@ class esf_Module_Auction extends esf_Module {
           }
           if ($this->Group)
             esf_Auctions::HandleGroup($this->Group, $this->Request, TRUE, $doStart);
-          // redirect in case of inline editing
-          $this->Request('ajax') && $this->redirect('auction') || $this->forward();
-        } else {
-          $this->forward();
         }
+        $this->forward();
       } else {
         TplData::set('PopupForm', FALSE);
         TplData::set('SubTitle2', Translation::get('Auction.EditGroup'));

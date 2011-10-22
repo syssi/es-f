@@ -2,29 +2,22 @@
 /**
  * Page header
  *
- * @version 0.2.0
- * @author  Knut Kohl <knutkohl@users.sourceforge.net>
- *
- * CHANGELOG
- * =========
- * 0.2.0
- * - removed breadcrumb
+ * @version   0.2.0
+ * @author    Knut Kohl <knutkohl@users.sourceforge.net>
+ * @version   $Id$
+ * @revision  $Rev$
  */
 -->
 
 <a name="pagetop"></a>
 
-<!-- IF !NOJS -->
 <noscript><div id="nojs">
   For best usability activate JavaScript for at least
-  <tt>&nbsp;{server:"HTTP_HOST"}&nbsp;</tt> or add
-  <tt>&nbsp;Registry::set('NoJS',1);&nbsp;</tt> to
+  <tt>&nbsp;{server:"HTTP_HOST"}&nbsp;</tt>
   <br>
-  <tt>&nbsp;local/custom/init.php&nbsp;</tt> to remove this hint.
-  Here are the <a href="http://www.enable-javascript.com/" target="_blank">
-  instructions how to enable JavaScript in your web browser</a>.
+  <a href="http://www.enable-javascript.com/" target="_blank">Instructions</a>
+  how to enable JavaScript in your web browser.
 </div></noscript>
-<!-- ENDIF -->
 
 <header>
 <div id="header">

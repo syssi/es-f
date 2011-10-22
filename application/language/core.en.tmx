@@ -145,5 +145,11 @@
       </tuv>
     </tu>
 
+    <tu tuid="Close">
+      <tuv xml:lang="EN">
+        <seg>close</seg>
+      </tuv>
+    </tu>
+
   </body>
 </tmx>

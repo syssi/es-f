@@ -92,6 +92,12 @@
       </tuv>
     </tu>
 
+    <tu tuid="Name">
+      <tuv xml:lang="DE">
+        <seg>Name</seg>
+      </tuv>
+    </tu>
+
     <tu tuid="Auctions">
       <tuv xml:lang="DE">
         <seg>Auktionen</seg>
@@ -236,6 +242,12 @@
       </tuv>
     </tu>
 
+    <tu tuid="StartAddAuctions">
+      <tuv xml:lang="DE">
+        <seg>Füge jetzt Deine erste(n) Auktion(en) hinzu...</seg>
+      </tuv>
+    </tu>
+
     <tu tuid="Price">
       <tuv xml:lang="DE">
         <seg>Preis</seg>
@@ -333,21 +345,9 @@ Gebot</seg>
       </tuv>
     </tu>
 
-    <tu tuid="ShouldReadAutomatic">
-      <tuv xml:lang="DE">
-        <seg>Diese Daten sollten bereits automatisch ermittelt worden sein</seg>
-      </tuv>
-    </tu>
-
     <tu tuid="ImageUrl">
       <tuv xml:lang="DE">
         <seg>Bild-URL</seg>
-      </tuv>
-    </tu>
-
-    <tu tuid="YourAuctionSettings">
-      <tuv xml:lang="DE">
-        <seg>Deine Auktions-Einstellungen</seg>
       </tuv>
     </tu>
 
@@ -360,12 +360,6 @@ Gebot</seg>
     <tu tuid="BidNow">
       <tuv xml:lang="DE">
         <seg>Platziere Gebot jetzt</seg>
-      </tuv>
-    </tu>
-
-    <tu tuid="UseToBreakBuyNow">
-      <tuv xml:lang="DE">
-        <seg>benutze dies z.B. um einen Sofort-Kauf zu verhindern</seg>
       </tuv>
     </tu>
 
@@ -450,7 +444,7 @@ Gebot</seg>
         <seg>
 Möchten Sie die Auktion
 
-*%2$s*
+*%1$s*
 
 wirklich löschen?
         </seg>

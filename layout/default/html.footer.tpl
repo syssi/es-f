@@ -2,6 +2,9 @@
 /**
  * [2009-11-23]
  * - added drop down function
+ *
+ * @version   $Id$
+ * @revision  $Rev$
  */
 -->
 
@@ -83,9 +86,3 @@
 </footer>
 
 <div id="footer_after">{nvl:FOOTER_AFTER}</div>
-
-<div id="PopupMessage" class="popupwindow" style="width:300px;display:none">
-  {"PopupMessage" > POPUPNAME}
-  <!-- INCLUDE popup.title -->
-  <div id="PopupMessageContent" style="text-align:center;padding:20px" class="content"></div>
-</div>

@@ -160,51 +160,6 @@ textarea.input {
  * ****************************************************************************
  */
 
-/*
- * ****************************************************************************
- * popup window
- */
-
-div.popupwindow {
-  background-color: black;
-  border-color: #E0E0E0;
-}
-
-div.popupwindow .title {
-  height: 22px;
-  background: url(images/popupheader.png) bottom repeat-x;
-  background-color: #505050;
-  border-bottom-color: #D0D0D0;
-}
-
-div.popupwindow .title .text {
-  color: white;
-}
-
-div.popupwindow .content {
-  background-color: black;
-}
-
-.dialog {
-  padding: 0.5em 1.5em;
-  background-color: black;
-  border: solid gray 5px;
-}
-
-html>body .dialog { /* <> IE */
-  -webkit-border-radius: 15px;
-  -moz-border-radius: 15px;
-  border-radius: 15px;
-  -webkit-box-shadow: rgba(0,0,0,1) 0 2px 0;
-  -moz-box-shadow: rgba(0,0,0,1) 0 2px 0;
-  box-shadow: rgba(0,0,0,1) 0 2px 0;
-}
-
-/*
- * popup window
- * ****************************************************************************
- */
-
 /* debug-class */
 ._d {
   border: dotted red 1px;
