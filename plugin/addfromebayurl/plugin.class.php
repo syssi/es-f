@@ -69,17 +69,18 @@ class esf_Plugin_AddFromEbayUrl extends esf_Plugin {
     Yryie::Info($str);
     // << Debug
 
-    $h = '';
+    // store in array keys to make auction ids unique
+    $a = array();
     foreach ($this->Pattern as $p) {
       if (preg_match_all($p, $str, $args, PREG_SET_ORDER)) {
         // >> Debug
         Yryie::Debug($p);
         Yryie::Debug($args);
         // << Debug
-        foreach ($args as $arg) $h .= ' ' . $arg[1];
+        foreach ($args as $arg) $a[$arg[1]] = $arg[1];
       }
     }
-    if ($h) $str = trim($h);
+    if (count($a)) $str = implode(' ', $a);
   }
 }
 

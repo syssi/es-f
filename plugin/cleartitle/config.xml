@@ -134,7 +134,7 @@
         Truncate Title to ? characters
         If 0, don't truncate
       -->
-      <config name="truncate" type="int">60</config>
+      <config name="truncate" type="int">65</config>
 
       <!--
         Add to truncated title

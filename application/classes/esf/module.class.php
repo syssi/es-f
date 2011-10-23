@@ -26,8 +26,7 @@ abstract class esf_Module extends esf_Extension {
    * Called before the Action function is processed
    */
   public function Before() {
-    if ($this->LoginRequired AND !esf_User::isValid())
-      $this->redirect('login');
+    if ($this->LoginRequired AND !esf_User::isValid()) $this->redirect('login');
   }
 
   /**

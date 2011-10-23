@@ -19,8 +19,8 @@ class esf_Module_Snipe extends esf_Module {
   /**
    *
    */
-  public function __construct( $name ) {
-    parent::__construct($name);
+  public function __construct() {
+    parent::__construct();
     Event::block('OutputFilterFooter');
     Event::block('OutputFilterHtmlEnd');
     Registry::set('esf.contentonly', TRUE);
@@ -30,7 +30,9 @@ class esf_Module_Snipe extends esf_Module {
    *
    */
   public function Before() {
+    parent::Before();
     $this->LanguageSet(Session::get('Language'));
+    TplData::set('SubTitle1', Translation::get('Snipe.AddAuction'));
   }
 
   /**
@@ -71,7 +73,6 @@ class esf_Module_Snipe extends esf_Module {
       $item = $args[1];
 
     if ($item) {
-      TplData::set('SubTitle1', Translation::get('Snipe.AddAuction'));
       TplData::set('Item', $item);
 
       $name = isset($this->Request['title'])
@@ -80,8 +81,8 @@ class esf_Module_Snipe extends esf_Module {
       TplData::set('Name', $name);
       Session::set('Module.Snipe.Title', $name);
 
-      TplData::set('Categories', esf_Auctions::getCategories());
-      TplData::set('Groups', esf_Auctions::getGroups());
+      TplData::setConstant('CATEGORIES', esf_Auctions::getCategories());
+      TplData::setConstant('GROUPS', esf_Auctions::getGroups());
 
       TplData::set('Comment', $this->Request('comment'));
     } else {
