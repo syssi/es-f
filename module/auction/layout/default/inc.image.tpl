@@ -15,7 +15,7 @@
 
   <a class="zoomable" href="html/image.php?i={IMGURL}" target="_blank"
      onclick="Modalbox.show($('img{ITEM}'),{ title:'{RAW.NAME|striptags|quote}', width:{IMGWIDTH}+50 }); return false">
-    <img class="smallframe" src="html/image.php?d&amp;i={IMGURL}&amp;m={__THUMBSIZE}" alt="">
+    <img class="smallframe" src="html/image.php?d&amp;i={IMGURL}&amp;m={__THUMBSIZE}" alt="?">
   </a>
 
   <!-- Modalbox -->

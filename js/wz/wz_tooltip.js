@@ -57,6 +57,8 @@ config.BgImg      = '';    // Path to background image, none if empty string ''
 config.BorderColor   = '#002299';
 config.BorderStyle   = 'solid';  // Any permitted CSS value, but I recommend 'solid', 'dotted' or 'dashed'
 config.BorderWidth   = 1;
+config.BorderRadius  = "0 0 7px 7px";
+config.BorderRadiusPlain  = "7px";
 config.CenterMouse   = false;   // false or true - center the tip horizontally below (or above) the mousepointer
 config.ClickClose    = false;   // false or true - close tooltip if the user clicks somewhere
 config.CloseBtn    = false;   // false or true - closebutton in titlebar
@@ -798,9 +800,17 @@ function tt_FormatTip()
   css.top = iOffY + "px";
   if (tt_aV[BORDERWIDTH])
   {
-    css.borderColor = tt_aV[BORDERCOLOR];
-    css.borderStyle = tt_aV[BORDERSTYLE];
-    css.borderWidth = tt_aV[BORDERWIDTH] + "px";
+    css.borderColor  = tt_aV[BORDERCOLOR];
+    css.borderStyle  = tt_aV[BORDERSTYLE];
+    css.borderWidth  = tt_aV[BORDERWIDTH] + "px";
+    if (tt_aV[TITLE])
+    {
+      css.borderRadius = tt_aV[BORDERRADIUS];
+    }
+    else
+    {
+      css.borderRadius = tt_aV[BORDERRADIUSPLAIN];
+    }
   }
   if (tt_aV[BGCOLOR].length)
   {

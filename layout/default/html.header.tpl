@@ -47,8 +47,8 @@
         <!-- END LANGUAGE -->
       </div>
 
-      <div style="float:right;text-align:right;padding-bottom:5px">
-        <script type="text/javascript" src="js/fontsize.js"></script>
+      <div id="efa_allLinks" style="float:right;text-align:right;padding-bottom:5px">
+        <script type="text/javascript">document.write(efa_fontSize.allLinks)</script>
       </div>
 
       <div class="clear">
