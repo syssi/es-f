@@ -5,8 +5,8 @@
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2007-2011 Knut Kohl
  * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
- * @version    1.0.0
  * @version    $Id: v2.4.1-79-g85bf9fc 2011-02-15 18:24:07 +0100 $
+ * @revision   $Rev$
  */
 abstract class AuctionHTML {
 
@@ -91,10 +91,12 @@ abstract class AuctionHTML {
                             $html);
 
         /* ///
-          $l2 = strlen($html);
-          Yryie::Info('File size reduced from %s Bytes to %s Bytes == %.2f%%',
-                           number_format($l1,0,',','.'),
-                           number_format($l2,0,',','.'), $l2/$l1*100);
+          if ($l1) {
+            $l2 = strlen($html);
+            Yryie::Info('File size reduced from %s Bytes to %s Bytes == %.2f%%',
+                             number_format($l1,0,',','.'),
+                             number_format($l2,0,',','.'), $l2/$l1*100);
+          }
         /// */
 
         // add fetched item page URL
