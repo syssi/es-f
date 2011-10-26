@@ -7,7 +7,6 @@
  * @package      Package rdfrssNoDomReader
  * @author       Elmar Eigner <eigner@open-eye.de>
  * @copyright    Elmar Eigner, http://www.open-eye.de
- * @version      : 'v2.3.1-5-g726118d'$
  * @access       public
  */
 
@@ -192,10 +191,10 @@ class RdfRssNoDomReader {
       $lastopen = $feedtype = FALSE;
       $myicnt = 0;
       foreach ($vals AS $xv) {
-        if ($myicnt >= $max)
-          break;
+        if ($myicnt >= $max) break;
           
         $mytag = strtolower($xv['tag']);
+        if (!isset($xv['value'])) $xv['value'] = '';
 
         if ($xv['type'] == 'open') {
 
