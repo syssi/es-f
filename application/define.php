@@ -45,7 +45,7 @@ define('ESF_AUTHOR', 'Knut Kohl');
 /**
  * Authors email
  */
-define('ESF_EMAIL', 'es-f@users.sourceforge.net');
+define('ESF_EMAIL', 'knutkohl@users.sourceforge.net');
 
 /**
  * Long title
