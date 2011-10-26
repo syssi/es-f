@@ -105,11 +105,12 @@ abstract class esf_User {
    * 
    * @param string $user
    * @param string $password
+   * @param string $hashed Is the password plain or still hashed
    * @return boolean
    */
-  public static function isValid( $user=NULL, $password=NULL ) {
+  public static function isValid( $user=NULL, $password=NULL, $hashed=FALSE ) {
     // work inside this function only with hashed password!
-    if (!is_null($password)) $password = md5($password);
+    if (!is_null($password) AND !$hashed) $password = md5($password);
 
     $token = self::getToken();
 

@@ -2,7 +2,6 @@ Let's imagine the constellation, that you like to access es-f from:
 
 1. Any computer, WITH the installed authentication of es-f
 2. A specific computer WITHOUT the question for user and password (automatic login)
-3. Any computer, WITH your own authentication method (e.g. Apaches mod_auth)
 
 1. Default authentication
 
@@ -10,33 +9,10 @@ Nothing to do, this is the default method.
 
 2. Automatic login
 
-Define a set of ip, user and password combinations, which should logged in
-automatic into es-f
+Look at the index page for section "Auto login".
 
-find the following code in config.xml and maintain it with your data.
+You will find there a link with a login token (...?lt=...), special for this computer!
 
-    <config type="array">
-      <config name="IP"></config>
-      <config name="User"></config>
-      <config name="Password"></config>
-    </config>
+If you open this link, you will be logged in automatic.
 
-There can be many such arrays.
-
-IP can here be
-- a full qualified address like '192.168.1.1' OR
-- a range like '192.168.1.*'
-USER is your eBay/es-f account name
-PASSWORD is your es-f password, NOT your eBay password!
-
-Please keep in mind, NOT to overlap ip addresses/ranges, the algorithm gets
-the first user, thats ip matches!
-
-3. Other authentication method
-
-This is a combination of the "Automatic login" with your own method.
-
-- Ensure, the the access to your es-f installation is possible ONLY with your
-  used authentication method, e.g. Apaches mod_auth.
-- Login your account automatic from ANY ip address using method with the
-  definition of 'IP' = '*.*.*.*'
+THIS link will work ONLY on this computer for this es-f installation!

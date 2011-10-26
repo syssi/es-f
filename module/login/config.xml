@@ -24,34 +24,6 @@
       -->
       <config name="Cookie" type="int">1</config>
 
-      <config name="AutoLogin" type="array">
-        <!--
-          Define here login sets, e.g. for intranet use,
-          from which IP which user should logged in automatic
-
-          IP can be full qualified like "192.168.1.1" OR a range like "192.168.1.*"
-        -->
-
-        <!--
-        <config type="array">
-          <config name="IP"></config>
-          <config name="User"></config>
-          <config name="Password"></config>
-        </config>
-        -->
-
-        <!-- More than one combination is possible. -->
-
-        <!--
-        <config type="array">
-          <config name="IP"></config>
-          <config name="User"></config>
-          <config name="Password"></config>
-        </config>
-        -->
-
-      </config>
-
       <!-- *******************************************************************
       **  Don't change from here
       ******************************************************************** -->

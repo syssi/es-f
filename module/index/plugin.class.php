@@ -22,7 +22,17 @@ class esf_Plugin_Module_Index extends esf_Plugin {
    * @return array Array of events handled by the plugin
    */
   public function handles() {
-    return array('LanguageSet', 'BuildMenu');
+    return array('LanguageSet', 'AnalyseGet', 'BuildMenu');
+  }
+
+  /**
+   *
+   */
+  function AnalyseGet( &$GET) {
+    if (isset($GET['lt'])) {
+      Core::redirect(Core::URL(array('module' => 'login',
+                                     'params' => array('token' => $GET['lt']))));
+    }
   }
 
   /**

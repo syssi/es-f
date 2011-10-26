@@ -1,3 +1,11 @@
+<!--
+/**
+ *
+ * @version   $Id$
+ * @revision  $Rev$
+ */
+-->
+
 <h2>Konfiguration</h2>
 
 <p>
@@ -42,6 +50,15 @@
   <li>Wenn Du auf einer Auktionsseite bist, die Dich interessiert,
       klicke auf eins der Lesezeichen.</li>
 </ul>
+
+<!-- IF TOKENURL -->
+<h2>Auto-Login</h2>
+
+<p>
+  Um Dich auf diesem Computer automatisch und ohne Passwort einzuloggen,
+  benutze diesen Link: <a href="{TOKENURL}">{LINK}</a>
+</p>
+<!-- ENDIF -->
 
 <h2>Fehlersuche</h2>
 

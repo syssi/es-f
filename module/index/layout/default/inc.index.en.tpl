@@ -1,3 +1,11 @@
+<!--
+/**
+ *
+ * @version   $Id$
+ * @revision  $Rev$
+ */
+-->
+
 <h2>Configuration</h2>
 
 <p>
@@ -32,6 +40,15 @@
       <strong>Attention: An activated plugin "AddFromEbayURL" is required for this!</strong></li>
   <li>On an interesting auction, click on one of your bookmarks to add this auction.</li>
 </ul>
+
+<!-- IF TOKENURL -->
+<h2>Auto login</h2>
+
+<p>
+  For an automatic login on this computer without a password, just use this link:
+  <a href="{TOKENURL}">{LINK}</a>
+</p>
+<!-- ENDIF -->
 
 <h2>Debugging</h2>
 

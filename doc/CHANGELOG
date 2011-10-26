@@ -13,6 +13,7 @@ NEW:
 CHANGED:
 - Remove plugin ImageSize and integrate functionality as PreProcessor to Yuelo_Compiler
 - Removed notices
+- Change "auto login" feature to a computer specific link with a login token
 
 VERSION: 2.6.0
 --------------------

@@ -1,14 +1,14 @@
-<!-- COMMENT
-
-@version 0.2.0
-
-CHANGELOG
-
-0.2.0
------
-CHANGES:
-- moved lang. spec. data from tranlsation to lang. dep. templates
-
+<!--
+/**
+ *
+ * @version   $Id$
+ * @revision  $Rev$
+ *
+ * CHANGELOG
+ *
+ * CHANGES
+ * - moved lang. spec. data from tranlsation to lang. dep. templates
+ */
 -->
 
 <div id="content">
