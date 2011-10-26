@@ -28,7 +28,10 @@ class esf_Plugin_Module_Analyse extends esf_Plugin {
     if (Session::get('Mobile') AND !$this->Mobile) return;
 
     // require valid login
-    if (!esf_User::isValid() OR !Request::check('auction')) return;
+    if (!esf_User::isValid()) return;
+
+    // Module auction and auctions added
+    if (!Request::check('auction') OR !esf_Auctions::count()) return;
 
     // link as sub-item to auctions
     esf_Menu::addModule( array( 'module' => 'analyse', 'id' => 10 ));

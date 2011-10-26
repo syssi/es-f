@@ -23,11 +23,14 @@ class esf_Plugin_Module_Refresh extends esf_Plugin {
    *
    */
   function BuildMenu() {
+    // require valid login
     if (!esf_User::isValid()) return;
 
-    if (Registry::get('esf.Module') == 'auction')
+    // Module auction and auctions added
+    if (Registry::get('esf.Module') == 'auction' AND esf_Auctions::count())
       esf_Menu::addModule( array('module' => 'refresh') );
 
+    // store last module
     if (Registry::get('esf.Module') != 'refresh')
       Session::set('Module.Refresh.Module', Registry::get('esf.Module'));
   }
