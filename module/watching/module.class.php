@@ -60,13 +60,19 @@ class esf_Module_Watching extends esf_Module {
 
     if (empty($myitems)) {
       if (!empty($res)) {
-        $header = array('subject' => ESF_LONG_TITLE.': Watched items log',
-                        'body'    => ESF_FULL_TITLE.', Module version: '
-                                    .$this->Version.', esniper version: '
-                                    .Session::get('esniperVersion'));
+        $res = array_merge(array('$ '.$cmd, ''), $res);
+
+        $subject = ESF_LONG_TITLE.': Watched items log';
+        $body = ESF_FULL_TITLE . "\n"
+              . 'Module version: ' . $this->Version . "\n"
+              . Session::get('esniperVersion') . "\n\n"
+              . implode("\n", $res);
+        $header = array('subject' => $subject, 'body' => $body);
+
         TplData::set('EMAIL', Core::Email($this->Email, $this->Author, TRUE, $header));
-        TplData::set('RESULT', array_merge(array('$ '.$cmd, ''), $res));
+        TplData::set('RESULT', $res);
       }
+      $this->forward('error');
       return;
     }
 
@@ -86,4 +92,12 @@ class esf_Module_Watching extends esf_Module {
     TplData::set('Groups', esf_Auctions::getGroups());
     TplData::set('GetCategoryFromGroup', FROMGROUP);
   }
+
+  /**
+   *
+   */
+  public function ErrorAction() {
+
+  }
+
 }

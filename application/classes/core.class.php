@@ -97,8 +97,9 @@ abstract class Core {
     if (!empty($name)) $return = '"'.$name.'" <'.$return.'>';
 
     if ($asLink) {
-      foreach ($headers as $key => $val)
-        $headers[$key] = $key.'='.urlencode($val);
+      foreach ($headers as $key => $val) {
+        $headers[$key] = $key . '=' . rawurlencode($val);
+      }
       $return = sprintf('<a href="mailto:%s?%s">%1$s</a>',
                         htmlspecialchars($return),
                         htmlspecialchars(implode('&',$headers)));
