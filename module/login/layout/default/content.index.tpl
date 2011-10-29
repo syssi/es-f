@@ -1,19 +1,15 @@
 <!--
 /**
- * @ingroup Module-Login
- * @author  Knut Kohl <knutkohl@users.sourceforge.net>
- * @version 0.4.0
+ * @ingroup   Module-Login
+ * @author    Knut Kohl <knutkohl@users.sourceforge.net>
+ * @version   $Id$
+ * @revision  $Rev$
  *
  * CHANGELOG
  *
- * Version 0.4.0
- * - Clear table layout
- *
- * Version 0.3.0
  * - back to input submit
- *
- * Version 0.2.0
  * - changed layout 2 two columns
+ * - Clear table layout
  */
 -->
 
@@ -94,7 +90,7 @@
 
 <script type="text/javascript">
   // <![CDATA[
-  addLoadEvent(function(){ $('loginform').focusFirstElement() });
+  FastInit.addOnLoad(function(){ $('loginform').focusFirstElement() });
   // ]]>
 </script>
 

@@ -1,6 +1,8 @@
 <!--
 /**
  *
+ * @version   $Id$
+ * @revision  $Rev$
  */
 -->
 
@@ -39,7 +41,7 @@
   <td colspan="{iif:SHOWIMAGES,"6","5"}" class="c"
       style="padding:10px 5px;border-top:dashed gray 1px">
     <div class="left">
-      <img style="vertical-align:bottom;margin:0 10px" 
+      <img style="vertical-align:bottom;margin:0 10px"
            src="{$IMGDIR}/arrow1.gif" alt="[[Backup.MarkedAuctions]]:">
       {"action1" > ACTION}
       <!-- BLOCK ACTIONS -->
@@ -113,7 +115,7 @@
 <tr>
   <td colspan="{iif:SHOWIMAGES,"6","5"}" class="c" style="padding:10px 5px;border-top:dashed gray 1px">
     <div class="left">
-      <img style="vertical-align:top;margin:0 10px" src="{$IMGDIR}/arrow2.gif" 
+      <img style="vertical-align:top;margin:0 10px" src="{$IMGDIR}/arrow2.gif"
            alt="[[Backup.MarkedAuctions]]:">
       {"action" > ACTION}
       <!-- BLOCK ACTIONS -->
@@ -134,6 +136,6 @@
 
 <script type="text/javascript">
   //<![CDATA[
-  addLoadEvent($('cb_BackupToggleAuctions').show());
+  FastInit.addOnLoad(function() { $('cb_BackupToggleAuctions').show() });
   //]]>
 </script>

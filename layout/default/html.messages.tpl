@@ -1,6 +1,8 @@
 <!--
 /*
  *
+ * @version   $Id$
+ * @revision  $Rev$
  */
 -->
 
@@ -10,13 +12,16 @@
     <img id="msginnerx" style="float:right;cursor:pointer;display:none"
          alt="[x]" title="Hide messages" src="layout/default/images/close.jpg"
          onclick="$('msginner').remove()" onmouseover="Tip('Hide messages')">
+
     {ESF_MESSAGES}
+
     <script type="text/javascript">
       // <![CDATA[
-      addLoadEvent(function(){
+      FastInit.addOnLoad(function() {
         $('msginnerx').show();
-        if (!'{CONST.DEVELOP}' && {ESF_MESSAGESERRORS} == 0)
+        if (!'{CONST.DEVELOP}' && {ESF_MESSAGESERRORS} == 0) {
           setTimeout('Effect.BlindUp("msginner")', 5000);
+        }
       });
       // ]]>
     </script>

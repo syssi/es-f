@@ -1,6 +1,8 @@
-<!-- COMMENT
-/*
+<!--
+/**
  *
+ * @version   $Id$
+ * @revision  $Rev$
  */
 -->
 
@@ -10,6 +12,6 @@
 
 <script type="text/javascript">
   // <![CDATA[
-  addLoadEvent(function(){ $('plugin_compress').move('footer_after') });
+  FastInit.addOnLoad(function() { $('plugin_compress').move('footer_after') });
   // ]]>
 </script>

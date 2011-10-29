@@ -1,6 +1,8 @@
-<!-- COMMENT
-/*
+<!--
+/**
  *
+ * @version   $Id$
+ * @revision  $Rev$
  */
 -->
 
@@ -26,7 +28,7 @@
 
   <script type="text/javascript">
     // <![CDATA[
-    addLoadEvent(function(){ $('JumpLinks').hide(); $('JumpSelect').show() });
+    FastInit.addOnLoad(function() { $('JumpLinks').hide(); $('JumpSelect').show() });
     // ]]>
   </script>
 

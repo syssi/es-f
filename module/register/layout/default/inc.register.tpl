@@ -1,6 +1,8 @@
 <!--
 /**
  *
+ * @version   $Id$
+ * @revision  $Rev$
  */
 -->
 
@@ -13,6 +15,6 @@
 
 <script type="text/javascript">
   // <![CDATA[
-  addLoadEvent(function() { $("module_register").move($("content_after")) } );
+  FastInit.addOnLoad(function() { $("module_register").move($("content_after")) });
   // ]]>
 </script>

@@ -2,22 +2,7 @@
  *
  */
 
-// ---------------------------------------------------------------------------
-// Add a function to window.onload
-// ---------------------------------------------------------------------------
-function addLoadEvent( _func ) {
-//  document.observe('dom:loaded', _func);
-  Event.observe(window, 'load', _func);
-}
-
-/*
-addLoadEvent(nameOfSomeFunctionToRunOnPageLoad);
-addLoadEvent(function() {
-  // more code to run on page load
-});
-*/
-
-addLoadEvent(function() {
+FastInit.addOnLoad(function() {
   Modalbox.setOptions({
     width:        600,
 /*

@@ -1,8 +1,9 @@
 <!--
 /**
- * @package Module-Login
- * @author  Knut Kohl <knutkohl@users.sourceforge.net>
- * @version 0.1.0
+ * @package   Module-Login
+ * @author    Knut Kohl <knutkohl@users.sourceforge.net>
+ * @version   $Id$
+ * @revision  $Rev$
  *
  * CHANGELOG
  */
@@ -43,6 +44,6 @@
 
 <script type="text/javascript">
   // <![CDATA[
-  addLoadEvent(function(){ $('loginform').focusFirstElement() });
+  FastInit.addOnLoad(function() { $('loginform').focusFirstElement() });
   // ]]>
 </script>

@@ -1,6 +1,8 @@
 <!--
-/*
+/**
  *
+ * @version   $Id$
+ * @revision  $Rev$
  */
 -->
 
@@ -66,7 +68,7 @@
 
 <script type="text/javascript">
   // <![CDATA[
-  addLoadEvent(function() {
+  FastInit.addOnLoad(function() {
     Droppables.add('auctions', {
       accept: 'draggable',
       onHover: ItemHoverReset,

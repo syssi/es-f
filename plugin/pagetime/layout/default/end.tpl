@@ -14,6 +14,6 @@
   // <![CDATA[
   _pt_time = ((new Date()).getTime() - _pt_time) / 1000;
   $('plugin_htmltime').update('{js:[[PageTime.HtmlMessage]]}'.sprintf(_pt_time).replace(/\./gi,','));
-  addLoadEvent(function(){ $('plugin_pagetime').move('footer_after') });
+  FastInit.addOnLoad(function() { $('plugin_pagetime').move('footer_after') });
   // ]]>
 </script>

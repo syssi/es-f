@@ -51,10 +51,8 @@ class esf_Plugin_AddFromEbayUrl extends esf_Plugin {
    *
    */
   public function OutputFilterContent( &$output ) {
-    if (Registry::get('esf.Module') == 'bulkadd') {
-      $output .= '<p id="addfromurl">'.Translation::get('AddFromEbayUrl.BulkAddComment').'</p>'
-               . '<script type="text/javascript">addLoadEvent($("addfromurl").move("content_after"))</script>';
-    }
+    if (Registry::get('esf.Module') != 'bulkadd') return;
+    $output .= $this->Render();
   }
 
   //--------------------------------------------------------------------------

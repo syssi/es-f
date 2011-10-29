@@ -36,12 +36,14 @@
   <link rel="shortcut icon" href="favicon.ico">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 
+  <script type="text/javascript" src="js/fastinit.js"></script>
+
   <!-- dynamic font size -->
   <script type="text/javascript" src="js/cookies.js"></script>
   <script type="text/javascript" src="js/efa/efa_fontsize.js"></script>
 
   <!-- Libraries -->
-  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/prototype/1.7.0.0/prototype.js"></script>
+  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/prototype/1/prototype.js"></script>
   <script type="text/javascript">
     if (typeof Prototype == 'undefined') {
       document.write(unescape("%3Cscript type='text/javascript' src='/js/prototype.js'%3E%3C/script%3E"));
@@ -49,7 +51,7 @@
   </script>
   <script type="text/javascript" src="/js/prototypePlus.js"></script>
 
-  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/scriptaculous/1.9.0/scriptaculous.js"></script>
+  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/scriptaculous/1/scriptaculous.js"></script>
   <script type="text/javascript">
     if (typeof Prototype == 'undefined') {
       document.write(unescape("%3Cscript type='text/javascript' src='/js/scriptaculous.js'%3E%3C/script%3E"));

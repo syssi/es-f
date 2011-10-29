@@ -1,6 +1,8 @@
 <!--
 /**
  *
+ * @version   $Id$
+ * @revision  $Rev$
  */
 -->
 
@@ -73,7 +75,7 @@
 
 <script type="text/javascript">
   // <![CDATA[
-  addLoadEvent(function() {
+  FastInit.addOnLoad(function() {
     $('multijs').show();         // show select
     $('multiaction').value = ''; // set drop down to "- Actions -"
   });

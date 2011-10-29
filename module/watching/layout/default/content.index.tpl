@@ -1,6 +1,8 @@
-<!-- COMMENT
-/*
+<!--
+/**
  *
+ * @version   $Id$
+ * @revision  $Rev$
  */
 -->
 
@@ -97,7 +99,7 @@
 <script type="text/javascript">
   // <![CDATA[
   var GetCategoryFromGroup = '{GETCATEGORYFROMGROUP}';
-  addLoadEvent($('ToggleWatched').show());
+  FastInit.addOnLoad(function() { $('ToggleWatched').show() });
   // ]]>
 </script>
 
