@@ -137,7 +137,7 @@
       <config name="truncate" type="int">65</config>
 
       <!--
-        Add to truncated title
+        Add this to a truncated title
       -->
       <config name="suffix">...</config>
 

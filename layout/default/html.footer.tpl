@@ -74,12 +74,12 @@
   <a class="powered" href="{CONST.SERVER.URL}/">
     <img src="layout/images/powered/{CONST.SERVER.NAME}.gif"
          title="{CONST.SERVER.VERSION}" alt="| {CONST.SERVER.VERSION}"
-         onmouseover="Tip('{CONST.SERVER.VERSION}',WIDTH,250,ABOVE,true,CENTERMOUSE,true)">
+         onmouseover="Tip('{CONST.SERVER.VERSION}',ABOVE,true,CENTERMOUSE,true)">
   </a>
   <!-- ELSE -->
-  <img title="{CONST.SERVER.VERSION}" alt="| {CONST.SERVER.VERSION}"
-       src="{button:"i","../layout/images/powered/powered.gif","t",CONST.SERVER.NAME,"w","80","c","FFF","s",,"f","1","y","1"}"
-       onmouseover="Tip('{CONST.SERVER.VERSION}',WIDTH,250,ABOVE,true,CENTERMOUSE,true)">
+  <img src="{button:"i","../layout/images/powered/powered.gif","t",CONST.SERVER.NAME,"w","80","c","FFF","s",,"f","1","y","1"}"
+       title="{CONST.SERVER.VERSION}" alt="| {CONST.SERVER.VERSION}"
+       onmouseover="Tip('{CONST.SERVER.VERSION}',ABOVE,true,CENTERMOUSE,true)">
   <!-- ENDIF -->
   {nvl:POWERED_AFTER}
 </div>

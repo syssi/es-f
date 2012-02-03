@@ -50,11 +50,6 @@
       <config name="Countdown" type="int">1</config>
 
       <!--
-        Use Popup form for editing and delete confirmation
-      -->
-      <config name="PopupEdit" type="bool">TRUE</config>
-
-      <!--
         hold complete esniper log file for each group,
         delete not on new esniper start after changes
       -->

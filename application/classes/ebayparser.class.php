@@ -399,6 +399,41 @@ abstract class ebayParser {
   }
 
   /**
+   *
+   */
+  protected function BuildTimestamp( $ts ) {
+    // _dbg($ts);
+
+    // local and ebay time zone
+    $tz = array($this->Timezone, $ts[7]);
+
+    // _dbg($tz);
+
+    foreach ($tz as $t) {
+      if (!isset($this->TimeZones[$t])) {
+        trigger_error('Missing time zone definition: '.$t);
+        $this->TimeZones[$t] = 0;
+      }
+    }
+
+    // offset between ebay.com used time and local time plus undocumented server offset
+    $offset = $this->TimeZones[$tz[1]] - $this->TimeZones[$tz[0]] - Registry::get('TZOFFSET');
+
+    // _dbg('Offset: '.$this->TimeZones[$tz[1]].' - '.$this->TimeZones[$tz[0]]);
+
+    $ts = mktime($ts[4],$ts[5],$ts[6],$ts[2],$ts[1],$ts[3]);
+    $ts -= $offset * 60*60;
+
+    // _dbg(date('r', $ts));
+
+    return $ts;
+  }
+
+  // -------------------------------------------------------------------------
+  // PRIVATE
+  // -------------------------------------------------------------------------
+
+  /**
    * Transform patterns into key => val relations
    *
    * @param array $patterns Expressions from XML file

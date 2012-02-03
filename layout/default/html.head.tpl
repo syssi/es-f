@@ -44,25 +44,15 @@
 
   <!-- Libraries -->
   <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/prototype/1/prototype.js"></script>
-  <script type="text/javascript">
-    if (typeof Prototype == 'undefined') {
-      document.write(unescape("%3Cscript type='text/javascript' src='/js/prototype.js'%3E%3C/script%3E"));
-    }
-  </script>
-  <script type="text/javascript" src="/js/prototypePlus.js"></script>
-
   <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/scriptaculous/1/scriptaculous.js"></script>
-  <script type="text/javascript">
-    if (typeof Prototype == 'undefined') {
-      document.write(unescape("%3Cscript type='text/javascript' src='/js/scriptaculous.js'%3E%3C/script%3E"));
-    }
-  </script>
+  <script type="text/javascript" src="/js/prototypePlus.js"></script>
 
   <script type="text/javascript" src="js/ModalBox/modalbox.js"></script>
   <link rel="stylesheet" type="text/css" href="js/ModalBox/modalbox.css" media="screen">
 
   <script type="text/javascript" src="js/tabber.js"></script>
   <script type="text/javascript" src="js/string.js"></script>
+  <script type="text/javascript" src="js/dialog.js"></script>
 
   <script type="text/javascript" src="layout/script.js"></script>
   <!-- BEGIN HTMLHEADER.JS -->

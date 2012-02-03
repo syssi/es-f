@@ -80,6 +80,6 @@
 
 </td></tr></table>
 
-<p class="c i" style="padding:0 10%">{replace:DISCLAIMER,".",".<br>"}</p>
+<p class="c">[[Exchangerates.Source]]: {SOURCE} - {a:URL,DATAURL}</p>
 
-<p class="c">[[Exchangerates.Source]]: {SOURCE} ({a:URL,DATAURL})</p>
+<blockquote class="i">{replace:DISCLAIMER,".",".<br>"}</blockquote>

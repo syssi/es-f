@@ -28,6 +28,8 @@ class esf_Module_Watching extends esf_Module {
     $cmd = Exec::getInstance()->LastCmd;
     esf_Auctions::removeEsniperCfg();
 
+    /// _dbg($res);
+
     $myitems = array();
     $item = FALSE;
 

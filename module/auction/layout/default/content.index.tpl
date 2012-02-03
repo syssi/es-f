@@ -80,18 +80,38 @@
 <!-- ELSE -->
 
   <div class="c">
-  <button class="button" style="margin:100px;padding:1em"
-          onclick="Modalbox.show($('addauctions'),\{title:'[[Auction.AddAuctions]]',with:500\}); return false;">
-    [[Auction.StartAddAuctions]]
-  </button>
+    <button class="button" style="margin:100px;padding:1em"
+            onclick="Modalbox.show('?module=auction&amp;action=ajaxadd',\{title:'[[Auction.AddAuctions]]'\}); return false">
+      [[Auction.StartAddAuctions]]
+    </button>
   </div>
 
 <!-- ENDIF -->
 
-<!-- INCLUDE inc.auction.add -->
+<!-- __INCLUDE inc.cookies -->
 
-<!-- IF CONST.MODULE.POPUPEDIT -->
-  <!-- INCLUDE inc.popups -->
-<!-- ENDIF -->
+<script type="text/javascript">
+  // <![CDATA[
+  FastInit.addOnLoad(function() {
+    var c = cookieManager.getCookie('categories');
+  /*
+    // to delete buggy cookies
+    if (!c.match(/%%/)) {
+      c = '';
+      cookieManager.setCookie('categories', c);
+    }
+  */
+    if (c) {
+      c = c.split('%%');
+      var len = c.length;
+      for (var i=1; i<len; i++) {
+        // without first (empty) entry
+        ShowHideCategory(c[i], false);
+      }
+    } else {
+      cookieManager.setCookie('categories', '');
+    }
+  });
+  // ]]>
+</script>
 
-<!-- INCLUDE inc.cookies -->

@@ -20,10 +20,10 @@ class esf_Module_Auction extends esf_Module {
     // menu entry for cleaning up
     if (esf_Auctions::Count()) {
       esf_Menu::addModule( array(
-#        'module' => 'auction',
-#        'action' => 'cleanup',
-        'extra'  => 'onclick="Modalbox.show($(\'CleanupAuctions\'),{title:\''
-                   .Translation::get('Auction.CleanupAuctions').'\', width:300}); return false"',
+        'module' => 'auction',
+        'action' => 'cleanup',
+        'extra'  => 'onclick="Modalbox.show(\'?module=auction&amp;action=ajaxcleanup\',{title:\''
+                  . Translation::get('Auction.CleanupAuctions').'\', width:300}); return false"',
         'title'  => Translation::get('Auction.MenuDeleteEnded'),
         'hint'   => Translation::get('Auction.MenuHintDeleteEnded'),
         'img'    => 'module/auction/images/delete.gif',
@@ -36,6 +36,9 @@ class esf_Module_Auction extends esf_Module {
     $this->Group    = checkR('group');
     $this->Auctions = checkR('auctions');
 
+    TplData::setConstant('CATEGORIES', esf_Auctions::getCategories());
+    TplData::setConstant('GROUPS', esf_Auctions::getGroups());
+
     Yuelo::set('SuppressCurrency', Registry::get('Currency'));
   }
 
@@ -44,8 +47,6 @@ class esf_Module_Auction extends esf_Module {
    */
   public function After() {
     parent::After();
-    TplData::setConstant('CATEGORIES', esf_Auctions::getCategories());
-    TplData::setConstant('GROUPS', esf_Auctions::getGroups());
     if (!Registry::get('esf.ContentOnly'))
       Registry::set('esf.ContentOnly', Request::check('auction', '_dump'));
   }
@@ -94,6 +95,7 @@ class esf_Module_Auction extends esf_Module {
       Event::Process('DisplayAuction', $auction);
 
       $TplData = $this->getAuctionTplData($auction);
+
       $TplData['NEXTAUCTION'] = ($auction['item'] == $next['item']);
 
       $TplData['CATEGORY'] = array(
@@ -308,20 +310,20 @@ class esf_Module_Auction extends esf_Module {
    * Delete all ended Auctions
    */
   public function CleanUpAction() {
-    if ($this->isPost()) {
-      $cnt = 0;
-      foreach (esf_Auctions::$Auctions as $item => $auction) {
-        if ($auction['ended']) {
-          esf_Auctions::Delete($item, FALSE);
-          $cnt = $cnt+1;
-        }
+    if (!$this->isPost()) return;
+
+    $cnt = 0;
+    foreach (esf_Auctions::$Auctions as $item => $auction) {
+      if ($auction['ended']) {
+        esf_Auctions::Delete($item, FALSE);
+        $cnt++;
       }
-      Messages::Success(
-        ( $cnt
-        ? Translation::get('Auction.DeletedEnded', $cnt)
-        : Translation::get('Auction.NoDeletedEnded') )
-      );
     }
+    Messages::Success(
+      ( $cnt
+      ? Translation::get('Auction.DeletedEnded', $cnt)
+      : Translation::get('Auction.NoDeletedEnded') )
+    );
     $this->forward();
   }
 
@@ -369,8 +371,9 @@ class esf_Module_Auction extends esf_Module {
 
       if ($this->Group)
         esf_Auctions::HandleGroup($this->Group, $this->Request, TRUE, $doStart);
+
+      $this->forward();
     }
-    $this->forward();
   }
 
   /**
@@ -617,6 +620,73 @@ class esf_Module_Auction extends esf_Module {
       foreach (array_unique($h) as $group) esf_Auctions::Stop($group);
     }
     $this->forward();
+  }
+
+  // -------------------------------------------------------------------------
+  // AJAX actions
+  // -------------------------------------------------------------------------
+
+  /**
+   *
+   */
+  public function AjaxAddAction() {
+    // Set template data
+    TplData::set('AJAX', TRUE);
+    // Render form and exit
+    die(esf_Template::getInstance()->Render(
+      'form.add', DEVELOP, 'module/auction/layout'
+    ));
+  }
+
+  /**
+   *
+   */
+  public function AjaxDeleteAction() {
+    // Set template data
+    $this->DeleteAction();
+    TplData::set('AJAX', TRUE);
+    // Render form and exit
+    die(esf_Template::getInstance()->Render(
+      'form.delete', DEVELOP, 'module/auction/layout'
+    ));
+  }
+
+  /**
+   *
+   */
+  public function AjaxEditAuctionAction() {
+    // Set template data
+    $this->EditAuctionAction();
+    TplData::set('AJAX', TRUE);
+    // Render form and exit
+    die(esf_Template::getInstance()->Render(
+      'form.editauction', DEVELOP, 'module/auction/layout'
+    ));
+  }
+
+  /**
+   *
+   */
+  public function AjaxEditGroupAction() {
+    // Set template data
+    $this->EditGroupAction();
+    TplData::set('AJAX', TRUE);
+    // Render form and exit
+    die(esf_Template::getInstance()->Render(
+      'form.editgroup', DEVELOP, 'module/auction/layout'
+    ));
+  }
+
+  /**
+   *
+   */
+  public function AjaxCleanUpAction() {
+    // Set template data
+    TplData::set('AJAX', TRUE);
+    // Render form and exit
+    die(esf_Template::getInstance()->Render(
+      'form.cleanup', DEVELOP, 'module/auction/layout'
+    ));
   }
 
   // -------------------------------------------------------------------------

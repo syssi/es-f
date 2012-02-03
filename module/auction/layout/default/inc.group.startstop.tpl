@@ -1,6 +1,8 @@
 <!--
 /*
  *
+ * @version   $Id$
+ * @revision  $Rev$
  */
 -->
 
@@ -16,14 +18,16 @@
   <a id="a_startstop_{GROUP.NAME|hash}" href="{GROUP.STARTSTOPURL}"
      onclick="return ajaxStartGroup('{GROUP.NAME}','{GROUP.NAME|hash}')">
     <img id="img_startstop_{GROUP.NAME|hash}" class="icon"
-         src="layout/default/images/{GROUP.ACTION}.gif"
-         alt="S" title="[[Auction.Startstop]]"
+         src="layout/default/images/{GROUP.ACTION}.gif" alt="S"
+         title="[[Auction.Startstop]]"
          onmouseover="Tip(tip_startstop['{GROUP.NAME|hash}'])">
   </a>
 
 <!-- ELSE -->
 
-  <img class="icon" src="layout/default/images/start-d.gif" alt=""
-       onmouseover="Tip('[[Auction.NoBidDefinedYet]]')">
+  <img class="icon" src="layout/default/images/start-d.gif" alt="-"
+       title="[[Auction.NoBidDefinedYet|striptags|quote]]"
+       data-tip="[[Auction.NoBidDefinedYet|striptags|quote]]"
+       onmouseover="Tip(this)">
 
 <!-- ENDIF -->

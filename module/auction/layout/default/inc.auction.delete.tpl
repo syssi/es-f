@@ -6,11 +6,10 @@
  */
 -->
 
-{translate:"Auction.ConfirmDeleteAuction", RAW.NAME > MSG}
-
 <a href="{DELETEURL}"
-   onclick="DeleteAuction('{ITEM}','{MSG|quote}'); return false">
+   onclick="Modalbox.show('?module=auction&amp;action=ajaxdelete&amp;item={ITEM}',\{title:'[[Auction.DeleteAuction|striptags|quote]]: {ITEM}'\}); return false">
   <img class="icon" src="layout/default/images/delete.gif" alt="X"
        title="[[Auction.DeleteAuction|striptags|quote]]"
-       onmouseover="Tip('{js:[[Auction.DeleteAuction]]}')">
+       data-tip="[[Auction.DeleteAuction|striptags|quote]]"
+       onmouseover="Tip(this)">
 </a>

@@ -7,13 +7,7 @@
   <!-- URLs to parse -->
   <url name="default">
     <![CDATA[
-    http://cgi.ebay.com/ws/eBayISAPI.dll?ViewItem&item=%s
-    ]]>
-  </url>
-
-  <url name="default">
-    <![CDATA[
-    http://search.ebay.com/%s
+    http://www.ebay.com/itm/%s
     ]]>
   </url>
 

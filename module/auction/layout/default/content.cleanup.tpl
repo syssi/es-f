@@ -1,11 +1,11 @@
-<!-- COMMENT
-/*
+<!--
+/**
  *
+ * @version   $Id$
+ * @revision  $Rev$
  */
 -->
 
-<div style="text-align:center">
-  <div id="content" style="width:300px;margin:auto">
-    <!-- INCLUDE form.cleanup -->
-  </div>
+<div id="content" style="width:300px;margin:3em auto">
+  <!-- INCLUDE form.cleanup -->
 </div>

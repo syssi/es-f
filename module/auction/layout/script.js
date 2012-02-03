@@ -142,13 +142,6 @@ function ajaxStartGroup ( _group, _hash ) {
 }
 
 // ---------------------------------------------------------------------------
-function DeleteAuction ( _item, _msg ) {
-  $('AuctionDeleteMessage').update(_msg);
-  AuctionDeleteItem = _item;
-  Modalbox.show($('DeleteAuction'), {title:AuctionDeleteTitle, width:300});
-}
-
-// ---------------------------------------------------------------------------
 function ajaxDeleteAuction ( _item ) {
   if (!_item) return;
 

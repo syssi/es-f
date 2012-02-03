@@ -12,11 +12,9 @@
 <a name="pagetop"></a>
 
 <noscript><div id="nojs">
-  For best usability activate JavaScript for at least
-  <tt>&nbsp;{server:"HTTP_HOST"}&nbsp;</tt>
-  <br>
-  <a href="http://www.enable-javascript.com/" target="_blank">Instructions</a>
-  how to enable JavaScript in your web browser.
+  JavaScript is required at <tt>&nbsp;{server:"HTTP_HOST"}&nbsp;</tt>
+  Here are some <a href="http://www.enable-javascript.com/" target="_blank">instructions</a>
+  how to enable JavaScript.
 </div></noscript>
 
 <header>

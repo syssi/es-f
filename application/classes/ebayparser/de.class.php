@@ -6,8 +6,8 @@
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
  * @copyright  2007-2011 Knut Kohl
  * @license    GNU General Public License http://www.gnu.org/licenses/gpl.txt
- * @version    1.0.0
  * @version    $Id: v2.4.1-62-gb38404e 2011-01-30 22:35:34 +0100 $
+ * @revision   $Rev$
  */
 class ebayParser_de extends ebayParser {
 
@@ -25,35 +25,17 @@ class ebayParser_de extends ebayParser {
    */
   public function getDetailEND( $dt ) {
 
-  # _dbg($dt);
+    /// _dbg($dt);
 
-    if (!preg_match('~(\d+)\.(\d+)\.(\d+)\s+(\d+):(\d+):(\d+)\s+(\w+)~', $dt, $ts)) return FALSE;
+    if (!preg_match('~(\d+)\.\s*(\w+)\.\s*(\d{4})(\d+):(\d+):(\d+)\s+(\w+)~', $dt, $ts))
+      return FALSE;
 
-  # _dbg($ts);
+    // translate month
+    $ts[2] = array_search(strtoupper($ts[2]),
+                          array(1=>'JAN', 'FEB', 'MAR', 'APR', 'MAI', 'JUN',
+                                   'JUL', 'AUG', 'SEP', 'OKT', 'NOV', 'DEZ'));
 
-    // local and ebay time zone
-    $tz = array($this->Timezone, $ts[7]);
-
-  # _dbg($tz);
-
-    foreach ($tz as $t) {
-      if (!isset($this->TimeZones[$t])) {
-        trigger_error('Missing time zone definition: '.$t);
-        $this->TimeZones[$t] = 0;
-      }
-    }
-
-    // offset between ebay.com used time and local time plus undocumented server offset
-    $offset = $this->TimeZones[$tz[1]] - $this->TimeZones[$tz[0]] - Registry::get('TZOFFSET');
-
-  # _dbg($this->TimeZones[$tz[1]].' - '.$this->TimeZones[$tz[0]]);
-
-    $ts = mktime($ts[4],$ts[5],$ts[6],$ts[2],$ts[1],$ts[3]);
-    $ts -= $offset * 60*60;
-
-  # _dbg(date('r',$ts));
-
-    return $ts;
+    return $this->BuildTimestamp($ts);
   }
 
 } // class

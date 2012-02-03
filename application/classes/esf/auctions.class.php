@@ -382,8 +382,9 @@ abstract class esf_Auctions {
    */
   public static function getExtra( $item, $key ) {
     $item = self::_item($item);
-    if (isset(self::$Auctions[$item]['_extra'][$key]))
+    if (isset(self::$Auctions[$item]['_extra'][$key])) {
       return self::$Auctions[$item]['_extra'][$key];
+    }
   }
 
   /**
@@ -395,8 +396,10 @@ abstract class esf_Auctions {
 
     if (!isset(self::$Display[$item][$key])) self::$Display[$item][$key] = '';
 
-    if ($append AND empty(self::$Display[$item][$key]))
+    if (empty(self::$Display[$item][$key]) AND
+        $append AND isset($auction[$key])) {
       self::$Display[$item][$key] = $auction[$key];
+    }
     self::$Display[$item][$key] .= $value;
   }
 

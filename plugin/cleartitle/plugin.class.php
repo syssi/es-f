@@ -23,24 +23,40 @@ class esf_Plugin_ClearTitle extends esf_Plugin {
   // -------------------------------------------------------------------------
 
   /**
+   * Class constructor
+   */
+  public function __construct() {
+    parent::__construct();
+    $this->ExtraKey = md5(__CLASS__);
+  }
+
+  /**
    * @return array Array of events handled by the plugin
    */
   public function handles() {
-    return array('AuctionReadedInitial', 'AuctionReaded');
+    return array('AuctionReadedInitial', 'AuctionReaded', 'DisplayAuction');
   }
 
   /**
    *
    */
   public function AuctionReadedInitial( &$auction ) {
-    $this->process($auction['name']);
+    esf_Auctions::setExtra($auction, $this->ExtraKey, $this->process($auction['name']));
   }
 
   /**
    *
    */
   public function AuctionReaded( &$auction ) {
-    $this->process($auction['name']);
+    esf_Auctions::setExtra($auction, $this->ExtraKey, $this->process($auction['name']));
+  }
+
+  /**
+   *
+   */
+  public function DisplayAuction( &$auction ) {
+    if ($name = esf_Auctions::getExtra($auction, $this->ExtraKey))
+      esf_Auctions::setDisplay($auction, 'name', $name);
   }
 
   // -------------------------------------------------------------------------
@@ -50,7 +66,7 @@ class esf_Plugin_ClearTitle extends esf_Plugin {
   /**
    *
    */
-  protected function process( &$name ) {
+  protected function process( $name ) {
     $from = $to = array();
     foreach ($this->Pattern as $p) {
       $from[] = $p['from'];
@@ -69,11 +85,23 @@ class esf_Plugin_ClearTitle extends esf_Plugin {
         $w = strrchr($trunc, ' ');
         if ($w != '') $trunc = substr($trunc, 0, -strlen($w));
       }
-      if ($trunc AND $trunc != $name) $trunc .= $this->suffix;
+      if ($trunc AND $trunc != $name) $trunc .= ' ' . $this->suffix;
       $name = $trunc;
     }
     /// Yryie::Info('Title after: '.$name);
+    return $name;
   }
+
+  //--------------------------------------------------------------------------
+  // PRIVATE
+  //--------------------------------------------------------------------------
+
+  /**
+   * Key to store data into auctions extra data
+   *
+   * @var string $ExtraKey
+   */
+  private $ExtraKey;
 
 }
 

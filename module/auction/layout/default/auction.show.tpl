@@ -36,9 +36,7 @@
   <span style="float:left">
     <!-- INCLUDE inc.seller -->
   </span>
-  <span style="float:right;margin:5px 0 0 5px">
-    <!-- ## INCLUDE inc.amazon -->
-  </span>
+  <span id="{ITEM}extra" style="float:right;margin:5px 0 0 5px">{EXTRA}</span>
 </td>
 
 <td style="text-align:right">

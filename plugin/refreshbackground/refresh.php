@@ -15,6 +15,9 @@ error_reporting(0);
 
 Header('Content-type: text/plain');
 
+define('_DEBUG', FALSE);
+define('_TRACE', FALSE);
+
 define('_ESF_OK', TRUE);
 
 define('BASEDIR', dirname(dirname(dirname(__FILE__))));

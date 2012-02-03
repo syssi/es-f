@@ -6,12 +6,19 @@
  */
 -->
 
+<script type="text/javascript">
+  // <![CDATA[
+  var GetCategoryFromGroup = '{GETCATEGORYFROMGROUP}';
+  // ]]>
+</script>
+
+
 <form action="{server:"PHP_SELF"}#{ITEM}" method="post">
   {fh:"module","auction"}
   {fh:"action","editauction"}
   {fh:"item",ITEM}
 
-  <h3 class="c">{RAW.NAME}</h3>
+  <p class="c" style="font-weight:bold">{RAW.NAME}</p>
 
   <label class="MB_label" for="image">[[Auction.ImageUrl]]</label>
   <div class="MB_inputs">
@@ -90,6 +97,8 @@
 
   <div class="MB_buttons">
     <input type="submit" class="button" name="confirm" value="[[Auction.EditSaveAuction]]">
+    <input type="submit" class="button" name="cancel" value="[[Auction.Cancel]]"
+    <!-- IF AJAX -->onclick="Modalbox.hide(); return false"<!-- ENDIF -->>
   </div>
 
 </form>

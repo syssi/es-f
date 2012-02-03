@@ -47,11 +47,8 @@ class esf_Plugin_Paypal extends esf_Plugin {
    *
    */
   public function DisplayAuction( &$auction ) {
-    // don't show for ended auctions
-    if ($auction['ended']) return;
-
     if ($data = esf_Auctions::getExtra($auction, $this->ExtraKey))
-      esf_Auctions::setDisplay($auction, 'name', $data, TRUE);
+      esf_Auctions::setDisplay($auction, 'extra', $data, TRUE);
   }
 
   //--------------------------------------------------------------------------

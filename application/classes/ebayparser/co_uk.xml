@@ -7,13 +7,7 @@
   <!-- URLs to parse -->
   <url name="default">
     <![CDATA[
-    http://cgi.ebay.co.uk/ws/eBayISAPI.dll?ViewItem&item=%s
-    ]]>
-  </url>
-
-  <url name="default">
-    <![CDATA[
-    http://search.ebay.co.uk/%s
+    http://www.ebay.co.uk/itm/%s
     ]]>
   </url>
 
@@ -46,6 +40,7 @@
     <pattern name="End">
       <![CDATA[
       ~<title>.*end time\s+(\d+-\w{3}-\d+\s+\d+:\d+:\d+\s+\w+).*</title>~i => 1
+      ~(\d+\s*\w+,\s*\d+.+?\d+:\d+:\d+\s*\w+)~i => 1
       ]]>
     </pattern>
 

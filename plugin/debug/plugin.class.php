@@ -21,6 +21,14 @@ class esf_Plugin_Debug extends esf_Plugin {
   /**
    * @return array Array of events handled by the plugin
    */
+  public function __construct() {
+    parent::__construct();
+    if (_TRACE) register_shutdown_function(array($this,'PageEnded'));
+  }
+
+  /**
+   * @return array Array of events handled by the plugin
+   */
   public function handles() {
     return array('LanguageSet', 'BuildMenu', 'BeforeOutputHtmlEnd', 'PageEnded');
   }
@@ -80,7 +88,7 @@ class esf_Plugin_Debug extends esf_Plugin {
    *
    */
   function PageEnded() {
-    if (_TRACE) Yryie::Save(_TRACE);
+    if (_TRACE) Yryie::Save(_TRACE, TRUE);
   }
 
 }

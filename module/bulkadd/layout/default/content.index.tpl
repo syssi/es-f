@@ -1,6 +1,8 @@
 <!--
 /*
  *
+ * @version   $Id$
+ * @revision  $Rev$
  */
 -->
 
@@ -14,11 +16,11 @@
 {fh:"module","auction"}
 {fh:"action","add"}
 
-<div class="left" style="width:40em">
+<div class="left" style="width:48%">
   <textarea id="auctions" class="input" name="auctions"></textarea>
 </div>
 
-<div style="margin-left:43em;align:top">
+<div style="margin-left:50%;align:top">
   <input type="file" name="auctions" class="input" size="40" accept="text/*">
 
   <table style="margin-top:3em">

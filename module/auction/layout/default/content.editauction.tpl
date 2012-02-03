@@ -1,17 +1,13 @@
 <!-- COMMENT
 /*
  *
+ * @version   $Id$
+ * @revision  $Rev$
  */
 -->
 
-<script type="text/javascript">
-  // <![CDATA[
-  var GetCategoryFromGroup = '{GETCATEGORYFROMGROUP}';
-  // ]]>
-</script>
-
-<div style="text-align:center">
-  <div id="content" style="width:640px;margin:auto">
+<div id="content">
+  <div style="text-align:left;width:640px;margin:auto">
     <!-- INCLUDE form.editauction -->
   </div>
 </div>

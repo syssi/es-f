@@ -6,9 +6,7 @@
  */
 -->
 
-<div id="addauctions" class="modalbox" style="display:none">
-
-<form action="{FORMACTION}" method="post" style="display:inline">
+<form method="post">
   {fh:"module","auction"}
   {fh:"action","add"}
 
@@ -53,5 +51,3 @@
   </div>
 
 </form>
-
-</div>

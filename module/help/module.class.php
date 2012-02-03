@@ -127,17 +127,21 @@ class esf_Module_Help extends esf_Module {
    *
    */
   public function TopicAction() {
-    if (!isset($this->Request['t'])) return;
+    if (!$topic = $this->Request('t')) return;
 
-    Registry::set('esf.ContentOnly', TRUE);
-
-    $help = Translation::get($this->Request['t']);
+    $help = Translation::get($topic);
     if (strpos($help, '|') !== FALSE) {
       list($title, $help) = explode('|', $help, 2);
     } else {
       $title = '';
     }
+
+    //  AJAX call
+    if ($this->Request('a')) die($help);
+
     TplData::set('Title', $title);
     TplData::set('Help', $help);
+
+    Registry::set('esf.ContentOnly', TRUE);
   }
 }

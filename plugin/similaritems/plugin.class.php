@@ -64,7 +64,7 @@ class esf_Plugin_SimilarItems extends esf_Plugin {
     if (Session::get('Mobile') AND !$this->Mobile) return;
 
     if ($data = esf_Auctions::getExtra($auction, $this->ExtraKey))
-      esf_Auctions::setDisplay($auction, 'name', $data, TRUE);
+      esf_Auctions::setDisplay($auction, 'extra', $data, TRUE);
   }
 
   //--------------------------------------------------------------------------

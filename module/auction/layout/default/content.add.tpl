@@ -7,7 +7,7 @@
 -->
 
 <div id="content">
-  <div style="text-align:left;width:540px;margin:auto">
-    <!-- INCLUDE form.editgroup -->
+  <div style="width:30em;margin:1em auto">
+    <!-- INCLUDE form.add -->
   </div>
 </div>

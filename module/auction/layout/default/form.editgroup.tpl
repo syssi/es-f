@@ -44,6 +44,8 @@
   <div class="MB_buttons">
     <input type="submit" class="button" name="start" value="[[Auction.EditStartGroup]]">
     <input type="submit" class="button" name="save" value="[[Auction.EditSaveGroup]]">
+    <input type="submit" class="button" name="cancel" value="[[Auction.Cancel]]"
+    <!-- IF AJAX -->onclick="Modalbox.hide(); return false"<!-- ENDIF -->>
   </div>
 
 </form>
