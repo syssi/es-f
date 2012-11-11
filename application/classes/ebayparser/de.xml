@@ -37,12 +37,16 @@
 
     <!-- Reg. expressions that matches auction title, as less as possible
 		matching title in html-title "<title>Auktionsitel bei eBay ...</title>"
+                matching title in html-title "<title>... 0951...99214 | eBay</title>"
 		matching title not in html-title "<h1 class="vi-is1-titleH1">Auktionstitel</h1>"
+                matching title not in html-title "<h1 class="it-ttl" itemprop="name" id="itemTitle">...</h1>"
 		-->
     <pattern name="Title">
       <![CDATA[
 	  ~<title>(.*?) bei eBay.*?</title>~is => 1
+          ~<title>(.*?) \d+ | eBay</title>~is => 1
 	  ~<h1.*?\s+class=".*titleH1.*?"[^>]*>(?:<[^<]+>)*(.*?)(?:</[^<]+>)*</h1>~is => 1
+          ~<h1.*?\s+id="itemTitle"[^>]*>(?:<[^<]+>)*(.*?)(?:</[^<]+>)*</h1>~is => 1
       ]]>
     </pattern>
 
