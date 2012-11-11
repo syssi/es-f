@@ -107,7 +107,7 @@ class Image {
             imageantialias($this->img,$aFlg);
         }
         else {
-            JpGraphError::RaiseL(25128);//('The function imageantialias() is not available in your PHP installation. Use the GD version that comes with PHP and not the standalone version.')
+            //JpGraphError::RaiseL(25128);//('The function imageantialias() is not available in your PHP installation. Use the GD version that comes with PHP and not the standalone version.')
         }
     }
 
