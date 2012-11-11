@@ -32,6 +32,6 @@ if [ ! -f "$path/cron.php" ]; then
 fi
 
 # all fine, let's go
-$php $path/cron.php $*
+$php -d log_errors=Off $path/cron.php $*
 
 set +x

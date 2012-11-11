@@ -1,6 +1,7 @@
 <?php
 /**
  * Parser for ebay.de
+
  *
  * @ingroup    ebayParser
  * @author     Knut Kohl <knutkohl@users.sourceforge.net>
@@ -27,8 +28,35 @@ class ebayParser_de extends ebayParser {
 
   # _dbg($dt);
 
-    if (!preg_match('~(\d+)\.(\d+)\.(\d+)\s+(\d+):(\d+):(\d+)\s+(\w+)~', $dt, $ts)) return FALSE;
+    if (preg_match('~(\d{1,2})\.(\d{1,2})\.(\d{1,4})\s+(\d{1,2}):(\d{1,2}):(\d{1,2})\s*(\w{3,4})~', $dt, $ts)) {
+		# old scheme when there are no html tags in between date and time plus month represented by a number
+		$ts = mktime($ts[4],$ts[5],$ts[6],$ts[2],$ts[1],$ts[3]);
+		$ts -= $offset * 60*60;
 
+	  # _dbg(date('r',$ts));
+		
+	}
+	elseif (preg_match('~(\d{1,2})\.\s*([^\.\d\s]{3,4})\.?\s*(\d{1,4})\s*(?:<[^<]+>)*\s*(\d{1,2}):(\d{1,2}):(\d{1,2})\s*(\w{3,4})~', $dt, $ts)) {
+		# new scheme when there are html tags in between date and time plus month represented by abreviated name string
+		$date = date_parse($ts[2]); # translate month string to number
+		$ts = mktime($ts[4],$ts[5],$ts[6],$date['month'],$ts[1],$ts[3]);
+		$ts -= $offset * 60*60;
+
+	  # _dbg(date('r',$ts));
+
+	}
+	elseif (preg_match('~(\d{1,2})\.\s*([^\.\d\s]{3,4})\.?\s*(\d{1,4})\s+(\d{1,2}):(\d{1,2}):(\d{1,2})\s*(\w{3,4})~', $dt, $ts)) {
+		# old scheme when there are no html tags in between date and time but month is represented by abreviated name string
+		$date = date_parse($ts[2]); # translate month string to number
+		$ts = mktime($ts[4],$ts[5],$ts[6],$date['month'],$ts[1],$ts[3]);
+		$ts -= $offset * 60*60;
+
+	  # _dbg(date('r',$ts));
+
+	}
+	else {
+		return FALSE;
+	}
   # _dbg($ts);
 
     // local and ebay time zone
@@ -47,11 +75,6 @@ class ebayParser_de extends ebayParser {
     $offset = $this->TimeZones[$tz[1]] - $this->TimeZones[$tz[0]] - Registry::get('TZOFFSET');
 
   # _dbg($this->TimeZones[$tz[1]].' - '.$this->TimeZones[$tz[0]]);
-
-    $ts = mktime($ts[4],$ts[5],$ts[6],$ts[2],$ts[1],$ts[3]);
-    $ts -= $offset * 60*60;
-
-  # _dbg(date('r',$ts));
 
     return $ts;
   }

@@ -2,7 +2,7 @@
 <patterns>
 
   <!-- File version -->
-  <version>2.3.2</version>
+  <version>2.3.2a</version>
 
   <!-- URLs to parse -->
   <url name="default">
@@ -22,7 +22,7 @@
     <!-- Invalid item -->
     <pattern name="Invalid">
       <![CDATA[
-      ~<title>Ungültiger Artikel</title>~i => 0
+      ~wurde entfernt oder der Artikel ist nicht verf~i => 0
       ]]>
     </pattern>
 
@@ -35,18 +35,26 @@
       ]]>
     </pattern>
 
-    <!-- Reg. expressions that matches auction title, as less as possible -->
+    <!-- Reg. expressions that matches auction title, as less as possible
+		matching title in html-title "<title>Auktionsitel bei eBay ...</title>"
+		matching title not in html-title "<h1 class="vi-is1-titleH1">Auktionstitel</h1>"
+		-->
     <pattern name="Title">
       <![CDATA[
-      ~<title>(.*?) bei eBay.*?</title>~is => 1
+	  ~<title>(.*?) bei eBay.*?</title>~is => 1
+	  ~<h1.*?\s+class=".*titleH1.*?"[^>]*>(?:<[^<]+>)*(.*?)(?:</[^<]+>)*</h1>~is => 1
       ]]>
     </pattern>
 
     <!-- Reg. expressions that matches auction end date and time
-         <span id="DetailsTimeLeft"><b><nobr>Sep-02-07&nbsp;11:20:54 PDT</nobr></b> <nobr>(2 -->
+         matching "<title>Auktionstitel bei eBay.de: (endet  05.02.12 22:12:10 MEZ)</title>"
+		 matching "<th class="vi-is1-lbl">Restzeit:</th><td colspan="3" class="vi-is1-clr"><span class="vi-is1-dt"><span class="vi-is1-tml">7T 01Std </span><span class="vi-is1-dt-eu"><span>(09. Feb. 2012</span><span class="vi-is1-t">21:54:10 MEZ)"
+ 		 matching "05. Feb. 2012 22:12:10 MEZ"
+		 -->
     <pattern name="End">
       <![CDATA[
-      ~<title>.*endet\s+(\d+\.\d+\.\d+\s+\d+:\d+:\d+\s+\w+).*</title>~i => 1
+		~<title>.*endet\s+(\d{1,2}\.\d{1,2}\.\d{1,4}\s+\d{1,2}:\d{1,2}:\d{1,2}\s*\w{3,4}).*</title>~i => 1	~<[^<]*>\s*Restzeit[^<]*</[^<]+>(?:[^<]*<[^<]+>)*\s*\(?\s*(\d{1,2}\.\s*[^\.\d\s]{3,4}\.?\s*\d{1,4}\s*(?:<[^<]+>)*\s*\d{1,2}:\d{1,2}:\d{1,2}\s*\w{3,4})\s*\)?~i => 1
+		~(\d{1,2}\.\s*([^\.\d\s]{3,4})\.?\s*\d{1,4}.+?\d{1,2}:\d{1,2}:\d{1,2}\s*\w{3,4})~i => 1
       ]]>
     </pattern>
 
@@ -68,7 +76,7 @@
     <!-- Find auctions ended early by seller -->
     <pattern name="EndedEarly">
       <![CDATA[
-      ~The seller ended this listing early[^<]*~i => 0
+      ~Dieses Angebot wurde [^<]+ beendet[^<]+~i => 0
       ]]>
     </pattern>
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <patterns>
-
+<!-- DE Version 2012-04-01 (kein Aprilscherz) -->
   <section name="Patterns">
 
     <!-- Reg. expressions that matches current item price -->
@@ -33,6 +33,7 @@
          parse user defined prefered ebay home page -->
     <pattern name="Shipping">
       <![CDATA[
+	  ~<span[^>]+id="fshippingCost"[^>]*><[^>]+>EUR\s+(\d+,\d+)</span>~im => 1
       ~<span[^>]+id="fshippingCost"[^>]*>(.+?)</span>~im => 1
       ~<div[^>]+id=["\']ship_1["\'][^>]*><b>(.+?)</b>~i => 1
       ~id=["\']ship_1["\'][^>]*><b>(.+?)</b>~i => 1
@@ -44,8 +45,10 @@
     </pattern>
 
     <!-- Reg. expressions that matches the seller name -->
+	<!-- <a title="Mitgliedsname gfsdgfsdgsfd" -->
     <pattern name="Seller">
       <![CDATA[
+	  ~<a\s+title="Mitgliedsname\s+([^"]+)"~i => 1
       ~<a[^>]+http://myworld\.ebay\.[^/]+/ebaymotors/(.+?)/~i => 1
       ~<a[^>]+http://myworld\.ebay\.[^/]+/(.+?)/~i => 1
       ]]>

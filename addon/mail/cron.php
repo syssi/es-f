@@ -21,7 +21,7 @@ define('LINE', str_repeat('-', 78) . "\n");
 define('BASEDIR', dirname(dirname(dirname(__FILE__))));
 
 require_once BASEDIR.'/application/define.php';
-require_once LIBDIR.'/Yryie/Yryie.class.php';
+require_once LIBDIR.'/yryie/yryie.class.php';
 require_once APPDIR.'/classes/loader.class.php';
 
 if (!Loader::Register()) {
@@ -35,8 +35,7 @@ ErrorHandler::register('echo');
 
 require_once APPDIR.'/init.php';
 require_once APPDIR.'/functions.php';
-
-ErrorHandler::register('echo');
+require_once LIBDIR.'/cache/cache.class.php';
 
 $include = dirname(__FILE__).'/include';
 require_once $include.'/functions.php';
@@ -82,6 +81,8 @@ unset($cfg['esniper']);
 
 // Set all other into registry
 Registry::set($cfg);
+
+Exec::InitInstance(ESF_OS, Core::$Cache, Registry::get('bin_sh'));
 
 esf_Extensions::Init();
 
