@@ -29,9 +29,7 @@
     <!-- Dispatches to -->
     <pattern name="dispatch">
       <![CDATA[
-      ~Versand nach: Deutschland~i => 0
-      ~Versand nach: Europäische Union~i => 0
-      ~Versand nach:~i => 0
+      ~Versand:~i => 0
       ]]>
     </pattern>
 
@@ -81,7 +79,7 @@
     <!-- Find auctions ended early by seller -->
     <pattern name="EndedEarly">
       <![CDATA[
-      ~Dieses Angebot wurde [^<]+ beendet[^<]+~i => 0
+      ~Dieses Angebot wurde beendet\. </span>~i => 0
       ]]>
     </pattern>
 
