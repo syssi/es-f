@@ -26,6 +26,8 @@ class ebayParser_de extends ebayParser {
    */
   public function getDetailEND( $dt ) {
 
+  $months = array( 'Jan' => 1, 'Feb' => 2, 'März' => 3, 'Apr' => 4, 'Mai' => 5, 'Juni' => 6, 'Juli' => 7, 'Aug' => 8, 'Sept' => 9, 'Okt' => 10, 'Nov' => 11, 'Dez' => 12 );
+
   # _dbg($dt);
 
     if (preg_match('~(\d{1,2})\.(\d{1,2})\.(\d{1,4})\s+(\d{1,2}):(\d{1,2}):(\d{1,2})\s*(\w{3,4})~', $dt, $ts)) {
@@ -38,8 +40,7 @@ class ebayParser_de extends ebayParser {
 	}
 	elseif (preg_match('~(\d{1,2})\.\s*([^\.\d\s]{3,4})\.?\s*(\d{1,4})\s*(?:<[^<]+>)*\s*(\d{1,2}):(\d{1,2}):(\d{1,2})\s*(\w{3,4})~', $dt, $ts)) {
 		# new scheme when there are html tags in between date and time plus month represented by abreviated name string
-		$date = date_parse($ts[2]); # translate month string to number
-		$ts = mktime($ts[4],$ts[5],$ts[6],$date['month'],$ts[1],$ts[3]);
+		$ts = mktime($ts[4],$ts[5],$ts[6],$months[$ts[2]],$ts[1],$ts[3]);
 		$ts -= $offset * 60*60;
 
 	  # _dbg(date('r',$ts));
@@ -47,8 +48,7 @@ class ebayParser_de extends ebayParser {
 	}
 	elseif (preg_match('~(\d{1,2})\.\s*([^\.\d\s]{3,4})\.?\s*(\d{1,4})\s+(\d{1,2}):(\d{1,2}):(\d{1,2})\s*(\w{3,4})~', $dt, $ts)) {
 		# old scheme when there are no html tags in between date and time but month is represented by abreviated name string
-		$date = date_parse($ts[2]); # translate month string to number
-		$ts = mktime($ts[4],$ts[5],$ts[6],$date['month'],$ts[1],$ts[3]);
+		$ts = mktime($ts[4],$ts[5],$ts[6],$months[$ts[2]],$ts[1],$ts[3]);
 		$ts -= $offset * 60*60;
 
 	  # _dbg(date('r',$ts));

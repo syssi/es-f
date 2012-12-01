@@ -9,6 +9,7 @@
       ~<font size="-1" color="#666666">(.+?)</span>~i => 1
       ~<div .*id="v4-31"[^>]*>(.+?)</~i => 1
       ~<span .*id="v4-26"[^>]*>(.+?)</~i => 1
+      ~<span id=.* itemprop="price">(.+?)</~i => 1
       ]]>
     </pattern>
 
@@ -49,6 +50,7 @@
     <pattern name="Seller">
       <![CDATA[
 	  ~<a\s+title="Mitgliedsname\s+([^"]+)"~i => 1
+	  ~<a[^>]+http://myworld\.ebay\..*" title="(.+?)">~i => 1
       ~<a[^>]+http://myworld\.ebay\.[^/]+/ebaymotors/(.+?)/~i => 1
       ~<a[^>]+http://myworld\.ebay\.[^/]+/(.+?)/~i => 1
       ]]>
