@@ -34,7 +34,7 @@
          parse user defined prefered ebay home page -->
     <pattern name="Shipping">
       <![CDATA[
-	  ~<span[^>]+id="fshippingCost"[^>]*><[^>]+>EUR\s+(\d+,\d+)</span>~im => 1
+      ~<span[^>]+id="fshippingCost"[^>]*>\s*<[^>]+>EUR\s+(\d+,\d+)</span>~im => 1
       ~<span[^>]+id="fshippingCost"[^>]*>(.+?)</span>~im => 1
       ~<div[^>]+id=["\']ship_1["\'][^>]*><b>(.+?)</b>~i => 1
       ~id=["\']ship_1["\'][^>]*><b>(.+?)</b>~i => 1
