@@ -65,6 +65,7 @@
       <![CDATA[
       ~<img[^>]+src="([^>"]+)"[^>]*id="i_vv4-\d+"~i => 1
       ~<img[^>]+src="([^>"]+)"[^>]*name="(?:eBayBig|ss0Viewport|SelfHostedImage|stockphoto)"[^>]*>~i => 1
+      ~<div[^>]+id="ebay-scShare-div"[^>]*data-imageUrl="([^>"]+)"[^>]*"~i => 1
       ]]>
     </pattern>
 
