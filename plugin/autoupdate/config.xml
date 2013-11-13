@@ -7,7 +7,7 @@
       <!--
         URL of version file
       -->
-      <config name="VersionURL">http://es-f.git.sourceforge.net/git/gitweb.cgi?p=es-f/es-f;f=application/.version;a=blob_plain</config>
+      <config name="VersionURL">https://raw.github.com/syssi/es-f/master/application/.version</config>
 
       <!--
         Server to query for updates
