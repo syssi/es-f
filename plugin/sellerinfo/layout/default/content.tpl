@@ -17,8 +17,6 @@
  */
 -->
 
-{INFO}
-
 <a class="ebaymyworld" href="http://myworld.{HOMEPAGE}/{SELLER}">
   <img src="{$IMGDIR}/profile.gif" alt="MyWorld"
        title="eBay My World:- {SELLER}"
