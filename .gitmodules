@@ -1,6 +1,6 @@
 [submodule "application/lib/yuelo"]
 	path = application/lib/yuelo
-	url = ssh://knutkohl@yuelo.git.sourceforge.net/gitroot/yuelo/yuelo
+	url = git://yuelo.git.sourceforge.net/gitroot/yuelo/yuelo
 [submodule "application/lib/yryie"]
 	path = application/lib/yryie
-	url = ssh://knutkohl@yryie.git.sourceforge.net/gitroot/yryie/yryie
+	url = git://yryie.git.sourceforge.net/gitroot/yryie/yryie
