@@ -50,7 +50,7 @@
     <pattern name="Seller">
       <![CDATA[
 	  ~<a\s+title="Mitgliedsname\s+([^"]+)"~i => 1
-	  ~<a[^>]+http://myworld\.ebay\..*" title="(.+?)">~i => 1
+	  ~<a[^>]+http://www.ebay.de/usr/.*" title="Mitgliedsname:&nbsp;(.+?)">~i => 1
       ~<a[^>]+http://myworld\.ebay\.[^/]+/ebaymotors/(.+?)/~i => 1
       ~<a[^>]+http://myworld\.ebay\.[^/]+/(.+?)/~i => 1
       ]]>
@@ -63,6 +63,7 @@
          <img src="http://i16.ebayimg.com/04/c/04/d6/e1/75_8.JPG" name="stockphoto" alt="Stock photo" title="" border="0"> -->
     <pattern name="Image">
       <![CDATA[
+      ~<img[^>]+id="icImg"[^>]+src="([^>"]+)"[^>]*~i => 1
       ~<img[^>]+src="([^>"]+)"[^>]*id="i_vv4-\d+"~i => 1
       ~<img[^>]+src="([^>"]+)"[^>]*name="(?:eBayBig|ss0Viewport|SelfHostedImage|stockphoto)"[^>]*>~i => 1
       ~<div[^>]+id="ebay-scShare-div"[^>]*data-imageUrl="([^>"]+)"[^>]*"~i => 1
