@@ -43,6 +43,7 @@
     <pattern name="Title">
       <![CDATA[
           ~<title>(.*?) bei eBay.*?</title>~is => 1
+          ~<title>(.*?) \| eBay.*?</title>~is => 1
           ~<title>(.*?) (\d+ )?. eBay.*?</title>~is => 1
           ~<h1.*?\s+class=".*titleH1.*?"[^>]*>(?:<[^<]+>)*(.*?)(?:</[^<]+>)*</h1>~is => 1
           ~<h1.*?\s+id="itemTitle"[^>]*>(?:<[^<]+>)*(.*?)(?:</[^<]+>)*</h1>~is => 1

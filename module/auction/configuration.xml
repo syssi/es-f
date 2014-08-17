@@ -42,7 +42,7 @@
 
   <definition name="Module.Auction.Countdown" type="int">
     <![CDATA[
-      Show extra refresh buttons on which level
+      Update remaining time (countdown) instead of showing remaining time from when the page was loaded
     ]]>
     <option value="0">No (static time)</option>
     <option value="1">Next ending auction only</option>
