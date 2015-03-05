@@ -53,6 +53,7 @@
 	  ~<a[^>]+http://www.ebay.de/usr/.*" title="Mitgliedsname:&nbsp;(.+?)">~i => 1
       ~<a[^>]+http://myworld\.ebay\.[^/]+/ebaymotors/(.+?)/~i => 1
       ~<a[^>]+http://myworld\.ebay\.[^/]+/(.+?)/~i => 1
+      ~<span class="mbg-nw">(.+?)</span>~i => 1
       ]]>
     </pattern>
 
