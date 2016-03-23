@@ -67,8 +67,9 @@
     <!-- Reg. expressions that matches current # of bids
          <span id="DetailsBidHistory"><a href="http://offer.ebay.in/ws/eBayISAPI.dll?ViewBids&amp;item=270158358815">1 bid</a></span> -->
     <pattern name="NoOfBids">
-      <![CDATA[
+        <![CDATA[
       ~(\d+)(<[^>]+>\s*(<[^>]+>)?)?Gebote?~si => 1
+      ~<span id="qty-test">(\d+)</span>~i => 1
       ]]>
     </pattern>
 
