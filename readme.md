@@ -11,8 +11,8 @@ Manual
     - run the installer script containing all data
 
 Semi-automatic
-
 --------------
+
 Just put the *web-install.php* into your folder and navigate with your browser
 to the file. This will guide you through the installation.
 
@@ -23,7 +23,7 @@ GIT repository
 
 You can also clone |es|f| from GIT repository.
 
-    # git clone https://github.com/syssi/es-f.git
+    # git clone https://github.com/Velociraptor85/es-f.git
 
 Don't forget after this to update the submodules with
 
