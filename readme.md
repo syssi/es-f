@@ -11,8 +11,8 @@ Manual
     - run the installer script containing all data
 
 Semi-automatic
-
 --------------
+
 Just put the *web-install.php* into your folder and navigate with your browser
 to the file. This will guide you through the installation.
 
