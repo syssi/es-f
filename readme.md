@@ -23,7 +23,7 @@ GIT repository
 
 You can also clone |es|f| from GIT repository.
 
-    # git clone https://github.com/Velociraptor85/es-f.git
+    # git clone https://github.com/syssi/es-f.git
 
 Don't forget after this to update the submodules with
 
