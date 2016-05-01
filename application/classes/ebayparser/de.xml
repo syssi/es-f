@@ -13,7 +13,7 @@
 
   <url name="default">
     <![CDATA[
-    http://search.ebay.de/%s
+    http://www.ebay.de/itm/%s
     ]]>
   </url>
 
