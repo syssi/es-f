@@ -13,7 +13,7 @@ abstract class HTMLpage {
   /**
    *
    */
-  public static $UserAgent = 'User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:10.0.10) Gecko/20100101 Firefox/10.0.10';
+  public static $UserAgent = 'User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.86 Safari/537.36';
 
   /**
    *
