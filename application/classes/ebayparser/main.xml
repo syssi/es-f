@@ -9,7 +9,7 @@
       ~<font size="-1" color="#666666">(.+?)</span>~i => 1
       ~<div .*id="v4-31"[^>]*>(.+?)</~i => 1
       ~<span .*id="v4-26"[^>]*>(.+?)</~i => 1
-      ~<span .*id=.* itemprop="price">(.+?)</~i => 1
+      ~<span [^>]*itemprop="price"[^>]*>(.+?)</~i => 1
       ~<span id="" class="notranslate vi-VR-cvipPrice">(.+?)</span>~i => 1
       ]]>
     </pattern>
