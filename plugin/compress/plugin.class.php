@@ -48,17 +48,37 @@ class esf_Plugin_Compress extends esf_Plugin {
     // remove <!-- --> from script tags
     $output = preg_replace('~(<script[^>]*>)<!--(.*?)-->(</script>)~is', '$1$2$3', $output);
     // prevent <pre> tags from being reformatted
-    $output = preg_replace('~<pre[^>]*>.*?<\\\?/pre>~ise',
-                           '$this->MaskFormated(\'$0\',"'.$tab.'","'.$space.'","'.$nl.'")', $output);
+    $output = preg_replace_callback(
+      '~<pre[^>]*>.*?<\\\?/pre>~is',
+      function($m) use ($tab, $space, $nl) {
+        return $this->MaskFormated($m[0], $tab, $space, $nl);
+      },
+      $output
+    );
     // prevent <tt> tags from being reformatted
-    $output = preg_replace('~<tt[^>]*>.*?<\\\?/tt>~ise',
-                           '$this->MaskFormated(\'$0\',"'.$tab.'","'.$space.'","'.$nl.'")', $output);
+    $output = preg_replace_callback(
+      '~<tt[^>]*>.*?<\\\?/tt>~is',
+      function($m) use ($tab, $space, $nl) {
+        return $this->MaskFormated($m[0], $tab, $space, $nl);
+      },
+      $output
+    );
     // prevent <textarea> tags from being reformatted
-    $output = preg_replace('~<textarea[^>]*>.*?<\\\?/textarea>~ise',
-                           '$this->MaskFormated(\'$0\',"'.$tab.'","'.$space.'","'.$nl.'")', $output);
+    $output = preg_replace_callback(
+      '~<textarea[^>]*>.*?<\\\?/textarea>~is',
+      function($m) use ($tab, $space, $nl) {
+        return $this->MaskFormated($m[0], $tab, $space, $nl);
+      },
+      $output
+    );
     // prevent <script> tags from being reformatted
-    $output = preg_replace('~<script[^>]*>.*?<\\\?/script>~ise',
-                           '$this->MaskScript("$0","'.$nl.'")', $output);
+    $output = preg_replace_callback(
+      '~<script[^>]*>.*?<\\\?/script>~is',
+      function($m) use ($nl) {
+        return $this->MaskScript($m[0], $nl);
+      },
+      $output
+    );
     // compress multiple spaces
     $output = preg_replace('~[ \t][ \t]+~', ' ', $output);
     // replace spaces between tags
