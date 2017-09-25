@@ -471,7 +471,7 @@ function array_map_recursive( $func, $array ) {
 
     foreach ($newArray as $key => $array){
       if (is_array($array)){
-        $newArray[$key] = self::array_change_key_case_rec($array, $case);
+        $newArray[$key] = array_change_key_case_rec($array, $case);
       }
     }
     return $newArray;
