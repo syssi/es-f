@@ -11,7 +11,7 @@
       -->
       <config name="OtherItems">
         <![CDATA[
-        http://search.$HOMEPAGE/search/search.dll?seller=1&amp;sass=$SELLER
+        http://www.$HOMEPAGE/sch/$SELLER/m.html
         ]]>
       </config>
 
