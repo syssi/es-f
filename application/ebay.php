@@ -30,4 +30,4 @@ Registry::set('ebay.ShowUrl', 'http://www.ebay.'.Registry::get('EbayTLD').'/itm/
 // if you have your own PHProxy running, you can access the auctions via
 // your proxy using this type of URL: (see also docs/TIPS & TRICKS)
 //
-// 'http://<PROXY>/index.php?q='.urlencode('http://search.ebay.'.Registry::get('EbayTLD').'/').'%s';
+// 'http://<PROXY>/index.php?q='.urlencode('http://ebay.'.Registry::get('EbayTLD').'/itm/').'%s';

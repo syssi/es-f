@@ -26,7 +26,7 @@
       -->
       <config name="URL">
         <![CDATA[
-        http://search.$HOMEPAGE/$QUERY
+        http://$HOMEPAGE/itm/like/$QUERY
         ]]>
       </config>
 
